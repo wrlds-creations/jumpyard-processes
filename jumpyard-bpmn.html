@@ -255,7 +255,7 @@ const CFG = {
   LABEL_W: 140,
   COL_W: 148,
   TASK_W: 118,
-  TASK_H: 46,
+  TASK_H: 58,
   DEC_S: 30,
   START_R: 15,
   HEADER_H: 36,
@@ -599,7 +599,7 @@ function svgTask(node, x, y) {
   const rx = 6;
   const lx = x - w / 2;
   const ly = y - h / 2;
-  const lines = wrapText(node.label, 16);
+  const lines = wrapText(node.label, 19);
   const lineH = 12;
   const textY = y - ((lines.length - 1) * lineH) / 2;
 
@@ -662,7 +662,7 @@ function svgException(node, x, y) {
   const rx = 5;
   const lx = x - w / 2;
   const ly = y - h / 2;
-  const lines = wrapText(node.label, 15);
+  const lines = wrapText(node.label, 18);
   const lineH = 11;
   const textY = y - ((lines.length - 1) * lineH) / 2;
 
@@ -794,24 +794,24 @@ function svgEdge(fromNode, toNode, style, label, exitDir) {
 // ============================================================
 // BUILD SVG
 // ============================================================
-function buildSvg(nodes, edges, title, laneSubtitles, annotations) {
+function buildSvg(nodes, edges, title, laneSubtitles, annotations, svgId) {
   const nodeMap = {};
   nodes.forEach(n => nodeMap[n.id] = n);
 
   const maxCol = nodes.reduce((m, n) => Math.max(m, n.col), 0);
   const SVG_W = CFG.LABEL_W + (maxCol + 1) * CFG.COL_W + 20;
 
-  // DEFS
+  // DEFS (arrowheads + per-lane clip paths)
+  const p = svgId || 'sx';
+  let laneClipDefs = '';
+  LANE_CONFIG.forEach((lc, i) => {
+    laneClipDefs += `<clipPath id="${p}-lc${i}"><rect x="0" y="${lc.y}" width="${CFG.LABEL_W}" height="${lc.height}"/></clipPath>`;
+  });
   const defs = `<defs>
-    <marker id="arrow-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 z" fill="#64748b"/>
-    </marker>
-    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 z" fill="#dc2626"/>
-    </marker>
-    <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 z" fill="#d97706"/>
-    </marker>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#64748b"/></marker>
+    <marker id="arrow-red"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#dc2626"/></marker>
+    <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#d97706"/></marker>
+    ${laneClipDefs}
   </defs>`;
 
   // LANE BACKGROUNDS
@@ -825,11 +825,19 @@ function buildSvg(nodes, edges, title, laneSubtitles, annotations) {
     laneBg += `<rect x="${CFG.LABEL_W}" y="${lc.y}" width="${SVG_W - CFG.LABEL_W}" height="${lc.height}" fill="${ld.bg}" opacity="${(i === 3 && !hasNodes) ? 0.45 : 1}"/>`;
     laneBg += `<rect x="0" y="${lc.y}" width="${CFG.LABEL_W}" height="${lc.height}" fill="${ld.bg}" stroke="${ld.border}" stroke-width="0.5"/>`;
     // Lane label (rotated, centered)
-    const textY = lc.y + lc.height / 2;
-    laneBg += `<text transform="rotate(-90,20,${textY})" x="0" y="${textY}" font-size="10" font-weight="700" fill="${ld.text}" text-anchor="middle" dominant-baseline="middle">${escX(ld.name)}</text>`;
+    // Lane labels: translate to lane center, then rotate -90° so text runs vertically
+    // clipPath ensures text never bleeds into adjacent lanes
+    const labelCy = lc.cy;
+    const labelCx = CFG.LABEL_W / 2;
+    laneBg += `<g clip-path="url(#${p}-lc${i})">`;
     if (subtitle) {
-      laneBg += `<text transform="rotate(-90,32,${textY})" x="0" y="${textY}" font-size="8" fill="${ld.text}" text-anchor="middle" dominant-baseline="middle" opacity="0.7">${escX(subtitle)}</text>`;
+      // Two lines: main label at cx+7, subtitle at cx-8
+      laneBg += `<text transform="translate(${labelCx + 7},${labelCy}) rotate(-90)" font-size="10" font-weight="700" fill="${ld.text}" text-anchor="middle" dominant-baseline="middle">${escX(ld.name)}</text>`;
+      laneBg += `<text transform="translate(${labelCx - 9},${labelCy}) rotate(-90)" font-size="8" fill="${ld.text}" text-anchor="middle" dominant-baseline="middle" opacity="0.7">${escX(subtitle)}</text>`;
+    } else {
+      laneBg += `<text transform="translate(${labelCx},${labelCy}) rotate(-90)" font-size="10" font-weight="700" fill="${ld.text}" text-anchor="middle" dominant-baseline="middle">${escX(ld.name)}</text>`;
     }
+    laneBg += `</g>`;
     // Empty lane note
     if (i === 3 && !hasNodes) {
       const noteX = CFG.LABEL_W + 20;
@@ -1117,7 +1125,8 @@ function buildApiTable() {
     ASIS_EDGES,
     'JumpYard Entry Operations — AS-IS Process (Current State)',
     { 2: 'Front Desk / POS', 3: '(not present in AS-IS)' },
-    asisAnnotations
+    asisAnnotations,
+    'a'
   );
   document.getElementById('asis-wrap').innerHTML = asisSvg;
   attachSvgClicks('asis-wrap', 'asis');
@@ -1131,7 +1140,8 @@ function buildApiTable() {
     TOBE_EDGES,
     'JumpYard Entry Operations — TO-BE Process (Self-Service Kiosk Target State)',
     { 2: 'Self-Service Kiosk', 3: 'JY Cloud (new component)' },
-    tobeAnnotations
+    tobeAnnotations,
+    'b'
   );
   document.getElementById('tobe-wrap').innerHTML = tobeSvg;
   attachSvgClicks('tobe-wrap', 'tobe');
