@@ -4,10 +4,10 @@
 @theme {
   --color-primary: #FF0000;
   --color-secondary: #ff7346;
-  --color-surface: #0e0e0e;
-  --color-background: #f0efed;
-  --color-surface-container: #131313;
-  --color-surface-variant: #262626;
+  --color-surface: #2d2d2d;
+  --color-background: #d3d1cb;
+  --color-surface-container: #3b3b3b;
+  --color-surface-variant: #5d5d5d;
   --color-on-surface: #ffffff;
   --color-on-surface-variant: #adaaaa;
   --font-epilogue: "Epilogue", sans-serif;
@@ -18,6 +18,17 @@ body {
   background-color: var(--color-background);
   color: var(--color-on-surface);
   font-family: var(--font-manrope);
+}
+
+.react-flow__node-lane.selected,
+.react-flow__node-lane:focus,
+.react-flow__node-lane:focus-visible {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.react-flow__node.selected.react-flow__node-lane {
+  box-shadow: 0 0 0 1px rgba(255, 142, 125, 0.24) !important;
 }
 
 .kinetic-glow {

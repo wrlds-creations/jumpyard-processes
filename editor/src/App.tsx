@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
-import { Bell, User, Undo2, RotateCcw, Eye, Pencil, Download } from 'lucide-react';
+import { Undo2, RotateCcw, Eye, Pencil, Download } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 import {
@@ -21,60 +21,347 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { pilotNodes, pilotEdges } from './data/pilotFlow';
+import { localizeValue, translateText, type Language } from './i18n';
 
 // ─── Custom Node Components ────────────────────────────────────────────────────
 
-const TaskNode = ({ data }: any) => (
-  <div className={`px-4 py-3 shadow-md rounded-md bg-surface-container border-2 ${data.edgeHighlighted ? 'border-[#ff8e7d] shadow-[0_0_12px_rgba(255,142,125,0.5)]' : data.isPrimary ? 'border-primary shadow-primary/20 kinetic-glow' : 'border-white/10'} w-fit max-w-[220px] text-center transition-shadow`}>
-    <Handle type="source" position={Position.Left}   id="left"   className="w-2 h-2 !bg-primary" />
-    <Handle type="source" position={Position.Top}    id="top"    className="w-2 h-2 !bg-primary" />
-    <Handle type="source" position={Position.Right}  id="right"  className="w-2 h-2 !bg-primary" />
-    <Handle type="source" position={Position.Bottom} id="bottom" className="w-2 h-2 !bg-primary" />
-    <div className="text-[10px] font-bold text-white/50 mb-1 uppercase tracking-wider">{data.lane}</div>
-    <div className={`text-xs font-black italic epilogue uppercase break-words leading-snug whitespace-normal ${data.isPrimary ? 'text-primary' : 'text-white'}`}>
-      {data.label}
+const EXTENDED_HANDLE_OPTIONS = [
+  { value: '', label: 'auto' },
+  { value: 'left-top', label: 'left-top' },
+  { value: 'left', label: 'left' },
+  { value: 'left-bottom', label: 'left-bottom' },
+  { value: 'top-left', label: 'top-left' },
+  { value: 'top', label: 'top' },
+  { value: 'top-right', label: 'top-right' },
+  { value: 'right-top', label: 'right-top' },
+  { value: 'right', label: 'right' },
+  { value: 'right-bottom', label: 'right-bottom' },
+  { value: 'bottom-left', label: 'bottom-left' },
+  { value: 'bottom', label: 'bottom' },
+  { value: 'bottom-right', label: 'bottom-right' },
+] as const;
+
+const HANDLE_HIDDEN_STYLE = {
+  opacity: 0,
+  pointerEvents: 'none' as const,
+};
+
+const EDGE_PATH_MODES = new Set(['smoothstep', 'step', 'straight']);
+
+const BASIC_HANDLE_OPTIONS = [
+  { value: '', label: 'auto' },
+  { value: 'left', label: 'left' },
+  { value: 'top', label: 'top' },
+  { value: 'right', label: 'right' },
+  { value: 'bottom', label: 'bottom' },
+] as const;
+
+function getHandleOptionsForNode(node: any) {
+  return node?.type === 'task' || node?.type === 'database' || node?.type === 'service'
+    ? EXTENDED_HANDLE_OPTIONS
+    : BASIC_HANDLE_OPTIONS;
+}
+
+function getHandleStyle(visible: boolean, style: React.CSSProperties = {}) {
+  return visible ? style : { ...style, ...HANDLE_HIDDEN_STYLE };
+}
+
+function getValidHandleIdsForNode(node: any) {
+  return new Set(
+    getHandleOptionsForNode(node)
+      .map((option) => option.value)
+      .filter((value): value is string => Boolean(value)),
+  );
+}
+
+function normalizeHandleForNode(node: any, handleId?: string) {
+  if (!handleId) return undefined;
+  if (!node) return handleId;
+  return getValidHandleIdsForNode(node).has(handleId) ? handleId : undefined;
+}
+
+function MultiHandleSet({ visible = true }: { visible?: boolean }) {
+  const commonClass = 'w-2 h-2 !bg-primary';
+  return (
+    <>
+      <Handle type="source" position={Position.Left} id="left-top" className={commonClass} style={getHandleStyle(visible, { top: '24%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+      <Handle type="source" position={Position.Left} id="left" className={commonClass} style={getHandleStyle(visible, { top: '50%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+      <Handle type="source" position={Position.Left} id="left-bottom" className={commonClass} style={getHandleStyle(visible, { top: '76%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+
+      <Handle type="source" position={Position.Top} id="top-left" className={commonClass} style={getHandleStyle(visible, { left: '24%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+      <Handle type="source" position={Position.Top} id="top" className={commonClass} style={getHandleStyle(visible, { left: '50%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+      <Handle type="source" position={Position.Top} id="top-right" className={commonClass} style={getHandleStyle(visible, { left: '76%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+
+      <Handle type="source" position={Position.Right} id="right-top" className={commonClass} style={getHandleStyle(visible, { top: '24%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+      <Handle type="source" position={Position.Right} id="right" className={commonClass} style={getHandleStyle(visible, { top: '50%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+      <Handle type="source" position={Position.Right} id="right-bottom" className={commonClass} style={getHandleStyle(visible, { top: '76%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+
+      <Handle type="source" position={Position.Bottom} id="bottom-left" className={commonClass} style={getHandleStyle(visible, { left: '24%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+      <Handle type="source" position={Position.Bottom} id="bottom" className={commonClass} style={getHandleStyle(visible, { left: '50%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+      <Handle type="source" position={Position.Bottom} id="bottom-right" className={commonClass} style={getHandleStyle(visible, { left: '76%' })} isConnectableStart={visible} isConnectableEnd={visible} />
+    </>
+  );
+}
+
+const TaskNode = ({ data }: any) => {
+  const variant = data.variant || 'default';
+  const shell = {
+    default: 'bg-surface-container',
+    job: 'bg-[#253128]',
+    service: 'bg-[#222c38]',
+  }[variant] || 'bg-surface-container';
+  const border = data.edgeHighlighted
+    ? 'border-[#ff8e7d] shadow-[0_0_12px_rgba(255,142,125,0.5)]'
+    : variant === 'job'
+      ? 'border-emerald-300/30'
+      : variant === 'service'
+        ? 'border-sky-200/30'
+        : 'border-white/10';
+  const labelTone = variant === 'job'
+    ? 'text-emerald-100'
+    : variant === 'service'
+      ? 'text-sky-100'
+      : 'text-white';
+
+  return (
+    <div className={`px-4 py-3 shadow-md rounded-md border-2 ${shell} ${border} ${data.dimmed ? 'opacity-35' : 'opacity-100'} w-fit max-w-[230px] text-center transition-all`}>
+      <MultiHandleSet visible={!!data.editMode} />
+      {data.badge && (
+        <div className={`mb-1 text-[9px] font-black uppercase tracking-[0.18em] ${variant === 'job' ? 'text-emerald-200/80' : variant === 'service' ? 'text-sky-200/80' : 'text-white/45'}`}>
+          {data.badge}
+        </div>
+      )}
+      <div className={`text-xs font-black italic epilogue uppercase break-words leading-snug whitespace-normal ${labelTone}`}>
+        {data.label}
+      </div>
+      {data.cadence && (
+        <div className="mt-2 text-[10px] font-bold uppercase tracking-wide text-white/45">{data.cadence}</div>
+      )}
     </div>
-  </div>
-);
+  );
+};
+
+const ServiceNode = ({ data }: any) => {
+  const border = data.edgeHighlighted
+    ? 'border-cyan-200 shadow-[0_0_14px_rgba(34,211,238,0.35)]'
+    : data.isPrimary
+      ? 'border-primary/70 shadow-[0_0_12px_rgba(255,142,125,0.2)]'
+      : 'border-sky-200/20';
+  return (
+    <div className={`min-w-[200px] max-w-[220px] rounded-xl border bg-[#1b2632]/92 px-4 py-3 text-left shadow-md transition-all ${border} ${data.dimmed ? 'opacity-30' : 'opacity-100'}`}>
+      <MultiHandleSet visible={!!data.editMode} />
+      {data.badge && (
+        <div className="mb-1 text-[9px] font-black uppercase tracking-[0.18em] text-sky-200/70">
+          {data.badge}
+        </div>
+      )}
+      <div className="text-[11px] font-black uppercase tracking-[0.12em] text-sky-50 break-words leading-snug">
+        {data.label}
+      </div>
+      {data.details && (
+        <div className="mt-2 text-[10px] leading-relaxed text-white/46">
+          {data.details}
+        </div>
+      )}
+      {data.cadence && (
+        <div className="mt-2 text-[10px] font-bold uppercase tracking-wide text-white/45">{data.cadence}</div>
+      )}
+    </div>
+  );
+};
 
 const GatewayNode = ({ data }: any) => (
-  <div className="relative w-16 h-16 flex items-center justify-center">
-    <Handle type="source" position={Position.Left}   id="left"   className="!w-3 !h-3 !bg-primary !border-0 !rounded-full" style={{ opacity: 1 }} />
-    <Handle type="source" position={Position.Top}    id="top"    className="!w-3 !h-3 !bg-primary !border-0 !rounded-full" style={{ opacity: 1 }} />
-    <Handle type="source" position={Position.Right}  id="right"  className="!w-3 !h-3 !bg-primary !border-0 !rounded-full" style={{ opacity: 1 }} />
-    <Handle type="source" position={Position.Bottom} id="bottom" className="!w-3 !h-3 !bg-primary !border-0 !rounded-full" style={{ opacity: 1 }} />
+  <div className={`relative w-16 h-16 flex items-center justify-center transition-opacity ${data.dimmed ? 'opacity-30' : 'opacity-100'}`}>
+    <>
+      <Handle type="source" position={Position.Left} id="left" className="!w-3 !h-3 !bg-primary !border-0 !rounded-full" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
+      <Handle type="source" position={Position.Top} id="top" className="!w-3 !h-3 !bg-primary !border-0 !rounded-full" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
+      <Handle type="source" position={Position.Right} id="right" className="!w-3 !h-3 !bg-primary !border-0 !rounded-full" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
+      <Handle type="source" position={Position.Bottom} id="bottom" className="!w-3 !h-3 !bg-primary !border-0 !rounded-full" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
+    </>
     <div className={`absolute inset-0 transform rotate-45 border-2 bg-[#1a1a1a] pointer-events-none ${data.edgeHighlighted ? 'border-white shadow-[0_0_16px_rgba(255,142,125,0.7)]' : 'border-[#ff8e7d] shadow-[0_0_15px_rgba(255,142,125,0.2)]'}`}></div>
     <div className="relative z-10 text-[10px] font-black text-[#ff8e7d] italic text-center px-1">{data.label}</div>
   </div>
 );
 
 const EventNode = ({ data }: any) => (
-  <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 transition-shadow ${data.edgeHighlighted ? 'shadow-[0_0_12px_rgba(255,142,125,0.6)]' : ''} ${data.type === 'start' ? 'border-green-500 bg-green-500/20' : data.type === 'end' ? 'border-red-500 bg-red-500/20' : 'border-yellow-500 bg-yellow-500/20'}`}>
-    <Handle type="source" position={Position.Left}   id="left"   className="w-2 h-2 !bg-primary opacity-0" />
-    <Handle type="source" position={Position.Right}  id="right"  className="w-2 h-2 !bg-primary opacity-0" />
+  <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 transition-all ${data.edgeHighlighted ? 'shadow-[0_0_12px_rgba(255,142,125,0.6)]' : ''} ${data.dimmed ? 'opacity-30' : 'opacity-100'} ${data.type === 'start' ? 'border-green-500 bg-green-500/20' : data.type === 'end' ? 'border-red-500 bg-red-500/20' : 'border-yellow-500 bg-yellow-500/20'}`}>
+    <>
+      <Handle type="source" position={Position.Left} id="left" className="w-2 h-2 !bg-primary" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
+      <Handle type="source" position={Position.Top} id="top" className="w-2 h-2 !bg-primary" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
+      <Handle type="source" position={Position.Right} id="right" className="w-2 h-2 !bg-primary" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
+      <Handle type="source" position={Position.Bottom} id="bottom" className="w-2 h-2 !bg-primary" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
+    </>
     <div className="text-[8px] font-bold text-white uppercase text-center leading-tight">{data.label}</div>
   </div>
 );
 
 const DatabaseNode = ({ data }: any) => (
-  <div className="px-4 py-3 shadow-md rounded-md bg-[#1a1a1a] border-2 border-white/20 min-w-[150px] text-center relative overflow-hidden">
+  <div className={`px-4 py-3 shadow-md rounded-md ${data.future ? 'bg-[#28303a]' : 'bg-[#2f2f2f]'} border-2 ${data.edgeHighlighted ? 'border-cyan-300 shadow-[0_0_14px_rgba(34,211,238,0.35)]' : data.future ? 'border-slate-300/25 border-dashed' : 'border-white/20'} ${data.dimmed ? 'opacity-30' : 'opacity-100'} ${data.collapsed ? 'min-w-[230px] max-w-[250px]' : 'min-w-[250px] max-w-[280px]'} text-left relative overflow-hidden transition-all`}>
     <div className="absolute top-0 left-0 w-full h-2 bg-white/10 rounded-t-[50%]"></div>
     <div className="absolute bottom-0 left-0 w-full h-2 bg-white/10 rounded-b-[50%]"></div>
-    <Handle type="source" position={Position.Left}   id="left"   className="w-2 h-2 !bg-primary" />
-    <Handle type="source" position={Position.Right}  id="right"  className="w-2 h-2 !bg-primary" />
-    <div className="text-[10px] font-bold text-white/50 mb-1 uppercase tracking-wider">{data.lane}</div>
-    <div className="text-xs font-black italic epilogue uppercase text-white/80">{data.label}</div>
+    <MultiHandleSet visible={!!data.editMode} />
+    <button
+      type="button"
+      onClick={(event) => {
+        event.stopPropagation();
+        data.onToggleCollapse?.();
+      }}
+      title={data.collapsed ? data.expandLabel : data.collapseLabel}
+      className="nodrag nopan absolute top-3 right-3 z-10 inline-flex h-5 w-5 items-center justify-center rounded-full border border-white/10 bg-white/6 text-[11px] font-black text-white/70 transition-colors hover:bg-white/12 hover:text-white"
+    >
+      {data.collapsed ? '+' : '-'}
+    </button>
+    {data.statusTag && (
+      <div className="absolute left-3 top-3 rounded-full border border-white/12 bg-white/6 px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.18em] text-white/60">
+        {data.statusTag}
+      </div>
+    )}
+    <div className="pr-7">
+      <div className={`text-xs font-black italic epilogue uppercase text-white/90 text-center ${data.statusTag ? 'pt-6' : ''}`}>{data.label}</div>
+      {data.collapsed ? (
+        <>
+          {data.summary && (
+            <p className="mt-2 text-[10px] leading-relaxed text-white/64">
+              {data.summary}
+            </p>
+          )}
+          <ul className="mt-2 space-y-1">
+            {(data.summaryItems || data.contains || data.keyFields || []).slice(0, 3).map((item: string) => (
+              <li key={item} className="text-[10px] leading-snug text-white/72">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <>
+          {data.summary && (
+            <p className="mt-2 text-[10px] leading-relaxed text-white/60">
+              {data.summary}
+            </p>
+          )}
+          {data.tables?.length > 0 && (
+            <div className="mt-2 flex flex-wrap justify-center gap-1">
+              {data.tables.slice(0, 5).map((table: string) => (
+                <span key={table} className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white/68">
+                  {table}
+                </span>
+              ))}
+            </div>
+          )}
+          {data.writePattern && (
+            <div className="mt-2 text-[10px] font-bold uppercase tracking-wide text-cyan-200/85 text-center">{data.writePattern}</div>
+          )}
+          {data.keyFields?.length > 0 && (
+            <ul className="mt-2 space-y-1">
+              {data.keyFields.slice(0, 5).map((item: string) => (
+                <li key={item} className="text-[10px] leading-snug text-white/72">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+          {(data.usedBy || data.jobs)?.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {(data.usedBy || data.jobs).slice(0, 3).map((item: string) => (
+                <span key={item} className="rounded-full border border-cyan-400/15 bg-cyan-400/8 px-2 py-0.5 text-[9px] font-bold text-cyan-100/75">
+                  {item}
+                </span>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </div>
   </div>
 );
 
-const LaneNode = ({ data, selected }: any) => {
+const NoteNode = ({ data }: any) => {
+  const tone = data.tone || 'info';
+  const palette = {
+    guide: {
+      shell: 'bg-[#585858]/92 border-white/20',
+      heading: 'text-white',
+      body: 'text-white/80',
+      chip: 'bg-white/8 border-white/12 text-white/82',
+    },
+    info: {
+      shell: 'bg-cyan-200/18 border-cyan-100/40',
+      heading: 'text-cyan-300',
+      body: 'text-cyan-50/92',
+      chip: 'bg-cyan-200/14 border-cyan-100/30 text-cyan-50/92',
+    },
+    system: {
+      shell: 'bg-orange-200/18 border-orange-100/40',
+      heading: 'text-orange-300',
+      body: 'text-orange-50/92',
+      chip: 'bg-orange-200/14 border-orange-100/30 text-orange-50/92',
+    },
+    warning: {
+      shell: 'bg-amber-200/20 border-amber-100/42',
+      heading: 'text-amber-200',
+      body: 'text-amber-50/94',
+      chip: 'bg-amber-200/16 border-amber-100/30 text-amber-50/94',
+    },
+  }[tone] ?? {
+    shell: 'bg-cyan-200/18 border-cyan-100/40',
+    heading: 'text-cyan-300',
+    body: 'text-cyan-50/92',
+    chip: 'bg-cyan-200/14 border-cyan-100/30 text-cyan-50/92',
+  };
+  const items = (data.risks?.length ? data.risks : data.systems?.length ? data.systems : data.sources || []).slice(0, 4);
+
+  return (
+    <div className={`w-[280px] rounded-xl border px-4 py-3 shadow-lg backdrop-blur-sm transition-all ${data.edgeHighlighted ? 'shadow-[0_0_16px_rgba(255,255,255,0.18)]' : ''} ${data.dimmed ? 'opacity-30' : 'opacity-100'} ${palette.shell}`}>
+      <Handle type="source" position={Position.Left} id="left" className="w-2 h-2 !bg-white/40 opacity-0" />
+      <Handle type="source" position={Position.Right} id="right" className="w-2 h-2 !bg-white/40 opacity-0" />
+      <div className={`text-[10px] font-black uppercase tracking-[0.2em] ${palette.heading}`}>{data.label}</div>
+      {data.details && (
+        <p className={`mt-2 text-[11px] leading-relaxed whitespace-pre-line ${palette.body}`}>{data.details}</p>
+      )}
+      {items.length > 0 && (
+        <ul className="mt-3 space-y-1.5">
+          {items.map((item: string) => (
+            <li key={item} className={`rounded-md border px-2 py-1 text-[10px] leading-relaxed ${palette.chip}`}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const ZoneNode = ({ data }: any) => {
+  const theme = data.theme || 'runtime';
+  const palette = {
+    ops: 'bg-emerald-400/6 border-emerald-300/20',
+    runtime: 'bg-cyan-400/5 border-cyan-300/18',
+    architecture: 'bg-[#11161d]/72 border-white/10',
+    future: 'bg-slate-400/6 border-slate-300/20 border-dashed',
+  }[theme] || 'bg-white/5 border-white/10';
+
+  return (
+    <div
+      className={`rounded-2xl border px-5 py-4 shadow-[0_20px_40px_rgba(0,0,0,0.18)] ${palette}`}
+      style={{ width: data.widthPx, height: data.heightPx }}
+    >
+      <div className="text-[11px] font-black uppercase tracking-[0.24em] text-white/72">{data.label}</div>
+      {data.subtitle && (
+        <div className="mt-1 text-[11px] leading-relaxed text-white/45">{data.subtitle}</div>
+      )}
+    </div>
+  );
+};
+
+const LaneNode = ({ data }: any) => {
   const h = data.heightPx ? `${data.heightPx}px` : (data.height || '200px');
   return (
     <div
-      className={`border-b border-white/5 flex items-stretch ${data.index % 2 === 0 ? 'bg-[#0e0e0e]' : 'bg-[#131313]/50'} ${selected ? 'border-t-2 border-b-2 border-primary bg-primary/5' : ''}`}
-      style={{ height: h, width: data.width || '5000px' }}
+      className={`border-b border-white/8 flex items-stretch ${data.index % 2 === 0 ? 'bg-[#4f4f4f]' : 'bg-[#5a5a5a]'} ${data.layoutSelected ? 'border-t-2 border-b-2 border-primary/45 shadow-[inset_0_0_0_1px_rgba(255,142,125,0.18)]' : ''}`}
+      style={{ height: h, width: data.width || '5000px', cursor: data.editMode ? (data.layoutSelected ? 'grab' : 'pointer') : 'default' }}
     >
-      <div className="w-12 bg-[#1a1a1a] border-r border-white/10 flex items-center justify-center shadow-[5px_0_15px_rgba(0,0,0,0.5)] shrink-0">
+      <div className="w-12 bg-[#2f2f2f] border-r border-white/10 flex items-center justify-center shadow-[5px_0_15px_rgba(0,0,0,0.25)] shrink-0">
         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 transform -rotate-90 whitespace-nowrap">
           {data.label}
         </span>
@@ -88,11 +375,13 @@ const PoolNode = ({ data }: any) => (
     style={{
       width: data.widthPx || 6600,
       height: data.heightPx || 300,
-      backgroundColor: `${data.color}0d`,
-      border: `1px solid ${data.color}30`,
+      backgroundColor: `${data.color}20`,
+      border: data.layoutSelected ? `2px solid ${data.color}80` : `1px solid ${data.color}40`,
       borderRadius: 4,
       position: 'relative',
-      pointerEvents: 'none',
+      pointerEvents: data.editMode ? 'auto' : 'none',
+      cursor: data.editMode ? (data.layoutSelected ? 'grab' : 'pointer') : 'default',
+      boxShadow: data.layoutSelected ? 'inset 0 0 0 1px rgba(255,255,255,0.08)' : undefined,
     }}
   >
     <div
@@ -102,8 +391,8 @@ const PoolNode = ({ data }: any) => (
         top: 0,
         bottom: 0,
         width: 32,
-        backgroundColor: `${data.color}18`,
-        border: `1px solid ${data.color}30`,
+        backgroundColor: `${data.color}28`,
+        border: `1px solid ${data.color}40`,
         borderRadius: '4px 0 0 4px',
         display: 'flex',
         alignItems: 'center',
@@ -127,7 +416,109 @@ const PoolNode = ({ data }: any) => (
   </div>
 );
 
-const nodeTypes = { task: TaskNode, gateway: GatewayNode, event: EventNode, database: DatabaseNode, lane: LaneNode, pool: PoolNode };
+const nodeTypes = { task: TaskNode, service: ServiceNode, gateway: GatewayNode, event: EventNode, database: DatabaseNode, note: NoteNode, lane: LaneNode, pool: PoolNode, zone: ZoneNode };
+
+type RollerApiReference = {
+  name: string;
+  docUrl?: string;
+  docLabel?: string;
+  docStatus?: 'official' | 'confirm';
+  note?: string;
+};
+
+const ROLLER_API_REFERENCES: Record<string, RollerApiReference> = {
+  'Get detail of a booking': {
+    name: 'Get detail of a booking',
+    docUrl: 'https://docs.roller.app/docs/rest-api/olt8a8nxs75ev',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
+  'Get products': {
+    name: 'Get products',
+    docUrl: 'https://docs.roller.app/docs/roller-api/7bbac8eaac480-get-products',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
+  'Booking costs': {
+    name: 'Booking costs',
+    docUrl: 'https://docs.roller.app/docs/rest-api/branches/main/62e21c34b7ef3',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
+  'Redeem tickets': {
+    name: 'Redeem tickets',
+    docUrl: 'https://docs.roller.app/docs/rest-api/fb1d84952285f',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
+  'Create webhook (optional)': {
+    name: 'Create webhook (optional)',
+    docUrl: 'https://docs.roller.app/docs/rest-api/3a934c551891e-create-webhook',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
+  'Get attendance': {
+    name: 'Get attendance',
+    docUrl: 'https://docs.roller.app/docs/roller-api/b22c31e263a6c-get-attendance',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
+  'Get tickets': {
+    name: 'Get tickets',
+    docUrl: 'https://docs.roller.app/docs/roller-api/e4f76c0848391-get-tickets',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
+  'Get payments': {
+    name: 'Get payments',
+    docUrl: 'https://docs.roller.app/docs/roller-api/64688fe222c1a-get-payments',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
+  'Edit booking': {
+    name: 'Edit booking',
+    docStatus: 'confirm',
+    note: 'Doklänk att bekräfta',
+  },
+  'Add transaction record': {
+    name: 'Add transaction record',
+    docStatus: 'confirm',
+    note: 'Doklänk att bekräfta',
+  },
+};
+
+const ROLLER_API_STAGE_MAP = [
+  {
+    priority: 'CRITICAL',
+    stage: 'Länköppning och live-refresh',
+    endpoints: ['Get detail of a booking'],
+    desc: 'Används när SMS-länk eller token öppnas och när snapshoten är för gammal för ett säkert beslut.',
+  },
+  {
+    priority: 'CRITICAL',
+    stage: 'Tillägg och prisberäkning',
+    endpoints: ['Get products', 'Booking costs'],
+    desc: 'Stödjer val av tillägg och räknar om bokningen innan betalning eller writeback.',
+  },
+  {
+    priority: 'CRITICAL',
+    stage: 'Writeback till Roller',
+    endpoints: ['Edit booking', 'Add transaction record'],
+    desc: 'Lägger till produkter på befintlig bokning och registrerar extern betalning.',
+  },
+  {
+    priority: 'CRITICAL',
+    stage: 'Inlösen vid ankomst',
+    endpoints: ['Redeem tickets'],
+    desc: 'Per-ticket check-in som är den kritiska slutpunkten i pilotflödet.',
+  },
+  {
+    priority: 'HIGH',
+    stage: 'Bulk-sync och optional webhook',
+    endpoints: ['Get attendance', 'Get tickets', 'Get payments', 'Create webhook (optional)'],
+    desc: 'Driver daily seed, delta sync och eventuell extra bekräftelse utanför happy path.',
+  },
+] as const;
 
 // ─── Array field editor ───────────────────────────────────────────────────────
 
@@ -166,24 +557,89 @@ function ArrayField({ label, items, onAdd, onRemove, placeholder }: {
 
 // ─── Read-only metadata ───────────────────────────────────────────────────────
 
-function NodeMeta({ data }: { data: any }) {
+function getRollerApiReference(endpoint: string): RollerApiReference {
+  return ROLLER_API_REFERENCES[endpoint] ?? { name: endpoint };
+}
+
+function EndpointReferenceList({
+  label,
+  endpoints,
+  language,
+}: {
+  label: string;
+  endpoints?: string[];
+  language: Language;
+}) {
+  const t = (value: string) => translateText(value, language);
+  if (!endpoints?.length) return null;
+
+  return (
+    <div>
+      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t(label)}</label>
+      <div className="space-y-2">
+        {endpoints.map((endpoint) => {
+          const ref = getRollerApiReference(endpoint);
+          return (
+            <div key={endpoint} className="rounded border border-cyan-400/18 bg-cyan-500/8 px-3 py-2">
+              <div className="text-xs font-bold text-cyan-100">{ref.name}</div>
+              {ref.docUrl ? (
+                <a
+                  href={ref.docUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-1 inline-flex text-[10px] font-bold text-cyan-300 underline underline-offset-2 hover:text-cyan-200"
+                >
+                  {t(ref.docLabel || 'Dokumentation')}
+                </a>
+              ) : null}
+              {!ref.docUrl && ref.docStatus === 'confirm' && (
+                <div className="mt-1 text-[10px] text-amber-200/85">{t(ref.note || 'Doklänk att bekräfta')}</div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function NodeMeta({ data, language }: { data: any; language: Language }) {
+  const t = (value: string) => translateText(value, language);
+  const renderList = (label: string, items?: string[], tone = 'default') => {
+    if (!items?.length) return null;
+    const itemClass = tone === 'info'
+      ? 'text-xs text-cyan-100/85 bg-cyan-500/10 border border-cyan-400/20 px-2 py-1.5 rounded leading-relaxed'
+      : tone === 'danger'
+        ? 'text-xs text-red-400/80 bg-red-500/10 border border-red-500/20 px-2 py-1.5 rounded leading-relaxed'
+        : 'text-xs text-white/65 bg-white/5 px-2 py-1.5 rounded leading-relaxed';
+    return (
+      <div>
+        <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t(label)}</label>
+        <ul className="space-y-1">
+          {items.map((item: string) => (
+            <li key={item} className={itemClass}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
   return (
     <>
       {(data.details || data.note) && (
         <div>
-          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">Beskrivning</label>
-          <p className="text-xs text-white/70 leading-relaxed">{data.details || data.note}</p>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Beskrivning')}</label>
+          <p className="text-xs text-white/70 leading-relaxed whitespace-pre-line">{data.details || data.note}</p>
         </div>
       )}
       {data.why && (
         <div>
-          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">Varför noden finns</label>
-          <p className="text-xs text-white/70 leading-relaxed">{data.why}</p>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Varför noden finns')}</label>
+          <p className="text-xs text-white/70 leading-relaxed whitespace-pre-line">{data.why}</p>
         </div>
       )}
       {data.systems?.length > 0 && (
         <div>
-          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">System</label>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('System')}</label>
           <ul className="space-y-1">
             {data.systems.map((s: string) => (
               <li key={s} className="text-xs text-white/60 bg-white/5 px-2 py-1 rounded">{s}</li>
@@ -191,9 +647,46 @@ function NodeMeta({ data }: { data: any }) {
           </ul>
         </div>
       )}
+      {data.writePattern && (
+        <div>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Skrivmönster')}</label>
+          <p className="text-xs text-cyan-100/85 bg-cyan-500/10 border border-cyan-400/20 px-2 py-1.5 rounded leading-relaxed whitespace-pre-line">
+            {data.writePattern}
+          </p>
+        </div>
+      )}
+      {data.cadence && (
+        <div>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Kadens')}</label>
+          <p className="text-xs text-white/70 bg-white/5 px-2 py-1.5 rounded leading-relaxed">{data.cadence}</p>
+        </div>
+      )}
+      {renderList('Läser', data.reads, 'info')}
+      {renderList('Skriver', data.writes, 'info')}
+      {renderList('Visas när', data.shownWhen)}
+      {renderList('Hoppas över när', data.skippedWhen)}
+      {renderList('Ger besökaren', data.givesGuest)}
+      {renderList('Staff verifierar med', data.staffVerifies)}
+      {renderList('Data-touchpoints', data.touchpoints, 'info')}
+      {renderList('Tabellgrupper', data.tables)}
+      {renderList('Nyckelfält', data.keyFields, 'info')}
+      {renderList('Ägd state', data.ownedState)}
+      {renderList('Används av', data.usedBy)}
+      {renderList('Jobb', data.jobs)}
+      <EndpointReferenceList label="API-endpoints" endpoints={data.endpoints} language={language} />
+      {data.contains?.length > 0 && (
+        <div>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Lagrar')}</label>
+          <ul className="space-y-1">
+            {data.contains.map((item: string) => (
+              <li key={item} className="text-xs text-white/65 bg-white/5 px-2 py-1.5 rounded leading-relaxed">{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       {data.risks?.length > 0 && (
         <div>
-          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">Risker</label>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Risker')}</label>
           <ul className="space-y-1">
             {data.risks.map((r: string) => (
               <li key={r} className="text-xs text-red-400/80 bg-red-500/10 border border-red-500/20 px-2 py-1.5 rounded leading-relaxed">{r}</li>
@@ -203,7 +696,7 @@ function NodeMeta({ data }: { data: any }) {
       )}
       {data.sources?.length > 0 && (
         <div>
-          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">Källor</label>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Källor')}</label>
           <ul className="space-y-1">
             {data.sources.map((s: string) => (
               <li key={s} className="text-[10px] text-white/35 font-mono">{s}</li>
@@ -212,6 +705,109 @@ function NodeMeta({ data }: { data: any }) {
         </div>
       )}
     </>
+  );
+}
+
+function getEdgeCategory(edge: any): 'data' | 'fallback' | 'arch' | 'process' {
+  const stroke = String(edge?.data?.baseStyle?.stroke || edge?.style?.stroke || '');
+  if (edge?.data?.edgeKind === 'data' || edge?.data?.edgeStyle === 'data' || stroke === '#38bdf8' || stroke === '#22d3ee') return 'data';
+  if (stroke === '#94a3b8') return 'arch';
+  if (stroke === '#8b5cf6' || stroke === '#a78bfa') return 'fallback';
+  return 'process';
+}
+
+function EdgeMeta({
+  edge,
+  sourceLabel,
+  targetLabel,
+  language,
+}: {
+  edge: any;
+  sourceLabel?: string;
+  targetLabel?: string;
+  language: Language;
+}) {
+  const t = (value: string) => translateText(value, language);
+  const data = localizeValue(edge?.data || {}, language) as any;
+  const category = getEdgeCategory(edge);
+  const categoryLabel = category === 'data'
+    ? t('Dataflöde')
+    : category === 'fallback'
+      ? t('Fallbackflöde')
+      : category === 'arch'
+        ? t('Arkitekturkoppling')
+        : t('Processflöde');
+  const renderList = (label: string, items?: string[], tone = 'default') => {
+    if (!items?.length) return null;
+    const itemClass = tone === 'info'
+      ? 'text-xs text-cyan-100/85 bg-cyan-500/10 border border-cyan-400/20 px-2 py-1.5 rounded leading-relaxed'
+      : 'text-xs text-white/65 bg-white/5 px-2 py-1.5 rounded leading-relaxed';
+    return (
+      <div>
+        <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t(label)}</label>
+        <ul className="space-y-1">
+          {items.map((item: string) => (
+            <li key={item} className={itemClass}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-2">
+        <div className="rounded border border-white/8 bg-white/4 px-3 py-2">
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Från')}</label>
+          <div className="text-xs text-white/80 leading-relaxed">{sourceLabel || '—'}</div>
+        </div>
+        <div className="rounded border border-white/8 bg-white/4 px-3 py-2">
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Till')}</label>
+          <div className="text-xs text-white/80 leading-relaxed">{targetLabel || '—'}</div>
+        </div>
+      </div>
+
+      <div>
+        <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Kantkategori')}</label>
+        <div className="text-xs text-white/70 bg-white/5 px-2 py-1.5 rounded leading-relaxed">{categoryLabel}</div>
+      </div>
+
+      {typeof edge?.label === 'string' && edge.label.trim() && (
+        <div>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Kantetikett')}</label>
+          <div className="text-xs text-white/70 bg-white/5 px-2 py-1.5 rounded leading-relaxed">{t(edge.label)}</div>
+        </div>
+      )}
+
+      {data.details && (
+        <div>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t(category === 'data' ? 'Dataflöde' : 'Beskrivning')}</label>
+          <p className="text-xs text-white/70 leading-relaxed whitespace-pre-line">{data.details}</p>
+        </div>
+      )}
+
+      {category === 'data' ? (
+        <>
+          {data.operation && (
+            <div>
+              <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Operation')}</label>
+              <div className="text-xs text-cyan-100/85 bg-cyan-500/10 border border-cyan-400/20 px-2 py-1.5 rounded leading-relaxed">{data.operation}</div>
+            </div>
+          )}
+          {renderList('Hämtar / skriver', data.fields, 'info')}
+          {data.why && (
+            <div>
+              <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Varför flödet finns')}</label>
+              <p className="text-xs text-white/70 leading-relaxed whitespace-pre-line">{data.why}</p>
+            </div>
+          )}
+        </>
+      ) : !data.details ? (
+        <div className="text-xs text-white/50 bg-white/5 px-2 py-1.5 rounded leading-relaxed">
+          {t('Ingen extra metadata för denna kanttyp.')}
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -300,6 +896,10 @@ function PixelChar({ frame }: { frame: string[] }) {
 function getNodeDims(type?: string) {
   if (type === 'event')   return { w: 48, h: 48 };
   if (type === 'gateway') return { w: 64, h: 64 };
+  if (type === 'database') return { w: 270, h: 168 };
+  if (type === 'service') return { w: 220, h: 84 };
+  if (type === 'note') return { w: 280, h: 160 };
+  if (type === 'zone') return { w: 480, h: 180 };
   return { w: 160, h: 50 };
 }
 
@@ -331,10 +931,124 @@ const defaultEdgeOptions = {
   style: { strokeWidth: 2, stroke: '#ff8e7d' },
 };
 
+function hydrateEdge(edge: any) {
+  return edge;
+}
+
+function normalizeEdge(edge: any, nodesOrLookup?: any[] | Map<string, any>) {
+  const nodeLookup = nodesOrLookup instanceof Map
+    ? nodesOrLookup
+    : new Map((nodesOrLookup || []).map((node: any) => [node.id, node]));
+  const rawStyle = edge?.data?.baseStyle || edge?.style || defaultEdgeOptions.style;
+  const baseStyle = {
+    ...defaultEdgeOptions.style,
+    ...(rawStyle || {}),
+  };
+  delete (baseStyle as any).filter;
+  delete (baseStyle as any).strokeOpacity;
+
+  const rawMarkerEnd = edge?.data?.baseMarkerEnd || edge?.markerEnd || defaultEdgeOptions.markerEnd;
+  const baseMarkerEnd = {
+    ...defaultEdgeOptions.markerEnd,
+    ...(rawMarkerEnd || {}),
+    color: rawMarkerEnd?.color || baseStyle.stroke || defaultEdgeOptions.style.stroke,
+  };
+
+  const sourceNode = nodeLookup.get(edge?.source);
+  const targetNode = nodeLookup.get(edge?.target);
+  const pathMode = EDGE_PATH_MODES.has(edge?.data?.pathMode)
+    ? edge.data.pathMode
+    : EDGE_PATH_MODES.has(edge?.type)
+      ? edge.type
+      : defaultEdgeOptions.type;
+
+  const normalized: any = {
+    ...edge,
+    type: pathMode,
+    style: { ...baseStyle },
+    markerEnd: { ...baseMarkerEnd },
+    data: {
+      ...(edge?.data || {}),
+      baseStyle,
+      baseMarkerEnd,
+      pathMode,
+    },
+  };
+
+  const sourceHandle = normalizeHandleForNode(sourceNode, normalized.sourceHandle);
+  const targetHandle = normalizeHandleForNode(targetNode, normalized.targetHandle);
+
+  if (sourceHandle) normalized.sourceHandle = sourceHandle;
+  else delete normalized.sourceHandle;
+
+  if (targetHandle) normalized.targetHandle = targetHandle;
+  else delete normalized.targetHandle;
+
+  return normalized;
+}
+
+function applyEdgeVisualState(edge: any, mode: 'base' | 'highlight' | 'dim', nodesOrLookup?: any[] | Map<string, any>) {
+  const hydrated = normalizeEdge(hydrateEdge(edge), nodesOrLookup);
+  const baseStyle = hydrated.data.baseStyle || defaultEdgeOptions.style;
+  const baseMarkerEnd = hydrated.data.baseMarkerEnd || defaultEdgeOptions.markerEnd;
+
+  if (mode === 'highlight') {
+    return {
+      ...hydrated,
+      style: {
+        ...baseStyle,
+        strokeWidth: (baseStyle.strokeWidth || 2) + 1.25,
+        strokeOpacity: 1,
+        filter: 'drop-shadow(0 0 6px rgba(255,255,255,0.28))',
+      },
+      markerEnd: { ...baseMarkerEnd },
+      zIndex: 12,
+      data: { ...hydrated.data, edgeHighlighted: true, dimmed: false },
+    };
+  }
+
+  if (mode === 'dim') {
+    return {
+      ...hydrated,
+      style: {
+        ...baseStyle,
+        strokeOpacity: 0.18,
+      },
+      markerEnd: { ...baseMarkerEnd },
+      zIndex: 0,
+      data: { ...hydrated.data, edgeHighlighted: false, dimmed: true },
+    };
+  }
+
+  return {
+    ...hydrated,
+    style: { ...baseStyle },
+    markerEnd: { ...baseMarkerEnd },
+    zIndex: 0,
+    data: { ...hydrated.data, edgeHighlighted: false, dimmed: false },
+  };
+}
+
+function sanitizeEdgeForStorage(edge: any, nodesOrLookup?: any[] | Map<string, any>) {
+  const hydrated = normalizeEdge(hydrateEdge(edge), nodesOrLookup);
+  const data = { ...(hydrated.data || {}) };
+  delete data.edgeHighlighted;
+  delete data.dimmed;
+  return {
+    ...hydrated,
+    style: { ...(hydrated.data?.baseStyle || hydrated.style || defaultEdgeOptions.style) },
+    markerEnd: { ...(hydrated.data?.baseMarkerEnd || hydrated.markerEnd || defaultEdgeOptions.markerEnd) },
+    zIndex: 0,
+    data,
+  };
+}
+
 // ─── Persistence ──────────────────────────────────────────────────────────────
 
-const STORAGE_NODES = 'jy-bpmn-nodes';
-const STORAGE_EDGES = 'jy-bpmn-edges';
+const FLOW_SCHEMA_VERSION = '2026-03-webapp-merge-v6';
+const STORAGE_NODES = `jy-bpmn-nodes:${FLOW_SCHEMA_VERSION}`;
+const STORAGE_EDGES = `jy-bpmn-edges:${FLOW_SCHEMA_VERSION}`;
+const STORAGE_LANGUAGE = 'jy-bpmn-language';
 
 const loadNodes = () => {
   try {
@@ -343,24 +1057,31 @@ const loadNodes = () => {
     // Migrate: assign poolId to lanes that don't have one yet (Y-range heuristic, one-time migration)
     const pools = ns.filter(n => n.type === 'pool').sort((a: any, b: any) => a.position.y - b.position.y);
     return ns.map((n: any) => {
-      if (n.type !== 'lane' || n.data?.poolId) return n;
+      let next = n;
+      if (n.type === 'database' && typeof n.data?.collapsed !== 'boolean') {
+        next = { ...next, data: { ...next.data, collapsed: true } };
+      }
+      if (next.type !== 'lane' || next.data?.poolId) return next;
       const pool = pools.find((p: any) =>
-        n.position.y >= p.position.y && n.position.y < p.position.y + (p.data?.heightPx || 300)
+        next.position.y >= p.position.y && next.position.y < p.position.y + (p.data?.heightPx || 300)
       );
-      return pool ? { ...n, data: { ...n.data, poolId: pool.id } } : n;
+      return pool ? { ...next, data: { ...next.data, poolId: pool.id } } : next;
     });
   } catch { return pilotNodes; }
 };
-const loadEdges = () => {
-  try { const s = localStorage.getItem(STORAGE_EDGES); return s ? JSON.parse(s) : pilotEdges; }
-  catch { return pilotEdges; }
+const loadEdges = (nodes: any[] = pilotNodes) => {
+  try {
+    const s = localStorage.getItem(STORAGE_EDGES);
+    const raw = s ? JSON.parse(s) : pilotEdges;
+    return raw.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes));
+  } catch { return pilotEdges.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes)); }
 };
 
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 // ─── Lane Row (used in lanes panel) ──────────────────────────────────────────
 
-function LaneRow({ lane, isFirst, isLast, onMove, onRename, onDelete, onResize, pools, onMoveToPool }: {
+function LaneRow({ lane, isFirst, isLast, onMove, onRename, onDelete, onResize, pools, onMoveToPool, language }: {
   lane: any; isFirst: boolean; isLast: boolean;
   onMove: (dir: 'up' | 'down') => void;
   onRename: (name: string) => void;
@@ -368,7 +1089,9 @@ function LaneRow({ lane, isFirst, isLast, onMove, onRename, onDelete, onResize, 
   onResize: (heightPx: number) => void;
   pools: any[];
   onMoveToPool: (poolId: string) => void;
+  language: Language;
 }) {
+  const t = (value: string) => translateText(value, language);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(String(lane.data.label));
   const commit = () => {
@@ -389,12 +1112,12 @@ function LaneRow({ lane, isFirst, isLast, onMove, onRename, onDelete, onResize, 
       <select
         value={currentPoolId}
         onChange={e => onMoveToPool(e.target.value)}
-        title="Pool"
+        title={t('Pool')}
         className="shrink-0 w-3 h-3 rounded-full border-0 outline-none cursor-pointer appearance-none"
         style={{ background: currentPool?.data?.color ?? '#ffffff33', accentColor: currentPool?.data?.color }}
       >
         <option value="">–</option>
-        {pools.map(p => <option key={p.id} value={p.id}>{String(p.data.label)}</option>)}
+        {pools.map(p => <option key={p.id} value={p.id}>{t(String(p.data.label))}</option>)}
       </select>
       {editing ? (
         <input
@@ -409,12 +1132,12 @@ function LaneRow({ lane, isFirst, isLast, onMove, onRename, onDelete, onResize, 
         <span
           className="flex-1 text-xs text-white/80 cursor-pointer hover:text-white"
           onDoubleClick={() => { setDraft(String(lane.data.label)); setEditing(true); }}
-          title="Dubbelklicka för att byta namn"
+          title={t('Dubbelklicka för att byta namn')}
         >
-          {String(lane.data.label)}
+          {t(String(lane.data.label))}
         </span>
       )}
-      <div className="flex items-center gap-1 shrink-0" title="Höjd (px)">
+      <div className="flex items-center gap-1 shrink-0" title={t('Höjd (px)')}>
         <span className="text-[9px] text-white/25">h:</span>
         <input
           type="number" min={80} max={600} step={40}
@@ -426,12 +1149,12 @@ function LaneRow({ lane, isFirst, isLast, onMove, onRename, onDelete, onResize, 
       <button
         onClick={() => { setDraft(String(lane.data.label)); setEditing(true); }}
         className="opacity-0 group-hover:opacity-100 text-[10px] text-white/40 hover:text-white px-1 transition-all"
-        title="Byt namn"
+        title={t('Byt namn')}
       >✎</button>
       <button
         onClick={onDelete}
         className="opacity-0 group-hover:opacity-100 text-[10px] text-white/30 hover:text-red-400 px-1 transition-all"
-        title="Ta bort lane"
+        title={t('Ta bort lane')}
       >×</button>
     </div>
   );
@@ -439,7 +1162,7 @@ function LaneRow({ lane, isFirst, isLast, onMove, onRename, onDelete, onResize, 
 
 // ─── Pool Row (used in lanes panel pools section) ────────────────────────────
 
-function PoolRow({ pool, onRename, onDelete, onMove, isFirst, isLast, onAddLane }: {
+function PoolRow({ pool, onRename, onDelete, onMove, isFirst, isLast, onAddLane, language }: {
   pool: any;
   onRename: (name: string) => void;
   onDelete: () => void;
@@ -447,7 +1170,9 @@ function PoolRow({ pool, onRename, onDelete, onMove, isFirst, isLast, onAddLane 
   isFirst: boolean;
   isLast: boolean;
   onAddLane: () => void;
+  language: Language;
 }) {
+  const t = (value: string) => translateText(value, language);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(String(pool.data.label));
   const commit = () => { if (draft.trim()) onRename(draft.trim()); setEditing(false); };
@@ -475,25 +1200,25 @@ function PoolRow({ pool, onRename, onDelete, onMove, isFirst, isLast, onAddLane 
           className="flex-1 text-xs font-bold cursor-pointer hover:text-white"
           style={{ color: pool.data.color }}
           onDoubleClick={() => { setDraft(String(pool.data.label)); setEditing(true); }}
-          title="Dubbelklicka för att byta namn"
+          title={t('Dubbelklicka för att byta namn')}
         >
-          {String(pool.data.label)}
+          {t(String(pool.data.label))}
         </span>
       )}
       <button
         onClick={onAddLane}
         className="opacity-0 group-hover:opacity-100 text-[10px] text-emerald-400 hover:text-emerald-300 px-1 transition-all"
-        title="Lägg till lane i denna pool"
+        title={t('Lägg till lane i denna pool')}
       >＋</button>
       <button
         onClick={() => { setDraft(String(pool.data.label)); setEditing(true); }}
         className="opacity-0 group-hover:opacity-100 text-[10px] text-white/40 hover:text-white px-1 transition-all"
-        title="Byt namn"
+        title={t('Byt namn')}
       >✎</button>
       <button
         onClick={onDelete}
         className="opacity-0 group-hover:opacity-100 text-[10px] text-white/30 hover:text-red-400 px-1 transition-all"
-        title="Ta bort pool"
+        title={t('Ta bort pool')}
       >×</button>
     </div>
   );
@@ -550,13 +1275,14 @@ const ROLLER_KRAV = [
   },
 ];
 
-function DataKravPanel({ onClose }: { onClose: () => void }) {
+function DataKravPanel({ onClose, language }: { onClose: () => void; language: Language }) {
+  const t = (value: string) => translateText(value, language);
   return (
     <div className="fixed top-0 right-0 h-full w-[380px] z-50 bg-[#0e0e0e]/98 backdrop-blur-xl border-l border-white/10 shadow-2xl flex flex-col overflow-hidden">
       <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 shrink-0">
         <div>
-          <div className="text-xs font-black uppercase tracking-widest text-white">Datakravslista</div>
-          <div className="text-[10px] text-white/40 mt-0.5">Roller API — bekräftade endpoints</div>
+          <div className="text-xs font-black uppercase tracking-widest text-white">{t('Datakravslista')}</div>
+          <div className="text-[10px] text-white/40 mt-0.5">{t('Roller API — bekräftade endpoints')}</div>
         </div>
         <button onClick={onClose} className="text-white/40 hover:text-white text-lg leading-none px-1">×</button>
       </div>
@@ -569,12 +1295,187 @@ function DataKravPanel({ onClose }: { onClose: () => void }) {
                 {k.priority}
               </span>
             </div>
-            <div className="text-[11px] font-bold text-white/80 mb-1">{k.label}</div>
-            <div className="text-[10px] text-white/50 leading-relaxed">{k.desc}</div>
+            <div className="text-[11px] font-bold text-white/80 mb-1">{t(k.label)}</div>
+            <div className="text-[10px] text-white/50 leading-relaxed">{t(k.desc)}</div>
           </div>
         ))}
         <div className="pt-2 pb-1 text-[9px] text-white/25 text-center">
-          Källa: Roller API Requirements — bekräftad av account manager
+          {t('Källa: Roller API Requirements — bekräftad av account manager')}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const ROLLER_API_MAP = ROLLER_API_STAGE_MAP;
+
+function ArchitecturePanel({ onClose, language, nodes }: { onClose: () => void; language: Language; nodes: any[] }) {
+  const t = (value: string) => translateText(value, language);
+  const byCanvasOrder = (a: any, b: any) => (a.position.x - b.position.x) || (a.position.y - b.position.y);
+  const projectNodeData = (predicate: (node: any) => boolean) =>
+    nodes
+      .filter(predicate)
+      .sort(byCanvasOrder)
+      .map((node) => ({ id: node.id, data: localizeValue(node.data, language) as any }));
+
+  const awsNodes = projectNodeData((node) => node.data?.archCategory === 'aws');
+  const dataNodes = projectNodeData((node) => node.type === 'database' && ['data', 'future'].includes(String(node.data?.archCategory)));
+  const jobNodes = projectNodeData((node) => node.data?.archCategory === 'job');
+
+  return (
+    <div className="fixed top-0 right-0 h-full w-[430px] z-50 bg-[#0e0e0e]/98 backdrop-blur-xl border-l border-white/10 shadow-2xl flex flex-col overflow-hidden">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 shrink-0">
+        <div>
+          <div className="text-xs font-black uppercase tracking-widest text-white">{t('Arkitektur / Ops')}</div>
+          <div className="text-[10px] text-white/40 mt-0.5">{t('AWS-komponenter, Aurora-tabellgrupper, Roller API-karta och jobb')}</div>
+        </div>
+        <button onClick={onClose} className="text-white/40 hover:text-white text-lg leading-none px-1">×</button>
+      </div>
+
+      <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
+        <section>
+          <div className="mb-2 text-[10px] font-black uppercase tracking-widest text-white/45">{t('AWS-komponenter')}</div>
+          <div className="space-y-2">
+            {awsNodes.map(({ id, data }) => (
+              <div key={id} className="rounded border border-sky-300/18 bg-sky-400/6 p-3">
+                <div className="text-[11px] font-bold text-sky-100">{data.label}</div>
+                {data.details && <div className="mt-1 text-[10px] leading-relaxed text-white/60">{data.details}</div>}
+                {data.systems?.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {data.systems.slice(0, 3).map((item: string) => (
+                      <span key={item} className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[9px] font-bold text-white/65">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <div className="mb-2 text-[10px] font-black uppercase tracking-widest text-white/45">{t('Aurora-tabellgrupper')}</div>
+          <div className="space-y-2">
+            {dataNodes.map(({ id, data }) => (
+              <div key={id} className={`rounded border p-3 ${data.future ? 'border-slate-300/18 bg-slate-400/5' : 'border-cyan-300/16 bg-cyan-400/5'}`}>
+                <div className="flex items-start justify-between gap-2">
+                  <div className={`text-[11px] font-bold ${data.future ? 'text-slate-100' : 'text-cyan-100'}`}>{data.label}</div>
+                  {data.statusTag && (
+                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.18em] text-white/55">
+                      {data.statusTag}
+                    </span>
+                  )}
+                </div>
+                {data.summary && (
+                  <div className="mt-1 text-[10px] leading-relaxed text-white/58">{data.summary}</div>
+                )}
+                {data.tables?.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {data.tables.map((table: string) => (
+                      <span key={table} className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[9px] font-bold text-white/68">
+                        {table}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {data.keyFields?.length > 0 && (
+                  <div className="mt-2 text-[10px] text-white/55 leading-relaxed">
+                    <span className="font-black uppercase tracking-wide text-white/38">{t('Nyckelfält')}:</span>{' '}
+                    {data.keyFields.slice(0, 5).join(', ')}
+                  </div>
+                )}
+                {data.ownedState?.length > 0 && (
+                  <ul className="mt-2 space-y-1">
+                    {data.ownedState.slice(0, 3).map((item: string) => (
+                      <li key={item} className="text-[10px] text-white/60 leading-relaxed">{item}</li>
+                    ))}
+                  </ul>
+                )}
+                {data.usedBy?.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {data.usedBy.slice(0, 3).map((item: string) => (
+                      <span key={item} className="rounded-full border border-cyan-400/15 bg-cyan-400/8 px-2 py-0.5 text-[9px] font-bold text-cyan-100/75">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <div className="mb-2 text-[10px] font-black uppercase tracking-widest text-white/45">{t('Roller API-karta')}</div>
+          <div className="space-y-2">
+            {ROLLER_API_MAP.map((item) => (
+              <div key={item.stage} className="rounded border border-white/8 bg-white/3 p-3">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="text-[11px] font-bold text-white/82">{t(item.stage)}</div>
+                  <span className={`rounded px-1.5 py-0.5 text-[9px] font-black uppercase tracking-widest ${item.priority === 'CRITICAL' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
+                    {item.priority}
+                  </span>
+                </div>
+                <div className="mt-2 space-y-2">
+                  {item.endpoints.map((endpoint) => {
+                    const ref = getRollerApiReference(endpoint);
+                    return (
+                      <div key={endpoint} className="rounded border border-[#ff8e7d]/16 bg-[#ff8e7d]/6 px-2.5 py-2">
+                        <div className="text-[10px] font-bold text-[#ffb1a4]">{ref.name}</div>
+                        {ref.docUrl ? (
+                          <a
+                            href={ref.docUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="mt-1 inline-flex text-[10px] font-bold text-cyan-300 underline underline-offset-2 hover:text-cyan-200"
+                          >
+                            {t(ref.docLabel || 'Dokumentation')}
+                          </a>
+                        ) : null}
+                        {!ref.docUrl && ref.docStatus === 'confirm' && (
+                          <div className="mt-1 text-[10px] text-amber-200/85">{t(ref.note || 'Doklänk att bekräfta')}</div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="mt-2 text-[10px] leading-relaxed text-white/50">{t(item.desc)}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <div className="mb-2 text-[10px] font-black uppercase tracking-widest text-white/45">{t('Jobb & kadens')}</div>
+          <div className="space-y-2">
+            {jobNodes.map(({ id, data }) => (
+              <div key={id} className="rounded border border-emerald-300/16 bg-emerald-400/6 p-3">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="text-[11px] font-bold text-emerald-100">{data.label}</div>
+                  {data.cadence && (
+                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[9px] font-black uppercase tracking-wide text-white/55">
+                      {data.cadence}
+                    </span>
+                  )}
+                </div>
+                {data.details && <div className="mt-1 text-[10px] leading-relaxed text-white/58">{data.details}</div>}
+                {data.endpoints?.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {data.endpoints.map((endpoint: string) => (
+                      <span key={endpoint} className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[9px] font-bold text-white/65">
+                        {endpoint}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div className="pt-1 pb-2 text-[9px] text-white/25 text-center">
+          {t('KÃ¤lla: Roller API Requirements â€” bekrÃ¤ftad av account manager')}
         </div>
       </div>
     </div>
@@ -583,8 +1484,21 @@ function DataKravPanel({ onClose }: { onClose: () => void }) {
 
 export default function App() {
   const { screenToFlowPosition, getViewport, setViewport: rfSetViewport } = useReactFlow();
-  const [nodes, setNodes, onNodesChange] = useNodesState(loadNodes());
-  const [edges, setEdges, onEdgesChange] = useEdgesState(loadEdges());
+  const initialNodesRef = useRef<any[] | null>(null);
+  if (!initialNodesRef.current) initialNodesRef.current = loadNodes();
+  const initialNodes = initialNodesRef.current ?? pilotNodes;
+  const initialEdgesRef = useRef<any[] | null>(null);
+  if (!initialEdgesRef.current) initialEdgesRef.current = loadEdges(initialNodes);
+  const initialEdges = initialEdgesRef.current ?? loadEdges(initialNodes);
+  const [nodes, setNodes, applyNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [language, setLanguage] = useState<Language>(() => {
+    try {
+      return localStorage.getItem(STORAGE_LANGUAGE) === 'en' ? 'en' : 'sv';
+    } catch {
+      return 'sv';
+    }
+  });
   const [selectedElements, setSelectedElements] = useState<{ nodes: any[]; edges: any[] }>({ nodes: [], edges: [] });
   const [editMode, setEditMode] = useState(false);
   const [history, setHistory] = useState<{ nodes: any[]; edges: any[] }[]>([]);
@@ -611,6 +1525,7 @@ export default function App() {
   const leftHeld  = React.useRef(false);
   const nodesRef  = React.useRef(nodes);
   const edgesRef  = React.useRef(edges);
+  const positionHistoryCapturedRef = React.useRef(false);
   useEffect(() => { nodesRef.current = nodes; }, [nodes]);
   useEffect(() => { edgesRef.current = edges; }, [edges]);
 
@@ -618,13 +1533,60 @@ export default function App() {
   const selectedEdgeId = selectedElements.edges[0]?.id ?? null;
   const selectedNode = selectedNodeId ? nodes.find(n => n.id === selectedNodeId) ?? null : null;
   const selectedEdge = selectedEdgeId ? edges.find(e => e.id === selectedEdgeId) ?? null : null;
+  const selectedEdgeSourceNode = selectedEdge ? nodes.find((node) => node.id === selectedEdge.source) ?? null : null;
+  const selectedEdgeTargetNode = selectedEdge ? nodes.find((node) => node.id === selectedEdge.target) ?? null : null;
   const hasSelection = !!(selectedNode || selectedEdge);
+  const t = (value: string) => translateText(value, language);
+  const selectedNodeViewData = selectedNode ? localizeValue(selectedNode.data, language) : null;
+  const selectedEdgeViewData = selectedEdge ? localizeValue(selectedEdge.data || {}, language) : null;
+  const selectedNodeViewLabel = selectedNodeViewData?.label || (selectedNode?.type === 'lane' ? t('Lane') : t('Nod'));
+  const selectedEdgeSourceLabel = selectedEdgeSourceNode ? String((localizeValue(selectedEdgeSourceNode.data, language) as any)?.label || selectedEdgeSourceNode.id) : '—';
+  const selectedEdgeTargetLabel = selectedEdgeTargetNode ? String((localizeValue(selectedEdgeTargetNode.data, language) as any)?.label || selectedEdgeTargetNode.id) : '—';
 
   useEffect(() => {
-    const clean = nodes.map(n => (n.data as any).edgeHighlighted ? { ...n, data: { ...(n.data as any), edgeHighlighted: undefined } } : n);
+    if (editMode) return;
+    setSelectedElements((current) => ({
+      nodes: current.nodes.filter((node) => node.type !== 'lane' && node.type !== 'pool'),
+      edges: current.edges,
+    }));
+  }, [editMode]);
+
+  const collectRelatedGraph = useCallback((seedNodeIds: string[], depth = 1) => {
+    const nodeIds = new Set(seedNodeIds);
+    const edgeIds = new Set<string>();
+    let frontier = new Set(seedNodeIds);
+
+    for (let level = 0; level < depth; level++) {
+      const next = new Set<string>();
+      for (const edge of edgesRef.current) {
+        if (!frontier.has(edge.source) && !frontier.has(edge.target)) continue;
+        edgeIds.add(edge.id);
+        if (!nodeIds.has(edge.source)) { nodeIds.add(edge.source); next.add(edge.source); }
+        if (!nodeIds.has(edge.target)) { nodeIds.add(edge.target); next.add(edge.target); }
+      }
+      if (!next.size) break;
+      frontier = next;
+    }
+
+    return { nodeIds, edgeIds };
+  }, []);
+
+  useEffect(() => {
+    const clean = nodes.map(n => {
+      const data = { ...(n.data as any) };
+      delete data.edgeHighlighted;
+      delete data.dimmed;
+      return { ...n, data };
+    });
     localStorage.setItem(STORAGE_NODES, JSON.stringify(clean));
   }, [nodes]);
-  useEffect(() => { localStorage.setItem(STORAGE_EDGES, JSON.stringify(edges)); }, [edges]);
+  useEffect(() => {
+    const nodeLookup = new Map(nodes.map((node) => [node.id, node]));
+    localStorage.setItem(STORAGE_EDGES, JSON.stringify(edges.map((edge) => sanitizeEdgeForStorage(edge, nodeLookup))));
+  }, [edges, nodes]);
+  useEffect(() => {
+    localStorage.setItem(STORAGE_LANGUAGE, language);
+  }, [language]);
 
   // ── Export ────────────────────────────────────────────────────────────────
   const flowRef = useRef<HTMLDivElement>(null);
@@ -796,6 +1758,31 @@ export default function App() {
     setHistory(h => [...h.slice(-29), { nodes, edges }]);
   }, [nodes, edges]);
 
+  const onNodesChange = useCallback((changes: any[]) => {
+    const hasPositionChange = changes.some((change) => change.type === 'position');
+    if (editMode && hasPositionChange && !positionHistoryCapturedRef.current) {
+      positionHistoryCapturedRef.current = true;
+      saveHistory();
+    }
+
+    applyNodesChange(changes);
+
+    const positionSequenceFinished = changes.some(
+      (change) => change.type === 'position' && change.dragging === false,
+    );
+    if (positionSequenceFinished || !hasPositionChange) {
+      positionHistoryCapturedRef.current = false;
+    }
+  }, [applyNodesChange, editMode, saveHistory]);
+
+  const toggleDatabaseCollapse = useCallback((id: string) => {
+    saveHistory();
+    setNodes(nds => nds.map((node) => {
+      if (node.id !== id || node.type !== 'database') return node;
+      return { ...node, data: { ...node.data, collapsed: !node.data?.collapsed } };
+    }));
+  }, [saveHistory, setNodes]);
+
   const undo = useCallback(() => {
     setHistory(h => {
       if (h.length === 0) return h;
@@ -822,25 +1809,37 @@ export default function App() {
         body: JSON.stringify({ nodes, edges }),
       });
       const json = await res.json();
-      if (json.ok) alert('✓ Sparat som ursprungsdata i pilotFlow.ts');
-      else alert('Fel: ' + JSON.stringify(json));
+      if (json.ok) alert(`✓ ${t('Sparat som ursprungsdata i pilotFlow.ts')}`);
+      else alert(`Error: ${JSON.stringify(json)}`);
     } catch (e) {
-      alert('Kunde inte nå /api/save-flow — är dev-servern igång?');
+      alert(t('Kunde inte nå /api/save-flow — är dev-servern igång?'));
     }
   };
 
   const resetToDefaults = () => {
-    if (!confirm('Återställ till ursprungsdata? Alla ändringar tas bort.')) return;
+    if (!confirm(t('Återställ till ursprungsdata? Alla ändringar tas bort.'))) return;
     localStorage.removeItem(STORAGE_NODES);
     localStorage.removeItem(STORAGE_EDGES);
     setNodes(pilotNodes);
-    setEdges(pilotEdges);
+    setEdges(pilotEdges.map((edge: any) => applyEdgeVisualState(edge, 'base', pilotNodes)));
     setHistory([]);
   };
 
   const onConnect = useCallback(
-    (params: any) => { saveHistory(); setEdges(eds => addEdge({ ...params, ...defaultEdgeOptions }, eds)); },
-    [saveHistory, setEdges],
+    (params: any) => {
+      saveHistory();
+      setEdges(eds => addEdge(normalizeEdge({
+        ...params,
+        ...defaultEdgeOptions,
+        data: {
+          baseStyle: { ...defaultEdgeOptions.style },
+          baseMarkerEnd: { ...defaultEdgeOptions.markerEnd },
+          edgeStyle: 'solid',
+          pathMode: defaultEdgeOptions.type,
+        },
+      }, nodes), eds));
+    },
+    [nodes, saveHistory, setEdges],
   );
 
   const onReconnect = useCallback(
@@ -851,15 +1850,78 @@ export default function App() {
     [saveHistory, setEdges],
   );
 
-  const onSelectionChange = useCallback((elements: any) => {
-    setSelectedElements(elements);
-    const selEdge = elements.edges?.[0] ?? null;
+  const clearGraphFocus = useCallback(() => {
     setNodes(nds => nds.map(n => {
-      const highlighted = selEdge ? (n.id === selEdge.source || n.id === selEdge.target) : false;
-      if (!!(n.data as any).edgeHighlighted === highlighted) return n;
-      return { ...n, data: { ...n.data, edgeHighlighted: highlighted } };
+      if (n.type === 'lane' || n.type === 'pool') return n;
+      if (!(n.data as any).edgeHighlighted && !(n.data as any).dimmed) return n;
+      return { ...n, data: { ...n.data, edgeHighlighted: false, dimmed: false } };
     }));
-  }, [setNodes]);
+    setEdges(eds => eds.map(e => applyEdgeVisualState(e, 'base')));
+  }, [setEdges, setNodes]);
+
+  const onSelectionChange = useCallback((elements: any) => {
+    const filteredElements = {
+      nodes: (elements.nodes || []).filter((n: any) => editMode || (n.type !== 'lane' && n.type !== 'pool')),
+      edges: elements.edges || [],
+    };
+    const onlyStructuralSelection =
+      filteredElements.edges.length === 0 &&
+      filteredElements.nodes.length > 0 &&
+      filteredElements.nodes.every((node: any) => node.type === 'lane' || node.type === 'pool');
+
+    if (onlyStructuralSelection) {
+      setSelectedElements(editMode ? filteredElements : { nodes: [], edges: [] });
+      clearGraphFocus();
+      return;
+    }
+
+    setSelectedElements(filteredElements);
+
+    const pickedNodes = filteredElements.nodes
+      .filter((n: any) => n.type !== 'lane' && n.type !== 'pool')
+      .map((n: any) => n.id);
+    const pickedEdgeIds = new Set(filteredElements.edges.map((e: any) => e.id));
+
+    const nodeIds = new Set<string>();
+    const edgeIds = new Set<string>();
+
+    if (pickedNodes.length > 0) {
+      const related = collectRelatedGraph(pickedNodes, 1);
+      related.nodeIds.forEach(id => nodeIds.add(id));
+      related.edgeIds.forEach(id => edgeIds.add(id));
+    }
+
+    if (pickedEdgeIds.size > 0) {
+      for (const edge of edgesRef.current) {
+        if (!pickedEdgeIds.has(edge.id)) continue;
+        edgeIds.add(edge.id);
+        nodeIds.add(edge.source);
+        nodeIds.add(edge.target);
+      }
+    }
+
+    const hasGraphFocus = nodeIds.size > 0 || edgeIds.size > 0;
+
+    setNodes(nds => nds.map(n => {
+      if (n.type === 'lane' || n.type === 'pool') return n;
+      const highlighted = nodeIds.has(n.id);
+      const dimmed = hasGraphFocus && !highlighted;
+      if (!!(n.data as any).edgeHighlighted === highlighted && !!(n.data as any).dimmed === dimmed) return n;
+      return { ...n, data: { ...n.data, edgeHighlighted: highlighted, dimmed } };
+    }));
+
+    setEdges(eds => eds.map(e => {
+      const mode = hasGraphFocus ? (edgeIds.has(e.id) ? 'highlight' : 'dim') : 'base';
+      return applyEdgeVisualState(e, mode);
+    }));
+  }, [clearGraphFocus, collectRelatedGraph, editMode, setEdges, setNodes]);
+
+  const onNodeClick = useCallback((_: any, node: any) => {
+    if (!editMode) return;
+    if (node.type !== 'lane' && node.type !== 'pool') return;
+    setSelectedElements({ nodes: [node], edges: [] });
+    clearGraphFocus();
+  }, [clearGraphFocus, editMode]);
 
   const addNode = (type: string) => {
     saveHistory();
@@ -868,10 +1930,12 @@ export default function App() {
       id, type,
       position: screenToFlowPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 }),
       data: {
-        label: `Ny ${type}`,
-        lane: type === 'lane' ? undefined : 'Gäst',
+        label: type === 'note' ? t('Ny annotation') : `${t('Ny')} ${type}`,
+        lane: type === 'lane' ? undefined : type === 'note' ? 'JumpYard Cloud' : 'Gäst',
         index: type === 'lane' ? nds.filter(n => n.type === 'lane').length : undefined,
         height: type === 'lane' ? '200px' : undefined,
+        tone: type === 'note' ? 'info' : undefined,
+        details: type === 'note' ? t('Kort förklaring eller öppet frågetecken.') : undefined,
       },
       zIndex: type === 'lane' ? -1 : 0,
     }]);
@@ -883,7 +1947,7 @@ export default function App() {
     setNodes(nds => [...nds, {
       id, type: 'event',
       position: screenToFlowPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 }),
-      data: { label: eventType === 'start' ? 'Start' : 'Slut', type: eventType, tags: ['main'] },
+      data: { label: eventType === 'start' ? t('Start') : t('Slut'), type: eventType, tags: ['main'] },
     }]);
   };
 
@@ -919,12 +1983,96 @@ export default function App() {
       data:   { color: '#22d3ee', dash: '3,5', w: 1.5 },
     };
     const { color, dash, w } = cfg[style];
-    setEdges(eds => eds.map(e => e.id === id ? {
-      ...e,
-      style: { strokeWidth: w, stroke: color, ...(dash ? { strokeDasharray: dash } : {}) },
-      markerEnd: { type: MarkerType.ArrowClosed, color },
-      data: { ...(e.data || {}), edgeStyle: style },
-    } : e));
+    setEdges(eds => eds.map(e => {
+      if (e.id !== id) return e;
+      const nextData: any = {
+        ...(e.data || {}),
+        edgeStyle: style,
+        baseStyle: { strokeWidth: w, stroke: color, ...(dash ? { strokeDasharray: dash } : {}) },
+        baseMarkerEnd: { type: MarkerType.ArrowClosed, color },
+      };
+      if (style === 'data') nextData.edgeKind = 'data';
+      else delete nextData.edgeKind;
+      const updated = {
+        ...e,
+        data: nextData,
+      };
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+    }));
+  };
+
+  const updateEdgePathMode = (id: string, pathMode: 'smoothstep' | 'step' | 'straight') => {
+    saveHistory();
+    setEdges(eds => eds.map(e => {
+      if (e.id !== id) return e;
+      const updated = {
+        ...e,
+        type: pathMode,
+        data: {
+          ...(e.data || {}),
+          pathMode,
+        },
+      };
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+    }));
+  };
+
+  const updateEdgeHandle = (id: string, side: 'sourceHandle' | 'targetHandle', handleId: string) => {
+    saveHistory();
+    setEdges(eds => eds.map(e => {
+      if (e.id !== id) return e;
+      const updated: any = {
+        ...e,
+        [side]: handleId || undefined,
+      };
+      if (!handleId) delete updated[side];
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+    }));
+  };
+
+  const updateEdgeData = (id: string, key: string, value: string) => {
+    saveHistory();
+    setEdges(eds => eds.map(e => {
+      if (e.id !== id) return e;
+      const updated = {
+        ...e,
+        data: {
+          ...(e.data || {}),
+          [key]: value,
+        },
+      };
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+    }));
+  };
+
+  const addToEdgeArray = (id: string, key: string, value: string) => {
+    saveHistory();
+    setEdges(eds => eds.map(e => {
+      if (e.id !== id) return e;
+      const updated = {
+        ...e,
+        data: {
+          ...(e.data || {}),
+          [key]: [...(((e.data || {})[key] as string[]) || []), value],
+        },
+      };
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+    }));
+  };
+
+  const removeFromEdgeArray = (id: string, key: string, index: number) => {
+    saveHistory();
+    setEdges(eds => eds.map(e => {
+      if (e.id !== id) return e;
+      const updated = {
+        ...e,
+        data: {
+          ...(e.data || {}),
+          [key]: ((((e.data || {})[key] as string[]) || []).filter((_, i) => i !== index)),
+        },
+      };
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+    }));
   };
 
   const deleteSelected = () => {
@@ -1068,7 +2216,7 @@ export default function App() {
   };
 
   const deleteLaneFn = (laneId: string) => {
-    if (!confirm('Ta bort lane? Noder i lanen finns kvar men utan lane-tillhörighet.')) return;
+    if (!confirm(t('Ta bort lane? Noder i lanen finns kvar men utan lane-tillhörighet.'))) return;
     saveHistory();
     setNodes(nds => nds.filter(n => n.id !== laneId));
   };
@@ -1097,7 +2245,7 @@ export default function App() {
   };
 
   const deletePoolFn = (poolId: string) => {
-    if (!confirm('Ta bort pool? Lanes och noder påverkas inte.')) return;
+    if (!confirm(t('Ta bort pool? Lanes och noder påverkas inte.'))) return;
     saveHistory();
     setNodes(nds => nds.filter(n => n.id !== poolId));
   };
@@ -1280,6 +2428,37 @@ export default function App() {
     ? ((selectedEdge.data as any)?.edgeStyle ??
        ((selectedEdge.style as any)?.strokeDasharray ? 'dashed' : 'solid'))
     : 'solid';
+  const edgePathMode: 'smoothstep' | 'step' | 'straight' = selectedEdge
+    ? (((selectedEdge.data as any)?.pathMode || selectedEdge.type || 'smoothstep') as 'smoothstep' | 'step' | 'straight')
+    : 'smoothstep';
+
+  const displayNodes = nodes.map((node) => {
+    const data = localizeValue(node.data, language) as any;
+    data.layoutSelected =
+      editMode &&
+      selectedElements.edges.length === 0 &&
+      selectedElements.nodes.some((selectedNode) => selectedNode.id === node.id && (selectedNode.type === 'lane' || selectedNode.type === 'pool'));
+    data.editMode = editMode;
+    if (node.type === 'database') {
+      data.onToggleCollapse = () => toggleDatabaseCollapse(node.id);
+      data.expandLabel = t('Fäll ut');
+      data.collapseLabel = t('Fäll ihop');
+      data.expandHint = t('Visa lagrad data');
+    }
+    if (node.type === 'pool') {
+      return { ...node, data, draggable: !!data.layoutSelected, selectable: editMode, selected: false, zIndex: -2 };
+    }
+    if (node.type === 'lane') {
+      return { ...node, data, draggable: !!data.layoutSelected, selectable: editMode, selected: false, zIndex: -1 };
+    }
+    return { ...node, data, draggable: editMode };
+  });
+
+  const displayEdges = edges.map((edge) => (
+    typeof edge.label === 'string'
+      ? { ...edge, label: t(edge.label) }
+      : edge
+  ));
 
   return (
     <div className="bg-background text-on-surface font-manrope selection:bg-primary selection:text-white min-h-screen flex flex-col">
@@ -1288,41 +2467,56 @@ export default function App() {
       <header className="fixed top-0 w-full flex justify-between items-center px-8 h-20 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5 z-50 gap-4">
         <div className="flex items-center gap-6 min-w-0">
           <span className="text-2xl font-black italic epilogue text-white uppercase tracking-widest shrink-0">
-            JUMP_YARD<span className="text-primary">_BPMN</span>
+            JUMPYARD<span className="text-primary">_BPMN</span>
           </span>
-          <nav className="hidden md:flex gap-6">
-            <a className="text-[#ff8e7d] font-bold italic epilogue border-b-2 border-[#ff8e7d] pb-1 tracking-tighter whitespace-nowrap" href="#">Mobil pilot v1</a>
-            <a className="text-white/30 font-medium cursor-not-allowed whitespace-nowrap" href="#" onClick={e => e.preventDefault()}>Nuläge idag</a>
-            <a className="text-white/30 font-medium cursor-not-allowed whitespace-nowrap" href="#" onClick={e => e.preventDefault()}>Framtida förlängning</a>
-          </nav>
+          <div className="hidden md:block text-[#ff8e7d] font-bold italic epilogue border-b-2 border-[#ff8e7d] pb-1 tracking-tighter whitespace-nowrap">
+            {t('Gemensamt WebApp-flöde')}
+          </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 p-1">
+            <button
+              onClick={() => setLanguage('sv')}
+              title={t('Byt språk')}
+              className={`rounded px-2 py-1 text-[10px] font-black tracking-widest transition-colors ${language === 'sv' ? 'bg-white text-[#0e0e0e]' : 'text-white/55 hover:text-white hover:bg-white/10'}`}
+            >
+              SV
+            </button>
+            <button
+              onClick={() => setLanguage('en')}
+              title={t('Byt språk')}
+              className={`rounded px-2 py-1 text-[10px] font-black tracking-widest transition-colors ${language === 'en' ? 'bg-white text-[#0e0e0e]' : 'text-white/55 hover:text-white hover:bg-white/10'}`}
+            >
+              EN
+            </button>
+          </div>
+
           <button
             onClick={() => setEditMode(m => !m)}
-            title={editMode ? 'Byt till visningsläge' : 'Byt till redigeringsläge'}
+            title={editMode ? t('Byt till visningsläge') : t('Byt till redigeringsläge')}
             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded border transition-all ${editMode ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/60 hover:text-white hover:bg-white/10'}`}
           >
-            {editMode ? <Pencil className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-            {editMode ? 'Redigera' : 'Visa'}
+            {editMode ? <Eye className="w-3.5 h-3.5" /> : <Pencil className="w-3.5 h-3.5" />}
+            {editMode ? t('Visa') : t('Redigera')}
           </button>
 
           {editMode && (
-            <button onClick={undo} disabled={history.length === 0} title="Ångra (Ctrl+Z)"
+            <button onClick={undo} disabled={history.length === 0} title={t('Ångra (Ctrl+Z)')}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all">
-              <Undo2 className="w-3.5 h-3.5" />Ångra
+              <Undo2 className="w-3.5 h-3.5" />{t('Ångra')}
             </button>
           )}
 
           {editMode && (
-            <button onClick={saveAsDefault} title="Spara nuläge som ursprungsdata i källkoden"
+            <button onClick={saveAsDefault} title={t('Spara nuläge som ursprungsdata i källkoden')}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all">
-              Spara som standard
+              {t('Spara som standard')}
             </button>
           )}
 
           {editMode && (
-            <button onClick={resetToDefaults} title="Återställ till ursprungsdata"
+            <button onClick={resetToDefaults} title={t('Återställ till ursprungsdata')}
               className="p-2 rounded border border-white/10 bg-white/5 text-white/40 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/10 transition-all">
               <RotateCcw className="w-3.5 h-3.5" />
             </button>
@@ -1335,20 +2529,20 @@ export default function App() {
             }}
             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded border transition-all ${walkActive ? 'bg-orange-500/20 border-orange-400 text-orange-400' : 'bg-white/5 border-white/10 text-white/60 hover:text-white hover:bg-white/10'}`}
           >
-            {walkActive ? '⏹ Stoppa' : '▶ Kör igenom'}
+            {walkActive ? `⏹ ${t('Stoppa')}` : `▶ ${t('Kör igenom')}`}
           </button>
 
           <div className="w-px h-6 bg-white/10 mx-1" />
 
           <div className="px-3 py-1 bg-green-500/20 text-green-500 border border-green-500/30 text-[10px] font-bold uppercase tracking-widest rounded flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            {localStorage.getItem(STORAGE_NODES) ? 'Lokalt sparat' : 'Live Draft'}
+            {localStorage.getItem(STORAGE_NODES) ? t('Lokalt sparat') : t('Live Draft')}
           </div>
           <div className="flex items-center gap-1 border border-white/10 rounded px-1 py-0.5">
             <button
               onClick={exportToPng}
               disabled={exporting !== null}
-              title="Exportera som PNG"
+              title={t('Exportera som PNG')}
               className="flex items-center gap-1 px-2 py-1 text-[10px] font-bold text-white/50 hover:text-white hover:bg-white/5 rounded transition-all disabled:opacity-40"
             >
               <Download className="w-3 h-3" />PNG
@@ -1357,19 +2551,17 @@ export default function App() {
             <button
               onClick={exportToPdf}
               disabled={exporting !== null}
-              title="Exportera som PDF"
+              title={t('Exportera som PDF')}
               className="flex items-center gap-1 px-2 py-1 text-[10px] font-bold text-white/50 hover:text-white hover:bg-white/5 rounded transition-all disabled:opacity-40"
             >
               <Download className="w-3 h-3" />PDF
             </button>
           </div>
-          <button className="p-2 hover:bg-white/5 transition-all duration-300 rounded-full"><Bell className="text-white/70 w-5 h-5" /></button>
-          <button className="p-2 hover:bg-white/5 transition-all duration-300 rounded-full"><User className="text-white/70 w-5 h-5" /></button>
         </div>
       </header>
 
       {/* ── Selected-edge highlight CSS ── */}
-      <style>{`.react-flow__edge.selected .react-flow__edge-path { stroke: #ff8e7d !important; stroke-width: 3px !important; filter: drop-shadow(0 0 4px rgba(255,142,125,0.6)); }`}</style>
+      <style>{`.react-flow__edge.selected .react-flow__edge-path { stroke-width: 3px !important; filter: drop-shadow(0 0 6px rgba(255,255,255,0.32)); }`}</style>
 
       {/* ── Lanes panel ── */}
       {editMode && lanesPanelOpen && (
@@ -1378,15 +2570,15 @@ export default function App() {
             <button
               onClick={() => setLanesPanelOpen(false)}
               className="absolute top-2 right-4 text-white/30 hover:text-white text-lg leading-none px-2 py-1 rounded hover:bg-white/5 transition-all"
-              title="Stäng"
+              title={t('Stäng')}
             >×</button>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">Lanes</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">{t('Lanes')}</span>
               <button
                 onClick={addLaneFn}
                 className="flex items-center gap-1 px-2 py-1 text-xs font-bold rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all"
               >
-                + Lägg till lane
+                + {t('Lägg till lane')}
               </button>
             </div>
             <div className="space-y-1">
@@ -1402,17 +2594,18 @@ export default function App() {
                   onResize={(h) => updateLaneHeight(lane.id, h)}
                   pools={sortedPools}
                   onMoveToPool={(newPoolId) => moveLaneToPool(lane.id, newPoolId)}
+                  language={language}
                 />
               ))}
             </div>
             {/* Pool management */}
             <div className="mt-3 pt-3 border-t border-white/10">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">Pooler</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">{t('Pooler')}</span>
                 <button
                   onClick={addPoolFn}
                   className="flex items-center gap-1 px-2 py-1 text-xs font-bold rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all"
-                >+ Lägg till pool</button>
+                >+ {t('Lägg till pool')}</button>
               </div>
               <div className="space-y-1">
                 {sortedPools.map((pool, idx) => (
@@ -1425,6 +2618,7 @@ export default function App() {
                     onRename={name => renamePoolFn(pool.id, name)}
                     onDelete={() => deletePoolFn(pool.id)}
                     onAddLane={() => addLaneToPool(pool.id)}
+                    language={language}
                   />
                 ))}
               </div>
@@ -1439,9 +2633,10 @@ export default function App() {
       >
         <div className="flex-1 relative" ref={flowRef}>
           <ReactFlow
-            nodes={nodes} edges={edges}
+            nodes={displayNodes} edges={displayEdges}
             onNodesChange={onNodesChange} onEdgesChange={onEdgesChange}
             onConnect={onConnect} onSelectionChange={onSelectionChange}
+            onNodeClick={onNodeClick}
             onReconnect={editMode ? onReconnect : undefined}
 
             nodeTypes={nodeTypes} defaultEdgeOptions={defaultEdgeOptions}
@@ -1452,36 +2647,70 @@ export default function App() {
             elementsSelectable={true}
             fitView fitViewOptions={{ padding: 0.2 }}
             minZoom={0.1} maxZoom={2}
-            className="bg-transparent"
+            className="bg-[#707070]"
           >
-            <Background color="#555555" gap={20} size={1.5} opacity={0.35} />
+            <Background color="#9a9a9a" gap={20} size={1.5} opacity={0.25} />
             <Controls className="bg-[#1a1a1a] border-white/10 fill-white" showInteractive={false} />
             <ViewportTracker onUpdate={onViewportUpdate} />
 
             {editMode && (
               <Panel position="top-left" className="bg-[#1a1a1a] p-2 rounded-lg border border-white/10 shadow-xl m-4 flex gap-2 flex-wrap">
-                <button onClick={() => addEventNode('start')} className="px-3 py-1.5 bg-green-500/10 hover:bg-green-500/20 text-green-400 border border-green-500/30 text-xs font-bold rounded transition-colors">● Start</button>
-                <button onClick={() => addEventNode('end')}   className="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-bold rounded transition-colors">● Stop</button>
+                <button onClick={() => addEventNode('start')} className="px-3 py-1.5 bg-green-500/10 hover:bg-green-500/20 text-green-400 border border-green-500/30 text-xs font-bold rounded transition-colors">● {t('Start')}</button>
+                <button onClick={() => addEventNode('end')}   className="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-bold rounded transition-colors">● {t('Slut')}</button>
                 <div className="w-px bg-white/10 self-stretch mx-1" />
-                <button onClick={() => addNode('task')}     className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ Task</button>
-                <button onClick={() => addNode('gateway')}  className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ Gateway</button>
-                <button onClick={() => addNode('database')} className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ DB</button>
+                <button onClick={() => addNode('task')}     className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ {t('Task')}</button>
+                <button onClick={() => addNode('gateway')}  className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ {t('Gateway')}</button>
+                <button onClick={() => addNode('database')} className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ {t('DB')}</button>
+                <button onClick={() => addNode('note')}     className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ {t('Note')}</button>
                 <button
                   onClick={() => setLanesPanelOpen(v => !v)}
                   className={`px-3 py-1.5 text-xs font-bold rounded transition-colors border ${lanesPanelOpen ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 hover:bg-white/10 text-white'}`}
-                >☰ Lanes</button>
+                >☰ {t('Lanes')}</button>
                 <button
                   onClick={() => setDatakravOpen(v => !v)}
                   className={`px-3 py-1.5 text-xs font-bold rounded transition-colors border ${datakravOpen ? 'bg-[#ff8e7d]/20 border-[#ff8e7d] text-[#ff8e7d]' : 'bg-white/5 border-white/10 hover:bg-white/10 text-white'}`}
-                >⚡ Datakrav</button>
+                >⚡ {t('Arkitektur / Ops')}</button>
               </Panel>
             )}
+
+            <Panel position="bottom-left" className="m-4 rounded-lg border border-white/10 bg-[#131313]/90 px-3 py-2 shadow-xl backdrop-blur-sm pointer-events-none">
+              <div className="text-[10px] font-black uppercase tracking-widest text-white/35">{t('Legend')}</div>
+              <div className="mt-2 space-y-1.5">
+                <div className="flex items-center gap-2 text-[10px] text-white/65">
+                  <span className="block w-6 border-t-2 border-[#ff8e7d]" />
+                  {t('Primärt användarflöde')}
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-white/65">
+                  <span className="block w-6 border-t-2 border-cyan-400" style={{ borderTopStyle: 'dashed' }} />
+                  {t('Dataflöde: läs, skriv och lagra')}
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-white/65">
+                  <span className="block w-6 border-t-2 border-slate-400" style={{ borderTopStyle: 'dashed' }} />
+                  {t('Arkitekturkoppling / beroende')}
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-white/65">
+                  <span className="block w-6 border-t-2 border-violet-400" style={{ borderTopStyle: 'dashed' }} />
+                  {t('På plats, kiosk och fallback')}
+                </div>
+                <div className="text-[10px] text-amber-200/85">{t('Gula notes = måste verifieras med Joao')}</div>
+              </div>
+            </Panel>
 
             <MiniMap
               nodeColor={node => {
                 if (node.type === 'gateway') return '#ff8e7d';
-                if (node.type === 'database') return '#555';
+                if (node.type === 'database') return node.data.future ? '#64748b' : '#0891b2';
                 if (node.type === 'event') return node.data.type === 'start' ? '#22c55e' : '#ef4444';
+                if (node.type === 'zone') return node.data.theme === 'future' ? '#64748b' : node.data.theme === 'architecture' ? '#334155' : node.data.theme === 'ops' ? '#166534' : '#0f766e';
+                if (node.type === 'note') {
+                  if (node.data.tone === 'warning') return '#fbbf24';
+                  if (node.data.tone === 'system') return '#fb923c';
+                  if (node.data.tone === 'guide') return '#94a3b8';
+                  return '#22d3ee';
+                }
+                if (node.data?.archCategory === 'job') return '#16a34a';
+                if (node.data?.archCategory === 'aws') return '#0ea5e9';
+                if (node.data?.archCategory === 'roller') return '#f97316';
                 return '#333';
               }}
               maskColor="rgba(0, 0, 0, 0.7)"
@@ -1493,6 +2722,7 @@ export default function App() {
 
           {walkActive && (() => {
             const talkNode = walkPhase === 'idle' ? nodes.find(n => n.id === walkCurrentId) : null;
+            const talkNodeData = talkNode ? localizeValue(talkNode.data, language) : null;
             const charX = charFlowPos.x * viewport.zoom + viewport.x;
             const charY = charFlowPos.y * viewport.zoom + viewport.y;
             return (
@@ -1501,10 +2731,10 @@ export default function App() {
                   {talkNode && (
                     <div className="relative mb-2 w-52 bg-white text-gray-900 rounded-xl shadow-2xl border border-gray-100 p-3 text-xs">
                       <div className="font-black text-[10px] uppercase tracking-wider mb-1.5" style={{ color: '#ff8e7d' }}>
-                        {String(talkNode.data.label)}
+                        {String(talkNodeData?.label)}
                       </div>
                       <div className="text-gray-700 leading-relaxed">
-                        {String((talkNode.data as any).details || (talkNode.data as any).note || talkNode.data.label)}
+                        {String((talkNodeData as any)?.details || (talkNodeData as any)?.note || talkNodeData?.label)}
                       </div>
                       <div className="absolute top-full left-1/2 -translate-x-1/2"
                         style={{ width: 0, height: 0, borderLeft: '7px solid transparent', borderRight: '7px solid transparent', borderTop: '7px solid white' }} />
@@ -1513,11 +2743,113 @@ export default function App() {
                   <div className="flex justify-center">
                     <PixelChar frame={walkPhase === 'walking' ? WALK_FRAMES[walkFrame] : SPRITE_STAND} />
                   </div>
+                  {false && (
+                  <>
+                  <div>
+                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Routing')}</label>
+                    <div className="grid grid-cols-3 gap-1">
+                      <button
+                        onClick={() => updateEdgePathMode(selectedEdge.id, 'smoothstep')}
+                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'smoothstep' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                      >
+                        Smooth
+                      </button>
+                      <button
+                        onClick={() => updateEdgePathMode(selectedEdge.id, 'step')}
+                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'step' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                      >
+                        Step
+                      </button>
+                      <button
+                        onClick={() => updateEdgePathMode(selectedEdge.id, 'straight')}
+                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'straight' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                      >
+                        Straight
+                      </button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Från handle')}</label>
+                      <select
+                        value={selectedEdge.sourceHandle || ''}
+                        onChange={e => updateEdgeHandle(selectedEdge.id, 'sourceHandle', e.target.value)}
+                        className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
+                      >
+                        {getHandleOptionsForNode(selectedEdgeSourceNode).map((option) => (
+                          <option key={option.value || 'auto'} value={option.value}>{option.label}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Till handle')}</label>
+                      <select
+                        value={selectedEdge.targetHandle || ''}
+                        onChange={e => updateEdgeHandle(selectedEdge.id, 'targetHandle', e.target.value)}
+                        className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
+                      >
+                        {getHandleOptionsForNode(selectedEdgeTargetNode).map((option) => (
+                          <option key={option.value || 'auto'} value={option.value}>{option.label}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Routing')}</label>
+                    <div className="grid grid-cols-3 gap-1">
+                      <button
+                        onClick={() => updateEdgePathMode(selectedEdge.id, 'smoothstep')}
+                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'smoothstep' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                      >
+                        Smooth
+                      </button>
+                      <button
+                        onClick={() => updateEdgePathMode(selectedEdge.id, 'step')}
+                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'step' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                      >
+                        Step
+                      </button>
+                      <button
+                        onClick={() => updateEdgePathMode(selectedEdge.id, 'straight')}
+                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'straight' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                      >
+                        Straight
+                      </button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Från handle')}</label>
+                      <select
+                        value={selectedEdge.sourceHandle || ''}
+                        onChange={e => updateEdgeHandle(selectedEdge.id, 'sourceHandle', e.target.value)}
+                        className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
+                      >
+                        {getHandleOptionsForNode(selectedEdgeSourceNode).map((option) => (
+                          <option key={option.value || 'auto'} value={option.value}>{option.label}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Till handle')}</label>
+                      <select
+                        value={selectedEdge.targetHandle || ''}
+                        onChange={e => updateEdgeHandle(selectedEdge.id, 'targetHandle', e.target.value)}
+                        className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
+                      >
+                        {getHandleOptionsForNode(selectedEdgeTargetNode).map((option) => (
+                          <option key={option.value || 'auto'} value={option.value}>{option.label}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  </>
+                  )}
                 </div>
                 {/* Hint overlay */}
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 items-center">
                   <div className="bg-black/70 text-white/60 text-[10px] font-bold px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-sm">
-                    Håll <kbd className="text-white">→</kbd> för att gå · <kbd className="text-white">←</kbd> för att backa
+                    {t('Håll')} <kbd className="text-white">→</kbd> {t('för att gå')} · <kbd className="text-white">←</kbd> {t('för att backa')}
                   </div>
                 </div>
               </div>
@@ -1532,11 +2864,11 @@ export default function App() {
             <div className="px-6 pt-6 pb-4 border-b border-white/5">
               <h2 className="text-lg font-epilogue italic font-black text-white">
                 {selectedNode
-                  ? (selectedNode.data.label || (selectedNode.type === 'lane' ? 'Lane' : 'Nod'))
-                  : 'Kant'}
+                  ? selectedNodeViewLabel
+                  : t('Kant')}
               </h2>
-              {selectedNode?.data.note && (
-                <p className="text-xs text-white/40 mt-1 leading-relaxed">{selectedNode.data.note}</p>
+              {selectedNodeViewData?.note && (
+                <p className="text-xs text-white/40 mt-1 leading-relaxed">{selectedNodeViewData.note}</p>
               )}
             </div>
 
@@ -1546,7 +2878,7 @@ export default function App() {
               {editMode && multiSel.length >= 2 && (
                 <div className="pb-4 border-b border-white/5 space-y-3">
                   <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">
-                    Justera ({multiSel.length} markerade)
+                    {`${t('Justera')} (${multiSel.length} ${t('markerade')})`}
                   </p>
 
                   {/* Align row */}
@@ -1559,7 +2891,7 @@ export default function App() {
                       ['centerV', '↕', '↕', 'Centrera vertikalt'],
                       ['bottom',  '⊥', '↓', 'Bottenjustera'],
                     ] as const).map(([key, , icon, title]) => (
-                      <button key={key} onClick={() => alignNodes(key as any)} title={title}
+                      <button key={key} onClick={() => alignNodes(key as any)} title={t(title)}
                         className="py-1.5 text-sm bg-white/5 hover:bg-white/15 text-white/70 hover:text-white rounded border border-white/10 transition-colors flex items-center justify-center">
                         {icon}
                       </button>
@@ -1576,20 +2908,20 @@ export default function App() {
                   {/* Distribute + snap */}
                   <div className="grid grid-cols-2 gap-1">
                     <button onClick={() => distributeNodes('h')} disabled={multiSel.length < 3}
-                      title="Fördela jämnt horisontellt"
+                      title={t('Fördela jämnt horisontellt')}
                       className="py-1.5 text-xs font-bold bg-white/5 hover:bg-white/15 text-white/60 hover:text-white rounded border border-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-                      Fördela ↔
+                      {t('Fördela ↔')}
                     </button>
                     <button onClick={() => distributeNodes('v')} disabled={multiSel.length < 3}
-                      title="Fördela jämnt vertikalt"
+                      title={t('Fördela jämnt vertikalt')}
                       className="py-1.5 text-xs font-bold bg-white/5 hover:bg-white/15 text-white/60 hover:text-white rounded border border-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-                      Fördela ↕
+                      {t('Fördela ↕')}
                     </button>
                   </div>
                   <button onClick={snapToLane}
-                    title="Centrera markerade noder vertikalt i sin lane"
+                    title={t('Centrera markerade noder vertikalt i sin lane')}
                     className="w-full py-1.5 text-xs font-bold bg-white/5 hover:bg-white/15 text-white/60 hover:text-white rounded border border-white/10 transition-colors">
-                    Centrera i lane ↕
+                    {t('Centrera i lane ↕')}
                   </button>
                 </div>
               )}
@@ -1597,24 +2929,24 @@ export default function App() {
               {/* ── Label / lane edit ── */}
               {editMode && selectedNode && (
                 <div className="space-y-3 pb-4 border-b border-white/5">
-                  <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">Redigera</p>
+                  <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">{t('Redigera')}</p>
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">Label</label>
+                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Label')}</label>
                     <input type="text" value={selectedNode.data.label || ''}
                       onChange={e => updateNodeData(selectedNode.id, 'label', e.target.value)}
                       className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none" />
                   </div>
                   {selectedNode.type !== 'lane' && (
                     <div>
-                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">Lane</label>
+                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Lane')}</label>
                       <select
                         value={String(selectedNode.data.lane || '')}
                         onChange={e => updateNodeData(selectedNode.id, 'lane', e.target.value)}
                         className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
                       >
-                        <option value="">— välj lane —</option>
+                        <option value="">{t('— välj lane —')}</option>
                         {nodes.filter(n => n.type === 'lane').map(l => (
-                          <option key={l.id} value={String(l.data.label)}>{String(l.data.label)}</option>
+                          <option key={l.id} value={String(l.data.label)}>{t(String(l.data.label))}</option>
                         ))}
                       </select>
                     </div>
@@ -1625,99 +2957,167 @@ export default function App() {
               {/* ── Edge edit ── */}
               {editMode && selectedEdge && (
                 <div className="space-y-3 pb-4 border-b border-white/5">
-                  <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">Redigera kant</p>
+                  <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">{t('Redigera kant')}</p>
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">Label</label>
+                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Label')}</label>
                     <input type="text" value={typeof selectedEdge.label === 'string' ? selectedEdge.label : ''}
                       onChange={e => updateEdgeLabel(selectedEdge.id, e.target.value)}
                       className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none" />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">Kanttyp</label>
+                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Kanttyp')}</label>
                     <div className="grid grid-cols-3 gap-1">
                       <button onClick={() => updateEdgeStyle(selectedEdge.id, 'solid')}
                         className={`py-1.5 text-xs font-bold rounded border transition-all ${edgeStyle === 'solid' ? 'bg-[#ff8e7d]/20 border-[#ff8e7d] text-[#ff8e7d]' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}>
-                        ——<br/><span className="text-[9px]">Process</span>
+                        ——<br/><span className="text-[9px]">{t('Process')}</span>
                       </button>
                       <button onClick={() => updateEdgeStyle(selectedEdge.id, 'dashed')}
                         className={`py-1.5 text-xs font-bold rounded border transition-all ${edgeStyle === 'dashed' ? 'bg-[#8b5cf6]/20 border-[#8b5cf6] text-[#8b5cf6]' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}>
-                        - -<br/><span className="text-[9px]">Fallback</span>
+                        - -<br/><span className="text-[9px]">{t('Fallback')}</span>
                       </button>
                       <button onClick={() => updateEdgeStyle(selectedEdge.id, 'data')}
                         className={`py-1.5 text-xs font-bold rounded border transition-all ${edgeStyle === 'data' ? 'bg-cyan-500/20 border-cyan-400 text-cyan-400' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}>
-                        ···<br/><span className="text-[9px]">Data</span>
+                        ···<br/><span className="text-[9px]">{t('Data')}</span>
                       </button>
                     </div>
                   </div>
+                  <EdgeMeta edge={selectedEdge} sourceLabel={selectedEdgeSourceLabel} targetLabel={selectedEdgeTargetLabel} language={language} />
+                  {getEdgeCategory(selectedEdge) === 'data' && (
+                    <>
+                      <div>
+                        <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Dataflöde')}</label>
+                        <textarea value={String(selectedEdge.data?.details || '')}
+                          onChange={e => updateEdgeData(selectedEdge.id, 'details', e.target.value)}
+                          rows={3}
+                          className="w-full text-xs text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none resize-none" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Operation')}</label>
+                        <input
+                          type="text"
+                          value={String(selectedEdge.data?.operation || '')}
+                          onChange={e => updateEdgeData(selectedEdge.id, 'operation', e.target.value)}
+                          className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
+                        />
+                      </div>
+                      <ArrayField
+                        label={t('Hämtar / skriver')}
+                        items={((selectedEdge.data?.fields as string[]) || [])}
+                        onAdd={(value) => addToEdgeArray(selectedEdge.id, 'fields', value)}
+                        onRemove={(index) => removeFromEdgeArray(selectedEdge.id, 'fields', index)}
+                        placeholder={t('Lägg till fält...')}
+                      />
+                      <div>
+                        <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Varför flödet finns')}</label>
+                        <textarea value={String(selectedEdge.data?.why || '')}
+                          onChange={e => updateEdgeData(selectedEdge.id, 'why', e.target.value)}
+                          rows={2}
+                          className="w-full text-xs text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none resize-none" />
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
 
               {/* ── Editable metadata (edit mode) ── */}
               {editMode && selectedNode && selectedNode.type !== 'lane' && (
                 <div className="space-y-4 pt-1 border-t border-white/5">
-                  <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">Metadata</p>
+                  <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">{t('Metadata')}</p>
 
                   {selectedNode.type === 'event' && (
                     <div>
-                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">Typ</label>
-                      <div className="flex gap-2">
+                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Typ')}</label>
+                      <div className="grid grid-cols-3 gap-2">
                         <button onClick={() => updateNodeData(selectedNode.id, 'type', 'start')}
                           className={`flex-1 py-1.5 text-xs font-bold rounded border transition-all ${selectedNode.data.type === 'start' ? 'bg-green-500/20 border-green-500 text-green-400' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}>
-                          ● Start
+                          ● {t('Start')}
+                        </button>
+                        <button onClick={() => updateNodeData(selectedNode.id, 'type', 'intermediate')}
+                          className={`flex-1 py-1.5 text-xs font-bold rounded border transition-all ${selectedNode.data.type === 'intermediate' ? 'bg-yellow-500/20 border-yellow-500 text-yellow-300' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}>
+                          ● {t('Mellan')}
                         </button>
                         <button onClick={() => updateNodeData(selectedNode.id, 'type', 'end')}
                           className={`flex-1 py-1.5 text-xs font-bold rounded border transition-all ${selectedNode.data.type === 'end' ? 'bg-red-500/20 border-red-500 text-red-400' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}>
-                          ● Stop
+                          ● {t('Slut')}
                         </button>
                       </div>
                     </div>
                   )}
 
+                  {selectedNode.type === 'note' && (
+                    <div>
+                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Ton')}</label>
+                      <div className="grid grid-cols-4 gap-1">
+                        {[
+                          ['guide', 'Guide'],
+                          ['info', 'Cloud'],
+                          ['warning', 'Fraga'],
+                          ['system', 'System'],
+                        ].map(([tone, label]) => (
+                          <button
+                            key={tone}
+                            onClick={() => updateNodeData(selectedNode.id, 'tone', tone)}
+                            className={`py-1.5 text-[10px] font-bold rounded border transition-all ${
+                              selectedNode.data.tone === tone
+                                ? 'bg-white/15 border-white/25 text-white'
+                                : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'
+                            }`}
+                          >
+                            {t(label)}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">Beskrivning</label>
+                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Beskrivning')}</label>
                     <textarea value={(selectedNode.data as any).details || ''}
                       onChange={e => updateNodeData(selectedNode.id, 'details', e.target.value)}
-                      rows={3} placeholder="Beskriv vad steget gör..."
+                      rows={3} placeholder={t('Beskriv vad steget gör...')}
                       className="w-full text-xs text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none resize-none" />
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">Varför noden finns</label>
+                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Varför noden finns')}</label>
                     <textarea value={(selectedNode.data as any).why || ''}
                       onChange={e => updateNodeData(selectedNode.id, 'why', e.target.value)}
-                      rows={2} placeholder="Motivering..."
+                      rows={2} placeholder={t('Motivering...')}
                       className="w-full text-xs text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none resize-none" />
                   </div>
 
-                  <ArrayField label="System"
+                  <ArrayField label={t('System')}
                     items={(selectedNode.data as any).systems || []}
                     onAdd={v => addToNodeArray(selectedNode.id, 'systems', v)}
                     onRemove={i => removeFromNodeArray(selectedNode.id, 'systems', i)}
-                    placeholder="Lägg till system..." />
+                    placeholder={t('Lägg till system...')} />
 
-                  <ArrayField label="Risker"
+                  <ArrayField label={t('Risker')}
                     items={(selectedNode.data as any).risks || []}
                     onAdd={v => addToNodeArray(selectedNode.id, 'risks', v)}
                     onRemove={i => removeFromNodeArray(selectedNode.id, 'risks', i)}
-                    placeholder="Lägg till risk..." />
+                    placeholder={t('Lägg till risk...')} />
 
-                  <ArrayField label="Källor"
+                  <ArrayField label={t('Källor')}
                     items={(selectedNode.data as any).sources || []}
                     onAdd={v => addToNodeArray(selectedNode.id, 'sources', v)}
                     onRemove={i => removeFromNodeArray(selectedNode.id, 'sources', i)}
-                    placeholder="Lägg till källa..." />
+                    placeholder={t('Lägg till källa...')} />
                 </div>
               )}
 
               {/* ── Read-only metadata (view mode) ── */}
-              {!editMode && selectedNode && <NodeMeta data={selectedNode.data as any} />}
+              {!editMode && selectedEdge && (
+                <EdgeMeta edge={{ ...selectedEdge, data: selectedEdgeViewData || selectedEdge.data }} sourceLabel={selectedEdgeSourceLabel} targetLabel={selectedEdgeTargetLabel} language={language} />
+              )}
+              {!editMode && !selectedEdge && selectedNodeViewData && <NodeMeta data={selectedNodeViewData as any} language={language} />}
 
               {/* ── Delete ── */}
               {editMode && (
                 <div className="pt-2 border-t border-white/5">
                   <button onClick={deleteSelected}
                     className="w-full py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/30 text-xs font-bold rounded transition-colors">
-                    Ta bort markerade
+                    {t('Ta bort markerade')}
                   </button>
                 </div>
               )}
@@ -1726,7 +3126,67 @@ export default function App() {
         )}
       </div>
 
-      {datakravOpen && <DataKravPanel onClose={() => setDatakravOpen(false)} />}
+      {false && editMode && selectedEdge && (
+        <div className="fixed right-[21rem] top-24 z-40 w-72 rounded-xl border border-white/10 bg-[#111111]/96 p-4 shadow-2xl backdrop-blur-xl">
+          <div className="text-[10px] font-black uppercase tracking-widest text-primary/70">{t('Pilar & routing')}</div>
+          <div className="mt-3 space-y-3">
+            <div>
+              <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Routing')}</label>
+              <div className="grid grid-cols-3 gap-1">
+                <button
+                  onClick={() => updateEdgePathMode(selectedEdge.id, 'smoothstep')}
+                  className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'smoothstep' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                >
+                  {t('Smooth')}
+                </button>
+                <button
+                  onClick={() => updateEdgePathMode(selectedEdge.id, 'step')}
+                  className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'step' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                >
+                  {t('Step')}
+                </button>
+                <button
+                  onClick={() => updateEdgePathMode(selectedEdge.id, 'straight')}
+                  className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'straight' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                >
+                  {t('Straight')}
+                </button>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Från handle')}</label>
+                <select
+                  value={selectedEdge.sourceHandle || ''}
+                  onChange={e => updateEdgeHandle(selectedEdge.id, 'sourceHandle', e.target.value)}
+                  className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
+                >
+                  {getHandleOptionsForNode(selectedEdgeSourceNode).map((option) => (
+                    <option key={option.value || 'auto'} value={option.value}>{t(option.label)}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Till handle')}</label>
+                <select
+                  value={selectedEdge.targetHandle || ''}
+                  onChange={e => updateEdgeHandle(selectedEdge.id, 'targetHandle', e.target.value)}
+                  className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
+                >
+                  {getHandleOptionsForNode(selectedEdgeTargetNode).map((option) => (
+                    <option key={option.value || 'auto'} value={option.value}>{t(option.label)}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="text-[10px] leading-relaxed text-white/45">
+              {t('Tips: välj annan handle eller routingtyp för att styra hur pilen lämnar och går in i noderna.')}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {datakravOpen && <ArchitecturePanel onClose={() => setDatakravOpen(false)} language={language} nodes={nodes} />}
     </div>
   );
 }
