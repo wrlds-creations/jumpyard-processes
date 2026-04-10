@@ -519,6 +519,12 @@ const ROLLER_API_REFERENCES: Record<string, RollerApiReference> = {
     docLabel: 'Dokumentation',
     docStatus: 'official',
   },
+  'Create a booking': {
+    name: 'Create a booking',
+    docUrl: 'https://docs.roller.app/docs/rest-api/5703708522c6b-create-a-booking',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
   'Redeem tickets': {
     name: 'Redeem tickets',
     docUrl: 'https://docs.roller.app/docs/rest-api/fb1d84952285f-redeem-tickets',
@@ -621,6 +627,57 @@ const ROLLER_API_STAGE_MAP = [
     stage: 'Tillägg och prisberäkning',
     endpoints: ['Get products', 'Booking costs'],
     desc: 'Stödjer val av tillägg och räknar om bokningen innan betalning eller writeback.',
+  },
+  {
+    priority: 'CRITICAL',
+    stage: 'On-site köp skapar bokning',
+    endpoints: ['Create a booking'],
+    desc: 'När gästen köper på plats måste JumpYard Cloud skapa själva bokningen i Roller, inklusive kund, items och eventuell initial betalning.',
+  },
+  {
+    priority: 'CRITICAL',
+    stage: 'Writeback till Roller',
+    endpoints: ['Edit booking', 'Add transaction record'],
+    desc: 'Lägger till produkter på befintlig bokning och registrerar extern betalning.',
+  },
+  {
+    priority: 'CRITICAL',
+    stage: 'Inlösen vid ankomst',
+    endpoints: ['Redeem tickets'],
+    desc: 'Per-ticket check-in som är den kritiska slutpunkten i pilotflödet.',
+  },
+  {
+    priority: 'HIGH',
+    stage: 'Daglig seed för snapshot och kundcache',
+    endpoints: ['Get bookings', 'Get tickets', 'Get payments', 'Get customers'],
+    desc: 'Get bookings, Get tickets och Get payments bygger dagens snapshot, medan Get customers ger lokal kundcache och telefonnummer för SMS.',
+  },
+  {
+    priority: 'LOW',
+    stage: 'Valfri off-hours reconciliation',
+    endpoints: ['Get attendance'],
+    desc: 'Get attendance kan användas för efterhandsavstämning utanför öppettid, men inte som ett aktivt jobb i pilotens dagsflöde.',
+  },
+] as const;
+
+const ROLLER_API_STAGE_MAP_CLEAN = [
+  {
+    priority: 'CRITICAL',
+    stage: 'Webhook intake och enrichment',
+    endpoints: ['Booking webhook', 'Get detail of a booking', 'Get customer detail'],
+    desc: 'Booking webhook signalerar sena bokningar och uppdateringar, medan booking- och customer-detail berikar lokal state för SMS och lookup.',
+  },
+  {
+    priority: 'CRITICAL',
+    stage: 'Tillägg och prisberäkning',
+    endpoints: ['Get products', 'Booking costs'],
+    desc: 'Stödjer val av tillägg och räknar om bokningen innan betalning eller writeback.',
+  },
+  {
+    priority: 'CRITICAL',
+    stage: 'On-site köp skapar bokning',
+    endpoints: ['Create a booking'],
+    desc: 'När gästen köper på plats måste JumpYard Cloud skapa själva bokningen i Roller, inklusive kund, items och eventuell initial betalning.',
   },
   {
     priority: 'CRITICAL',
@@ -1059,6 +1116,7 @@ const defaultEdgeOptions = {
   type: 'smoothstep',
   markerEnd: { type: MarkerType.ArrowClosed, color: '#ff8e7d' },
   style: { strokeWidth: 2, stroke: '#ff8e7d' },
+  pathOptions: { offset: 0, borderRadius: 0 },
 };
 
 function hydrateEdge(edge: any) {
@@ -1097,6 +1155,7 @@ function normalizeEdge(edge: any, nodesOrLookup?: any[] | Map<string, any>) {
     type: pathMode,
     style: { ...baseStyle },
     markerEnd: { ...baseMarkerEnd },
+    pathOptions: { offset: 0, borderRadius: 0 },
     data: {
       ...(edge?.data || {}),
       baseStyle,
@@ -1175,7 +1234,7 @@ function sanitizeEdgeForStorage(edge: any, nodesOrLookup?: any[] | Map<string, a
 
 // ─── Persistence ──────────────────────────────────────────────────────────────
 
-const FLOW_SCHEMA_VERSION = '2026-04-webhook-enrichment-v2';
+const FLOW_SCHEMA_VERSION = '2026-04-guest-lane-finish-v1';
 const STORAGE_NODES = `jy-bpmn-nodes:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_EDGES = `jy-bpmn-edges:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_LANGUAGE = 'jy-bpmn-language';
@@ -1454,7 +1513,7 @@ function DataKravPanel({ onClose, language }: { onClose: () => void; language: L
   );
 }
 
-const ROLLER_API_MAP = ROLLER_API_STAGE_MAP;
+const ROLLER_API_MAP = ROLLER_API_STAGE_MAP_CLEAN;
 
 function ArchitecturePanel({ onClose, language, nodes }: { onClose: () => void; language: Language; nodes: any[] }) {
   const t = (value: string) => translateText(value, language);
@@ -2792,6 +2851,8 @@ export default function App() {
             edgesFocusable={editMode} edgesUpdatable={editMode}
             deleteKeyCode={editMode ? ['Delete', 'Backspace'] : []}
             elementsSelectable={true}
+            multiSelectionKeyCode={['Control', 'Meta']}
+            selectionKeyCode={null}
             fitView fitViewOptions={{ padding: 0.2 }}
             minZoom={0.1} maxZoom={2}
             className="bg-[#707070]"
@@ -2819,25 +2880,6 @@ export default function App() {
                 >⚡ {t('Arkitektur / Ops')}</button>
               </Panel>
             )}
-
-            <Panel position="bottom-left" className="m-4 rounded-lg border border-white/10 bg-[#131313]/90 px-3 py-2 shadow-xl backdrop-blur-sm pointer-events-none">
-              <div className="text-[10px] font-black uppercase tracking-widest text-white/35">{t('Legend')}</div>
-              <div className="mt-2 space-y-1.5">
-                <div className="flex items-center gap-2 text-[10px] text-white/65">
-                  <span className="block w-6 border-t-2 border-[#ff8e7d]" />
-                  {t('Primärt användarflöde')}
-                </div>
-                <div className="flex items-center gap-2 text-[10px] text-white/65">
-                  <span className="block w-6 border-t-2 border-cyan-400" style={{ borderTopStyle: 'dashed' }} />
-                  {t('Dataflöde: läs, skriv och lagra')}
-                </div>
-                <div className="flex items-center gap-2 text-[10px] text-white/65">
-                  <span className="block w-6 border-t-2 border-violet-400" style={{ borderTopStyle: 'dashed' }} />
-                  {t('På plats, kiosk och fallback')}
-                </div>
-                <div className="text-[10px] text-amber-200/85">{t('Gula notes = måste verifieras med Joao')}</div>
-              </div>
-            </Panel>
 
             <MiniMap
               nodeColor={node => {
@@ -3070,6 +3112,18 @@ export default function App() {
               )}
 
               {/* ── Label / lane edit ── */}
+              {(selectedEdge || selectedNodeViewData) && (
+                <div className="space-y-4 pb-4 border-b border-white/5">
+                  {editMode && (
+                    <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">{t('Lokaliserad förhandsvisning')}</p>
+                  )}
+                  {selectedEdge && (
+                    <EdgeMeta edge={{ ...selectedEdge, data: selectedEdgeViewData || selectedEdge.data }} sourceLabel={selectedEdgeSourceLabel} targetLabel={selectedEdgeTargetLabel} language={language} />
+                  )}
+                  {!selectedEdge && selectedNodeViewData && <NodeMeta data={selectedNodeViewData as any} language={language} />}
+                </div>
+              )}
+
               {editMode && selectedNode && (
                 <div className="space-y-3 pb-4 border-b border-white/5">
                   <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">{t('Redigera')}</p>
@@ -3248,12 +3302,6 @@ export default function App() {
                     placeholder={t('Lägg till källa...')} />
                 </div>
               )}
-
-              {/* ── Read-only metadata (view mode) ── */}
-              {!editMode && selectedEdge && (
-                <EdgeMeta edge={{ ...selectedEdge, data: selectedEdgeViewData || selectedEdge.data }} sourceLabel={selectedEdgeSourceLabel} targetLabel={selectedEdgeTargetLabel} language={language} />
-              )}
-              {!editMode && !selectedEdge && selectedNodeViewData && <NodeMeta data={selectedNodeViewData as any} language={language} />}
 
               {/* ── Delete ── */}
               {editMode && (
