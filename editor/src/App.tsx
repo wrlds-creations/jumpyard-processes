@@ -137,6 +137,15 @@ const TaskNode = ({ data }: any) => {
       {data.cadence && (
         <div className="mt-2 text-[10px] font-bold uppercase tracking-wide text-white/45">{data.cadence}</div>
       )}
+      {data.channel && (
+        <div className={`mt-1.5 inline-block px-1.5 py-0.5 text-[8px] font-black uppercase tracking-widest rounded ${
+          data.channel === 'primary' ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+          : data.channel === 'fallback' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+          : 'bg-slate-500/20 text-slate-400 border border-slate-500/30'
+        }`}>
+          {data.channel === 'primary' ? 'Primary' : data.channel === 'fallback' ? 'Fallback' : 'Kiosk-only'}
+        </div>
+      )}
     </div>
   );
 };
@@ -171,59 +180,40 @@ const ServiceNode = ({ data }: any) => {
   );
 };
 
-const HIDDEN_CANVAS_NODE_IDS = new Set([
-  'aws-rdb',
-  'aws-redis',
-  'aws-s3',
-  'aws-sqs',
-  'staff-assist',
-  'staff-manual',
-  'staff-api-end',
-]);
+// View preset types and helpers
+type ViewPreset = 'all' | 'journey' | 'ops' | 'architecture' | 'future';
 
-function mergeUniqueStrings(...lists: Array<string[] | undefined>) {
-  return Array.from(
-    new Set(
-      lists.flatMap((list) => list ?? []).filter((item): item is string => Boolean(item)),
-    ),
-  );
+const VIEW_PRESET_LABELS: Record<ViewPreset, string> = {
+  all: 'Alla',
+  journey: 'Gästresa',
+  ops: 'Drift',
+  architecture: 'Arkitektur',
+  future: 'Framtid',
+};
+
+function deriveViewTags(node: any): string[] {
+  const lane = node.data?.lane || '';
+  const type = node.type;
+  if (type === 'pool' || type === 'lane' || type === 'zone') return [];
+  if (lane === 'Gäst' || lane === 'WebApp') return ['journey'];
+  if (lane === 'Staff / parkpersonal') return ['journey', 'ops'];
+  if (lane === 'Ops jobs') return ['ops'];
+  if (lane === 'AWS + Aurora') return ['architecture'];
+  if (lane === 'Roller API' || lane === 'Roller') return ['architecture'];
+  if (type === 'note') return ['journey', 'ops'];
+  if (node.data?.future) return ['architecture', 'future'];
+  return ['journey'];
 }
 
-function isCanvasHiddenNode(node: any) {
-  return HIDDEN_CANVAS_NODE_IDS.has(node?.id);
+function nodeMatchesView(node: any, view: ViewPreset): boolean {
+  if (view === 'all') return true;
+  const tags: string[] = node.data?.viewTags ?? deriveViewTags(node);
+  if (tags.length === 0) return true; // structural nodes always match
+  return tags.includes(view);
 }
 
 function getProjectedNodeData(node: any, language: Language) {
-  const t = (value: string) => translateText(value, language);
-  const data = localizeValue(node.data, language) as any;
-
-  if (node.id === 'store-snapshot') {
-    data.systems = mergeUniqueStrings(data.systems, [t('Aurora PostgreSQL'), t('S3 rå-payloads')]);
-  }
-
-  if (node.id === 'store-operational') {
-    data.systems = mergeUniqueStrings(data.systems, [t('Aurora PostgreSQL'), t('Redis (valfri i V1)'), t('SQS / EventBridge')]);
-  }
-
-  if (node.id === 'store-events') {
-    data.systems = mergeUniqueStrings(data.systems, [t('Aurora PostgreSQL'), t('S3 rå-payloads'), t('SQS / EventBridge')]);
-  }
-
-  if (node.id === 'store-future') {
-    data.future = false;
-    delete data.statusTag;
-    data.label = t('Connected experience');
-    data.summary = t('Aktiv connected-del i piloten för profiler, bandkoppling och sessionsunderlag.');
-    data.writePattern = t('Aktiv i piloten när connected valts och när staff kopplar band vid utlämning.');
-    data.systems = mergeUniqueStrings(data.systems, [t('Aurora PostgreSQL')]);
-  }
-
-  if (node.id === 'staff-handoff') {
-    data.details = t('Normal utlämning hos staff när check-in-flödet är klart.');
-    data.why = t('Staff verifierar QR-kod eller bokningskod, lämnar ut tillägg och kopplar Connected Experience-band. Om något strular kan staff falla tillbaka till dagens manuella check-in.');
-  }
-
-  return data;
+  return localizeValue(node.data, language);
 }
 
 const GatewayNode = ({ data }: any) => (
@@ -471,6 +461,68 @@ const PoolNode = ({ data }: any) => (
     </div>
   </div>
 );
+
+function Legend({ activeView, language: lang }: { activeView: ViewPreset; language: Language }) {
+  const t = (v: string) => translateText(v, lang);
+  return (
+    <div className="bg-[#1a1a1a]/95 backdrop-blur-sm border border-white/10 rounded-lg p-3 shadow-xl text-[10px] max-w-[180px]">
+      <div className="font-black uppercase tracking-widest text-white/40 mb-2 text-[9px]">{t('Teckenförklaring')}</div>
+      <div className="space-y-1.5">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-0 border-t-2 border-[#ff8e7d] shrink-0" />
+          <span className="text-white/60">{t('Processflöde')}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-0 border-t-2 border-dashed border-[#8b5cf6] shrink-0" />
+          <span className="text-white/60">{t('Fallback / alternativ')}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-0 border-t-[1.5px] border-dotted border-[#22d3ee] shrink-0" />
+          <span className="text-white/60">{t('Dataflöde')}</span>
+        </div>
+        <div className="border-t border-white/5 pt-1.5 mt-1.5" />
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-green-500/30 border-2 border-green-500 shrink-0" />
+          <span className="text-white/60">{t('Starthändelse')}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-red-500/30 border-2 border-red-500 shrink-0" />
+          <span className="text-white/60">{t('Sluthändelse')}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rotate-45 border border-[#ff8e7d] bg-[#1a1a1a] shrink-0" />
+          <span className="text-white/60">{t('Beslutspunkt')}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-sm bg-[#2f2f2f] border border-white/20 shrink-0" />
+          <span className="text-white/60">{t('Process-steg')}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-sm bg-[#2f2f2f] border border-cyan-300/40 shrink-0" />
+          <span className="text-white/60">{t('Datalager')}</span>
+        </div>
+        <div className="border-t border-white/5 pt-1.5 mt-1.5" />
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-1 rounded-sm bg-green-500/30 border border-green-500/40 shrink-0" />
+          <span className="text-white/60">Primary</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-1 rounded-sm bg-amber-500/30 border border-amber-500/40 shrink-0" />
+          <span className="text-white/60">Fallback</span>
+        </div>
+        {activeView !== 'all' && (
+          <>
+            <div className="border-t border-white/5 pt-1.5 mt-1.5" />
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-sm bg-white/5 border border-white/5 opacity-30 shrink-0" />
+              <span className="text-white/60">{t('Utanför aktiv vy')}</span>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 const nodeTypes = { task: TaskNode, service: ServiceNode, gateway: GatewayNode, event: EventNode, database: DatabaseNode, note: NoteNode, lane: LaneNode, pool: PoolNode, zone: ZoneNode };
 
@@ -822,6 +874,18 @@ function NodeMeta({ data, language }: { data: any; language: Language }) {
         <div>
           <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Varför noden finns')}</label>
           <p className="text-xs text-white/70 leading-relaxed whitespace-pre-line">{data.why}</p>
+        </div>
+      )}
+      {data.channel && (
+        <div>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Kanal')}</label>
+          <span className={`inline-block px-2 py-1 text-[10px] font-black uppercase tracking-widest rounded ${
+            data.channel === 'primary' ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+            : data.channel === 'fallback' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+            : 'bg-slate-500/20 text-slate-400 border border-slate-500/30'
+          }`}>
+            {data.channel === 'primary' ? 'Primary' : data.channel === 'fallback' ? 'Fallback' : 'Kiosk-only'}
+          </span>
         </div>
       )}
       {data.systems?.length > 0 && (
@@ -1234,7 +1298,7 @@ function sanitizeEdgeForStorage(edge: any, nodesOrLookup?: any[] | Map<string, a
 
 // ─── Persistence ──────────────────────────────────────────────────────────────
 
-const FLOW_SCHEMA_VERSION = '2026-04-guest-lane-finish-v1';
+const FLOW_SCHEMA_VERSION = '2026-04-view-presets-v2';
 const STORAGE_NODES = `jy-bpmn-nodes:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_EDGES = `jy-bpmn-edges:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_LANGUAGE = 'jy-bpmn-language';
@@ -1520,7 +1584,6 @@ function ArchitecturePanel({ onClose, language, nodes }: { onClose: () => void; 
   const byCanvasOrder = (a: any, b: any) => (a.position.x - b.position.x) || (a.position.y - b.position.y);
   const projectNodeData = (predicate: (node: any) => boolean) =>
     nodes
-      .filter((node) => !isCanvasHiddenNode(node))
       .filter(predicate)
       .sort(byCanvasOrder)
       .map((node) => ({ id: node.id, data: getProjectedNodeData(node, language) as any }));
@@ -1695,6 +1758,7 @@ export default function App() {
   });
   const [selectedElements, setSelectedElements] = useState<{ nodes: any[]; edges: any[] }>({ nodes: [], edges: [] });
   const [editMode, setEditMode] = useState(false);
+  const [activeView, setActiveView] = useState<ViewPreset>('journey');
   const [history, setHistory] = useState<{ nodes: any[]; edges: any[] }[]>([]);
   const [walkActive, setWalkActive] = useState(false);
   const [walkCurrentId, setWalkCurrentId] = useState<string | null>(null);
@@ -1727,11 +1791,9 @@ export default function App() {
   const selectedEdgeId = selectedElements.edges[0]?.id ?? null;
   const rawSelectedNode = selectedNodeId ? nodes.find(n => n.id === selectedNodeId) ?? null : null;
   const rawSelectedEdge = selectedEdgeId ? edges.find(e => e.id === selectedEdgeId) ?? null : null;
-  const selectedNode = rawSelectedNode && !isCanvasHiddenNode(rawSelectedNode) ? rawSelectedNode : null;
+  const selectedNode = rawSelectedNode ?? null;
   const selectedEdge = rawSelectedEdge
     && getEdgeCategory(rawSelectedEdge) !== 'arch'
-    && !HIDDEN_CANVAS_NODE_IDS.has(rawSelectedEdge.source)
-    && !HIDDEN_CANVAS_NODE_IDS.has(rawSelectedEdge.target)
       ? rawSelectedEdge
       : null;
   const selectedEdgeSourceNode = selectedEdge ? nodes.find((node) => node.id === selectedEdge.source) ?? null : null;
@@ -2634,7 +2696,14 @@ export default function App() {
     : 'smoothstep';
 
   const displayNodes = nodes
-    .filter((node) => !isCanvasHiddenNode(node))
+    .filter((node) => {
+      // In journey view, hide architecture-only nodes entirely for clean meeting view
+      if (activeView === 'journey') {
+        const tags: string[] = (node.data as any)?.viewTags ?? deriveViewTags(node);
+        if (tags.length > 0 && !tags.includes('journey') && !tags.includes('ops')) return false;
+      }
+      return true;
+    })
     .map((node) => {
     const data = getProjectedNodeData(node, language) as any;
     data.layoutSelected =
@@ -2642,6 +2711,10 @@ export default function App() {
       selectedElements.edges.length === 0 &&
       selectedElements.nodes.some((selectedNode) => selectedNode.id === node.id && (selectedNode.type === 'lane' || selectedNode.type === 'pool'));
     data.editMode = editMode;
+    // View-based dimming
+    if (activeView !== 'all' && !nodeMatchesView(node, activeView)) {
+      data.dimmed = true;
+    }
     if (node.type === 'database') {
       data.onToggleCollapse = () => toggleDatabaseCollapse(node.id);
       data.expandLabel = t('Fäll ut');
@@ -2657,14 +2730,24 @@ export default function App() {
     return { ...node, data, draggable: editMode };
   });
 
+  const displayNodeIds = new Set(displayNodes.map(n => n.id));
   const displayEdges = edges
     .filter((edge) => getEdgeCategory(edge) !== 'arch')
-    .filter((edge) => !HIDDEN_CANVAS_NODE_IDS.has(edge.source) && !HIDDEN_CANVAS_NODE_IDS.has(edge.target))
-    .map((edge) => (
-      typeof edge.label === 'string'
-        ? { ...edge, label: t(edge.label) }
-        : edge
-    ));
+    .filter((edge) => displayNodeIds.has(edge.source) && displayNodeIds.has(edge.target))
+    .map((edge) => {
+      let result = typeof edge.label === 'string' ? { ...edge, label: t(edge.label) } : edge;
+      // Dim edges when any endpoint is outside active view
+      if (activeView !== 'all') {
+        const srcNode = nodes.find(n => n.id === edge.source);
+        const tgtNode = nodes.find(n => n.id === edge.target);
+        const srcMatch = srcNode ? nodeMatchesView(srcNode, activeView) : true;
+        const tgtMatch = tgtNode ? nodeMatchesView(tgtNode, activeView) : true;
+        if (!srcMatch || !tgtMatch) {
+          result = { ...result, style: { ...((result as any).style || {}), strokeOpacity: 0.18 }, zIndex: 0 };
+        }
+      }
+      return result;
+    });
 
   return (
     <div className="bg-background text-on-surface font-manrope selection:bg-primary selection:text-white min-h-screen flex flex-col">
@@ -2737,6 +2820,24 @@ export default function App() {
           >
             {walkActive ? `⏹ ${t('Stoppa')}` : `▶ ${t('Kör igenom')}`}
           </button>
+
+          <div className="w-px h-6 bg-white/10 mx-1" />
+
+          <div className="flex items-center gap-0.5 border border-white/10 rounded px-1 py-0.5">
+            {(['all', 'journey', 'ops', 'architecture', 'future'] as ViewPreset[]).map(preset => (
+              <button
+                key={preset}
+                onClick={() => setActiveView(preset)}
+                className={`px-2 py-1 text-[10px] font-bold rounded transition-all ${
+                  activeView === preset
+                    ? 'bg-primary/20 text-primary'
+                    : 'text-white/40 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                {t(VIEW_PRESET_LABELS[preset])}
+              </button>
+            ))}
+          </div>
 
           <div className="w-px h-6 bg-white/10 mx-1" />
 
@@ -2880,6 +2981,10 @@ export default function App() {
                 >⚡ {t('Arkitektur / Ops')}</button>
               </Panel>
             )}
+
+            <Panel position="bottom-left" className="m-4">
+              <Legend activeView={activeView} language={language} />
+            </Panel>
 
             <MiniMap
               nodeColor={node => {

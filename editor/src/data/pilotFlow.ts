@@ -255,6 +255,7 @@ export const pilotNodes = [
       "type": "start",
       "lane": "Gäst",
       "details": "Resan börjar antingen hemma på befintlig webbplats eller på plats i parken.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -276,6 +277,7 @@ export const pilotNodes = [
       "label": "Bokat hemma redan?",
       "lane": "Gäst",
       "details": "Piloten ska tydligt skilja mellan bokning hemma as-is och on-site-ingång i parken.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -297,6 +299,7 @@ export const pilotNodes = [
       "label": "Boka hemma as-is på webbplatsen",
       "lane": "Gäst",
       "details": "Bokningen sker fortsatt på befintlig webbplats hemma. Efteråt kan gästen antingen använda SMS-länken eller starta på plats via QR eller kiosk.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -318,6 +321,7 @@ export const pilotNodes = [
       "label": "Få SMS 30 minuter före starttid",
       "lane": "Gäst",
       "details": "Gästen får ett sms cirka 30 minuter före starttid. Länken öppnar snabbt check-in, men gästen kan fortfarande välja parkens QR eller kiosk i stället.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -339,6 +343,7 @@ export const pilotNodes = [
       "label": "Skanna park-QR på ställning eller välj kiosk",
       "lane": "Gäst",
       "details": "Samma on-site-ingång används både för gäster utan bokning och för gäster som redan bokat hemma men väljer QR eller kiosk i stället för SMS-länken.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -360,6 +365,7 @@ export const pilotNodes = [
       "label": "Hitta bokning eller köp på plats",
       "lane": "Gäst",
       "details": "På plats kan gästen hitta en befintlig bokning eller köpa en närliggande tid direkt i parkflödet.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -381,6 +387,7 @@ export const pilotNodes = [
       "label": "Öppna check-in hur?",
       "lane": "Gäst",
       "details": "Gästen kan ha bokat hemma och ändå välja att använda parkens QR eller kiosk i stället för SMS-länken.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -402,6 +409,7 @@ export const pilotNodes = [
       "label": "Gå in i check-in-flödet",
       "lane": "Gäst",
       "details": "Flödet kan starta via personlig SMS-länk, via QR eller kiosk med befintlig bokning, eller efter köp på plats.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -423,6 +431,7 @@ export const pilotNodes = [
       "label": "Granska bokning",
       "lane": "Gäst",
       "details": "När bokning finns ser gästen deltagare och vad som redan ingår.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -443,7 +452,9 @@ export const pilotNodes = [
     "data": {
       "label": "Slutför safety",
       "lane": "Gäst",
-      "details": "Safety slutförs innan bekräftelse och handoff.",
+      "details": "Säkerhetsflödet i piloten: (1) kort safety-video, (2) generella parkregler, (3) bokningsnivå-intygande, (4) attraktionsspecifik bekräftelse där relevant. Slutförs innan tillägg och handoff.",
+      "why": "JumpYard Cloud äger safety-steget. Alla gäster genomför samma sekvens oavsett kanal.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -465,6 +476,7 @@ export const pilotNodes = [
       "label": "Välj tillägg och connected",
       "lane": "Gäst",
       "details": "Samma huvudsteg oavsett om gästen kommer via mobil eller kiosk.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -486,6 +498,7 @@ export const pilotNodes = [
       "label": "Betalning krävs?",
       "lane": "Gäst",
       "details": "Efter tillägg och connected avgörs om bokningen behöver betalas eller kan gå direkt vidare till bekräftelsen.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -507,6 +520,7 @@ export const pilotNodes = [
       "label": "Betala",
       "lane": "Gäst",
       "details": "Gästen betalar bara om totalen inte redan är 0 efter tillägg, connected eller tidigare betalning.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -528,6 +542,8 @@ export const pilotNodes = [
       "label": "Se bekräftelse + QR + kod",
       "lane": "Gäst",
       "details": "Bekräftelsen används sedan vid handoff hos staff.",
+      "why": "Gästens perspektiv: check-in-flödet sammanfattas. I mobilflödet är detta samma skärm som guest-present.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -549,6 +565,7 @@ export const pilotNodes = [
       "label": "Skriv ut eller visa i mobilen?",
       "lane": "Gäst",
       "details": "I slutet skiljer sig bara utlämningen mellan kiosk och mobil: kiosk kan skriva ut ett kvitto eller confirmation, medan mobilen visar QR eller bokningskod direkt.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -569,7 +586,9 @@ export const pilotNodes = [
     "data": {
       "label": "Skriv ut kvitto / confirmation",
       "lane": "Gäst",
+      "channel": "kiosk-only",
       "details": "Det här görs bara vid kiosk på plats när ett utskrivet kvitto eller confirmation behövs inför utlämningen hos staff.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -588,9 +607,10 @@ export const pilotNodes = [
       "y": 105.02116480255405
     },
     "data": {
-      "label": "Visa QR-kod eller bokningskod hos staff",
+      "label": "Visa bekräftelse hos staff",
       "lane": "Gäst",
-      "details": "Telefonen visar QR eller bokningskod direkt. Efter kiosk kan gästen i stället visa en utskriven confirmation eller kvitto hos staff.",
+      "details": "I mobilflödet: samma bekräftelseskärm som guest-confirm, nu i handoff-kontext hos staff. I kioskflödet: gästen har redan skrivit ut och visar kvitto/confirmation fysiskt.",
+      "why": "Överlämningspunkten hos staff. Mobil = samma data som guest-confirm. Kiosk = utskrivet kvitto.",
       "givesGuest": [
         "Tydlig QR-kod",
         "Kort bokningskod som reservväg",
@@ -601,6 +621,7 @@ export const pilotNodes = [
         "Bokningskod",
         "Utskriven confirmation eller kvitto"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -623,6 +644,7 @@ export const pilotNodes = [
       "type": "end",
       "lane": "Gäst",
       "details": "Parkresan fortsätter efter att staff har slutfört handoff.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -657,6 +679,7 @@ export const pilotNodes = [
       "givesGuest": [
         "Tydlig startpunkt för samma check-in- eller köpflöde"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -678,6 +701,7 @@ export const pilotNodes = [
       "label": "Hur öppnas flödet?",
       "lane": "WebApp",
       "details": "SMS-länk är snabbspåret. Park-QR och kiosk går in i samma on-site-logik.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -698,6 +722,7 @@ export const pilotNodes = [
     "data": {
       "label": "SMS-länk med token",
       "lane": "WebApp",
+      "channel": "primary",
       "details": "Personlig länk som skickas cirka 30 min före och öppnar bokningsvyn direkt när gästen redan bokat hemma.",
       "shownWhen": [
         "Gästen har redan bokat hemma och öppnar sin personliga länk"
@@ -708,6 +733,7 @@ export const pilotNodes = [
       "givesGuest": [
         "Direkt väg in i bokningen utan extra lookup"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -728,6 +754,7 @@ export const pilotNodes = [
     "data": {
       "label": "Park-QR på ställning",
       "lane": "WebApp",
+      "channel": "primary",
       "details": "Bekvämt entrypoint i parken för gäster som inte bokat hemma eller inte checkat in ännu.",
       "shownWhen": [
         "Gästen skannar parkens QR-ställning"
@@ -735,6 +762,7 @@ export const pilotNodes = [
       "givesGuest": [
         "Tydlig on-site-start för samma boknings- eller köpflöde"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -755,6 +783,7 @@ export const pilotNodes = [
     "data": {
       "label": "Kiosk på plats",
       "lane": "WebApp",
+      "channel": "fallback",
       "details": "Alternativ on-site-ingång till samma WebApp-flöde för gäster som redan är i parken.",
       "shownWhen": [
         "Gästen väljer kiosk i parken"
@@ -762,6 +791,7 @@ export const pilotNodes = [
       "skippedWhen": [
         "Gästen använder egen telefon"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -783,6 +813,7 @@ export const pilotNodes = [
       "label": "Har du befintlig bokning?",
       "lane": "WebApp",
       "details": "Park-QR och kiosk delar samma on-site-val: hitta befintlig bokning eller köpa en närliggande tid i parken.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -805,9 +836,9 @@ export const pilotNodes = [
       "lane": "WebApp",
       "details": "Gemensam lookup för Park-QR och kiosk när gästen redan har bokning.",
       "reads": [
-        "booking_ref",
-        "telefon + efternamn",
-        "QR-matchning"
+        "booking_ref (primär)",
+        "QR-matchning (primär)",
+        "telefon + efternamn (sekundär)"
       ],
       "shownWhen": [
         "Gästen skannar parkens QR-ställning",
@@ -816,6 +847,7 @@ export const pilotNodes = [
       "skippedWhen": [
         "SMS-länk med token går direkt till bokningen"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -836,6 +868,7 @@ export const pilotNodes = [
     "data": {
       "label": "Köp biljett på plats",
       "lane": "WebApp",
+      "channel": "fallback",
       "details": "Detta ersätter inte bokning hemma på webbplatsen. Steget är bara för gäster som redan är i parken, visar lediga tider cirka 1–2 timmar framåt och måste skapa en ny booking i Roller. Webappen ber om e-post och/eller telefonnummer vid köp på plats, så att gästen kan få bekräftelse, SMS 30 min före start och påminnelse om förlängning.",
       "writes": [
         "walk_in_purchase",
@@ -855,6 +888,7 @@ export const pilotNodes = [
       "endpoints": [
         "Create a booking"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -885,6 +919,7 @@ export const pilotNodes = [
       "shownWhen": [
         "Bokning finns eller har skapats"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -909,6 +944,7 @@ export const pilotNodes = [
       "writes": [
         "safety_video_seen_at"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -941,6 +977,7 @@ export const pilotNodes = [
       "givesGuest": [
         "Klart safety-läge inför resten av check-in-resan"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -972,6 +1009,7 @@ export const pilotNodes = [
         "connected_selected",
         "tillägg_uppdaterade"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -993,6 +1031,7 @@ export const pilotNodes = [
       "label": "Connected valt?",
       "lane": "WebApp",
       "details": "Connected-profiler visas bara om produkten valts.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1013,9 +1052,9 @@ export const pilotNodes = [
     "data": {
       "label": "VY: Connected-profiler",
       "lane": "WebApp",
-      "details": "Fyra lätta profiler med namn och ikonval skapas i pilotens operativa state.",
+      "details": "Lätta profiler med namn och ikonval — antalet följer bokningen. Skapas i pilotens operativa state.",
       "writes": [
-        "connected_profile_1..4",
+        "connected_profiles[]",
         "ikonval",
         "connected_profile_status"
       ],
@@ -1026,8 +1065,9 @@ export const pilotNodes = [
         "Ingen connected-produkt är vald"
       ],
       "givesGuest": [
-        "Fyra profiler redo för bandkoppling hos staff"
+        "Profiler redo för bandkoppling hos staff (antal följer bokningen)"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1049,6 +1089,7 @@ export const pilotNodes = [
       "label": "Betalning krävs?",
       "lane": "WebApp",
       "details": "No-payment-vägen är explicit i pilotflödet.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1081,6 +1122,7 @@ export const pilotNodes = [
       "skippedWhen": [
         "Inga nya tillägg valdes eller totalen är 0"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1102,6 +1144,7 @@ export const pilotNodes = [
       "label": "VY: Bekräftelse + QR + kod",
       "lane": "WebApp",
       "details": "Gemensam slutskärm med QR och kort bokningskod för handoff hos staff.",
+      "why": "WebApp-vyn som implementerar bekräftelseskärmen. Genererar QR och kort bokningskod.",
       "reads": [
         "confirmation_code",
         "token_payload",
@@ -1112,6 +1155,7 @@ export const pilotNodes = [
         "Kort bokningskod",
         "Bekräftelse att check-in-flödet är klart"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1132,7 +1176,9 @@ export const pilotNodes = [
     "data": {
       "label": "Skriv ut kvitto / confirmation",
       "lane": "WebApp",
+      "channel": "kiosk-only",
       "details": "Valfri kioskavvikelse efter avslutat flöde. Mobilen behöver normalt inte detta steg.",
+      "why": "Kiosk-specifikt steg. Finns bara i kioskflödet — mobilen hoppar direkt till present.",
       "shownWhen": [
         "Kanal = kiosk och utskrift behövs"
       ],
@@ -1142,6 +1188,7 @@ export const pilotNodes = [
       "givesGuest": [
         "Utskriven confirmation eller kvitto"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1163,6 +1210,7 @@ export const pilotNodes = [
       "label": "VY: Visa QR / bokningskod",
       "lane": "WebApp",
       "details": "Sista WebApp-vyn före staff-handoff.",
+      "why": "WebApp-vyn för handoff-skärm. I mobil: samma ConfirmationScreen som app-confirm. Sista vyn före staff-handoff.",
       "reads": [
         "QR payload",
         "booking code",
@@ -1175,6 +1223,7 @@ export const pilotNodes = [
         "QR-kod",
         "Bokningskod"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1196,6 +1245,8 @@ export const pilotNodes = [
       "label": "Daglig seed",
       "lane": "Ops jobs",
       "details": "Seedar dagens bokningar, tickets, payments och customers till lokal snapshot och kundcache innan parken öppnar.",
+      "why": "Kärnjobbet i piloten. Seedar all data för dagen. Webhook delta/enrichment kompletterar med realtidsuppdateringar under dagen.",
+      "viewTags": ["ops"],
       "cadence": "05:00 daily",
       "jobs": [
         "Hämtar bokningar",
@@ -1230,7 +1281,8 @@ export const pilotNodes = [
     "data": {
       "label": "Booking webhook intake",
       "lane": "Ops jobs",
-      "details": "Tar emot booking-webhooks under dagen och skapar ett enrich-underlag i Cloud i stället för Data API-polling.",
+      "details": "Delta-intake under dagen. Tar emot booking-webhooks och skapar enrich-underlag. Kompletterar daglig seed — inte ersättning.",
+      "viewTags": ["ops"],
       "cadence": "On event",
       "jobs": [
         "Ta emot Created / Updated / Cancelled",
@@ -1260,7 +1312,8 @@ export const pilotNodes = [
     "data": {
       "label": "Webhook enrichment",
       "lane": "Ops jobs",
-      "details": "Berikar sena bokningar med exakt booking-state och kundkontakt efter webhooken.",
+      "details": "Enrichment efter delta-intake. Berikar sena bokningar med exakt state och kundkontakt. Daglig seed är kärnan, detta är kompletterande realtidslager.",
+      "viewTags": ["ops"],
       "cadence": "On event",
       "jobs": [
         "Hämta booking detail",
@@ -1298,6 +1351,7 @@ export const pilotNodes = [
         "Skapa token",
         "Skriv sms_outbox"
       ],
+      "viewTags": ["ops"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1323,6 +1377,7 @@ export const pilotNodes = [
       "endpoints": [
         "Get detail of a booking"
       ],
+      "viewTags": ["ops"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1351,6 +1406,7 @@ export const pilotNodes = [
         "Add transaction record",
         "Redeem tickets"
       ],
+      "viewTags": ["ops"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1372,6 +1428,7 @@ export const pilotNodes = [
       "label": "Aurora PostgreSQL",
       "lane": "AWS + Aurora",
       "details": "Primär operativ databas för JumpYard Cloud.",
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1391,6 +1448,7 @@ export const pilotNodes = [
       "label": "Redis (valfri i V1)",
       "lane": "AWS + Aurora",
       "details": "Kortlivade tokens, sessionscache och rate limiting vid behov.",
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1411,6 +1469,7 @@ export const pilotNodes = [
       "label": "S3 rå-payloads",
       "lane": "AWS + Aurora",
       "details": "Rå Roller-payloads, exportfiler och senare analysdump.",
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1430,6 +1489,7 @@ export const pilotNodes = [
       "label": "SQS / EventBridge",
       "lane": "AWS + Aurora",
       "details": "Köar SMS, retryjobb och andra asynkrona steg.",
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1452,6 +1512,7 @@ export const pilotNodes = [
       "collapsed": true,
       "expandLabel": "Expandera databas",
       "collapseLabel": "Fäll ihop databas",
+      "systems": ["Aurora PostgreSQL", "S3 rå-payloads"],
       "summary": "Lokal snapshot av Roller-bokningar, tickets, produkter och betalningar för dagens operativa flöde.",
       "summaryItems": [
         "bookings",
@@ -1499,6 +1560,7 @@ export const pilotNodes = [
         "Produktsammanfattning",
         "Betalningssnapshot"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1522,6 +1584,7 @@ export const pilotNodes = [
       "collapsed": true,
       "expandLabel": "Expandera databas",
       "collapseLabel": "Fäll ihop databas",
+      "systems": ["Aurora PostgreSQL", "Redis (valfri i V1)", "SQS / EventBridge"],
       "summary": "Pilotens egen state för safety, token, check-in, connected-profiler, handoff och kundkontakt.",
       "summaryItems": [
         "booking_operational_state",
@@ -1585,6 +1648,7 @@ export const pilotNodes = [
         "Kundkontakt för SMS",
         "Lätta profilutkast för connected"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1608,6 +1672,7 @@ export const pilotNodes = [
       "collapsed": true,
       "expandLabel": "Expandera databas",
       "collapseLabel": "Fäll ihop databas",
+      "systems": ["Aurora PostgreSQL", "S3 rå-payloads", "SQS / EventBridge"],
       "summary": "Append-only eventspår, webhook-intake och sync-observability för pilotens drift.",
       "summaryItems": [
         "booking_events",
@@ -1643,6 +1708,7 @@ export const pilotNodes = [
         "Sync-resultat",
         "Felspår"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1668,6 +1734,9 @@ export const pilotNodes = [
       "collapseLabel": "Fäll ihop databas",
       "future": true,
       "statusTag": "Senare",
+      "systems": ["Aurora PostgreSQL"],
+      "viewTags": ["architecture", "future"],
+      "why": "Fullständig session- och device-modell för Connected Experience. Pilotens lätta profilutkast ligger i store-operational, inte här.",
       "summary": "Framtida full session- och device-modell, skild från pilotens lätta profilutkast.",
       "summaryItems": [
         "connected_sessions",
@@ -1716,6 +1785,7 @@ export const pilotNodes = [
         "Get payments",
         "Get customers"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1740,6 +1810,7 @@ export const pilotNodes = [
       "endpoints": [
         "Booking webhook"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1764,6 +1835,7 @@ export const pilotNodes = [
       "endpoints": [
         "Get detail of a booking"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1788,6 +1860,7 @@ export const pilotNodes = [
       "endpoints": [
         "Get customer detail"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1813,6 +1886,7 @@ export const pilotNodes = [
         "Get products",
         "Booking costs"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1837,6 +1911,7 @@ export const pilotNodes = [
       "endpoints": [
         "Create a booking"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1862,6 +1937,7 @@ export const pilotNodes = [
         "Edit booking",
         "Add transaction record"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1886,6 +1962,7 @@ export const pilotNodes = [
       "endpoints": [
         "Redeem tickets"
       ],
+      "viewTags": ["architecture"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1907,6 +1984,7 @@ export const pilotNodes = [
       "label": "Assisterad fallback",
       "lane": "Staff / parkpersonal",
       "details": "Används vid mismatch, saknad kod eller andra undantag.",
+      "viewTags": ["journey", "ops"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1928,6 +2006,7 @@ export const pilotNodes = [
       "label": "Manuell kontroll",
       "lane": "Staff / parkpersonal",
       "details": "Staff kan kontrollera bokning manuellt innan utlämning eller alternativ hantering.",
+      "viewTags": ["journey", "ops"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1948,8 +2027,8 @@ export const pilotNodes = [
     "data": {
       "label": "Utlämning hos staff",
       "lane": "Staff / parkpersonal",
-      "details": "Piloten avslutas hos staff efter att check-in-flödet är klart.",
-      "why": "Staff verifierar QR-kod eller bokningskod, ger ut tillägg och kopplar Connected Experience-band till profilerna från check-in-flödet.",
+      "details": "Normal utlämning hos staff när check-in-flödet är klart.",
+      "why": "Staff verifierar QR-kod eller bokningskod, lämnar ut tillägg och kopplar Connected Experience-band. Om något strular kan staff falla tillbaka till dagens manuella check-in.",
       "reads": [
         "Bekräftad bokning",
         "QR-kod eller bokningskod",
@@ -1973,6 +2052,7 @@ export const pilotNodes = [
       "endpoints": [
         "Redeem tickets"
       ],
+      "viewTags": ["journey", "ops"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1995,6 +2075,7 @@ export const pilotNodes = [
       "type": "end",
       "lane": "Staff / parkpersonal",
       "details": "Fallbackgrenen avslutas här när normalen inte kunde användas.",
+      "viewTags": ["journey", "ops"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2016,6 +2097,7 @@ export const pilotNodes = [
       "label": "SkyRider valt?",
       "lane": "WebApp",
       "details": "SkyRider-höjdintyg krävs bara om SkyRider är valt som tillägg (befintligt eller nytt).",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2034,15 +2116,16 @@ export const pilotNodes = [
       "y": 721.836341792247
     },
     "data": {
-      "label": "VY: SkyRider-höjdintyg",
+      "label": "VY: SkyRider-höjdkrav",
       "lane": "WebApp",
-      "details": "Vuxen måste intyga att barnet är minst 100 cm långt. Visas bara om SkyRider är valt som tillägg.",
+      "details": "SkyRider-biljetter får endast användas av personer som är minst 100 cm långa. Visas bara om SkyRider är valt som tillägg.",
       "writes": [
         "skyrider_height_confirmed"
       ],
       "shownWhen": [
         "SkyRider är valt som tillägg"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2064,6 +2147,7 @@ export const pilotNodes = [
       "label": "Öppna förlängning i webappen",
       "lane": "Gäst",
       "details": "Länken öppnar en dedikerad förlängningsvy i samma webapp.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2085,6 +2169,7 @@ export const pilotNodes = [
       "label": "Betala 50 kr för +30 min",
       "lane": "Gäst",
       "details": "Gästen genomför betalningen direkt i webappen (Swish/kort).",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2106,6 +2191,7 @@ export const pilotNodes = [
       "label": "Få QR-kod för bandbyte",
       "lane": "Gäst",
       "details": "Efter betalning visas en QR-kod som används vid kassan för att hämta nytt band.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2127,6 +2213,7 @@ export const pilotNodes = [
       "label": "Gå till kassan/staff",
       "lane": "Gäst",
       "details": "Gästen tar med QR-koden till kassan eller närmaste staff.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2148,6 +2235,7 @@ export const pilotNodes = [
       "label": "Hämta nytt band till besökaren/barnet",
       "lane": "Gäst",
       "details": "Staff scannar QR och delar ut ett nytt band med uppdaterad sluttid.",
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2173,6 +2261,7 @@ export const pilotNodes = [
         "booking_end_time",
         "extension_price_fixed"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2197,6 +2286,7 @@ export const pilotNodes = [
       "writes": [
         "extension_payment_status"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2221,6 +2311,7 @@ export const pilotNodes = [
       "reads": [
         "extension_qr_token"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2246,6 +2337,7 @@ export const pilotNodes = [
         "extension_payment_status",
         "current_band_id"
       ],
+      "viewTags": ["journey", "ops"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2271,6 +2363,7 @@ export const pilotNodes = [
         "new_band_id",
         "booking_end_time_new"
       ],
+      "viewTags": ["journey", "ops"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2293,6 +2386,7 @@ export const pilotNodes = [
       "lane": "Gäst",
       "tone": "guide",
       "details": "Delflöde efter check-in: gästen får påminnelse, betalar i webappen, får QR, hämtar nytt band hos staff.",
+      "viewTags": ["journey", "ops"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2312,10 +2406,12 @@ export const pilotNodes = [
       "y": -191.3643412337454
     },
     "data": {
-      "label": "Fixar",
+      "label": "Scope-avgränsning",
       "lane": "JumpYard Cloud",
-      "tone": "guide",
-      "details": "- Gruppbokning/kalas, hur hanterar vi det?",
+      "tone": "warning",
+      "details": "Gruppbokning / kalas: identifierat scope-område, hanteras inte i pilotens check-in-flöde. Kräver separat discovery och designfas.",
+      "scopeStatus": "out-of-scope",
+      "viewTags": ["journey", "future"],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2340,6 +2436,7 @@ export const pilotNodes = [
       "tags": [
         "main"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false,
       "lane": "Gäst"
@@ -2364,6 +2461,7 @@ export const pilotNodes = [
       "tags": [
         "main"
       ],
+      "viewTags": ["journey"],
       "edgeHighlighted": false,
       "dimmed": false
     },
