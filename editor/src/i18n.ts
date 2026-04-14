@@ -1196,11 +1196,12 @@ const EN_TEXT: Record<string, string> = {
   'Gästen ser tillägg som redan lagts till (från bokning eller tidigare steg) och kan lägga till fler eller nya. Tillgängliga tillägg: SkyRider, Connected, kaffe, extra person, hänglås.': 'The guest sees add-ons that have already been added (from the booking or earlier steps) and can add more or new ones. Available add-ons: SkyRider, Connected, coffee, extra person, padlock.',
   'WebApp: VY: Safety-intygande': 'WebApp: VIEW: Safety attestation',
   'WebApp: Safety-intygande': 'WebApp: Safety attestation',
-  // View presets
-  'Alla': 'All',
-  'Gästresa': 'Guest journey',
-  'Arkitektur': 'Architecture',
-  'Framtid': 'Future',
+  // Channel labels
+  'Mobil · hemma': 'Mobile · at home',
+  'Mobil · på plats': 'Mobile · on site',
+  'Assisterad kiosk': 'Assisted kiosk',
+  'Köp på plats': 'On-site purchase',
+  'Enbart kiosk': 'Kiosk only',
   // Legend
   'Teckenförklaring': 'Legend',
   'Processflöde': 'Process flow',

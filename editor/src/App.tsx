@@ -139,11 +139,17 @@ const TaskNode = ({ data }: any) => {
       )}
       {data.channel && (
         <div className={`mt-1.5 inline-block px-1.5 py-0.5 text-[8px] font-black uppercase tracking-widest rounded ${
-          data.channel === 'primary' ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-          : data.channel === 'fallback' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+          data.channel === 'primary-remote' ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+          : data.channel === 'primary-onsite' ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+          : data.channel === 'assisted-onsite' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+          : data.channel === 'onsite-purchase' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30'
           : 'bg-slate-500/20 text-slate-400 border border-slate-500/30'
         }`}>
-          {data.channel === 'primary' ? 'Primary' : data.channel === 'fallback' ? 'Fallback' : 'Kiosk-only'}
+          {data.channel === 'primary-remote' ? 'Mobil · hemma'
+          : data.channel === 'primary-onsite' ? 'Mobil · på plats'
+          : data.channel === 'assisted-onsite' ? 'Assisterad kiosk'
+          : data.channel === 'onsite-purchase' ? 'Köp på plats'
+          : 'Enbart kiosk'}
         </div>
       )}
     </div>
@@ -181,33 +187,31 @@ const ServiceNode = ({ data }: any) => {
 };
 
 // View preset types and helpers
-type ViewPreset = 'all' | 'journey' | 'ops' | 'architecture' | 'future';
+type ViewPreset = 'pilotresa' | 'teknik' | 'alla';
 
 const VIEW_PRESET_LABELS: Record<ViewPreset, string> = {
-  all: 'Alla',
-  journey: 'Gästresa',
-  ops: 'Drift',
-  architecture: 'Arkitektur',
-  future: 'Framtid',
+  pilotresa: 'Pilotresa',
+  teknik: 'Teknik & integration',
+  alla: 'Alla',
 };
 
 function deriveViewTags(node: any): string[] {
   const lane = node.data?.lane || '';
   const type = node.type;
   if (type === 'pool' || type === 'lane' || type === 'zone') return [];
-  if (lane === 'Gäst' || lane === 'WebApp') return ['journey'];
-  if (lane === 'Staff / parkpersonal') return ['journey', 'ops'];
-  if (lane === 'Ops jobs') return ['ops'];
-  if (lane === 'AWS + Aurora') return ['architecture'];
-  if (lane === 'Roller API' || lane === 'Roller') return ['architecture'];
-  if (type === 'note') return ['journey', 'ops'];
-  if (node.data?.future) return ['architecture', 'future'];
-  return ['journey'];
+  if (lane === 'Gäst' || lane === 'WebApp') return ['pilotresa'];
+  if (lane === 'Staff / parkpersonal') return ['pilotresa'];
+  if (lane === 'Ops jobs') return ['teknik'];
+  if (lane === 'AWS + Aurora') return ['teknik'];
+  if (lane === 'Roller API' || lane === 'Roller') return ['teknik'];
+  if (type === 'note') return ['pilotresa'];
+  if (node.data?.future) return ['teknik'];
+  return ['pilotresa'];
 }
 
 function nodeMatchesView(node: any, view: ViewPreset): boolean {
-  if (view === 'all') return true;
-  const tags: string[] = node.data?.viewTags ?? deriveViewTags(node);
+  if (view === 'alla') return true;
+  const tags: string[] = (node.data as any)?.viewTags ?? deriveViewTags(node);
   if (tags.length === 0) return true; // structural nodes always match
   return tags.includes(view);
 }
@@ -230,14 +234,14 @@ const GatewayNode = ({ data }: any) => (
 );
 
 const EventNode = ({ data }: any) => (
-  <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 transition-all ${data.edgeHighlighted ? 'shadow-[0_0_12px_rgba(255,142,125,0.6)]' : ''} ${data.dimmed ? 'opacity-30' : 'opacity-100'} ${data.type === 'start' ? 'border-green-500 bg-green-500/20' : data.type === 'end' ? 'border-red-500 bg-red-500/20' : 'border-yellow-500 bg-yellow-500/20'}`}>
-    <>
+  <div className={`flex flex-col items-center transition-all ${data.dimmed ? 'opacity-30' : 'opacity-100'}`}>
+    <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 ${data.edgeHighlighted ? 'shadow-[0_0_12px_rgba(255,142,125,0.6)]' : ''} ${data.type === 'start' ? 'border-green-500 bg-green-500/20' : data.type === 'end' ? 'border-red-500 bg-red-500/20' : 'border-yellow-500 bg-yellow-500/20'} relative`}>
       <Handle type="source" position={Position.Left} id="left" className="w-2 h-2 !bg-primary" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
       <Handle type="source" position={Position.Top} id="top" className="w-2 h-2 !bg-primary" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
       <Handle type="source" position={Position.Right} id="right" className="w-2 h-2 !bg-primary" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
       <Handle type="source" position={Position.Bottom} id="bottom" className="w-2 h-2 !bg-primary" style={getHandleStyle(!!data.editMode)} isConnectableStart={!!data.editMode} isConnectableEnd={!!data.editMode} />
-    </>
-    <div className="text-[8px] font-bold text-white uppercase text-center leading-tight">{data.label}</div>
+    </div>
+    {data.label && <div className="text-[8px] font-bold text-white uppercase text-center leading-tight mt-1 max-w-[90px] whitespace-normal">{data.label}</div>}
   </div>
 );
 
@@ -462,60 +466,61 @@ const PoolNode = ({ data }: any) => (
   </div>
 );
 
-function Legend({ activeView, language: lang }: { activeView: ViewPreset; language: Language }) {
-  const t = (v: string) => translateText(v, lang);
+function Legend({ activeView }: { activeView: ViewPreset }) {
   return (
-    <div className="bg-[#1a1a1a]/95 backdrop-blur-sm border border-white/10 rounded-lg p-3 shadow-xl text-[10px] max-w-[180px]">
-      <div className="font-black uppercase tracking-widest text-white/40 mb-2 text-[9px]">{t('Teckenförklaring')}</div>
+    <div className="bg-[#1a1a1a]/95 backdrop-blur-sm border border-white/10 rounded-lg p-3 shadow-xl text-[10px] max-w-[190px]">
+      <div className="font-black uppercase tracking-widest text-white/40 mb-2 text-[9px]">Teckenförklaring</div>
       <div className="space-y-1.5">
         <div className="flex items-center gap-2">
           <div className="w-5 h-0 border-t-2 border-[#ff8e7d] shrink-0" />
-          <span className="text-white/60">{t('Processflöde')}</span>
+          <span className="text-white/60">Processflöde</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-5 h-0 border-t-2 border-dashed border-[#8b5cf6] shrink-0" />
-          <span className="text-white/60">{t('Fallback / alternativ')}</span>
+          <span className="text-white/60">Fallback / alternativ</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-5 h-0 border-t-[1.5px] border-dotted border-[#22d3ee] shrink-0" />
-          <span className="text-white/60">{t('Dataflöde')}</span>
+          <span className="text-white/60">Dataflöde</span>
         </div>
+        {(activeView === 'teknik' || activeView === 'alla') && (
+          <div className="flex items-center gap-2">
+            <div className="w-5 h-0 border-t-[1.5px] border-[#94a3b8] shrink-0" />
+            <span className="text-white/60">Infrastruktur</span>
+          </div>
+        )}
         <div className="border-t border-white/5 pt-1.5 mt-1.5" />
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-green-500/30 border-2 border-green-500 shrink-0" />
-          <span className="text-white/60">{t('Starthändelse')}</span>
+          <span className="text-white/60">Starthändelse</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-red-500/30 border-2 border-red-500 shrink-0" />
-          <span className="text-white/60">{t('Sluthändelse')}</span>
+          <span className="text-white/60">Sluthändelse</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rotate-45 border border-[#ff8e7d] bg-[#1a1a1a] shrink-0" />
-          <span className="text-white/60">{t('Beslutspunkt')}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-sm bg-[#2f2f2f] border border-white/20 shrink-0" />
-          <span className="text-white/60">{t('Process-steg')}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-sm bg-[#2f2f2f] border border-cyan-300/40 shrink-0" />
-          <span className="text-white/60">{t('Datalager')}</span>
+          <span className="text-white/60">Beslutspunkt</span>
         </div>
         <div className="border-t border-white/5 pt-1.5 mt-1.5" />
         <div className="flex items-center gap-2">
           <div className="w-3 h-1 rounded-sm bg-green-500/30 border border-green-500/40 shrink-0" />
-          <span className="text-white/60">Primary</span>
+          <span className="text-white/60">Mobil (hemma / på plats)</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-1 rounded-sm bg-amber-500/30 border border-amber-500/40 shrink-0" />
-          <span className="text-white/60">Fallback</span>
+          <span className="text-white/60">Assisterad kiosk</span>
         </div>
-        {activeView !== 'all' && (
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-1 rounded-sm bg-sky-500/30 border border-sky-500/40 shrink-0" />
+          <span className="text-white/60">Köp på plats</span>
+        </div>
+        {activeView !== 'alla' && (
           <>
             <div className="border-t border-white/5 pt-1.5 mt-1.5" />
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-sm bg-white/5 border border-white/5 opacity-30 shrink-0" />
-              <span className="text-white/60">{t('Utanför aktiv vy')}</span>
+              <span className="text-white/60">Utanför aktiv vy</span>
             </div>
           </>
         )}
@@ -880,11 +885,17 @@ function NodeMeta({ data, language }: { data: any; language: Language }) {
         <div>
           <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Kanal')}</label>
           <span className={`inline-block px-2 py-1 text-[10px] font-black uppercase tracking-widest rounded ${
-            data.channel === 'primary' ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-            : data.channel === 'fallback' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+            data.channel === 'primary-remote' ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+            : data.channel === 'primary-onsite' ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+            : data.channel === 'assisted-onsite' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+            : data.channel === 'onsite-purchase' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30'
             : 'bg-slate-500/20 text-slate-400 border border-slate-500/30'
           }`}>
-            {data.channel === 'primary' ? 'Primary' : data.channel === 'fallback' ? 'Fallback' : 'Kiosk-only'}
+            {data.channel === 'primary-remote' ? t('Mobil · hemma')
+            : data.channel === 'primary-onsite' ? t('Mobil · på plats')
+            : data.channel === 'assisted-onsite' ? t('Assisterad kiosk')
+            : data.channel === 'onsite-purchase' ? t('Köp på plats')
+            : t('Enbart kiosk')}
           </span>
         </div>
       )}
@@ -1202,8 +1213,8 @@ function normalizeEdge(edge: any, nodesOrLookup?: any[] | Map<string, any>) {
   const rawMarkerEnd = edge?.data?.baseMarkerEnd || edge?.markerEnd || defaultEdgeOptions.markerEnd;
   const baseMarkerEnd = {
     ...defaultEdgeOptions.markerEnd,
-    ...(rawMarkerEnd || {}),
-    color: rawMarkerEnd?.color || baseStyle.stroke || defaultEdgeOptions.style.stroke,
+    ...(typeof rawMarkerEnd === 'object' ? rawMarkerEnd : {}),
+    color: (typeof rawMarkerEnd === 'object' ? rawMarkerEnd?.color : null) || baseStyle.stroke || defaultEdgeOptions.style.stroke,
   };
 
   const sourceNode = nodeLookup.get(edge?.source);
@@ -1298,7 +1309,7 @@ function sanitizeEdgeForStorage(edge: any, nodesOrLookup?: any[] | Map<string, a
 
 // ─── Persistence ──────────────────────────────────────────────────────────────
 
-const FLOW_SCHEMA_VERSION = '2026-04-view-presets-v2';
+const FLOW_SCHEMA_VERSION = '2026-04-kiosk-split-v2';
 const STORAGE_NODES = `jy-bpmn-nodes:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_EDGES = `jy-bpmn-edges:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_LANGUAGE = 'jy-bpmn-language';
@@ -1758,7 +1769,7 @@ export default function App() {
   });
   const [selectedElements, setSelectedElements] = useState<{ nodes: any[]; edges: any[] }>({ nodes: [], edges: [] });
   const [editMode, setEditMode] = useState(false);
-  const [activeView, setActiveView] = useState<ViewPreset>('journey');
+  const [activeView, setActiveView] = useState<ViewPreset>('pilotresa');
   const [history, setHistory] = useState<{ nodes: any[]; edges: any[] }[]>([]);
   const [walkActive, setWalkActive] = useState(false);
   const [walkCurrentId, setWalkCurrentId] = useState<string | null>(null);
@@ -2697,10 +2708,10 @@ export default function App() {
 
   const displayNodes = nodes
     .filter((node) => {
-      // In journey view, hide architecture-only nodes entirely for clean meeting view
-      if (activeView === 'journey') {
+      // In pilotresa view, hide teknik-only nodes for clean meeting view
+      if (activeView === 'pilotresa') {
         const tags: string[] = (node.data as any)?.viewTags ?? deriveViewTags(node);
-        if (tags.length > 0 && !tags.includes('journey') && !tags.includes('ops')) return false;
+        if (tags.length > 0 && !tags.includes('pilotresa')) return false;
       }
       return true;
     })
@@ -2711,8 +2722,8 @@ export default function App() {
       selectedElements.edges.length === 0 &&
       selectedElements.nodes.some((selectedNode) => selectedNode.id === node.id && (selectedNode.type === 'lane' || selectedNode.type === 'pool'));
     data.editMode = editMode;
-    // View-based dimming
-    if (activeView !== 'all' && !nodeMatchesView(node, activeView)) {
+    // View-based dimming (alla shows everything at full opacity)
+    if (activeView !== 'alla' && !nodeMatchesView(node, activeView)) {
       data.dimmed = true;
     }
     if (node.type === 'database') {
@@ -2732,12 +2743,12 @@ export default function App() {
 
   const displayNodeIds = new Set(displayNodes.map(n => n.id));
   const displayEdges = edges
-    .filter((edge) => getEdgeCategory(edge) !== 'arch')
+    .filter((edge) => getEdgeCategory(edge) !== 'arch' || activeView === 'teknik' || activeView === 'alla')
     .filter((edge) => displayNodeIds.has(edge.source) && displayNodeIds.has(edge.target))
     .map((edge) => {
       let result = typeof edge.label === 'string' ? { ...edge, label: t(edge.label) } : edge;
-      // Dim edges when any endpoint is outside active view
-      if (activeView !== 'all') {
+      // Dim edges when any endpoint is outside active view (skip for alla)
+      if (activeView !== 'alla') {
         const srcNode = nodes.find(n => n.id === edge.source);
         const tgtNode = nodes.find(n => n.id === edge.target);
         const srcMatch = srcNode ? nodeMatchesView(srcNode, activeView) : true;
@@ -2764,23 +2775,6 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <div className="flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 p-1">
-            <button
-              onClick={() => setLanguage('sv')}
-              title={t('Byt språk')}
-              className={`rounded px-2 py-1 text-[10px] font-black tracking-widest transition-colors ${language === 'sv' ? 'bg-white text-[#0e0e0e]' : 'text-white/55 hover:text-white hover:bg-white/10'}`}
-            >
-              SV
-            </button>
-            <button
-              onClick={() => setLanguage('en')}
-              title={t('Byt språk')}
-              className={`rounded px-2 py-1 text-[10px] font-black tracking-widest transition-colors ${language === 'en' ? 'bg-white text-[#0e0e0e]' : 'text-white/55 hover:text-white hover:bg-white/10'}`}
-            >
-              EN
-            </button>
-          </div>
-
           <button
             onClick={() => setEditMode(m => !m)}
             title={editMode ? t('Byt till visningsläge') : t('Byt till redigeringsläge')}
@@ -2824,7 +2818,7 @@ export default function App() {
           <div className="w-px h-6 bg-white/10 mx-1" />
 
           <div className="flex items-center gap-0.5 border border-white/10 rounded px-1 py-0.5">
-            {(['all', 'journey', 'ops', 'architecture', 'future'] as ViewPreset[]).map(preset => (
+            {(['pilotresa', 'teknik', 'alla'] as ViewPreset[]).map(preset => (
               <button
                 key={preset}
                 onClick={() => setActiveView(preset)}
@@ -2834,7 +2828,9 @@ export default function App() {
                     : 'text-white/40 hover:text-white hover:bg-white/5'
                 }`}
               >
-                {t(VIEW_PRESET_LABELS[preset])}
+                {preset === 'alla' ? (
+                  <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{VIEW_PRESET_LABELS[preset]}</span>
+                ) : VIEW_PRESET_LABELS[preset]}
               </button>
             ))}
           </div>
@@ -2983,7 +2979,7 @@ export default function App() {
             )}
 
             <Panel position="bottom-left" className="m-4">
-              <Legend activeView={activeView} language={language} />
+              <Legend activeView={activeView} />
             </Panel>
 
             <MiniMap
