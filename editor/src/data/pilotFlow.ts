@@ -2626,7 +2626,7 @@ export const pilotEdges = [
       "stroke": "#ff8e7d"
     },
     "sourceHandle": "right",
-    "targetHandle": "top",
+    "targetHandle": "left",
     "data": {
       "baseStyle": {
         "strokeWidth": 2,
@@ -2702,7 +2702,7 @@ export const pilotEdges = [
       "stroke": "#ff8e7d"
     },
     "sourceHandle": "right",
-    "targetHandle": "top",
+    "targetHandle": "left",
     "data": {
       "baseStyle": {
         "strokeWidth": 2,
@@ -2872,7 +2872,7 @@ export const pilotEdges = [
       "stroke": "#ff8e7d"
     },
     "sourceHandle": "right",
-    "targetHandle": "bottom",
+    "targetHandle": "left",
     "data": {
       "baseStyle": {
         "strokeWidth": 2,
@@ -2990,7 +2990,7 @@ export const pilotEdges = [
       "stroke": "#ff8e7d"
     },
     "sourceHandle": "bottom",
-    "targetHandle": "top",
+    "targetHandle": "right",
     "data": {
       "baseStyle": {
         "strokeWidth": 2,
@@ -3032,7 +3032,7 @@ export const pilotEdges = [
       "stroke": "#ff8e7d"
     },
     "sourceHandle": "right",
-    "targetHandle": "top",
+    "targetHandle": "left",
     "data": {
       "baseStyle": {
         "strokeWidth": 2,
@@ -3210,7 +3210,7 @@ export const pilotEdges = [
       "stroke": "#ff8e7d"
     },
     "sourceHandle": "right",
-    "targetHandle": "bottom",
+    "targetHandle": "left",
     "data": {
       "baseStyle": {
         "strokeWidth": 2,
@@ -3430,7 +3430,7 @@ export const pilotEdges = [
       "stroke": "#ff8e7d"
     },
     "sourceHandle": "right",
-    "targetHandle": "top",
+    "targetHandle": "left",
     "data": {
       "baseStyle": {
         "strokeWidth": 2,
@@ -5768,7 +5768,7 @@ export const pilotEdges = [
     "source": "kiosk-entry",
     "target": "gw-kiosk-existing",
     "sourceHandle": "right",
-    "targetHandle": "left",
+    "targetHandle": "bottom",
     "data": {
       "baseStyle": {
         "strokeWidth": 2,
@@ -6257,7 +6257,7 @@ export const pilotEdges = [
     "source": "event-1775807990618",
     "sourceHandle": "right",
     "target": "app-extend-view",
-    "targetHandle": "left",
+    "targetHandle": "top",
     "data": {
       "baseStyle": {
         "strokeWidth": 2,
@@ -6458,7 +6458,7 @@ export const pilotEdges = [
       "strokeDasharray": "3,5"
     },
     "sourceHandle": "bottom",
-    "targetHandle": "top",
+    "targetHandle": "right",
     "data": {
       "edgeKind": "data",
       "edgeStyle": "data",
@@ -6504,7 +6504,7 @@ export const pilotEdges = [
       "strokeDasharray": "3,5"
     },
     "sourceHandle": "top",
-    "targetHandle": "bottom",
+    "targetHandle": "right",
     "data": {
       "edgeKind": "data",
       "edgeStyle": "data",
@@ -6596,7 +6596,7 @@ export const pilotEdges = [
       "strokeDasharray": "3,5"
     },
     "sourceHandle": "bottom",
-    "targetHandle": "top",
+    "targetHandle": "right",
     "data": {
       "edgeKind": "data",
       "edgeStyle": "data",
