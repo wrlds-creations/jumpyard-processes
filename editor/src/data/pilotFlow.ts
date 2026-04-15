@@ -2625,7 +2625,7 @@ export const pilotEdges = [
     "id": "g16",
     "source": "guest-output-choice",
     "target": "guest-present",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Ingen utskrift / visa i mobilen",
     "labelStyle": {
       "fill": "#fff",
@@ -2653,21 +2653,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g15",
     "source": "guest-confirm",
     "target": "guest-output-choice",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -2687,21 +2683,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g14",
     "source": "guest-pay",
     "target": "guest-payment-step",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Ja",
     "labelStyle": {
       "fill": "#fff",
@@ -2729,21 +2721,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g14b",
     "source": "guest-pay",
     "target": "guest-confirm",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Nej",
     "labelStyle": {
       "fill": "#fff",
@@ -2771,21 +2759,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g14c",
     "source": "guest-payment-step",
     "target": "guest-confirm",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -2805,21 +2789,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g15b",
     "source": "guest-output-choice",
     "target": "guest-print",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Kiosk / skriv ut",
     "labelStyle": {
       "fill": "#fff",
@@ -2847,21 +2827,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g15c",
     "source": "guest-print",
     "target": "guest-present",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -2881,21 +2857,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g13",
     "source": "guest-addons",
     "target": "guest-pay",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -2915,21 +2887,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g12",
     "source": "guest-safety",
     "target": "guest-addons",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -2949,21 +2917,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g11",
     "source": "guest-review",
     "target": "guest-safety",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -2983,21 +2947,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g10",
     "source": "guest-open",
     "target": "guest-review",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3017,21 +2977,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g9",
     "source": "guest-onsite-choice",
     "target": "guest-open",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3051,21 +3007,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g8",
     "source": "guest-onsite-entry",
     "target": "guest-onsite-choice",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3085,21 +3037,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g7",
     "source": "guest-booked",
     "target": "guest-onsite-entry",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Nej",
     "labelStyle": {
       "fill": "#fff",
@@ -3127,21 +3075,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g6",
     "source": "guest-entry-choice",
     "target": "guest-onsite-entry",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Skanna QR / kiosk",
     "labelStyle": {
       "fill": "#fff",
@@ -3169,21 +3113,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g5",
     "source": "guest-entry-choice",
     "target": "guest-open",
-    "type": "step",
+    "type": "smoothstep",
     "label": "SMS-länk",
     "labelStyle": {
       "fill": "#fff",
@@ -3211,21 +3151,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g4",
     "source": "guest-sms",
     "target": "guest-entry-choice",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3245,21 +3181,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g3",
     "source": "guest-home-book",
     "target": "guest-sms",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3279,21 +3211,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g2",
     "source": "guest-booked",
     "target": "guest-home-book",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Ja",
     "labelStyle": {
       "fill": "#fff",
@@ -3321,21 +3249,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "g1",
     "source": "guest-start",
     "target": "guest-booked",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3355,21 +3279,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w11",
     "source": "kiosk-buy-details",
     "target": "app-booking",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3389,21 +3309,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w10",
     "source": "kiosk-lookup",
     "target": "app-booking",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3423,21 +3339,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w9",
     "source": "gw-kiosk-existing",
     "target": "kiosk-buy-select",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Nej",
     "labelStyle": {
       "fill": "#fff",
@@ -3465,21 +3377,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w9b",
     "source": "kiosk-buy-select",
     "target": "kiosk-buy-details",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3499,21 +3407,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w8",
     "source": "gw-kiosk-existing",
     "target": "kiosk-lookup",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Ja",
     "labelStyle": {
       "fill": "#fff",
@@ -3541,21 +3445,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w6",
     "source": "gw-mobile-entry",
     "target": "gw-kiosk-existing",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3575,21 +3475,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w5",
     "source": "app-mobile",
     "target": "app-booking",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3609,21 +3505,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w4",
     "source": "gw-channel",
     "target": "kiosk-entry",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Kiosk",
     "labelStyle": {
       "fill": "#fff",
@@ -3651,21 +3543,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w3",
     "source": "gw-channel",
     "target": "gw-mobile-entry",
-    "type": "step",
+    "type": "smoothstep",
     "label": "Park-QR",
     "labelStyle": {
       "fill": "#fff",
@@ -3693,21 +3581,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w2",
     "source": "gw-channel",
     "target": "app-mobile",
-    "type": "step",
+    "type": "smoothstep",
     "label": "SMS-länk",
     "labelStyle": {
       "fill": "#fff",
@@ -3735,21 +3619,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w1",
     "source": "app-start",
     "target": "gw-channel",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3769,21 +3649,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w12",
     "source": "app-booking",
     "target": "app-safety-video",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3803,21 +3679,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w13",
     "source": "app-safety-attest",
     "target": "app-addons",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3837,21 +3709,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w14",
     "source": "app-addons",
     "target": "gw-skyrider",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3871,21 +3739,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w18",
     "source": "gw-app-payment",
     "target": "app-payment",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3913,21 +3777,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w22",
     "source": "app-confirm",
     "target": "app-present",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3955,21 +3815,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w23",
     "source": "kiosk-print",
     "target": "app-present",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -3989,21 +3845,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "o1",
     "source": "job-daily",
     "target": "job-delta",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -4023,21 +3875,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "o2",
     "source": "job-delta",
     "target": "job-enrich",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -4057,21 +3905,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "o3",
     "source": "job-enrich",
     "target": "job-sms",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -4091,21 +3935,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "o3b",
     "source": "job-sms",
     "target": "job-refresh",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -4125,21 +3965,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "o4",
     "source": "job-refresh",
     "target": "job-retry",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -4159,21 +3995,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "d9",
     "source": "app-confirm",
     "target": "store-operational",
-    "type": "step",
+    "type": "smoothstep",
     "style": {
       "strokeWidth": 1.5,
       "stroke": "#22d3ee",
@@ -4195,7 +4027,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Bekräftelsevyn läser token, QR och bokningskod från operativ state.",
       "operation": "Läsning",
       "fields": [
@@ -4210,17 +4042,13 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "top",
     "zIndex": 0,
-    "selected": false,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "selected": false
   },
   {
     "id": "d9b",
     "source": "app-confirm",
     "target": "store-events",
-    "type": "step",
+    "type": "smoothstep",
     "style": {
       "strokeWidth": 1.5,
       "stroke": "#22d3ee",
@@ -4242,7 +4070,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "WebApp-flödet skriver centrala händelser när check-in når bekräftat läge.",
       "operation": "Skrivning",
       "fields": [
@@ -4257,17 +4085,13 @@ export const pilotEdges = [
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "d16",
     "source": "roller-webhook",
     "target": "job-delta",
-    "type": "step",
+    "type": "smoothstep",
     "style": {
       "strokeWidth": 1.5,
       "stroke": "#22d3ee",
@@ -4289,7 +4113,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Roller pushar Created, Updated och Cancelled till webhook-intake under dagen.",
       "operation": "Webhook",
       "fields": [
@@ -4305,17 +4129,13 @@ export const pilotEdges = [
     "sourceHandle": "top",
     "targetHandle": "bottom",
     "zIndex": 0,
-    "selected": false,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "selected": false
   },
   {
     "id": "d19",
     "source": "job-refresh",
     "target": "roller-booking",
-    "type": "step",
+    "type": "smoothstep",
     "style": {
       "strokeWidth": 1.5,
       "stroke": "#22d3ee",
@@ -4337,7 +4157,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Refresh vid länköppning hämtar färsk booking detail.",
       "operation": "Läsning",
       "fields": [
@@ -4352,17 +4172,13 @@ export const pilotEdges = [
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "d22",
     "source": "job-retry",
     "target": "roller-writeback",
-    "type": "step",
+    "type": "smoothstep",
     "style": {
       "strokeWidth": 1.5,
       "stroke": "#22d3ee",
@@ -4384,7 +4200,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Retryjobbet tar om writeback när betalning eller bokningsändring inte gick igenom.",
       "operation": "Writeback",
       "fields": [
@@ -4399,17 +4215,13 @@ export const pilotEdges = [
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "f1",
     "source": "guest-present",
     "target": "staff-assist",
-    "type": "step",
+    "type": "smoothstep",
     "label": "saknar kod / mismatch",
     "labelStyle": {
       "fill": "#fff",
@@ -4438,24 +4250,20 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#8b5cf6"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
     "zIndex": 0,
-    "selected": false,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "selected": false
   },
   {
     "id": "f3",
     "source": "staff-manual",
     "target": "staff-handoff",
-    "type": "step",
+    "type": "smoothstep",
     "style": {
       "strokeWidth": 2,
       "stroke": "#8b5cf6",
@@ -4476,20 +4284,16 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#8b5cf6"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "sourceHandle": "right",
     "targetHandle": "left",
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -4511,20 +4315,16 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
     "selected": false,
-    "id": "xy-edge__app-connectedright-gw-app-paymentleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-connectedright-gw-app-paymentleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -4554,19 +4354,15 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__app-confirmtop-right-kiosk-printleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-confirmtop-right-kiosk-printleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#8b5cf6"
@@ -4597,7 +4393,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#8b5cf6"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -4605,14 +4401,10 @@ export const pilotEdges = [
     "targetHandle": "bottom",
     "zIndex": 0,
     "id": "xy-edge__job-retrytop-staff-assistbottom-right",
-    "selected": false,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "selected": false
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#8b5cf6"
@@ -4635,21 +4427,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#8b5cf6"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "sourceHandle": "right",
     "targetHandle": "left",
     "zIndex": 0,
-    "id": "xy-edge__staff-assistright-staff-manualleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__staff-assistright-staff-manualleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -4671,19 +4459,15 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__staff-handoffright-top-guest-endbottom",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__staff-handoffright-top-guest-endbottom"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -4707,7 +4491,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Daglig seed hämtar bokningar, tickets, payments och customers som behövs inför dagens SMS och check-in.",
       "operation": "Sync",
       "fields": [
@@ -4724,14 +4508,10 @@ export const pilotEdges = [
     "targetHandle": "top",
     "zIndex": 0,
     "id": "xy-edge__job-dailybottom-left-roller-bulktop-left",
-    "selected": false,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "selected": false
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -4755,7 +4535,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Daglig seed fyller gästprofiler och kontaktcache som SMS-flödet behöver senare under dagen.",
       "operation": "Skrivning",
       "fields": [
@@ -4772,14 +4552,10 @@ export const pilotEdges = [
     "targetHandle": "bottom",
     "zIndex": 0,
     "id": "xy-edge__job-dailytop-right-store-operationalbottom-left",
-    "selected": false,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "selected": false
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -4803,7 +4579,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Bokningsvyn läser den senaste snapshoten för gemensam visning.",
       "operation": "Läsning",
       "fields": [
@@ -4819,14 +4595,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "top",
     "zIndex": 0,
-    "id": "xy-edge__app-bookingbottom-store-snapshottop-right",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-bookingbottom-store-snapshottop-right"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -4850,7 +4622,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Gemensam lookup läser en matchbar bokning från snapshoten.",
       "operation": "Läsning",
       "fields": [
@@ -4866,14 +4638,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "top",
     "zIndex": 0,
-    "id": "xy-edge__kiosk-lookupbottom-store-snapshottop",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__kiosk-lookupbottom-store-snapshottop"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -4897,7 +4665,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Connected-profiler sparas i pilotens operativa state.",
       "operation": "Skrivning",
       "fields": [
@@ -4912,14 +4680,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "top",
     "zIndex": 0,
-    "id": "xy-edge__app-connectedbottom-right-store-operationaltop-left",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-connectedbottom-right-store-operationaltop-left"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -4943,7 +4707,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Staff slutför connected-delen genom att koppla band till profilerna vid utlämning.",
       "operation": "Läsning + skrivning",
       "fields": [
@@ -4959,14 +4723,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "right",
     "zIndex": 0,
-    "id": "xy-edge__staff-handoffbottom-left-store-operationalright-bottom2",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__staff-handoffbottom-left-store-operationalright-bottom2"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -4990,7 +4750,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Staff läser och uppdaterar operativ state när handoff slutförs.",
       "operation": "Läsning + skrivning",
       "fields": [
@@ -5007,14 +4767,10 @@ export const pilotEdges = [
     "targetHandle": "right",
     "zIndex": 0,
     "selected": false,
-    "id": "xy-edge__staff-handoffbottom-store-operationalright-bottom",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__staff-handoffbottom-store-operationalright-bottom"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5038,7 +4794,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Slutvyn läser det som gästen ska visa upp hos staff.",
       "operation": "Läsning",
       "fields": [
@@ -5053,14 +4809,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "right",
     "zIndex": 0,
-    "id": "xy-edge__app-presentbottom-store-operationalright",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-presentbottom-store-operationalright"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5084,7 +4836,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Kiosk läser confirmation-data inför eventuell utskrift.",
       "operation": "Läsning",
       "fields": [
@@ -5099,14 +4851,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "right",
     "zIndex": 0,
-    "id": "xy-edge__kiosk-printbottom-left-store-operationalright-top",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__kiosk-printbottom-left-store-operationalright-top"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5130,7 +4878,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Tilläggsvyn hämtar produktkatalog och prisberäkning direkt via Cloud backend.",
       "operation": "Läsning",
       "fields": [
@@ -5145,14 +4893,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "top",
     "zIndex": 0,
-    "id": "xy-edge__app-addonsbottom-roller-productstop",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-addonsbottom-roller-productstop"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5176,7 +4920,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "SMS-jobbet läser bokningar redo för utskick och skriver token/outbox-status.",
       "operation": "Läsning + skrivning",
       "fields": [
@@ -5191,14 +4935,10 @@ export const pilotEdges = [
     "sourceHandle": "top",
     "targetHandle": "bottom",
     "zIndex": 0,
-    "id": "xy-edge__job-smstop-left-store-operationalbottom-left",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__job-smstop-left-store-operationalbottom-left"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5222,7 +4962,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Safetyresultat skrivs till operativ state.",
       "operation": "Skrivning",
       "fields": [
@@ -5237,14 +4977,10 @@ export const pilotEdges = [
     "targetHandle": "left",
     "zIndex": 0,
     "selected": false,
-    "id": "xy-edge__app-safetybottom-store-operationalleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-safetybottom-store-operationalleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5268,7 +5004,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Tilläggsval och connected-flagga sparas inför betalningsbeslut och writeback.",
       "operation": "Skrivning",
       "fields": [
@@ -5283,14 +5019,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "left",
     "zIndex": 0,
-    "id": "xy-edge__app-addonsbottom-store-operationalleft-top",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-addonsbottom-store-operationalleft-top"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5314,7 +5046,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Connected-profiler sparas som lätta profilutkast i piloten.",
       "operation": "Skrivning",
       "fields": [
@@ -5330,14 +5062,10 @@ export const pilotEdges = [
     "targetHandle": "top",
     "zIndex": 0,
     "selected": false,
-    "id": "xy-edge__app-connectedbottom-store-operationaltop",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-connectedbottom-store-operationaltop"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5361,7 +5089,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Betalningsresultat skrivs innan writeback och bekräftelse.",
       "operation": "Skrivning",
       "fields": [
@@ -5377,14 +5105,10 @@ export const pilotEdges = [
     "targetHandle": "top",
     "zIndex": 0,
     "selected": false,
-    "id": "xy-edge__app-paymentbottom-store-operationaltop-left",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-paymentbottom-store-operationaltop-left"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5408,7 +5132,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Färsk booking detail skrivs tillbaka till snapshoten.",
       "operation": "Skrivning",
       "fields": [
@@ -5423,14 +5147,10 @@ export const pilotEdges = [
     "sourceHandle": "top",
     "targetHandle": "right",
     "zIndex": 0,
-    "id": "xy-edge__job-refreshtop-left-store-snapshotright-top",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__job-refreshtop-left-store-snapshotright-top"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5454,7 +5174,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Staff skriver visit event och utlämningsspår.",
       "operation": "Skrivning",
       "fields": [
@@ -5469,14 +5189,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "right",
     "zIndex": 0,
-    "id": "xy-edge__staff-handoffbottom-left-store-eventsright-top",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__staff-handoffbottom-left-store-eventsright-top"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5500,7 +5216,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Webhook-intake skriver råa booking-events och enrich-status till eventlagret.",
       "operation": "Skrivning",
       "fields": [
@@ -5516,14 +5232,10 @@ export const pilotEdges = [
     "sourceHandle": "top",
     "targetHandle": "bottom",
     "zIndex": 0,
-    "id": "xy-edge__job-deltatop-left-store-eventsbottom-right",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__job-deltatop-left-store-eventsbottom-right"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5547,7 +5259,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Webhook enrichment hämtar exakt booking-state direkt efter webhooken.",
       "operation": "Läsning",
       "fields": [
@@ -5563,14 +5275,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "top",
     "zIndex": 0,
-    "id": "xy-edge__job-enrichbottom-left-roller-bookingtop",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__job-enrichbottom-left-roller-bookingtop"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5594,7 +5302,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Webhook enrichment hämtar kundkontakt för att få telefonnummer och SMS-beredskap på sena bokningar.",
       "operation": "Läsning",
       "fields": [
@@ -5610,14 +5318,10 @@ export const pilotEdges = [
     "sourceHandle": "bottom",
     "targetHandle": "top",
     "zIndex": 0,
-    "id": "xy-edge__job-enrichbottom-right-roller-customertop",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__job-enrichbottom-right-roller-customertop"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5641,7 +5345,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Webhook enrichment skriver den sena bokningen tillbaka till Roller-snapshoten.",
       "operation": "Skrivning",
       "fields": [
@@ -5658,14 +5362,10 @@ export const pilotEdges = [
     "targetHandle": "bottom",
     "zIndex": 0,
     "id": "xy-edge__job-enrichtop-left-store-snapshotbottom-right",
-    "selected": false,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "selected": false
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5689,7 +5389,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Webhook enrichment skriver kundkontakt, sms-beredskap och senaste bookingkontext till operativ state.",
       "operation": "Skrivning",
       "fields": [
@@ -5706,14 +5406,10 @@ export const pilotEdges = [
     "targetHandle": "bottom",
     "zIndex": 0,
     "id": "xy-edge__job-enrichtop-right-store-operationalbottom-right",
-    "selected": false,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "selected": false
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -5737,7 +5433,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Daglig seed skriver dagens boknings-, ticket- och payment-snapshot till Aurora.",
       "operation": "Skrivning",
       "fields": [
@@ -5754,14 +5450,10 @@ export const pilotEdges = [
     "targetHandle": "left",
     "zIndex": 0,
     "selected": false,
-    "id": "xy-edge__job-dailytop-left-store-snapshotleft-bottom",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__job-dailytop-left-store-snapshotleft-bottom"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -5783,19 +5475,15 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__kiosk-entryright-gw-kiosk-existingleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__kiosk-entryright-gw-kiosk-existingleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -5825,20 +5513,16 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
     "selected": false,
-    "id": "xy-edge__gw-app-connectedbottom-gw-app-paymentleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__gw-app-connectedbottom-gw-app-paymentleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -5860,22 +5544,18 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__guest-presentright-staff-handofftop",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__guest-presentright-staff-handofftop"
   },
   {
     "id": "w-extend-2",
     "source": "guest-extend-notice",
     "target": "guest-extend-open",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -5895,21 +5575,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w-extend-6",
     "source": "app-extend-pay",
     "target": "app-extend-qr",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -5929,21 +5605,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w-extend-10",
     "source": "staff-extend-scan",
     "target": "staff-extend-band",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -5963,21 +5635,17 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "w-extend-11",
     "source": "staff-extend-band",
     "target": "guest-extend-band",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -5997,18 +5665,14 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6030,19 +5694,15 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__app-safety-videoright-app-safety-attestleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-safety-videoright-app-safety-attestleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6065,19 +5725,15 @@ export const pilotEdges = [
         "color": "#ff8e7d"
       },
       "edgeStyle": "solid",
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "id": "xy-edge__app-extend-viewright-app-extend-payleft",
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6100,19 +5756,15 @@ export const pilotEdges = [
         "color": "#ff8e7d"
       },
       "edgeStyle": "solid",
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "id": "xy-edge__event-1775807705215right-guest-extend-openleft",
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6135,19 +5787,15 @@ export const pilotEdges = [
         "color": "#ff8e7d"
       },
       "edgeStyle": "solid",
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "id": "xy-edge__guest-extend-openright-guest-extend-payleft",
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6170,19 +5818,15 @@ export const pilotEdges = [
         "color": "#ff8e7d"
       },
       "edgeStyle": "solid",
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "id": "xy-edge__guest-extend-payright-guest-extend-qrleft",
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6204,19 +5848,15 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__guest-extend-qrright-guest-extend-walkleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__guest-extend-qrright-guest-extend-walkleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6238,19 +5878,15 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__guest-extend-walkright-staff-extend-scanleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__guest-extend-walkright-staff-extend-scanleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6273,19 +5909,15 @@ export const pilotEdges = [
         "color": "#ff8e7d"
       },
       "edgeStyle": "solid",
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "id": "xy-edge__event-1775807990618right-app-extend-viewleft",
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6307,19 +5939,15 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__app-skyrider-attesttop-right-gw-app-connectedleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-skyrider-attesttop-right-gw-app-connectedleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6349,19 +5977,15 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__gw-skyriderbottom-app-skyrider-attestleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__gw-skyriderbottom-app-skyrider-attestleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -6387,7 +6011,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Ny sluttid och nytt band-id skrivs till operativ state och vidare till Roller.",
       "operation": "Skrivning",
       "fields": [
@@ -6399,17 +6023,13 @@ export const pilotEdges = [
     },
     "zIndex": 0,
     "selected": false,
-    "id": "xy-edge__app-extend-paybottom-store-operationalright",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "id": "xy-edge__app-extend-paybottom-store-operationalright"
   },
   {
     "id": "ops-wb-1",
     "source": "staff-handoff",
     "target": "job-writeback-sync",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -6433,7 +6053,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Staff-handoff köar redeem-request via ops-jobb istället för direktanrop.",
       "operation": "Köa",
       "fields": [
@@ -6445,17 +6065,13 @@ export const pilotEdges = [
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "ops-wb-2",
     "source": "job-writeback-sync",
     "target": "store-snapshot",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -6479,7 +6095,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Ops-jobbet skriver tillbaka bokningsdata och redeem-status till lokal snapshot.",
       "operation": "Skrivning",
       "fields": [
@@ -6492,17 +6108,13 @@ export const pilotEdges = [
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "ops-wb-3",
     "source": "job-writeback-sync",
     "target": "roller-redeem",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -6526,7 +6138,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Ops-jobbet anropar Roller Redeem tickets API.",
       "operation": "Writeback",
       "fields": [
@@ -6537,17 +6149,13 @@ export const pilotEdges = [
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
     "id": "ops-wb-4",
     "source": "job-writeback-sync",
     "target": "roller-create",
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#22d3ee"
@@ -6571,7 +6179,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#22d3ee"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "details": "Ops-jobbet skapar ny bokning i Roller vid on-site-köp.",
       "operation": "Skapande",
       "fields": [
@@ -6583,14 +6191,10 @@ export const pilotEdges = [
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
+    "zIndex": 0
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6598,10 +6202,6 @@ export const pilotEdges = [
     "style": {
       "strokeWidth": 2,
       "stroke": "#ff8e7d"
-    },
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
     },
     "source": "gw-skyrider",
     "target": "gw-app-connected",
@@ -6624,7 +6224,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -6633,7 +6233,7 @@ export const pilotEdges = [
     "id": "xy-edge__gw-skyriderright-gw-app-connectedleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6641,10 +6241,6 @@ export const pilotEdges = [
     "style": {
       "strokeWidth": 2,
       "stroke": "#ff8e7d"
-    },
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
     },
     "source": "gw-app-connected",
     "target": "app-connected",
@@ -6667,7 +6263,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -6675,7 +6271,7 @@ export const pilotEdges = [
     "id": "xy-edge__gw-app-connectedtop-app-connectedleft"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6683,10 +6279,6 @@ export const pilotEdges = [
     "style": {
       "strokeWidth": 2,
       "stroke": "#ff8e7d"
-    },
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
     },
     "source": "app-payment",
     "target": "app-confirm",
@@ -6701,7 +6293,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -6709,7 +6301,7 @@ export const pilotEdges = [
     "id": "xy-edge__app-paymentright-app-confirmleft-top"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
@@ -6717,10 +6309,6 @@ export const pilotEdges = [
     "style": {
       "strokeWidth": 2,
       "stroke": "#ff8e7d"
-    },
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
     },
     "source": "gw-app-payment",
     "target": "app-confirm",
@@ -6743,7 +6331,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#ff8e7d"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -6751,7 +6339,7 @@ export const pilotEdges = [
     "id": "xy-edge__gw-app-paymentright-app-confirmleft-bottom"
   },
   {
-    "type": "step",
+    "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#8b5cf6"
@@ -6782,7 +6370,7 @@ export const pilotEdges = [
         "type": "arrowclosed",
         "color": "#8b5cf6"
       },
-      "pathMode": "step",
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -6790,10 +6378,6 @@ export const pilotEdges = [
     "targetHandle": "left",
     "zIndex": 0,
     "selected": false,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    },
     "id": "xy-edge__staff-handoffbottom-staff-api-endleft"
   }
 ] as any[];
