@@ -1191,7 +1191,6 @@ const defaultEdgeOptions = {
   type: 'smoothstep',
   markerEnd: { type: MarkerType.ArrowClosed, color: '#ff8e7d' },
   style: { strokeWidth: 2, stroke: '#ff8e7d' },
-  pathOptions: { offset: 0, borderRadius: 0 },
 };
 
 function hydrateEdge(edge: any) {
@@ -1230,7 +1229,6 @@ function normalizeEdge(edge: any, nodesOrLookup?: any[] | Map<string, any>) {
     type: pathMode,
     style: { ...baseStyle },
     markerEnd: { ...baseMarkerEnd },
-    pathOptions: { offset: 0, borderRadius: 0 },
     data: {
       ...(edge?.data || {}),
       baseStyle,

@@ -255,13 +255,15 @@ export const pilotNodes = [
       "type": "start",
       "lane": "Gäst",
       "details": "Resan börjar antingen hemma på befintlig webbplats eller på plats i parken.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 48,
-      "height": 48
+      "width": 68,
+      "height": 62
     },
     "selected": false,
     "dragging": false
@@ -277,7 +279,9 @@ export const pilotNodes = [
       "label": "Bokat hemma redan?",
       "lane": "Gäst",
       "details": "Piloten ska tydligt skilja mellan bokning hemma as-is och on-site-ingång i parken.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -299,7 +303,9 @@ export const pilotNodes = [
       "label": "Boka hemma as-is på webbplatsen",
       "lane": "Gäst",
       "details": "Bokningen sker fortsatt på befintlig webbplats hemma. Efteråt kan gästen antingen använda SMS-länken eller starta på plats via QR eller kiosk.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -314,14 +320,16 @@ export const pilotNodes = [
     "id": "guest-sms",
     "type": "task",
     "position": {
-      "x": 778.6854798244925,
-      "y": 30.496472532907653
+      "x": 773.3037426417994,
+      "y": 33.8600582720908
     },
     "data": {
       "label": "Få SMS 30 minuter före starttid",
       "lane": "Gäst",
       "details": "Gästen får ett sms cirka 30 minuter före starttid. Länken öppnar snabbt check-in, men gästen kan fortfarande välja parkens QR eller kiosk i stället.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -343,7 +351,9 @@ export const pilotNodes = [
       "label": "Skanna park-QR på ställning eller välj kiosk",
       "lane": "Gäst",
       "details": "Samma on-site-ingång används både för gäster utan bokning och för gäster som redan bokat hemma men väljer QR eller kiosk i stället för SMS-länken.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -358,14 +368,16 @@ export const pilotNodes = [
     "id": "guest-onsite-choice",
     "type": "task",
     "position": {
-      "x": 1079.3371609094631,
-      "y": 167.1960622257695
+      "x": 1090.7733524226858,
+      "y": 160.46889074740324
     },
     "data": {
       "label": "Hitta bokning eller köp på plats",
       "lane": "Gäst",
       "details": "På plats kan gästen hitta en befintlig bokning eller köpa en närliggande tid direkt i parkflödet.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -380,14 +392,16 @@ export const pilotNodes = [
     "id": "guest-entry-choice",
     "type": "gateway",
     "position": {
-      "x": 1155.9803111288475,
-      "y": 31.007054934184687
+      "x": 1108.8901107802833,
+      "y": 31.679772082021323
     },
     "data": {
       "label": "Öppna check-in hur?",
       "lane": "Gäst",
       "details": "Gästen kan ha bokat hemma och ändå välja att använda parkens QR eller kiosk i stället för SMS-länken.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -402,19 +416,21 @@ export const pilotNodes = [
     "id": "guest-open",
     "type": "task",
     "position": {
-      "x": 1282.1128789469549,
-      "y": 98.01410986836936
+      "x": 1325.1667764084991,
+      "y": 98.686827016206
     },
     "data": {
       "label": "Gå in i check-in-flödet",
       "lane": "Gäst",
       "details": "Flödet kan starta via personlig SMS-länk, via QR eller kiosk med befintlig bokning, eller efter köp på plats.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 182,
+      "width": 183,
       "height": 43
     },
     "selected": false,
@@ -431,12 +447,14 @@ export const pilotNodes = [
       "label": "Granska bokning",
       "lane": "Gäst",
       "details": "När bokning finns ser gästen deltagare och vad som redan ingår.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 149,
+      "width": 150,
       "height": 43
     },
     "selected": false,
@@ -454,7 +472,9 @@ export const pilotNodes = [
       "lane": "Gäst",
       "details": "Säkerhetsflödet i piloten: (1) kort safety-video, (2) generella parkregler, (3) bokningsnivå-intygande, (4) attraktionsspecifik bekräftelse där relevant. Slutförs innan tillägg och handoff.",
       "why": "JumpYard Cloud äger safety-steget. Alla gäster genomför samma sekvens oavsett kanal.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -469,14 +489,16 @@ export const pilotNodes = [
     "id": "guest-addons",
     "type": "task",
     "position": {
-      "x": 2010.2172270283236,
-      "y": 89.85332231352328
+      "x": 2000.7991869586108,
+      "y": 99.9440795310727
     },
     "data": {
       "label": "Välj tillägg och connected",
       "lane": "Gäst",
       "details": "Samma huvudsteg oavsett om gästen kommer via mobil eller kiosk.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -498,7 +520,9 @@ export const pilotNodes = [
       "label": "Betalning krävs?",
       "lane": "Gäst",
       "details": "Efter tillägg och connected avgörs om bokningen behöver betalas eller kan gå direkt vidare till bekräftelsen.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -520,7 +544,9 @@ export const pilotNodes = [
       "label": "Betala",
       "lane": "Gäst",
       "details": "Gästen betalar bara om totalen inte redan är 0 efter tillägg, connected eller tidigare betalning.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -543,12 +569,14 @@ export const pilotNodes = [
       "lane": "Gäst",
       "details": "Bekräftelsen används sedan vid handoff hos staff.",
       "why": "Gästens perspektiv: check-in-flödet sammanfattas. I mobilflödet är detta samma skärm som guest-present.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 198,
+      "width": 199,
       "height": 43
     },
     "selected": false,
@@ -565,7 +593,9 @@ export const pilotNodes = [
       "label": "Skriv ut eller visa i mobilen?",
       "lane": "Gäst",
       "details": "I slutet skiljer sig bara utlämningen mellan kiosk och mobil: kiosk kan skriva ut ett kvitto eller confirmation, medan mobilen visar QR eller bokningskod direkt.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -580,21 +610,23 @@ export const pilotNodes = [
     "id": "guest-print",
     "type": "task",
     "position": {
-      "x": 3519.912713649804,
-      "y": 20.49647253290766
+      "x": 3534.0548492005,
+      "y": 9.889870869885641
     },
     "data": {
       "label": "Skriv ut kvitto / confirmation",
       "lane": "Gäst",
       "channel": "kiosk-only",
       "details": "Det här görs bara vid kiosk på plats när ett utskrivet kvitto eller confirmation behövs inför utlämningen hos staff.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 230,
-      "height": 59
+      "height": 84
     },
     "selected": false,
     "dragging": false
@@ -621,13 +653,15 @@ export const pilotNodes = [
         "Bokningskod",
         "Utskriven confirmation eller kvitto"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 230,
-      "height": 59
+      "width": 213,
+      "height": 43
     },
     "selected": false,
     "dragging": false
@@ -636,21 +670,23 @@ export const pilotNodes = [
     "id": "guest-end",
     "type": "event",
     "position": {
-      "x": 4314.445000178185,
-      "y": 85
+      "x": 4553.447090984949,
+      "y": 93.48528133041762
     },
     "data": {
       "label": "Redo för park",
       "type": "end",
       "lane": "Gäst",
       "details": "Parkresan fortsätter efter att staff har slutfört handoff.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 48,
-      "height": 48
+      "width": 61,
+      "height": 62
     },
     "selected": false,
     "dragging": false
@@ -659,8 +695,8 @@ export const pilotNodes = [
     "id": "app-start",
     "type": "task",
     "position": {
-      "x": 180,
-      "y": 592
+      "x": 168.79289322246518,
+      "y": 616.6629507687877
     },
     "data": {
       "label": "VY: Start / länk",
@@ -679,7 +715,9 @@ export const pilotNodes = [
       "givesGuest": [
         "Tydlig startpunkt för samma check-in- eller köpflöde"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -694,14 +732,16 @@ export const pilotNodes = [
     "id": "gw-channel",
     "type": "gateway",
     "position": {
-      "x": 390,
-      "y": 582
+      "x": 390.70710677753476,
+      "y": 606.7487372137181
     },
     "data": {
       "label": "Hur öppnas flödet?",
       "lane": "WebApp",
       "details": "SMS-länk är snabbspåret. Park-QR och kiosk går in i samma on-site-logik.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -733,13 +773,15 @@ export const pilotNodes = [
       "givesGuest": [
         "Direkt väg in i bokningen utan extra lookup"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 168,
-      "height": 43
+      "height": 67
     },
     "selected": false,
     "dragging": false
@@ -762,13 +804,15 @@ export const pilotNodes = [
       "givesGuest": [
         "Tydlig on-site-start för samma boknings- eller köpflöde"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 174,
-      "height": 43
+      "width": 175,
+      "height": 67
     },
     "selected": false,
     "dragging": false
@@ -777,8 +821,8 @@ export const pilotNodes = [
     "id": "kiosk-entry",
     "type": "task",
     "position": {
-      "x": 610,
-      "y": 692
+      "x": 649.5,
+      "y": 691.5
     },
     "data": {
       "label": "Kiosk på plats",
@@ -791,13 +835,15 @@ export const pilotNodes = [
       "skippedWhen": [
         "Gästen använder egen telefon"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 128,
-      "height": 43
+      "width": 138,
+      "height": 67
     },
     "selected": false,
     "dragging": false
@@ -807,13 +853,15 @@ export const pilotNodes = [
     "type": "gateway",
     "position": {
       "x": 930,
-      "y": 640
+      "y": 621.5
     },
     "data": {
       "label": "Har du befintlig bokning?",
       "lane": "WebApp",
       "details": "Park-QR och kiosk delar samma on-site-val: hitta befintlig bokning eller köpa en närliggande tid i parken.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -828,8 +876,8 @@ export const pilotNodes = [
     "id": "kiosk-lookup",
     "type": "task",
     "position": {
-      "x": 1135,
-      "y": 592
+      "x": 1137,
+      "y": 571
     },
     "data": {
       "label": "Hitta befintlig bokning",
@@ -847,7 +895,9 @@ export const pilotNodes = [
       "skippedWhen": [
         "SMS-länk med token går direkt till bokningen"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -862,8 +912,8 @@ export const pilotNodes = [
     "id": "kiosk-buy-select",
     "type": "task",
     "position": {
-      "x": 1000,
-      "y": 708
+      "x": 1015,
+      "y": 689
     },
     "data": {
       "label": "VY: Välj produkt & antal",
@@ -883,13 +933,15 @@ export const pilotNodes = [
       "endpoints": [
         "Get products"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 174,
-      "height": 59
+      "width": 195,
+      "height": 85
     },
     "selected": false,
     "dragging": false
@@ -898,8 +950,8 @@ export const pilotNodes = [
     "id": "kiosk-buy-details",
     "type": "task",
     "position": {
-      "x": 1210,
-      "y": 708
+      "x": 1270,
+      "y": 688.5
     },
     "data": {
       "label": "VY: Välj tid",
@@ -912,13 +964,15 @@ export const pilotNodes = [
         "guest_contact_email",
         "guest_contact_phone"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 184,
-      "height": 59
+      "width": 113,
+      "height": 85
     },
     "selected": false,
     "dragging": false
@@ -943,12 +997,14 @@ export const pilotNodes = [
       "shownWhen": [
         "Bokning finns eller har skapats"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 191,
+      "width": 192,
       "height": 43
     },
     "selected": false,
@@ -968,7 +1024,9 @@ export const pilotNodes = [
       "writes": [
         "safety_video_seen_at"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1001,12 +1059,14 @@ export const pilotNodes = [
       "givesGuest": [
         "Klart safety-läge inför resten av check-in-resan"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 175,
+      "width": 174,
       "height": 43
     },
     "selected": false,
@@ -1033,12 +1093,14 @@ export const pilotNodes = [
         "connected_selected",
         "tillägg_uppdaterade"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 105,
+      "width": 106,
       "height": 43
     },
     "selected": false,
@@ -1049,13 +1111,15 @@ export const pilotNodes = [
     "type": "gateway",
     "position": {
       "x": 2417.9267648844916,
-      "y": 589.8949129568651
+      "y": 580.8949129568651
     },
     "data": {
       "label": "Connected valt?",
       "lane": "WebApp",
       "details": "Connected-profiler visas bara om produkten valts.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1070,8 +1134,8 @@ export const pilotNodes = [
     "id": "app-connected",
     "type": "task",
     "position": {
-      "x": 2495.724219267691,
-      "y": 513.7660320684965
+      "x": 2517.724219267691,
+      "y": 510.26603206849654
     },
     "data": {
       "label": "VY: Connected-profiler",
@@ -1091,12 +1155,14 @@ export const pilotNodes = [
       "givesGuest": [
         "Profiler redo för bandkoppling hos staff (antal följer bokningen)"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 191,
+      "width": 192,
       "height": 43
     },
     "selected": false,
@@ -1113,7 +1179,9 @@ export const pilotNodes = [
       "label": "Betalning krävs?",
       "lane": "WebApp",
       "details": "No-payment-vägen är explicit i pilotflödet.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1128,8 +1196,8 @@ export const pilotNodes = [
     "id": "app-payment",
     "type": "task",
     "position": {
-      "x": 3012.725526813734,
-      "y": 502.08688337806433
+      "x": 2898.725526813734,
+      "y": 499.58688337806433
     },
     "data": {
       "label": "VY: Betalning",
@@ -1146,12 +1214,14 @@ export const pilotNodes = [
       "skippedWhen": [
         "Inga nya tillägg valdes eller totalen är 0"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 122,
+      "width": 123,
       "height": 43
     },
     "selected": false,
@@ -1161,8 +1231,8 @@ export const pilotNodes = [
     "id": "app-confirm",
     "type": "task",
     "position": {
-      "x": 3048.7342762586813,
-      "y": 591.089044334972
+      "x": 3130.2342762586813,
+      "y": 589.589044334972
     },
     "data": {
       "label": "VY: Bekräftelse + QR + kod",
@@ -1179,7 +1249,9 @@ export const pilotNodes = [
         "Kort bokningskod",
         "Bekräftelse att check-in-flödet är klart"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1212,13 +1284,15 @@ export const pilotNodes = [
       "givesGuest": [
         "Utskriven confirmation eller kvitto"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 230,
-      "height": 59
+      "height": 84
     },
     "selected": false,
     "dragging": false
@@ -1227,8 +1301,8 @@ export const pilotNodes = [
     "id": "app-present",
     "type": "task",
     "position": {
-      "x": 3616.536445509017,
-      "y": 601.6538450520646
+      "x": 3650.036445509017,
+      "y": 593.6538450520646
     },
     "data": {
       "label": "VY: Visa QR / bokningskod",
@@ -1247,7 +1321,9 @@ export const pilotNodes = [
         "QR-kod",
         "Bokningskod"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1270,7 +1346,9 @@ export const pilotNodes = [
       "lane": "Ops jobs",
       "details": "Seedar dagens bokningar, tickets, payments och customers till lokal snapshot och kundcache innan parken öppnar.",
       "why": "Kärnjobbet i piloten. Seedar all data för dagen. Webhook delta/enrichment kompletterar med realtidsuppdateringar under dagen.",
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "cadence": "05:00 daily",
       "jobs": [
         "Hämtar bokningar",
@@ -1306,7 +1384,9 @@ export const pilotNodes = [
       "label": "Booking webhook intake",
       "lane": "Ops jobs",
       "details": "Delta-intake under dagen. Tar emot booking-webhooks och skapar enrich-underlag. Kompletterar daglig seed — inte ersättning.",
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "cadence": "On event",
       "jobs": [
         "Ta emot Created / Updated / Cancelled",
@@ -1337,7 +1417,9 @@ export const pilotNodes = [
       "label": "Webhook enrichment",
       "lane": "Ops jobs",
       "details": "Enrichment efter delta-intake. Berikar sena bokningar med exakt state och kundkontakt. Daglig seed är kärnan, detta är kompletterande realtidslager.",
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "cadence": "On event",
       "jobs": [
         "Hämta booking detail",
@@ -1375,7 +1457,9 @@ export const pilotNodes = [
         "Skapa token",
         "Skriv sms_outbox"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1401,7 +1485,9 @@ export const pilotNodes = [
       "endpoints": [
         "Get detail of a booking"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1430,7 +1516,9 @@ export const pilotNodes = [
         "Add transaction record",
         "Redeem tickets"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1465,7 +1553,9 @@ export const pilotNodes = [
         "Redeem tickets",
         "Edit booking"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1489,7 +1579,10 @@ export const pilotNodes = [
       "collapsed": true,
       "expandLabel": "Expandera databas",
       "collapseLabel": "Fäll ihop databas",
-      "systems": ["Aurora PostgreSQL", "S3 rå-payloads"],
+      "systems": [
+        "Aurora PostgreSQL",
+        "S3 rå-payloads"
+      ],
       "summary": "Lokal snapshot av Roller-bokningar, tickets, produkter och betalningar för dagens operativa flöde.",
       "summaryItems": [
         "bookings",
@@ -1537,7 +1630,9 @@ export const pilotNodes = [
         "Produktsammanfattning",
         "Betalningssnapshot"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1561,7 +1656,11 @@ export const pilotNodes = [
       "collapsed": true,
       "expandLabel": "Expandera databas",
       "collapseLabel": "Fäll ihop databas",
-      "systems": ["Aurora PostgreSQL", "Redis (valfri i V1)", "SQS / EventBridge"],
+      "systems": [
+        "Aurora PostgreSQL",
+        "Redis (valfri i V1)",
+        "SQS / EventBridge"
+      ],
       "summary": "Pilotens egen state för safety, token, check-in, connected-profiler, handoff och kundkontakt.",
       "summaryItems": [
         "booking_operational_state",
@@ -1625,7 +1724,9 @@ export const pilotNodes = [
         "Kundkontakt för SMS",
         "Lätta profilutkast för connected"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1649,7 +1750,11 @@ export const pilotNodes = [
       "collapsed": true,
       "expandLabel": "Expandera databas",
       "collapseLabel": "Fäll ihop databas",
-      "systems": ["Aurora PostgreSQL", "S3 rå-payloads", "SQS / EventBridge"],
+      "systems": [
+        "Aurora PostgreSQL",
+        "S3 rå-payloads",
+        "SQS / EventBridge"
+      ],
       "summary": "Append-only eventspår, webhook-intake och sync-observability för pilotens drift.",
       "summaryItems": [
         "booking_events",
@@ -1685,7 +1790,9 @@ export const pilotNodes = [
         "Sync-resultat",
         "Felspår"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1711,8 +1818,13 @@ export const pilotNodes = [
       "collapseLabel": "Fäll ihop databas",
       "future": true,
       "statusTag": "Senare",
-      "systems": ["Aurora PostgreSQL"],
-      "viewTags": ["teknik", "future"],
+      "systems": [
+        "Aurora PostgreSQL"
+      ],
+      "viewTags": [
+        "teknik",
+        "future"
+      ],
       "why": "Fullständig session- och device-modell för Connected Experience. Pilotens lätta profilutkast ligger i store-operational, inte här.",
       "summary": "Framtida full session- och device-modell, skild från pilotens lätta profilutkast.",
       "summaryItems": [
@@ -1762,7 +1874,9 @@ export const pilotNodes = [
         "Get payments",
         "Get customers"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1787,7 +1901,9 @@ export const pilotNodes = [
       "endpoints": [
         "Booking webhook"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1812,7 +1928,9 @@ export const pilotNodes = [
       "endpoints": [
         "Get detail of a booking"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1837,7 +1955,9 @@ export const pilotNodes = [
       "endpoints": [
         "Get customer detail"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1863,7 +1983,9 @@ export const pilotNodes = [
         "Get products",
         "Booking costs"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1888,7 +2010,9 @@ export const pilotNodes = [
       "endpoints": [
         "Create a booking"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1914,7 +2038,9 @@ export const pilotNodes = [
         "Edit booking",
         "Add transaction record"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1939,7 +2065,9 @@ export const pilotNodes = [
       "endpoints": [
         "Redeem tickets"
       ],
-      "viewTags": ["teknik"],
+      "viewTags": [
+        "teknik"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1954,14 +2082,16 @@ export const pilotNodes = [
     "id": "staff-assist",
     "type": "task",
     "position": {
-      "x": 3309.365614684786,
-      "y": 337.6922386487423
+      "x": 3793.733757296125,
+      "y": 313.65060821255906
     },
     "data": {
       "label": "Assisterad fallback",
       "lane": "Staff / parkpersonal",
       "details": "Används vid mismatch, saknad kod eller andra undantag.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -1976,19 +2106,21 @@ export const pilotNodes = [
     "id": "staff-manual",
     "type": "task",
     "position": {
-      "x": 3641.9071537680243,
-      "y": 274.8772348244092
+      "x": 4136.881898042386,
+      "y": 267.80616704906123
     },
     "data": {
       "label": "Manuell kontroll",
       "lane": "Staff / parkpersonal",
       "details": "Staff kan kontrollera bokning manuellt innan utlämning eller alternativ hantering.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 156,
+      "width": 155,
       "height": 43
     },
     "selected": false,
@@ -1998,8 +2130,8 @@ export const pilotNodes = [
     "id": "staff-handoff",
     "type": "task",
     "position": {
-      "x": 4095.5712243958405,
-      "y": 274.7526672549376
+      "x": 4335.280421980138,
+      "y": 295.2587638034468
     },
     "data": {
       "label": "Utlämning hos staff",
@@ -2029,7 +2161,9 @@ export const pilotNodes = [
       "endpoints": [
         "Redeem tickets"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2044,21 +2178,23 @@ export const pilotNodes = [
     "id": "staff-api-end",
     "type": "event",
     "position": {
-      "x": 4284.518270182921,
-      "y": 335.93930806135495
+      "x": 4546.147777870798,
+      "y": 362.8093656076774
     },
     "data": {
       "label": "Manuell åtgärd klar",
       "type": "end",
       "lane": "Staff / parkpersonal",
       "details": "Fallbackgrenen avslutas här när normalen inte kunde användas.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 48,
-      "height": 48
+      "width": 90,
+      "height": 72
     },
     "selected": false,
     "dragging": false
@@ -2067,14 +2203,16 @@ export const pilotNodes = [
     "id": "gw-skyrider",
     "type": "gateway",
     "position": {
-      "x": 2170.8296147568362,
-      "y": 579.1382985779139
+      "x": 2177.8296147568362,
+      "y": 577.6382985779139
     },
     "data": {
       "label": "SkyRider valt?",
       "lane": "WebApp",
       "details": "SkyRider-höjdintyg krävs bara om SkyRider är valt som tillägg (befintligt eller nytt).",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2102,12 +2240,14 @@ export const pilotNodes = [
       "shownWhen": [
         "SkyRider är valt som tillägg"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 189,
+      "width": 184,
       "height": 43
     },
     "selected": false,
@@ -2124,13 +2264,15 @@ export const pilotNodes = [
       "label": "Öppna förlängning i webappen",
       "lane": "Gäst",
       "details": "Länken öppnar en dedikerad förlängningsvy i samma webapp.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 230,
-      "height": 60
+      "height": 59
     },
     "selected": false,
     "dragging": false
@@ -2146,7 +2288,9 @@ export const pilotNodes = [
       "label": "Betala 50 kr för +30 min",
       "lane": "Gäst",
       "details": "Gästen genomför betalningen direkt i webappen (Swish/kort).",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2168,7 +2312,9 @@ export const pilotNodes = [
       "label": "Få QR-kod för bandbyte",
       "lane": "Gäst",
       "details": "Efter betalning visas en QR-kod som används vid kassan för att hämta nytt band.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2190,7 +2336,9 @@ export const pilotNodes = [
       "label": "Gå till kassan/staff",
       "lane": "Gäst",
       "details": "Gästen tar med QR-koden till kassan eller närmaste staff.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2212,13 +2360,15 @@ export const pilotNodes = [
       "label": "Hämta nytt band till besökaren/barnet",
       "lane": "Gäst",
       "details": "Staff scannar QR och delar ut ett nytt band med uppdaterad sluttid.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 230,
-      "height": 60
+      "height": 59
     },
     "selected": false,
     "dragging": false
@@ -2238,7 +2388,9 @@ export const pilotNodes = [
         "booking_end_time",
         "extension_price_fixed"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2263,7 +2415,9 @@ export const pilotNodes = [
       "writes": [
         "extension_payment_status"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2288,12 +2442,14 @@ export const pilotNodes = [
       "reads": [
         "extension_qr_token"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 165,
+      "width": 164,
       "height": 43
     },
     "selected": false,
@@ -2314,7 +2470,9 @@ export const pilotNodes = [
         "extension_payment_status",
         "current_band_id"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
@@ -2340,12 +2498,14 @@ export const pilotNodes = [
         "new_band_id",
         "booking_end_time_new"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 153,
+      "width": 152,
       "height": 43
     },
     "selected": false,
@@ -2363,14 +2523,16 @@ export const pilotNodes = [
       "lane": "Gäst",
       "tone": "guide",
       "details": "Delflöde efter check-in: gästen får påminnelse, betalar i webappen, får QR, hämtar nytt band hos staff.",
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
     "measured": {
       "width": 280,
-      "height": 102
+      "height": 103
     },
     "selected": false,
     "dragging": false
@@ -2388,14 +2550,17 @@ export const pilotNodes = [
       "tone": "warning",
       "details": "Gruppbokning / kalas: identifierat scope-område, hanteras inte i pilotens check-in-flöde. Kräver separat discovery och designfas.",
       "scopeStatus": "out-of-scope",
-      "viewTags": ["pilotresa", "future"],
+      "viewTags": [
+        "pilotresa",
+        "future"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0,
     "measured": {
       "width": 280,
-      "height": 67
+      "height": 103
     },
     "selected": false,
     "dragging": false
@@ -2413,14 +2578,16 @@ export const pilotNodes = [
       "tags": [
         "main"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false,
       "lane": "Gäst"
     },
     "measured": {
-      "width": 48,
-      "height": 48
+      "width": 90,
+      "height": 72
     },
     "selected": false,
     "dragging": false
@@ -2429,7 +2596,7 @@ export const pilotNodes = [
     "id": "event-1775807990618",
     "type": "event",
     "position": {
-      "x": 4955.021112998415,
+      "x": 4895.317467977898,
       "y": 537.1819425182513
     },
     "data": {
@@ -2438,13 +2605,15 @@ export const pilotNodes = [
       "tags": [
         "main"
       ],
-      "viewTags": ["pilotresa"],
+      "viewTags": [
+        "pilotresa"
+      ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 48,
-      "height": 48
+      "width": 90,
+      "height": 72
     },
     "selected": false,
     "dragging": false
@@ -3713,48 +3882,6 @@ export const pilotEdges = [
     }
   },
   {
-    "id": "w15",
-    "source": "gw-app-connected",
-    "target": "app-connected",
-    "type": "step",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "label": "Ja",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "step",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
-  },
-  {
     "id": "w18",
     "source": "gw-app-payment",
     "target": "app-payment",
@@ -3777,82 +3904,6 @@ export const pilotEdges = [
     },
     "sourceHandle": "top",
     "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "step",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
-  },
-  {
-    "id": "w19",
-    "source": "gw-app-payment",
-    "target": "app-confirm",
-    "type": "step",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "label": "Nej",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "step",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
-  },
-  {
-    "id": "w20",
-    "source": "app-payment",
-    "target": "app-confirm",
-    "type": "step",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "top",
     "data": {
       "baseStyle": {
         "strokeWidth": 2,
@@ -4432,52 +4483,6 @@ export const pilotEdges = [
     "sourceHandle": "right",
     "targetHandle": "left",
     "zIndex": 0,
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
-  },
-  {
-    "id": "f5",
-    "source": "staff-assist",
-    "target": "staff-api-end",
-    "type": "step",
-    "label": "manuell väg",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#8b5cf6",
-      "strokeDasharray": "6,6"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#8b5cf6"
-    },
-    "data": {
-      "edgeStyle": "dashed",
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#8b5cf6",
-        "strokeDasharray": "6,6"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#8b5cf6"
-      },
-      "pathMode": "step",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "zIndex": 0,
-    "selected": false,
     "pathOptions": {
       "offset": 0,
       "borderRadius": 0
@@ -6359,49 +6364,6 @@ export const pilotEdges = [
     "type": "step",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "gw-skyrider",
-    "target": "gw-app-connected",
-    "label": "SkyRider ej valt",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "step",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__gw-skyridertop-gw-app-connectedleft",
-    "pathOptions": {
-      "offset": 0,
-      "borderRadius": 0
-    }
-  },
-  {
-    "type": "step",
-    "markerEnd": {
-      "type": "arrowclosed",
       "color": "#22d3ee"
     },
     "style": {
@@ -6626,5 +6588,212 @@ export const pilotEdges = [
       "offset": 0,
       "borderRadius": 0
     }
+  },
+  {
+    "type": "step",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#ff8e7d"
+    },
+    "pathOptions": {
+      "offset": 0,
+      "borderRadius": 0
+    },
+    "source": "gw-skyrider",
+    "target": "gw-app-connected",
+    "label": "SkyRider ej valt",
+    "labelStyle": {
+      "fill": "#fff",
+      "fontWeight": 700
+    },
+    "labelBgStyle": {
+      "fill": "#1a1a1a"
+    },
+    "sourceHandle": "right",
+    "targetHandle": "left",
+    "data": {
+      "baseStyle": {
+        "strokeWidth": 2,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "step",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__gw-skyriderright-gw-app-connectedleft"
+  },
+  {
+    "type": "step",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#ff8e7d"
+    },
+    "pathOptions": {
+      "offset": 0,
+      "borderRadius": 0
+    },
+    "source": "gw-app-connected",
+    "target": "app-connected",
+    "label": "Ja",
+    "labelStyle": {
+      "fill": "#fff",
+      "fontWeight": 700
+    },
+    "labelBgStyle": {
+      "fill": "#1a1a1a"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "left",
+    "data": {
+      "baseStyle": {
+        "strokeWidth": 2,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "step",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__gw-app-connectedtop-app-connectedleft"
+  },
+  {
+    "type": "step",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#ff8e7d"
+    },
+    "pathOptions": {
+      "offset": 0,
+      "borderRadius": 0
+    },
+    "source": "app-payment",
+    "target": "app-confirm",
+    "sourceHandle": "right",
+    "targetHandle": "left-top",
+    "data": {
+      "baseStyle": {
+        "strokeWidth": 2,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "step",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__app-paymentright-app-confirmleft-top"
+  },
+  {
+    "type": "step",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#ff8e7d"
+    },
+    "pathOptions": {
+      "offset": 0,
+      "borderRadius": 0
+    },
+    "source": "gw-app-payment",
+    "target": "app-confirm",
+    "label": "Nej",
+    "labelStyle": {
+      "fill": "#fff",
+      "fontWeight": 700
+    },
+    "labelBgStyle": {
+      "fill": "#1a1a1a"
+    },
+    "sourceHandle": "right",
+    "targetHandle": "left-bottom",
+    "data": {
+      "baseStyle": {
+        "strokeWidth": 2,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "step",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__gw-app-paymentright-app-confirmleft-bottom"
+  },
+  {
+    "type": "step",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#8b5cf6"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#8b5cf6",
+      "strokeDasharray": "6,6"
+    },
+    "source": "staff-handoff",
+    "target": "staff-api-end",
+    "label": "manuell väg",
+    "labelStyle": {
+      "fill": "#fff",
+      "fontWeight": 700
+    },
+    "labelBgStyle": {
+      "fill": "#1a1a1a"
+    },
+    "data": {
+      "edgeStyle": "dashed",
+      "baseStyle": {
+        "strokeWidth": 2,
+        "stroke": "#8b5cf6",
+        "strokeDasharray": "6,6"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#8b5cf6"
+      },
+      "pathMode": "step",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "left",
+    "zIndex": 0,
+    "selected": false,
+    "pathOptions": {
+      "offset": 0,
+      "borderRadius": 0
+    },
+    "id": "xy-edge__staff-handoffbottom-staff-api-endleft"
   }
 ] as any[];
