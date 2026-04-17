@@ -1014,7 +1014,7 @@ export const pilotNodes = [
     "id": "app-safety-video",
     "type": "task",
     "position": {
-      "x": 1617.748190512085,
+      "x": 1737.748190512085,
       "y": 588.760189365936
     },
     "data": {
@@ -1041,7 +1041,7 @@ export const pilotNodes = [
     "id": "app-safety-attest",
     "type": "task",
     "position": {
-      "x": 1811.918492339435,
+      "x": 1931.918492339435,
       "y": 589.4363015675441
     },
     "data": {
@@ -1076,7 +1076,7 @@ export const pilotNodes = [
     "id": "app-addons",
     "type": "task",
     "position": {
-      "x": 2025.9961686915517,
+      "x": 2145.9961686915517,
       "y": 588.313096677631
     },
     "data": {
@@ -1110,7 +1110,7 @@ export const pilotNodes = [
     "id": "gw-app-connected",
     "type": "gateway",
     "position": {
-      "x": 2417.9267648844916,
+      "x": 2537.9267648844916,
       "y": 580.8949129568651
     },
     "data": {
@@ -1134,7 +1134,7 @@ export const pilotNodes = [
     "id": "app-connected",
     "type": "task",
     "position": {
-      "x": 2517.724219267691,
+      "x": 2637.724219267691,
       "y": 510.26603206849654
     },
     "data": {
@@ -1172,7 +1172,7 @@ export const pilotNodes = [
     "id": "gw-app-payment",
     "type": "gateway",
     "position": {
-      "x": 2752.963328158134,
+      "x": 2872.963328158134,
       "y": 590.3638868916635
     },
     "data": {
@@ -1196,7 +1196,7 @@ export const pilotNodes = [
     "id": "app-payment",
     "type": "task",
     "position": {
-      "x": 2898.725526813734,
+      "x": 3018.725526813734,
       "y": 499.58688337806433
     },
     "data": {
@@ -1231,7 +1231,7 @@ export const pilotNodes = [
     "id": "app-confirm",
     "type": "task",
     "position": {
-      "x": 3130.2342762586813,
+      "x": 3250.2342762586813,
       "y": 589.589044334972
     },
     "data": {
@@ -1266,7 +1266,7 @@ export const pilotNodes = [
     "id": "kiosk-print",
     "type": "task",
     "position": {
-      "x": 3486.21598120339,
+      "x": 3606.21598120339,
       "y": 494.6029193832943
     },
     "data": {
@@ -1301,7 +1301,7 @@ export const pilotNodes = [
     "id": "app-present",
     "type": "task",
     "position": {
-      "x": 3650.036445509017,
+      "x": 3770.036445509017,
       "y": 593.6538450520646
     },
     "data": {
@@ -2203,7 +2203,7 @@ export const pilotNodes = [
     "id": "gw-skyrider",
     "type": "gateway",
     "position": {
-      "x": 2177.8296147568362,
+      "x": 2297.8296147568362,
       "y": 577.6382985779139
     },
     "data": {
@@ -2227,7 +2227,7 @@ export const pilotNodes = [
     "id": "app-skyrider-attest",
     "type": "task",
     "position": {
-      "x": 2247.3037191832755,
+      "x": 2367.3037191832755,
       "y": 721.836341792247
     },
     "data": {
@@ -2617,6 +2617,131 @@ export const pilotNodes = [
     },
     "selected": false,
     "dragging": false
+  },
+  {
+    "id": "gw-purchase-flow",
+    "type": "gateway",
+    "position": {
+      "x": 1540,
+      "y": 600
+    },
+    "data": {
+      "label": "Köp på plats?",
+      "lane": "WebApp",
+      "details": "Avgör flödesordning. On-site-köp har safety EFTER betalning. Check-in (SMS/lookup) har safety före tillägg.",
+      "viewTags": ["pilotresa"],
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 64,
+      "height": 64
+    }
+  },
+  {
+    "id": "note-flow-order",
+    "type": "note",
+    "position": {
+      "x": 1480,
+      "y": 740
+    },
+    "data": {
+      "label": "Två flödesordningar",
+      "tone": "info",
+      "details": "CHECK-IN (SMS/lookup): Bokning → Safety → Tillägg → Betalning → QR\n\nKÖP PÅ PLATS: Bokning → Tillägg → Betalning → Safety → QR\n\nMotivering: Vid köp vill gästen betala direkt utan att behöva göra safety först. Safety kommer efter betalning.",
+      "viewTags": ["pilotresa"],
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 280,
+      "height": 120
+    }
+  },
+  {
+    "id": "staff-redeem-entry",
+    "type": "task",
+    "position": {
+      "x": 4250,
+      "y": 310
+    },
+    "data": {
+      "label": "Redeema entré",
+      "lane": "Staff / parkpersonal",
+      "details": "Staff skannar gästens QR → redeamar huvudbiljetten (entry ticket). Delar ut armband och strumpor. Övriga add-ons (kaffe, lås) redeemas separat vid respektive station.",
+      "why": "Delvis inlösen: Huvudingång redeemas vid check-in, add-ons redeemas vid sina stationer. Förhindrar att kaffe stryks vid check-in istället för vid kafféstationen.",
+      "writes": [
+        "entry_redeemed",
+        "band_issued",
+        "socks_issued"
+      ],
+      "viewTags": ["pilotresa"],
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 164,
+      "height": 43
+    }
+  },
+  {
+    "id": "staff-redeem-addon",
+    "type": "task",
+    "position": {
+      "x": 4500,
+      "y": 310
+    },
+    "data": {
+      "label": "Redeema add-on per station",
+      "lane": "Staff / parkpersonal",
+      "details": "Gästen visar QR vid kaffestation, låsstation etc. Staff skannar och bockar av specifik produkt. Varje station ser bara sina produkter.",
+      "why": "Kaffe, lås och andra add-ons ska redeemas separat vid respektive station — inte alla på en gång vid incheckning.",
+      "writes": [
+        "addon_redeemed_per_item",
+        "station_id"
+      ],
+      "viewTags": ["pilotresa"],
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 210,
+      "height": 43
+    }
+  },
+  {
+    "id": "job-draft-publish",
+    "type": "service",
+    "position": {
+      "x": 3200,
+      "y": 1155
+    },
+    "data": {
+      "label": "Draft → Publish booking",
+      "variant": "job",
+      "lane": "Ops jobs",
+      "details": "On-site-köp: Skapar draft booking → reserverar kapacitet → ROLLER Payments → publish vid lyckad betalning. Om betalning avbryts släpps draften och kapacitet frigörs.",
+      "why": "Draft-mönster säkerställer att kapacitet reserveras under betalning och frigörs om gästen avbryter.",
+      "cadence": "On event",
+      "jobs": [
+        "Create draft booking",
+        "Reservera kapacitet",
+        "Invänta betalning",
+        "Publish draft / släpp vid avbrott"
+      ],
+      "endpoints": [
+        "Create draft booking",
+        "Publish draft booking",
+        "ROLLER Payments"
+      ],
+      "viewTags": ["teknik"],
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 121
+    }
   }
 ] as any[];
 
@@ -3658,7 +3783,7 @@ export const pilotEdges = [
   {
     "id": "w12",
     "source": "app-booking",
-    "target": "app-safety-video",
+    "target": "gw-purchase-flow",
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
@@ -6379,5 +6504,230 @@ export const pilotEdges = [
     "zIndex": 0,
     "selected": false,
     "id": "xy-edge__staff-handoffbottom-staff-api-endleft"
+  },
+  {
+    "id": "pf-checkin",
+    "source": "gw-purchase-flow",
+    "target": "app-safety-video",
+    "type": "smoothstep",
+    "label": "Check-in",
+    "labelStyle": { "fill": "#fff", "fontWeight": 700 },
+    "labelBgStyle": { "fill": "#1a1a1a" },
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#ff8e7d"
+    },
+    "sourceHandle": "right",
+    "targetHandle": "left",
+    "data": {
+      "baseStyle": { "strokeWidth": 2, "stroke": "#ff8e7d" },
+      "baseMarkerEnd": { "type": "arrowclosed", "color": "#ff8e7d" },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "pf-purchase",
+    "source": "gw-purchase-flow",
+    "target": "app-addons",
+    "type": "smoothstep",
+    "label": "Köp på plats",
+    "labelStyle": { "fill": "#fff", "fontWeight": 700 },
+    "labelBgStyle": { "fill": "#1a1a1a" },
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#ff8e7d"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "baseStyle": { "strokeWidth": 2, "stroke": "#ff8e7d" },
+      "baseMarkerEnd": { "type": "arrowclosed", "color": "#ff8e7d" },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "pf-safety-after-payment",
+    "source": "app-payment",
+    "target": "app-safety-video",
+    "type": "smoothstep",
+    "label": "Köp: safety efter betalning",
+    "labelStyle": { "fill": "#fff", "fontWeight": 600, "fontSize": 10 },
+    "labelBgStyle": { "fill": "#1a1a1a" },
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#8b5cf6"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#8b5cf6",
+      "strokeDasharray": "6,6"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "top",
+    "data": {
+      "edgeStyle": "dashed",
+      "baseStyle": { "strokeWidth": 2, "stroke": "#8b5cf6", "strokeDasharray": "6,6" },
+      "baseMarkerEnd": { "type": "arrowclosed", "color": "#8b5cf6" },
+      "pathMode": "smoothstep",
+      "details": "Vid köp på plats: Safety-genomgång sker EFTER betalning (inte före). Gästen vill betala först och sen göra safety.",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "pf-safety-to-confirm",
+    "source": "app-safety-attest",
+    "target": "app-confirm",
+    "type": "smoothstep",
+    "label": "Köp: direkt till bekräftelse",
+    "labelStyle": { "fill": "#fff", "fontWeight": 600, "fontSize": 10 },
+    "labelBgStyle": { "fill": "#1a1a1a" },
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#8b5cf6"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#8b5cf6",
+      "strokeDasharray": "6,6"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeStyle": "dashed",
+      "baseStyle": { "strokeWidth": 2, "stroke": "#8b5cf6", "strokeDasharray": "6,6" },
+      "baseMarkerEnd": { "type": "arrowclosed", "color": "#8b5cf6" },
+      "pathMode": "smoothstep",
+      "details": "Vid köp på plats: Efter safety-intygande går gästen direkt till bekräftelse (betalning redan gjord).",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "redeem-entry",
+    "source": "staff-handoff",
+    "target": "staff-redeem-entry",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#ff8e7d"
+    },
+    "sourceHandle": "right",
+    "targetHandle": "left",
+    "data": {
+      "baseStyle": { "strokeWidth": 2, "stroke": "#ff8e7d" },
+      "baseMarkerEnd": { "type": "arrowclosed", "color": "#ff8e7d" },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "redeem-addon",
+    "source": "staff-redeem-entry",
+    "target": "staff-redeem-addon",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#ff8e7d"
+    },
+    "sourceHandle": "right",
+    "targetHandle": "left",
+    "data": {
+      "baseStyle": { "strokeWidth": 2, "stroke": "#ff8e7d" },
+      "baseMarkerEnd": { "type": "arrowclosed", "color": "#ff8e7d" },
+      "pathMode": "smoothstep",
+      "details": "Add-ons redeemas separat vid respektive station (kaffestation, låsstation etc). Inte allt på en gång vid incheckning.",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "draft-to-snapshot",
+    "source": "job-draft-publish",
+    "target": "store-snapshot",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#22d3ee"
+    },
+    "style": {
+      "strokeWidth": 1.5,
+      "stroke": "#22d3ee",
+      "strokeDasharray": "3,5"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "edgeStyle": "data",
+      "baseStyle": { "strokeWidth": 1.5, "stroke": "#22d3ee", "strokeDasharray": "3,5" },
+      "baseMarkerEnd": { "type": "arrowclosed", "color": "#22d3ee" },
+      "pathMode": "smoothstep",
+      "details": "Draft booking skriver till snapshot vid publicering.",
+      "operation": "Skrivning",
+      "fields": ["draft_booking_id", "published_booking_ref", "capacity_reserved"],
+      "why": "Draft-mönster kräver att snapshot uppdateras vid publicering för att checkin-flödet ska se den nya bokningen.",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "draft-to-roller",
+    "source": "job-draft-publish",
+    "target": "roller-create",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#22d3ee"
+    },
+    "style": {
+      "strokeWidth": 1.5,
+      "stroke": "#22d3ee",
+      "strokeDasharray": "3,5"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "edgeStyle": "data",
+      "baseStyle": { "strokeWidth": 1.5, "stroke": "#22d3ee", "strokeDasharray": "3,5" },
+      "baseMarkerEnd": { "type": "arrowclosed", "color": "#22d3ee" },
+      "pathMode": "smoothstep",
+      "details": "Draft booking skapas och publiceras i Roller via API.",
+      "operation": "Skapande",
+      "fields": ["draft_booking", "publish_booking", "roller_payments"],
+      "why": "On-site-köp använder draft-mönster: Create Draft → ROLLER Payments → Publish.",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
   }
 ] as any[];
