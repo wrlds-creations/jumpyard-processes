@@ -1344,6 +1344,7 @@ const loadEdges = (nodes: any[] = pilotNodes) => {
 // ─── Lane Row (used in lanes panel) ──────────────────────────────────────────
 
 function LaneRow({ lane, isFirst, isLast, onMove, onRename, onDelete, onResize, pools, onMoveToPool, language }: {
+  key?: string;
   lane: any; isFirst: boolean; isLast: boolean;
   onMove: (dir: 'up' | 'down') => void;
   onRename: (name: string) => void;
@@ -1425,6 +1426,7 @@ function LaneRow({ lane, isFirst, isLast, onMove, onRename, onDelete, onResize, 
 // ─── Pool Row (used in lanes panel pools section) ────────────────────────────
 
 function PoolRow({ pool, onRename, onDelete, onMove, isFirst, isLast, onAddLane, language }: {
+  key?: string;
   pool: any;
   onRename: (name: string) => void;
   onDelete: () => void;
