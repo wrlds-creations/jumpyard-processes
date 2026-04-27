@@ -10,15 +10,17 @@ export const pilotNodes = [
     "data": {
       "label": "Gäst",
       "color": "#f59e0b",
-      "widthPx": 6400,
-      "heightPx": 230
+      "widthPx": 6100,
+      "heightPx": 180,
+      "layoutSelected": false,
+      "editMode": true
     },
     "draggable": true,
     "selectable": true,
     "zIndex": -3,
     "measured": {
-      "width": 6400,
-      "height": 230
+      "width": 6100,
+      "height": 180
     }
   },
   {
@@ -26,41 +28,45 @@ export const pilotNodes = [
     "type": "pool",
     "position": {
       "x": 56,
-      "y": 270
+      "y": 220
     },
     "data": {
-      "label": "Staff / parkpersonal",
+      "label": "Parkpersonal",
       "color": "#fb7185",
-      "widthPx": 6400,
-      "heightPx": 180
+      "widthPx": 6100,
+      "heightPx": 220,
+      "layoutSelected": false,
+      "editMode": true
     },
     "draggable": true,
     "selectable": true,
     "zIndex": -3,
     "measured": {
-      "width": 6400,
-      "height": 180
+      "width": 6100,
+      "height": 220
     }
   },
   {
-    "id": "pool-webapp",
+    "id": "pool-webbapp",
     "type": "pool",
     "position": {
       "x": 56,
       "y": 490
     },
     "data": {
-      "label": "WebApp",
+      "label": "Webbapp",
       "color": "#38bdf8",
-      "widthPx": 6400,
-      "heightPx": 300
+      "widthPx": 6100,
+      "heightPx": 340,
+      "layoutSelected": false,
+      "editMode": true
     },
     "draggable": true,
     "selectable": true,
     "zIndex": -3,
     "measured": {
-      "width": 6400,
-      "height": 300
+      "width": 6100,
+      "height": 340
     }
   },
   {
@@ -68,20 +74,22 @@ export const pilotNodes = [
     "type": "pool",
     "position": {
       "x": 56,
-      "y": 850
+      "y": 880
     },
     "data": {
       "label": "JumpYard Cloud",
       "color": "#22c55e",
-      "widthPx": 6400,
-      "heightPx": 480
+      "widthPx": 6100,
+      "heightPx": 750,
+      "layoutSelected": false,
+      "editMode": true
     },
     "draggable": true,
     "selectable": true,
     "zIndex": -3,
     "measured": {
-      "width": 6400,
-      "height": 480
+      "width": 6100,
+      "height": 750
     }
   },
   {
@@ -89,20 +97,22 @@ export const pilotNodes = [
     "type": "pool",
     "position": {
       "x": 56,
-      "y": 1380
+      "y": 1680
     },
     "data": {
-      "label": "Roller",
+      "label": "Roller API",
       "color": "#8b5cf6",
-      "widthPx": 6400,
-      "heightPx": 170
+      "widthPx": 6100,
+      "heightPx": 230,
+      "layoutSelected": false,
+      "editMode": true
     },
     "draggable": true,
     "selectable": true,
     "zIndex": -3,
     "measured": {
-      "width": 6400,
-      "height": 170
+      "width": 6100,
+      "height": 230
     }
   },
   {
@@ -114,132 +124,141 @@ export const pilotNodes = [
     },
     "data": {
       "label": "Gäst",
-      "width": "6400px",
-      "heightPx": 230,
+      "width": "6100px",
+      "heightPx": 180,
       "index": 0,
-      "poolId": "pool-guest"
+      "poolId": "pool-guest",
+      "layoutSelected": false,
+      "editMode": true
     },
     "draggable": true,
     "selectable": true,
     "zIndex": -2,
     "measured": {
-      "width": 6400,
-      "height": 230
-    },
-    "selected": true
+      "width": 6100,
+      "height": 180
+    }
   },
   {
     "id": "lane-staff",
     "type": "lane",
     "position": {
       "x": 56,
-      "y": 270
+      "y": 220
     },
     "data": {
-      "label": "Staff / parkpersonal",
-      "width": "6400px",
-      "heightPx": 180,
+      "label": "Parkpersonal",
+      "width": "6100px",
+      "heightPx": 220,
       "index": 1,
-      "poolId": "pool-staff"
+      "poolId": "pool-staff",
+      "layoutSelected": false,
+      "editMode": true
     },
     "draggable": true,
     "selectable": true,
     "zIndex": -2,
     "measured": {
-      "width": 6400,
-      "height": 180
-    },
-    "selected": true
+      "width": 6100,
+      "height": 220
+    }
   },
   {
-    "id": "lane-webapp",
+    "id": "lane-webbapp",
     "type": "lane",
     "position": {
       "x": 56,
       "y": 490
     },
     "data": {
-      "label": "WebApp",
-      "width": "6400px",
-      "heightPx": 300,
+      "label": "Webbapp",
+      "width": "6100px",
+      "heightPx": 340,
       "index": 2,
-      "poolId": "pool-webapp"
+      "poolId": "pool-webbapp",
+      "layoutSelected": false,
+      "editMode": true
     },
     "draggable": true,
     "selectable": true,
     "zIndex": -2,
     "measured": {
-      "width": 6400,
-      "height": 300
+      "width": 6100,
+      "height": 340
     },
     "selected": true
   },
   {
-    "id": "lane-cloud-ops",
+    "id": "lane-aws",
     "type": "lane",
     "position": {
       "x": 56,
-      "y": 1130
+      "y": 880
     },
     "data": {
-      "label": "Ops jobs",
-      "width": "6400px",
-      "heightPx": 200,
-      "index": 4,
-      "poolId": "pool-cloud"
-    },
-    "draggable": true,
-    "selectable": true,
-    "zIndex": -2,
-    "measured": {
-      "width": 6400,
-      "height": 200
-    },
-    "selected": true
-  },
-  {
-    "id": "lane-cloud-aws",
-    "type": "lane",
-    "position": {
-      "x": 56,
-      "y": 850
-    },
-    "data": {
-      "label": "AWS + Aurora",
-      "width": "6400px",
-      "heightPx": 280,
+      "label": "Databaser / Aurora",
+      "width": "6100px",
+      "heightPx": 360,
       "index": 3,
-      "poolId": "pool-cloud"
+      "poolId": "pool-cloud",
+      "layoutSelected": false,
+      "editMode": true
     },
     "draggable": true,
     "selectable": true,
     "zIndex": -2,
     "measured": {
-      "width": 6400,
-      "height": 280
+      "width": 6100,
+      "height": 360
     },
     "selected": true
+  },
+  {
+    "id": "lane-ops",
+    "type": "lane",
+    "position": {
+      "x": 56,
+      "y": 1240
+    },
+    "data": {
+      "label": "Driftjobb",
+      "width": "6100px",
+      "heightPx": 390,
+      "index": 4,
+      "poolId": "pool-cloud",
+      "layoutSelected": false,
+      "editMode": true
+    },
+    "draggable": true,
+    "selectable": true,
+    "zIndex": -2,
+    "measured": {
+      "width": 6100,
+      "height": 390
+    }
   },
   {
     "id": "lane-roller",
     "type": "lane",
     "position": {
       "x": 56,
-      "y": 1380
+      "y": 1680
     },
     "data": {
       "label": "Roller API",
-      "width": "6400px",
-      "heightPx": 170,
+      "width": "6100px",
+      "heightPx": 230,
       "index": 5,
-      "poolId": "pool-roller"
+      "poolId": "pool-roller",
+      "layoutSelected": false,
+      "editMode": true
     },
     "draggable": true,
     "selectable": true,
     "zIndex": -2,
     "measured": {
-      "width": 6400,
-      "height": 170
+      "width": 6100,
+      "height": 230
     },
     "selected": true
   },
@@ -247,982 +266,320 @@ export const pilotNodes = [
     "id": "guest-start",
     "type": "event",
     "position": {
-      "x": 140,
-      "y": 98.51058240127703
+      "x": 150,
+      "y": 74
     },
     "data": {
-      "label": "Besök planeras",
+      "label": "Start",
+      "lane": "Gäst",
+      "details": "Gästen kommer via SMS-länk, park-QR eller kiosk.",
+      "viewTags": [
+        "pilotresa"
+      ],
       "type": "start",
-      "lane": "Gäst",
-      "details": "Resan börjar antingen hemma på befintlig webbplats eller på plats i parken.",
-      "viewTags": [
-        "pilotresa"
-      ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 68,
+      "width": 48,
       "height": 62
-    },
-    "selected": false,
-    "dragging": false
+    }
   },
   {
-    "id": "guest-booked",
-    "type": "gateway",
-    "position": {
-      "x": 267.1537326206614,
-      "y": 90.8462673793386
-    },
-    "data": {
-      "label": "Bokat hemma redan?",
-      "lane": "Gäst",
-      "details": "Piloten ska tydligt skilja mellan bokning hemma as-is och on-site-ingång i parken.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 64,
-      "height": 64
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-home-book",
+    "id": "guest-entry",
     "type": "task",
     "position": {
-      "x": 430,
-      "y": 34
+      "x": 360,
+      "y": 64
     },
     "data": {
-      "label": "Boka hemma as-is på webbplatsen",
+      "label": "Öppnar SMS, park-QR eller kiosk",
       "lane": "Gäst",
-      "details": "Bokningen sker fortsatt på befintlig webbplats hemma. Efteråt kan gästen antingen använda SMS-länken eller starta på plats via QR eller kiosk.",
+      "details": "SMS går direkt mot bokning. Park-QR och kiosk startar på plats med känd park.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 230,
-      "height": 59
-    },
-    "selected": false,
-    "dragging": false
+      "height": 61
+    }
   },
   {
-    "id": "guest-sms",
+    "id": "guest-show-code",
     "type": "task",
     "position": {
-      "x": 773.3037426417994,
-      "y": 33.8600582720908
+      "x": 3920,
+      "y": 64
     },
     "data": {
-      "label": "Få SMS 30 minuter före starttid",
+      "label": "Visar QR eller bokningskod",
       "lane": "Gäst",
-      "details": "Gästen får ett sms cirka 30 minuter före starttid. Länken öppnar snabbt check-in, men gästen kan fortfarande välja parkens QR eller kiosk i stället.",
+      "details": "Gästen visar bekräftelsen för parkpersonal vid utlämning.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 230,
-      "height": 59
+      "width": 219,
+      "height": 45
     },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-onsite-entry",
-    "type": "task",
-    "position": {
-      "x": 781.4500398564182,
-      "y": 160.18900729158486
-    },
-    "data": {
-      "label": "Skanna park-QR på ställning eller välj kiosk",
-      "lane": "Gäst",
-      "details": "Samma on-site-ingång används både för gäster utan bokning och för gäster som redan bokat hemma men väljer QR eller kiosk i stället för SMS-länken.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 230,
-      "height": 59
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-onsite-choice",
-    "type": "task",
-    "position": {
-      "x": 1090.7733524226858,
-      "y": 160.46889074740324
-    },
-    "data": {
-      "label": "Hitta bokning eller köp på plats",
-      "lane": "Gäst",
-      "details": "På plats kan gästen hitta en befintlig bokning eller köpa en närliggande tid direkt i parkflödet.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 230,
-      "height": 59
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-entry-choice",
-    "type": "gateway",
-    "position": {
-      "x": 1108.8901107802833,
-      "y": 31.679772082021323
-    },
-    "data": {
-      "label": "Öppna check-in hur?",
-      "lane": "Gäst",
-      "details": "Gästen kan ha bokat hemma och ändå välja att använda parkens QR eller kiosk i stället för SMS-länken.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 64,
-      "height": 64
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-open",
-    "type": "task",
-    "position": {
-      "x": 1325.1667764084991,
-      "y": 98.686827016206
-    },
-    "data": {
-      "label": "Gå in i check-in-flödet",
-      "lane": "Gäst",
-      "details": "Flödet kan starta via personlig SMS-länk, via QR eller kiosk med befintlig bokning, eller efter köp på plats.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 183,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-review",
-    "type": "task",
-    "position": {
-      "x": 1535.1058240127702,
-      "y": 99.18195235740015
-    },
-    "data": {
-      "label": "Granska bokning",
-      "lane": "Gäst",
-      "details": "När bokning finns ser gästen deltagare och vad som redan ingår.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 150,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-safety",
-    "type": "task",
-    "position": {
-      "x": 1772.9168167211853,
-      "y": 99.18195235740016
-    },
-    "data": {
-      "label": "Slutför safety",
-      "lane": "Gäst",
-      "details": "Säkerhetsflödet i piloten: (1) kort safety-video, (2) generella parkregler, (3) bokningsnivå-intygande, (4) attraktionsspecifik bekräftelse där relevant. Slutförs innan tillägg och handoff.",
-      "why": "JumpYard Cloud äger safety-steget. Alla gäster genomför samma sekvens oavsett kanal.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 136,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-addons",
-    "type": "task",
-    "position": {
-      "x": 2000.7991869586108,
-      "y": 99.9440795310727
-    },
-    "data": {
-      "label": "Välj tillägg och connected",
-      "lane": "Gäst",
-      "details": "Samma huvudsteg oavsett om gästen kommer via mobil eller kiosk.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-pay",
-    "type": "gateway",
-    "position": {
-      "x": 2384.7842489030777,
-      "y": 87.85332231352328
-    },
-    "data": {
-      "label": "Betalning krävs?",
-      "lane": "Gäst",
-      "details": "Efter tillägg och connected avgörs om bokningen behöver betalas eller kan gå direkt vidare till bekräftelsen.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 64,
-      "height": 64
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-payment-step",
-    "type": "task",
-    "position": {
-      "x": 2554.9944209972173,
-      "y": 15.825102576784538
-    },
-    "data": {
-      "label": "Betala",
-      "lane": "Gäst",
-      "details": "Gästen betalar bara om totalen inte redan är 0 efter tillägg, connected eller tidigare betalning.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 79,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-confirm",
-    "type": "task",
-    "position": {
-      "x": 2698.7560291663394,
-      "y": 95.69253475867718
-    },
-    "data": {
-      "label": "Se bekräftelse + QR + kod",
-      "lane": "Gäst",
-      "details": "Bekräftelsen används sedan vid handoff hos staff.",
-      "why": "Gästens perspektiv: check-in-flödet sammanfattas. I mobilflödet är detta samma skärm som guest-present.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 199,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-output-choice",
-    "type": "gateway",
-    "position": {
-      "x": 3242.4429849222333,
-      "y": 85.51763733546171
-    },
-    "data": {
-      "label": "Skriv ut eller visa i mobilen?",
-      "lane": "Gäst",
-      "details": "I slutet skiljer sig bara utlämningen mellan kiosk och mobil: kiosk kan skriva ut ett kvitto eller confirmation, medan mobilen visar QR eller bokningskod direkt.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 64,
-      "height": 64
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-print",
-    "type": "task",
-    "position": {
-      "x": 3534.0548492005,
-      "y": 9.889870869885641
-    },
-    "data": {
-      "label": "Skriv ut kvitto / confirmation",
-      "lane": "Gäst",
-      "channel": "kiosk-only",
-      "details": "Det här görs bara vid kiosk på plats när ett utskrivet kvitto eller confirmation behövs inför utlämningen hos staff.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 230,
-      "height": 84
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-present",
-    "type": "task",
-    "position": {
-      "x": 3770.4288750538644,
-      "y": 105.02116480255405
-    },
-    "data": {
-      "label": "Visa bekräftelse hos staff",
-      "lane": "Gäst",
-      "details": "I mobilflödet: samma bekräftelseskärm som guest-confirm, nu i handoff-kontext hos staff. I kioskflödet: gästen har redan skrivit ut och visar kvitto/confirmation fysiskt.",
-      "why": "Överlämningspunkten hos staff. Mobil = samma data som guest-confirm. Kiosk = utskrivet kvitto.",
-      "givesGuest": [
-        "Tydlig QR-kod",
-        "Kort bokningskod som reservväg",
-        "Utskriven confirmation eller kvitto vid kiosk"
-      ],
-      "staffVerifies": [
-        "QR-kod",
-        "Bokningskod",
-        "Utskriven confirmation eller kvitto"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 213,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
+    "selected": false
   },
   {
     "id": "guest-end",
     "type": "event",
     "position": {
-      "x": 4553.447090984949,
-      "y": 93.48528133041762
+      "x": 5260,
+      "y": 74
     },
     "data": {
-      "label": "Redo för park",
-      "type": "end",
+      "label": "Parkresan startar",
       "lane": "Gäst",
-      "details": "Parkresan fortsätter efter att staff har slutfört handoff.",
+      "details": "Utlämningen är klar och gästen kan gå vidare in i parken.",
       "viewTags": [
         "pilotresa"
       ],
+      "type": "end",
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 61,
+      "width": 84,
       "height": 62
-    },
-    "selected": false,
-    "dragging": false
+    }
   },
   {
-    "id": "app-start",
+    "id": "app-entry",
     "type": "task",
     "position": {
-      "x": 168.79289322246518,
-      "y": 616.6629507687877
+      "x": 360,
+      "y": 610
     },
     "data": {
-      "label": "VY: Start / länk",
-      "lane": "WebApp",
-      "details": "Gemensam ingång för SMS-länk, park-QR och kiosk på plats.",
-      "reads": [
-        "checkin_token",
-        "channel_hint",
-        "venue context"
-      ],
-      "shownWhen": [
-        "SMS-länk öppnas",
-        "Parkens QR-ställning skannas",
-        "Kiosk startas på plats"
-      ],
-      "givesGuest": [
-        "Tydlig startpunkt för samma check-in- eller köpflöde"
-      ],
+      "label": "Startsida: hitta eller köp",
+      "lane": "Webbapp",
+      "details": "Samma svenska webbapp används för SMS, park-QR och kiosk. Webbappen går alltid via JumpYard Cloud.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 136,
-      "height": 43
+      "width": 210,
+      "height": 45
     },
-    "selected": false,
-    "dragging": false
+    "selected": false
   },
   {
-    "id": "gw-channel",
+    "id": "gw-existing-booking",
     "type": "gateway",
     "position": {
-      "x": 390.70710677753476,
-      "y": 606.7487372137181
+      "x": 680,
+      "y": 600.3717077250204
     },
     "data": {
-      "label": "Hur öppnas flödet?",
-      "lane": "WebApp",
-      "details": "SMS-länk är snabbspåret. Park-QR och kiosk går in i samma on-site-logik.",
+      "label": "Befintlig bokning?",
+      "lane": "Webbapp",
+      "details": "Val mellan befintlig bokning och köp på plats.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 64,
       "height": 64
-    },
-    "selected": false,
-    "dragging": false
+    }
   },
   {
-    "id": "app-mobile",
+    "id": "app-lookup",
     "type": "task",
     "position": {
-      "x": 610,
-      "y": 516
-    },
-    "data": {
-      "label": "SMS-länk med token",
-      "lane": "WebApp",
-      "channel": "primary-remote",
-      "details": "Personlig länk som skickas cirka 30 min före och öppnar bokningsvyn direkt när gästen redan bokat hemma.",
-      "shownWhen": [
-        "Gästen har redan bokat hemma och öppnar sin personliga länk"
-      ],
-      "skippedWhen": [
-        "Gästen startar i parken via QR eller kiosk"
-      ],
-      "givesGuest": [
-        "Direkt väg in i bokningen utan extra lookup"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 168,
-      "height": 67
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "gw-mobile-entry",
-    "type": "task",
-    "position": {
-      "x": 610,
-      "y": 604
-    },
-    "data": {
-      "label": "Park-QR på ställning",
-      "lane": "WebApp",
-      "channel": "primary-onsite",
-      "details": "Bekvämt entrypoint i parken för gäster som inte bokat hemma eller inte checkat in ännu.",
-      "shownWhen": [
-        "Gästen skannar parkens QR-ställning"
-      ],
-      "givesGuest": [
-        "Tydlig on-site-start för samma boknings- eller köpflöde"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 175,
-      "height": 67
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "kiosk-entry",
-    "type": "task",
-    "position": {
-      "x": 649.5,
-      "y": 691.5
-    },
-    "data": {
-      "label": "Kiosk på plats",
-      "lane": "WebApp",
-      "channel": "assisted-onsite",
-      "details": "Alternativ on-site-ingång till samma WebApp-flöde för gäster som redan är i parken.",
-      "shownWhen": [
-        "Gästen väljer kiosk i parken"
-      ],
-      "skippedWhen": [
-        "Gästen använder egen telefon"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 138,
-      "height": 67
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "gw-kiosk-existing",
-    "type": "gateway",
-    "position": {
-      "x": 930,
-      "y": 621.5
-    },
-    "data": {
-      "label": "Har du befintlig bokning?",
-      "lane": "WebApp",
-      "details": "Park-QR och kiosk delar samma on-site-val: hitta befintlig bokning eller köpa en närliggande tid i parken.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 64,
-      "height": 64
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "kiosk-lookup",
-    "type": "task",
-    "position": {
-      "x": 1137,
-      "y": 571
+      "x": 960,
+      "y": 540
     },
     "data": {
       "label": "Hitta befintlig bokning",
-      "lane": "WebApp",
-      "details": "Gemensam lookup för Park-QR och kiosk när gästen redan har bokning.",
-      "reads": [
-        "booking_ref (primär)",
-        "QR-matchning (primär)",
-        "telefon + efternamn (sekundär)"
-      ],
-      "shownWhen": [
-        "Gästen skannar parkens QR-ställning",
-        "Kiosk används och gästen redan har bokning"
-      ],
-      "skippedWhen": [
-        "SMS-länk med token går direkt till bokningen"
-      ],
+      "lane": "Webbapp",
+      "details": "Sökning med bokningskod, QR eller telefon + efternamn mot lokal bokningskopia.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 189,
-      "height": 43
+      "width": 191,
+      "height": 45
     },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "kiosk-buy-select",
-    "type": "task",
-    "position": {
-      "x": 1015,
-      "y": 689
-    },
-    "data": {
-      "label": "VY: Välj produkt & antal",
-      "badge": "Steg 1",
-      "lane": "WebApp",
-      "channel": "onsite-purchase",
-      "details": "Gästen väljer produkt/paket och antal deltagare.",
-      "why": "On-site purchase är ett eget pilotspår. Gäster som redan är i parken ska kunna köpa direkt.",
-      "writes": [
-        "vald_produkt",
-        "antal_deltagare"
-      ],
-      "shownWhen": [
-        "Ingen befintlig bokning hittas på plats",
-        "Gästen vill köpa en tid som snart startar i parken"
-      ],
-      "endpoints": [
-        "Get products"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 195,
-      "height": 85
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "kiosk-buy-details",
-    "type": "task",
-    "position": {
-      "x": 1270,
-      "y": 688.5
-    },
-    "data": {
-      "label": "VY: Välj tid",
-      "badge": "Steg 2",
-      "lane": "WebApp",
-      "channel": "onsite-purchase",
-      "details": "Gästen väljer starttid 1–2 h framåt. Visar lediga tider i realtid.",
-      "writes": [
-        "vald_starttid",
-        "guest_contact_email",
-        "guest_contact_phone"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 113,
-      "height": 85
-    },
-    "selected": false,
-    "dragging": false
+    "selected": false
   },
   {
     "id": "app-booking",
     "type": "task",
     "position": {
-      "x": 1377.5957653396656,
-      "y": 589.2223757422418
+      "x": 1240,
+      "y": 540
     },
     "data": {
-      "label": "VY: Bokning & deltagare",
-      "lane": "WebApp",
-      "details": "Gemensamt huvudsteg när bokningen hittats via SMS eller lookup, eller skapats på plats i parken.",
-      "reads": [
-        "bokningssammanfattning",
-        "deltagare",
-        "produkter",
-        "betalningsstatus"
-      ],
-      "shownWhen": [
-        "Bokning finns eller har skapats"
-      ],
+      "label": "Visa bokning och deltagare",
+      "lane": "Webbapp",
+      "details": "Gästen ser deltagare, tid, produkter, betalstatus och vad som redan ingår.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 192,
-      "height": 43
+      "width": 220,
+      "height": 45
     },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "app-safety-video",
-    "type": "task",
-    "position": {
-      "x": 1737.748190512085,
-      "y": 588.760189365936
-    },
-    "data": {
-      "label": "VY: Safety-video",
-      "lane": "WebApp",
-      "details": "Gästen tittar på safety-videon innan intyget kan bockas i.",
-      "writes": [
-        "safety_video_seen_at"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 142,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "app-safety-attest",
-    "type": "task",
-    "position": {
-      "x": 1931.918492339435,
-      "y": 589.4363015675441
-    },
-    "data": {
-      "label": "VY: Safety-intygande",
-      "lane": "WebApp",
-      "details": "Gästen bockar i att hen tagit del av safety-reglerna. Intygande krävs för att gå vidare.",
-      "writes": [
-        "safety_attested_at",
-        "safety_status",
-        "safety_completed_at"
-      ],
-      "shownWhen": [
-        "Safety-videon är sedd"
-      ],
-      "givesGuest": [
-        "Klart safety-läge inför resten av check-in-resan"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 174,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
+    "selected": false
   },
   {
     "id": "app-addons",
     "type": "task",
     "position": {
-      "x": 2145.9961686915517,
-      "y": 588.313096677631
+      "x": 1540,
+      "y": 540
     },
     "data": {
-      "label": "VY: Tillägg",
-      "lane": "WebApp",
-      "details": "Gästen ser tillägg som redan lagts till (från bokning eller tidigare steg) och kan lägga till fler eller nya. Tillgängliga tillägg: SkyRider, Connected, kaffe, extra person, hänglås.",
-      "reads": [
-        "produktkatalog",
-        "prisregler",
-        "befintliga_tillägg"
-      ],
-      "writes": [
-        "valda tillägg",
-        "connected_selected",
-        "tillägg_uppdaterade"
-      ],
+      "label": "Välj tillägg och profilval",
+      "lane": "Webbapp",
+      "details": "Gästen väljer bara relevanta tillägg. Kaffe, lås, strumpor och armbandsval blir Cloud-rättigheter för utlämning.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 106,
-      "height": 43
+      "width": 210,
+      "height": 45
     },
-    "selected": false,
-    "dragging": false
+    "selected": false
   },
   {
-    "id": "gw-app-connected",
+    "id": "gw-payment-context",
     "type": "gateway",
     "position": {
-      "x": 2537.9267648844916,
-      "y": 580.8949129568651
+      "x": 1905.9581105466193,
+      "y": 566.1720143408238
     },
     "data": {
-      "label": "Connected valt?",
-      "lane": "WebApp",
-      "details": "Connected-profiler visas bara om produkten valts.",
+      "label": "Betalningskontext?",
+      "lane": "Webbapp",
+      "details": "Existerande bokning delas upp i samma bokningskod, länkad bokning eller ingen ny betalning.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 64,
       "height": 64
-    },
-    "selected": false,
-    "dragging": false
+    }
   },
   {
-    "id": "app-connected",
+    "id": "app-payment-link",
     "type": "task",
     "position": {
-      "x": 2637.724219267691,
-      "y": 510.26603206849654
+      "x": 2320,
+      "y": 500
     },
     "data": {
-      "label": "VY: Connected-profiler",
-      "lane": "WebApp",
-      "details": "Lätta profiler med namn och ikonval — antalet följer bokningen. Skapas i pilotens operativa state.",
-      "writes": [
-        "connected_profiles[]",
-        "ikonval",
-        "connected_profile_status"
-      ],
-      "shownWhen": [
-        "Connected-produkt är vald"
-      ],
-      "skippedWhen": [
-        "Ingen connected-produkt är vald"
-      ],
-      "givesGuest": [
-        "Profiler redo för bandkoppling hos staff (antal följer bokningen)"
-      ],
+      "label": "Betalningslänk på originalbokning",
+      "lane": "Webbapp",
+      "details": "Primärt mönster för tillägg på befintlig bokning: samma bokningskod behålls och gästen betalar på Rollers betalningssida.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 192,
-      "height": 43
+      "width": 230,
+      "height": 61
     },
-    "selected": false,
-    "dragging": false
+    "selected": false
   },
   {
-    "id": "gw-app-payment",
-    "type": "gateway",
-    "position": {
-      "x": 2872.963328158134,
-      "y": 590.3638868916635
-    },
-    "data": {
-      "label": "Betalning krävs?",
-      "lane": "WebApp",
-      "details": "No-payment-vägen är explicit i pilotflödet.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 64,
-      "height": 64
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "app-payment",
+    "id": "app-linked-booking",
     "type": "task",
     "position": {
-      "x": 3018.725526813734,
-      "y": 499.58688337806433
+      "x": 2306.381461607727,
+      "y": 678.6229949195736
     },
     "data": {
-      "label": "VY: Betalning",
-      "lane": "WebApp",
-      "details": "Gemensamt betalsteg när totalen är större än 0.",
-      "writes": [
-        "payment_status",
-        "payment_reference",
-        "pending_writeback"
-      ],
-      "shownWhen": [
-        "Totalen är större än 0"
-      ],
-      "skippedWhen": [
-        "Inga nya tillägg valdes eller totalen är 0"
-      ],
+      "label": "Separat länkad bokning",
+      "lane": "Webbapp",
+      "details": "Alternativt mönster om betalningen måste stanna helt i webbappen med inbäddad Adyen.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 123,
-      "height": 43
+      "width": 197,
+      "height": 45
+    }
+  },
+  {
+    "id": "app-safety",
+    "type": "task",
+    "position": {
+      "x": 3200.8431864316385,
+      "y": 569.7631251667765
+    },
+    "data": {
+      "label": "Säkerhet efter tillägg och betalning",
+      "lane": "Webbapp",
+      "details": "Gemensamt säkerhetssteg efter att tillägg, betalning och bokningsstatus är klara.",
+      "viewTags": [
+        "pilotresa"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 230,
+      "height": 61
     },
     "selected": false,
     "dragging": false
@@ -1231,414 +588,452 @@ export const pilotNodes = [
     "id": "app-confirm",
     "type": "task",
     "position": {
-      "x": 3250.2342762586813,
-      "y": 589.589044334972
+      "x": 3533.4512536634334,
+      "y": 617.8584956038801
     },
     "data": {
-      "label": "VY: Bekräftelse + QR + kod",
-      "lane": "WebApp",
-      "details": "Gemensam slutskärm med QR och kort bokningskod för handoff hos staff.",
-      "why": "WebApp-vyn som implementerar bekräftelseskärmen. Genererar QR och kort bokningskod.",
-      "reads": [
-        "confirmation_code",
-        "token_payload",
-        "payment_status"
-      ],
-      "givesGuest": [
-        "QR-kod",
-        "Kort bokningskod",
-        "Bekräftelse att check-in-flödet är klart"
-      ],
+      "label": "Bekräftelse med QR och kod",
+      "lane": "Webbapp",
+      "details": "Slutskärm som visar QR, kort bokningskod och status för säkerhet, betalning och utlämning.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 203,
-      "height": 43
+      "width": 222,
+      "height": 45
     },
-    "selected": false,
-    "dragging": false
+    "selected": false
   },
   {
-    "id": "kiosk-print",
+    "id": "app-start-time",
     "type": "task",
     "position": {
-      "x": 3606.21598120339,
-      "y": 494.6029193832943
+      "x": 908.384103834908,
+      "y": 714.592269801465
     },
     "data": {
-      "label": "Skriv ut kvitto / confirmation",
-      "lane": "WebApp",
-      "channel": "kiosk-only",
-      "details": "Valfri kioskavvikelse efter avslutat flöde. Mobilen behöver normalt inte detta steg.",
-      "why": "Kiosk-specifikt steg. Finns bara i kioskflödet — mobilen hoppar direkt till present.",
-      "shownWhen": [
-        "Kanal = kiosk och utskrift behövs"
-      ],
-      "skippedWhen": [
-        "Kanal = mobil eller ingen utskrift behövs"
-      ],
-      "givesGuest": [
-        "Utskriven confirmation eller kvitto"
-      ],
+      "label": "Välj starttid",
+      "lane": "Webbapp",
+      "details": "Köp på plats börjar med starttid eftersom park redan är känd från QR eller kiosk.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 125,
+      "height": 45
+    },
+    "selected": false
+  },
+  {
+    "id": "app-product",
+    "type": "task",
+    "position": {
+      "x": 1240,
+      "y": 709.1373194188675
+    },
+    "data": {
+      "label": "Välj produkt, längd och antal",
+      "lane": "Webbapp",
+      "details": "Webbappen visar bara produkter och längder som är köpbara för vald tid.",
+      "viewTags": [
+        "pilotresa"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 230,
-      "height": 84
+      "height": 61
     },
-    "selected": false,
-    "dragging": false
+    "selected": false
   },
   {
-    "id": "app-present",
+    "id": "app-contact",
     "type": "task",
     "position": {
-      "x": 3770.036445509017,
-      "y": 593.6538450520646
+      "x": 1540.907073068745,
+      "y": 716.3939039688266
     },
     "data": {
-      "label": "VY: Visa QR / bokningskod",
-      "lane": "WebApp",
-      "details": "Sista WebApp-vyn före staff-handoff.",
-      "why": "WebApp-vyn för handoff-skärm. I mobil: samma ConfirmationScreen som app-confirm. Sista vyn före staff-handoff.",
-      "reads": [
-        "QR payload",
-        "booking code",
-        "connected_profile_status"
-      ],
-      "givesGuest": [
-        "Det som ska visas upp hos staff"
-      ],
-      "staffVerifies": [
-        "QR-kod",
-        "Bokningskod"
-      ],
+      "label": "Ange kontaktuppgift",
+      "lane": "Webbapp",
+      "details": "E-post eller telefon behövs innan kostnad, utkastbokning och betalning startar.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 201,
-      "height": 43
+      "width": 178,
+      "height": 45
     },
-    "selected": false,
-    "dragging": false
+    "selected": false
   },
   {
-    "id": "job-daily",
-    "type": "service",
+    "id": "app-pay-new",
+    "type": "task",
     "position": {
-      "x": 978.6037383177238,
-      "y": 1155
+      "x": 2200.4690940472383,
+      "y": 757.2121920623468
     },
     "data": {
-      "label": "Daglig seed",
-      "lane": "Ops jobs",
-      "details": "Seedar dagens bokningar, tickets, payments och customers till lokal snapshot och kundcache innan parken öppnar.",
-      "why": "Kärnjobbet i piloten. Seedar all data för dagen. Webhook delta/enrichment kompletterar med realtidsuppdateringar under dagen.",
+      "label": "Betala i webbappen",
+      "lane": "Webbapp",
+      "details": "Ny bokning använder utkastbokning och inbäddad Roller/Adyen-betalning.",
       "viewTags": [
-        "teknik"
+        "pilotresa"
       ],
-      "cadence": "05:00 daily",
-      "jobs": [
-        "Hämtar bokningar",
-        "Hämtar tickets",
-        "Hämtar payments",
-        "Hämtar customers",
-        "Upsertar snapshot"
-      ],
-      "endpoints": [
-        "Get bookings",
-        "Get tickets",
-        "Get payments",
-        "Get customers"
-      ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 220,
-      "height": 137
-    },
-    "selected": false,
-    "dragging": false
+      "width": 163,
+      "height": 45
+    }
   },
   {
-    "id": "job-delta",
-    "type": "service",
-    "position": {
-      "x": 1308.2210174093395,
-      "y": 1155
-    },
-    "data": {
-      "label": "Booking webhook intake",
-      "lane": "Ops jobs",
-      "details": "Delta-intake under dagen. Tar emot booking-webhooks och skapar enrich-underlag. Kompletterar daglig seed — inte ersättning.",
-      "viewTags": [
-        "teknik"
-      ],
-      "cadence": "On event",
-      "jobs": [
-        "Ta emot Created / Updated / Cancelled",
-        "Spara webhook-event",
-        "Markera pending enrichment"
-      ],
-      "endpoints": [
-        "Booking webhook"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 121
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "job-enrich",
-    "type": "service",
-    "position": {
-      "x": 1639.3633788934721,
-      "y": 1155
-    },
-    "data": {
-      "label": "Webhook enrichment",
-      "lane": "Ops jobs",
-      "details": "Enrichment efter delta-intake. Berikar sena bokningar med exakt state och kundkontakt. Daglig seed är kärnan, detta är kompletterande realtidslager.",
-      "viewTags": [
-        "teknik"
-      ],
-      "cadence": "On event",
-      "jobs": [
-        "Hämta booking detail",
-        "Hämta customer detail",
-        "Upserta snapshot + kundkontakt"
-      ],
-      "endpoints": [
-        "Get detail of a booking",
-        "Get customer detail"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 121
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "job-sms",
-    "type": "service",
-    "position": {
-      "x": 1942.2978320501904,
-      "y": 1160
-    },
-    "data": {
-      "label": "SMS-trigger",
-      "lane": "Ops jobs",
-      "details": "Skapar token och skickar länk inför ankomst.",
-      "cadence": "Every 1 min",
-      "jobs": [
-        "Hitta bokningar om 30 min",
-        "Skapa token",
-        "Skriv sms_outbox"
-      ],
-      "viewTags": [
-        "teknik"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 105
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "job-refresh",
-    "type": "service",
-    "position": {
-      "x": 2275.9088951825333,
-      "y": 1160
-    },
-    "data": {
-      "label": "Refresh vid länköppning",
-      "lane": "Ops jobs",
-      "details": "Kör live-refresh när länk eller på plats-lookup kräver färsk detalj.",
-      "cadence": "On demand",
-      "endpoints": [
-        "Get detail of a booking"
-      ],
-      "viewTags": [
-        "teknik"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 105
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "job-retry",
-    "type": "service",
-    "position": {
-      "x": 2611.780508066142,
-      "y": 1160
-    },
-    "data": {
-      "label": "Retry för writeback",
-      "lane": "Ops jobs",
-      "details": "Tar om writeback och redeem om externa anrop fallerar.",
-      "cadence": "Retry queue",
-      "endpoints": [
-        "Create a booking",
-        "Edit booking",
-        "Add transaction record",
-        "Redeem tickets"
-      ],
-      "viewTags": [
-        "teknik"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 105
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "job-writeback-sync",
-    "type": "service",
-    "position": {
-      "x": 2920,
-      "y": 1155
-    },
-    "data": {
-      "label": "Writeback & redeem sync",
-      "variant": "job",
-      "lane": "Ops jobs",
-      "details": "Synkar bokningsdata och redeem-status tillbaka till lokal snapshot och Roller. Hanterar on-site-köp-writeback och staff-handoff-redeem via operationsköer.",
-      "why": "All skrivning mellan Roller och lokal snapshot måste gå via ops-jobb — inte direktkopplingar — för spårbarhet och retry.",
-      "cadence": "On event",
-      "jobs": [
-        "Writeback ny bokning till snapshot",
-        "Synka redeem-status från staff-handoff",
-        "Uppdatera Roller via API vid behov"
-      ],
-      "endpoints": [
-        "Create a booking",
-        "Redeem tickets",
-        "Edit booking"
-      ],
-      "viewTags": [
-        "teknik"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 121
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "store-snapshot",
+    "id": "store-booking",
     "type": "database",
     "position": {
-      "x": 1177.316811143001,
-      "y": 899.2385363365615
+      "x": 960,
+      "y": 970
     },
     "data": {
-      "label": "Aurora / Roller Snapshot",
-      "lane": "AWS + Aurora",
-      "collapsed": true,
-      "expandLabel": "Expandera databas",
-      "collapseLabel": "Fäll ihop databas",
-      "systems": [
-        "Aurora PostgreSQL",
-        "S3 rå-payloads"
-      ],
-      "summary": "Lokal snapshot av Roller-bokningar, tickets, produkter och betalningar för dagens operativa flöde.",
-      "summaryItems": [
-        "bookings",
-        "booking_tickets",
-        "booking_products"
-      ],
-      "tables": [
-        "bookings",
-        "booking_tickets",
-        "booking_products",
-        "booking_payments"
-      ],
-      "keyFields": [
-        "booking_status",
-        "booking_modified_date",
-        "ticket_ids",
-        "payload_hash",
-        "last_seen_from_roller_at"
-      ],
-      "writePattern": "Upsertas av daily seed, webhook enrichment och link-open refresh. Daily seed bygger basen, webhooken fyller på sena bokningar.",
-      "reads": [
-        "WebApp: VY: Bokning & deltagare",
-        "WebApp: Hitta befintlig bokning"
-      ],
-      "writes": [
-        "Ops jobs: daily seed",
-        "Ops jobs: webhook enrichment",
-        "Ops jobs: link-open refresh"
-      ],
-      "usedBy": [
-        "WebApp bokningsvy",
-        "Kiosk lookup",
-        "Staff validering"
-      ],
-      "endpoints": [
-        "Get bookings",
-        "Get tickets",
-        "Get payments",
-        "Get detail of a booking",
-        "Booking webhook"
-      ],
-      "contains": [
-        "Bokning",
-        "Tickets per booking",
-        "Produktsammanfattning",
-        "Betalningssnapshot"
-      ],
+      "label": "Bokningskopia",
+      "lane": "Databaser / Aurora",
+      "details": "Dagens operativa kopia av bokningar, biljetter, produkter, betalstatus, inlösenstatus och senaste synk.",
       "viewTags": [
         "teknik"
       ],
+      "systems": [
+        "Aurora PostgreSQL",
+        "S3 rådata"
+      ],
+      "tables": [
+        "bokningskopia",
+        "biljettkopia",
+        "betalstatus",
+        "inlösenstatus"
+      ],
+      "keyFields": [
+        "bokningsreferens",
+        "park_id",
+        "starttid",
+        "betalstatus",
+        "senast_synkad"
+      ],
+      "usedBy": [
+        "Sökning",
+        "Bokningsvy",
+        "Parkpersonal"
+      ],
+      "collapsed": true,
+      "expandLabel": "Fäll ut",
+      "collapseLabel": "Fäll ihop",
+      "expandHint": "Visa lagrad data",
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 250,
-      "height": 156
+      "width": 230,
+      "height": 101
+    },
+    "selected": false
+  },
+  {
+    "id": "cloud-availability",
+    "type": "service",
+    "position": {
+      "x": 1389.225167094257,
+      "y": 1355.3816035681357
+    },
+    "data": {
+      "label": "Hämta tillgänglighet",
+      "lane": "Driftjobb",
+      "details": "Cloud hämtar tillgänglighet för vald park, datum och starttid innan produktlistan visas.",
+      "viewTags": [
+        "teknik"
+      ],
+      "variant": "job",
+      "endpoints": [
+        "Hämta produkttillgänglighet"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 98
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "store-commerce",
+    "type": "database",
+    "position": {
+      "x": 1219.6656485714377,
+      "y": 1054.180080597861
+    },
+    "data": {
+      "label": "Pris och tillgänglighet",
+      "lane": "Databaser / Aurora",
+      "details": "Kontrollerad status för tillgänglighet och prisvisning innan betalning.",
+      "viewTags": [
+        "teknik"
+      ],
+      "systems": [
+        "Aurora PostgreSQL",
+        "Kortlivad cache"
+      ],
+      "tables": [
+        "tillgänglighetscache",
+        "prisvisningsmodell"
+      ],
+      "keyFields": [
+        "park_id",
+        "starttid",
+        "produkt_id",
+        "visat_pris"
+      ],
+      "ownedState": [
+        "Vald tid",
+        "Vald produkt/längd",
+        "Pris som visades för gästen"
+      ],
+      "collapsed": true,
+      "expandLabel": "Fäll ut",
+      "collapseLabel": "Fäll ihop",
+      "expandHint": "Visa lagrad data",
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 230,
+      "height": 101
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "cloud-costs",
+    "type": "service",
+    "position": {
+      "x": 1633.9953613740545,
+      "y": 1302.7738368138723
+    },
+    "data": {
+      "label": "Beräkna kostnad",
+      "lane": "Driftjobb",
+      "details": "Cloud validerar slutlig varukorg med Rollers kostnadsberäkning innan utkast eller betalningslänk.",
+      "viewTags": [
+        "teknik"
+      ],
+      "variant": "job",
+      "endpoints": [
+        "Beräkna bokningskostnad"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 98
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "cloud-existing-payment",
+    "type": "service",
+    "position": {
+      "x": 2792.149603318875,
+      "y": 1357.3616525415266
+    },
+    "data": {
+      "label": "Uppdatera bokning och skapa betalningslänk",
+      "lane": "Driftjobb",
+      "details": "Samma-bokning-mönstret: uppdatera originalbokningen och skapa betalningslänk för återstående belopp.",
+      "viewTags": [
+        "teknik"
+      ],
+      "variant": "job",
+      "endpoints": [
+        "Uppdatera bokning",
+        "Skapa betalningslänk"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 113
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "cloud-draft",
+    "type": "service",
+    "position": {
+      "x": 2046.1323536527298,
+      "y": 1314.7325789884746
+    },
+    "data": {
+      "label": "Skapa utkastbokning",
+      "lane": "Driftjobb",
+      "details": "Ny bokning och länkad bokning använder utkast för att reservera kapacitet under betalning.",
+      "viewTags": [
+        "teknik"
+      ],
+      "variant": "job",
+      "endpoints": [
+        "Skapa utkastbokning"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 98
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "cloud-linked-booking",
+    "type": "service",
+    "position": {
+      "x": 2300.0662719240313,
+      "y": 1402.3414001952376
+    },
+    "data": {
+      "label": "Skapa länkad bokning",
+      "lane": "Driftjobb",
+      "details": "Alternativ för befintlig bokning när hela betalningen ska ligga kvar i webbappen. Själva Roller-anropet går via gemensamt utkastflöde och länkningen sparas i PaymentSession.",
+      "viewTags": [
+        "teknik"
+      ],
+      "variant": "job",
+      "endpoints": [
+        "Skapa utkastbokning"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 130
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "store-payment",
+    "type": "database",
+    "position": {
+      "x": 2424.88397555494,
+      "y": 1078.2551399161523
+    },
+    "data": {
+      "label": "Betalningssessioner",
+      "lane": "Databaser / Aurora",
+      "details": "Samlar betalningslänk, inbäddad utkastbetalning, returstatus, utgångstid och avbrutna köp.",
+      "viewTags": [
+        "teknik"
+      ],
+      "systems": [
+        "Aurora PostgreSQL",
+        "SQS / EventBridge"
+      ],
+      "tables": [
+        "betalningssession",
+        "utkastbokningssession"
+      ],
+      "keyFields": [
+        "betalningsmönster",
+        "originalbokning",
+        "länkad_bokning",
+        "betalstatus"
+      ],
+      "ownedState": [
+        "Betalningslänk",
+        "Inbäddad betalningstoken",
+        "Retur från betalning"
+      ],
+      "collapsed": true,
+      "expandLabel": "Fäll ut",
+      "collapseLabel": "Fäll ihop",
+      "expandHint": "Visa lagrad data",
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 230,
+      "height": 101
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "cloud-publish",
+    "type": "service",
+    "position": {
+      "x": 3062.3332302927333,
+      "y": 1305.0593034380356
+    },
+    "data": {
+      "label": "Publicera eller avbryt utkast",
+      "lane": "Driftjobb",
+      "details": "Vid lyckad betalning publiceras bokningen. Vid avbrott släpps utkast och kapacitet.",
+      "viewTags": [
+        "teknik"
+      ],
+      "variant": "job",
+      "endpoints": [
+        "Publicera utkastbokning"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 113
     },
     "selected": false,
     "dragging": false
@@ -1647,242 +1042,310 @@ export const pilotNodes = [
     "id": "store-operational",
     "type": "database",
     "position": {
-      "x": 1953.592023449551,
-      "y": 889.1700546181888
+      "x": 3265.892375202198,
+      "y": 1082.7986786847746
     },
     "data": {
-      "label": "Aurora / Operativ state",
-      "lane": "AWS + Aurora",
-      "collapsed": true,
-      "expandLabel": "Expandera databas",
-      "collapseLabel": "Fäll ihop databas",
+      "label": "Operativ status",
+      "lane": "Databaser / Aurora",
+      "details": "JumpYard Cloud äger säkerhet, åtkomsttoken, webbappsession, gästidentitet och besökslogg.",
+      "viewTags": [
+        "teknik"
+      ],
       "systems": [
         "Aurora PostgreSQL",
-        "Redis (valfri i V1)",
-        "SQS / EventBridge"
-      ],
-      "summary": "Pilotens egen state för safety, token, check-in, connected-profiler, handoff och kundkontakt.",
-      "summaryItems": [
-        "booking_operational_state",
-        "checkin_tokens",
-        "connected_profile_drafts"
+        "EventBridge"
       ],
       "tables": [
-        "booking_operational_state",
+        "operativ_bokningsstatus",
+        "gästidentitet",
         "checkin_tokens",
-        "sms_outbox",
-        "guest_profiles",
-        "connected_profile_drafts"
+        "besökslogg"
       ],
       "keyFields": [
-        "local_checkin_status",
-        "confirmation_code",
+        "säkerhetsstatus",
         "token_hash",
-        "safety_status",
-        "connected_profile_status"
-      ],
-      "writePattern": "Skrivs av WebApp, webhook enrichment, staff-handoff och SMS-jobb. Läser inför SMS, redeem och utlämning.",
-      "reads": [
-        "WebApp: VY: Safety-intygande",
-        "WebApp: VY: Tillägg",
-        "WebApp: VY: Betalning",
-        "Staff: Utlämning hos staff"
-      ],
-      "writes": [
-        "Ops jobs: daily seed",
-        "Ops jobs: webhook enrichment",
-        "WebApp: Safety-intygande",
-        "WebApp: Connected-profiler",
-        "WebApp: Betalning",
-        "Staff: Handoff"
+        "sessionsstatus",
+        "utlämningsstatus"
       ],
       "ownedState": [
-        "Safety completion",
-        "Confirmation code",
-        "Connected-profiler",
-        "Handoff-status"
+        "Säkerhet",
+        "Åtkomsttoken",
+        "Webbappsession",
+        "Besökslogg"
       ],
-      "usedBy": [
-        "SMS-trigger",
-        "WebApp huvudflöde",
-        "Utlämning hos staff"
-      ],
-      "endpoints": [
-        "Get customers",
-        "Get customer detail",
-        "Create a booking",
-        "Get products",
-        "Booking costs",
-        "Edit booking",
-        "Add transaction record",
-        "Redeem tickets"
-      ],
-      "contains": [
-        "Operativ status",
-        "Tokens",
-        "SMS-logg",
-        "Kundkontakt för SMS",
-        "Lätta profilutkast för connected"
-      ],
-      "viewTags": [
-        "teknik"
-      ],
+      "collapsed": true,
+      "expandLabel": "Fäll ut",
+      "collapseLabel": "Fäll ihop",
+      "expandHint": "Visa lagrad data",
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 250,
-      "height": 156
+      "width": 230,
+      "height": 101
     },
     "selected": false,
     "dragging": false
   },
   {
-    "id": "store-events",
+    "id": "store-entitlement",
     "type": "database",
     "position": {
-      "x": 2713.9183912765634,
-      "y": 889.4346484856403
+      "x": 1837.8734128457816,
+      "y": 1045.7841874803303
     },
     "data": {
-      "label": "Aurora / Event & observability",
-      "lane": "AWS + Aurora",
-      "collapsed": true,
-      "expandLabel": "Expandera databas",
-      "collapseLabel": "Fäll ihop databas",
-      "systems": [
-        "Aurora PostgreSQL",
-        "S3 rå-payloads",
-        "SQS / EventBridge"
-      ],
-      "summary": "Append-only eventspår, webhook-intake och sync-observability för pilotens drift.",
-      "summaryItems": [
-        "booking_events",
-        "sync_runs",
-        "error_summary"
-      ],
-      "tables": [
-        "booking_events",
-        "sync_runs"
-      ],
-      "keyFields": [
-        "event_type",
-        "event_source",
-        "booking_id",
-        "status",
-        "error_summary"
-      ],
-      "writePattern": "Append-only från WebApp, staff och ops jobs. Webhook-events och driftspår synkas hit för felsökning och support.",
-      "usedBy": [
-        "Support",
-        "Drift",
-        "Felsökning"
-      ],
-      "jobs": [
-        "Daglig seed",
-        "Booking webhook intake",
-        "Webhook enrichment",
-        "Retry för writeback"
-      ],
-      "contains": [
-        "Visit events",
-        "Webhook-events",
-        "Sync-resultat",
-        "Felspår"
-      ],
+      "label": "Rättigheter och profiler",
+      "lane": "Databaser / Aurora",
+      "details": "Interna rättigheter för tillägg och armbandsval, plus medlems- och flerbesöksindex.",
       "viewTags": [
         "teknik"
       ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 250,
-      "height": 156
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "store-future",
-    "type": "database",
-    "position": {
-      "x": 3185.758132978323,
-      "y": 894.63092783827
-    },
-    "data": {
-      "label": "Connected experience senare",
-      "lane": "AWS + Aurora",
-      "collapsed": true,
-      "expandLabel": "Expandera databas",
-      "collapseLabel": "Fäll ihop databas",
-      "future": true,
-      "statusTag": "Senare",
       "systems": [
         "Aurora PostgreSQL"
       ],
-      "viewTags": [
-        "teknik",
-        "future"
-      ],
-      "why": "Fullständig session- och device-modell för Connected Experience. Pilotens lätta profilutkast ligger i store-operational, inte här.",
-      "summary": "Framtida full session- och device-modell, skild från pilotens lätta profilutkast.",
-      "summaryItems": [
-        "connected_sessions",
-        "device_pairings",
-        "live session state"
-      ],
       "tables": [
-        "connected_sessions",
-        "device_pairings"
+        "tilläggsrättighet",
+        "armbandsprofiler",
+        "medlemsindex",
+        "flerbesök_tillfällig"
       ],
       "keyFields": [
-        "session_started_at",
-        "band_assigned",
-        "device_id"
+        "bokningsreferens",
+        "produktkod",
+        "utlämningsstatus",
+        "tillfällig_status"
       ],
-      "writePattern": "Senare scope. Inte aktivt i pilotens check-in.",
-      "contains": [
-        "Bandkoppling",
-        "Session state",
-        "Device pairing"
+      "ownedState": [
+        "Kaffe/lås/strumpor",
+        "Profilval",
+        "Medlemsindex",
+        "Tillfällig flerbesöksstatus"
       ],
+      "collapsed": true,
+      "expandLabel": "Fäll ut",
+      "collapseLabel": "Fäll ihop",
+      "expandHint": "Visa lagrad data",
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 250,
-      "height": 140
+      "width": 234,
+      "height": 101
     },
     "selected": false,
     "dragging": false
   },
   {
-    "id": "roller-bulk",
+    "id": "job-seed",
     "type": "service",
     "position": {
-      "x": 1114.3869058589235,
-      "y": 1398
+      "x": 574.0000000000002,
+      "y": 1355
     },
     "data": {
-      "label": "Get bookings / Get tickets / Get payments / Get customers",
-      "lane": "Roller API",
-      "details": "Daglig seed för bokningssnapshot, betalningsledger och lokal kundcache.",
-      "endpoints": [
-        "Get bookings",
-        "Get tickets",
-        "Get payments",
-        "Get customers"
-      ],
+      "label": "Daglig import",
+      "lane": "Driftjobb",
+      "details": "Bygger dagens bokningskopia innan parken öppnar.",
       "viewTags": [
         "teknik"
       ],
+      "variant": "job",
+      "cadence": "Dagligen 05:00",
+      "endpoints": [
+        "Sök bokningar",
+        "Hämta bokningsdetalj"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 220,
-      "height": 112
+      "height": 105
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "job-webhook",
+    "type": "service",
+    "position": {
+      "x": 834.8861026691646,
+      "y": 1301.818348784868
+    },
+    "data": {
+      "label": "Ta emot bokningswebhook under dagen",
+      "lane": "Driftjobb",
+      "details": "Rollers bokningswebhook tar in nya och ändrade bokningar under dagen efter den dagliga importen. När payloaden innehåller bokningsdetalj och betaldata uppdateras bokningskopian direkt.",
+      "viewTags": [
+        "teknik"
+      ],
+      "variant": "job",
+      "cadence": "Vid händelse",
+      "endpoints": [
+        "Bokningswebhook under dagen",
+        "Hämta bokningsdetalj vid reservväg"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 184
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "job-refresh",
+    "type": "service",
+    "position": {
+      "x": 1122.7409438733798,
+      "y": 1367.1713630136405
+    },
+    "data": {
+      "label": "Uppdatering vid öppning eller reservväg",
+      "lane": "Driftjobb",
+      "details": "Hämtar färsk bokningsdetalj när bokningskopian saknar data eller ett kritiskt steg kräver verifiering.",
+      "viewTags": [
+        "teknik"
+      ],
+      "variant": "job",
+      "cadence": "Vid behov",
+      "endpoints": [
+        "Hämta bokningsdetalj"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 136
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "job-payment-return",
+    "type": "service",
+    "position": {
+      "x": 2544.088105309974,
+      "y": 1359.9226984986476
+    },
+    "data": {
+      "label": "Betalretur och utgångstid",
+      "lane": "Driftjobb",
+      "details": "Tar emot retur från Rollers betalningslänk och hanterar timeout/avbrott. Vid behov avbryts betalningslänk eller utkast via Roller API och status sparas i PaymentSession.",
+      "viewTags": [
+        "teknik"
+      ],
+      "variant": "job",
+      "cadence": "Vid retur / utgångstid",
+      "endpoints": [
+        "Retur-URL från betalningslänk",
+        "Avbryt betalningslänk",
+        "Avbryt eller släpp utkastbokning"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 169
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "job-redemption",
+    "type": "service",
+    "position": {
+      "x": 3652.5370104657927,
+      "y": 1285.265303113067
+    },
+    "data": {
+      "label": "Inlösenhändelse och avstämning",
+      "lane": "Driftjobb",
+      "details": "Uppdaterar lokal inlösenstatus och tillfällig flerbesöksstatus efter Roller-inlösen.",
+      "viewTags": [
+        "teknik"
+      ],
+      "variant": "job",
+      "cadence": "Vid inlösen",
+      "endpoints": [
+        "Inlösenhändelse"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 136
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "roller-search",
+    "type": "service",
+    "position": {
+      "x": 585.0125456407931,
+      "y": 1810.9678008691162
+    },
+    "data": {
+      "label": "Sök och hämta bokning",
+      "lane": "Roller API",
+      "details": "Sanningskälla för bokning, biljetter och betalstatus när Cloud behöver liveuppslag eller fallback.",
+      "viewTags": [
+        "teknik"
+      ],
+      "endpoints": [
+        "Sök bokningar",
+        "Hämta bokningsdetalj"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "hideDetailsOnCanvas": true,
+      "apiStatus": "confirmed",
+      "apiStatusLabel": "✓ Bekräftat",
+      "apiPoints": [
+        "Search for Bookings / GET /bookings",
+        "Get Detail of a Booking / GET /bookings/{uniqueId}"
+      ],
+      "confirmedByRoller": [
+        "Get Detail of a Booking är auktoritativ livehämtning för befintlig bokning.",
+        "Search for Bookings är stödd fallback när QR eller bokningskod saknas."
+      ],
+      "jumpyardHandling": [
+        "Driftjobb hämtar bokning vid öppning, reservväg, staff-sökning och daglig seed/reconciliation.",
+        "Resultat skrivs till bokningskopia i Databaser / Aurora."
+      ],
+      "limitations": [],
+      "sources": [
+        "Roller Response 2, 2026-04-23 F15",
+        "V3-sammanställning, 2026-04-24 rad Live booking lookup"
+      ],
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 205,
+      "height": 73
     },
     "selected": false,
     "dragging": false
@@ -1891,162 +1354,259 @@ export const pilotNodes = [
     "id": "roller-webhook",
     "type": "service",
     "position": {
-      "x": 1413.8118776528447,
-      "y": 1420
+      "x": 878.133099772937,
+      "y": 1706.415174121901
     },
     "data": {
-      "label": "Booking webhook",
+      "label": "Bokningswebhook under dagen",
       "lane": "Roller API",
-      "details": "Skickar Created, Updated och Cancelled för bokningar under dagen.",
-      "endpoints": [
-        "Booking webhook"
-      ],
+      "details": "Skickar nya och ändrade bokningar under dagen efter daglig import när webhooken är rätt konfigurerad.",
       "viewTags": [
         "teknik"
+      ],
+      "endpoints": [
+        "Bokningswebhook under dagen"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "hideDetailsOnCanvas": true,
+      "apiStatus": "confirmed",
+      "apiStatusLabel": "✓ Bekräftat",
+      "apiPoints": [
+        "Booking Webhook med include.payments: true",
+        "Create webhook"
+      ],
+      "confirmedByRoller": [
+        "Booking webhook används för bokningar och ändringar som kommer in under dagen efter daglig import.",
+        "Webhooken kan innehålla samma booking-level detail som Get Detail of a Booking.",
+        "Payment records kan ingå när include.payments är påslaget."
+      ],
+      "jumpyardHandling": [
+        "Cloud uppdaterar bokningssnapshot direkt under dagen när payloaden är komplett.",
+        "Get Detail används bara vid öppning, fallback, kritiska steg eller saknad payload-data."
+      ],
+      "limitations": [],
+      "sources": [
+        "Roller Response 2, 2026-04-23 F2",
+        "V3-sammanställning, 2026-04-24 rad Booking webhook"
       ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 220,
-      "height": 82
+      "height": 88
     },
     "selected": false,
     "dragging": false
   },
   {
-    "id": "roller-booking",
+    "id": "roller-availability",
     "type": "service",
     "position": {
-      "x": 1691.3965398282976,
-      "y": 1405
+      "x": 1255.6598134451292,
+      "y": 1773.2011469633449
     },
     "data": {
-      "label": "Get detail of a booking",
+      "label": "Tillgänglighet",
       "lane": "Roller API",
-      "details": "Live-detail när bokning eller lookup behöver en färsk källa.",
-      "endpoints": [
-        "Get detail of a booking"
-      ],
+      "details": "Kontrollerar säljbara tider, produkter och antal före utkastbokning.",
       "viewTags": [
         "teknik"
+      ],
+      "endpoints": [
+        "Hämta produkttillgänglighet"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "hideDetailsOnCanvas": true,
+      "apiStatus": "open",
+      "apiStatusLabel": "⚠ Öppet",
+      "apiPoints": [
+        "Get Product Availability"
+      ],
+      "confirmedByRoller": [
+        "Sky Rider kräver availability check före tillägg.",
+        "Jump socks, lockers och coffee kräver ingen availability check som stockprodukter."
+      ],
+      "jumpyardHandling": [
+        "Efter vald starttid anropar Driftjobb Roller och skriver säljbarhet till pris- och tillgänglighetsstate.",
+        "Webbapp visar bara produkter/durationer som är säljbara för vald tid."
+      ],
+      "limitations": [
+        "Core jump-produkter och durationer efter vald starttid behöver slutbekräftad rekommenderad display-pattern från Roller."
+      ],
+      "sources": [
+        "Roller Response 2, 2026-04-23 F5",
+        "V3-sammanställning, 2026-04-24 F3"
       ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 220,
-      "height": 82
+      "width": 200,
+      "height": 73
     },
     "selected": false,
     "dragging": false
   },
   {
-    "id": "roller-customer",
+    "id": "roller-costs",
     "type": "service",
     "position": {
-      "x": 1972.75498090804,
-      "y": 1408
+      "x": 1700,
+      "y": 1765
     },
     "data": {
-      "label": "Get customer detail",
+      "label": "Kostnadsberäkning",
       "lane": "Roller API",
-      "details": "Hämtar telefon, e-post och övrig kundkontakt för sena bokningar efter webhook.",
-      "endpoints": [
-        "Get customer detail"
-      ],
+      "details": "Slutlig varukorgskontroll före betalning, utkast eller betalningslänk.",
       "viewTags": [
         "teknik"
+      ],
+      "endpoints": [
+        "Beräkna bokningskostnad"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "hideDetailsOnCanvas": true,
+      "apiStatus": "limited",
+      "apiStatusLabel": "⚠ Begränsat",
+      "apiPoints": [
+        "Booking Costs"
+      ],
+      "confirmedByRoller": [
+        "Booking Costs är rätt endpoint för final pre-payment basket calculation.",
+        "Gift cards och medlemskoder kan räknas in i ny draft-booking checkout."
+      ],
+      "jumpyardHandling": [
+        "Driftjobb validerar slutpris innan betalning.",
+        "Om Cloud-visat pris skiljer sig från Booking Costs ska flödet stoppas eller uppdateras före betalning."
+      ],
+      "limitations": [
+        "Booking Costs är inte en full produktlist-prisendpoint.",
+        "Price Rules kan ge baspris i produktlista men annat slutpris i Booking Costs."
+      ],
+      "sources": [
+        "Roller Response 2, 2026-04-23 F7/F10",
+        "V3-sammanställning, 2026-04-24 rad Price calculation"
       ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 220,
-      "height": 98
+      "width": 200,
+      "height": 73
     },
     "selected": false,
     "dragging": false
   },
   {
-    "id": "roller-products",
+    "id": "roller-draft",
     "type": "service",
     "position": {
-      "x": 2256.75498090804,
-      "y": 1405
+      "x": 2047,
+      "y": 1788
     },
     "data": {
-      "label": "Get products / Booking costs",
+      "label": "Ny bokning: utkast + inbäddad betalning",
       "lane": "Roller API",
-      "details": "Produktkatalog och kostnadsberäkning för tillägg och connected.",
-      "endpoints": [
-        "Get products",
-        "Booking costs"
-      ],
+      "details": "Skapar draft, reserverar kapacitet och stödjer inbäddad Roller/Adyen-betalning för ny bokning.",
       "viewTags": [
         "teknik"
+      ],
+      "endpoints": [
+        "Skapa utkastbokning",
+        "Publicera utkastbokning",
+        "Avbryt eller släpp utkastbokning"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "hideDetailsOnCanvas": true,
+      "apiStatus": "confirmed",
+      "apiStatusLabel": "✓ Bekräftat",
+      "apiPoints": [
+        "Create Draft Booking",
+        "ROLLER Payments / Adyen",
+        "Publish Draft Booking / confirm",
+        "Publish Draft Booking (No Payment)",
+        "Cancel/release Draft Booking vid timeout eller avbrott"
+      ],
+      "confirmedByRoller": [
+        "Create Draft Booking reserverar kapacitet och släpper den vid timeout eller explicit release.",
+        "Ny bokning använder draft + embedded Roller Payments/Adyen + publish/confirm.",
+        "Fullt gift card-belopp kan publiceras utan betalningssteg."
+      ],
+      "jumpyardHandling": [
+        "Driftjobb skapar draft först efter kontaktuppgift och kostnadskontroll.",
+        "Betalningssession sparas i Cloud och publicering sker efter godkänd betalning."
+      ],
+      "limitations": [],
+      "sources": [
+        "Roller Response 2, 2026-04-23 F6/F10/F11/F13",
+        "V3-sammanställning, 2026-04-24 rad New booking"
       ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 220,
-      "height": 97
+      "height": 88
     },
     "selected": false,
     "dragging": false
   },
   {
-    "id": "roller-create",
+    "id": "roller-payment-link",
     "type": "service",
     "position": {
-      "x": 2545.8564033726075,
-      "y": 1398
+      "x": 2600.6885987981245,
+      "y": 1708.342834334896
     },
     "data": {
-      "label": "Create a booking",
+      "label": "Existerande bokning: betalningslänk",
       "lane": "Roller API",
-      "details": "Skapar en ny booking i Roller för on-site-köp, inklusive booking owner, items och eventuell initial betalning.",
-      "endpoints": [
-        "Create a booking"
-      ],
+      "details": "Uppdaterar originalbokningen och skapar hosted payment link med samma bokningskod.",
       "viewTags": [
         "teknik"
+      ],
+      "endpoints": [
+        "Uppdatera bokning",
+        "Skapa betalningslänk",
+        "Avbryt betalningslänk"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "hideDetailsOnCanvas": true,
+      "apiStatus": "limited",
+      "apiStatusLabel": "⚠ Begränsat",
+      "apiPoints": [
+        "Update a Booking",
+        "Create Payment Link / POST /bookings/{uniqueId}/payments/links",
+        "Cancel Payment Link / DELETE"
+      ],
+      "confirmedByRoller": [
+        "Update a Booking kan lägga till eller ta bort produkter och behålla originalets bokningskod.",
+        "Create Payment Link är rekommenderad route för tilläggsbetalning på befintlig bokning."
+      ],
+      "jumpyardHandling": [
+        "Driftjobb uppdaterar originalbokningen, skapar betalningslänk och sparar PaymentSession.",
+        "Gästen skickas till Rollers hostade betalningssida och kommer tillbaka via bekräftad retur när den är fastställd."
+      ],
+      "limitations": [
+        "Retur till PWA efter success/cancel ska bekräftas.",
+        "Tender-stöd för gift card, medlemskod och flerbesök i payment-link-flödet är fortfarande gul risk."
+      ],
+      "sources": [
+        "Roller Response 2, 2026-04-23 F3/F8",
+        "V3-sammanställning, 2026-04-24 rad Additional payment"
       ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 220,
-      "height": 98
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "roller-writeback",
-    "type": "service",
-    "position": {
-      "x": 2832.642936856419,
-      "y": 1405
-    },
-    "data": {
-      "label": "Edit booking / Add transaction record",
-      "lane": "Roller API",
-      "details": "Writeback till Roller efter betalning och tillägg.",
-      "endpoints": [
-        "Edit booking",
-        "Add transaction record"
-      ],
-      "viewTags": [
-        "teknik"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 97
+      "height": 88
     },
     "selected": false,
     "dragging": false
@@ -2055,723 +1615,356 @@ export const pilotNodes = [
     "id": "roller-redeem",
     "type": "service",
     "position": {
-      "x": 3141.644700622636,
-      "y": 1412
+      "x": 3281.905095320808,
+      "y": 1739.929349695315
     },
     "data": {
-      "label": "Redeem tickets",
+      "label": "Lös in biljetter",
       "lane": "Roller API",
-      "details": "Kritisk slutpunkt när staff slutför handoff i piloten.",
-      "endpoints": [
-        "Redeem tickets"
-      ],
+      "details": "Ticket-level redemption för biljetter och sessionprodukter.",
       "viewTags": [
         "teknik"
       ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 82
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "staff-assist",
-    "type": "task",
-    "position": {
-      "x": 3793.733757296125,
-      "y": 313.65060821255906
-    },
-    "data": {
-      "label": "Assisterad fallback",
-      "lane": "Staff / parkpersonal",
-      "details": "Används vid mismatch, saknad kod eller andra undantag.",
-      "viewTags": [
-        "pilotresa"
+      "endpoints": [
+        "Lös in biljetter"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "hideDetailsOnCanvas": true,
+      "apiStatus": "confirmed",
+      "apiStatusLabel": "✓ Bekräftat",
+      "apiPoints": [
+        "Redeem Tickets"
+      ],
+      "confirmedByRoller": [
+        "Redeem Tickets är rätt API-action för check-in/redemption.",
+        "Ticket-type products kan lösas in individuellt."
+      ],
+      "jumpyardHandling": [
+        "Parkpersonal initierar inlösen i Cloud; Driftjobb gör Roller-anropet.",
+        "Endast faktiska biljetter/sessionprodukter löses in i Roller."
+      ],
+      "limitations": [
+        "Kaffe, lockers, socks och andra stock/addons ska inte visas som separat Roller API-redemption i V1."
+      ],
+      "sources": [
+        "Roller Response 2, 2026-04-23 F12/F14",
+        "V3-sammanställning, 2026-04-24 rad Redemption/check-in"
       ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 172,
-      "height": 43
+      "width": 200,
+      "height": 73
     },
     "selected": false,
     "dragging": false
   },
   {
-    "id": "staff-manual",
-    "type": "task",
+    "id": "roller-redemption-webhook",
+    "type": "service",
     "position": {
-      "x": 4136.881898042386,
-      "y": 267.80616704906123
+      "x": 3663.714585788727,
+      "y": 1734.6513180522236
     },
     "data": {
-      "label": "Manuell kontroll",
-      "lane": "Staff / parkpersonal",
-      "details": "Staff kan kontrollera bokning manuellt innan utlämning eller alternativ hantering.",
+      "label": "Inlösenhändelse",
+      "lane": "Roller API",
+      "details": "Eventström efter ticket redemption för live counter och operativ status.",
       "viewTags": [
-        "pilotresa"
+        "teknik"
+      ],
+      "endpoints": [
+        "Inlösenhändelse"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "hideDetailsOnCanvas": true,
+      "apiStatus": "confirmed",
+      "apiStatusLabel": "✓ Bekräftat",
+      "apiPoints": [
+        "Redemption Webhook"
+      ],
+      "confirmedByRoller": [
+        "Redemption Webhook är rätt eventström för sessionbaserad inlösen.",
+        "Stock och addon products är exkluderade från redemption webhook."
+      ],
+      "jumpyardHandling": [
+        "Driftjobb tar emot event, uppdaterar lokal inlösenstatus och kan bygga live counter.",
+        "Samma eventström används för interim flerbesök-state tills Roller har dedikerad endpoint."
+      ],
+      "limitations": [],
+      "sources": [
+        "Roller Response 2, 2026-04-23 F12/F14/F16",
+        "V3-sammanställning, 2026-04-24 rad Multi-visit"
       ],
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 155,
-      "height": 43
+      "width": 200,
+      "height": 73
     },
     "selected": false,
     "dragging": false
+  },
+  {
+    "id": "staff-view",
+    "type": "task",
+    "position": {
+      "x": 3920,
+      "y": 295
+    },
+    "data": {
+      "label": "Kontrollera utlämningsvy",
+      "lane": "Parkpersonal",
+      "details": "Parkpersonal ser bokning, säkerhet, betalning, tilläggsrättigheter, profilval, bandstatus och undantag.",
+      "viewTags": [
+        "pilotresa"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 219,
+      "height": 45
+    }
+  },
+  {
+    "id": "staff-ticket-redeem",
+    "type": "task",
+    "position": {
+      "x": 4240,
+      "y": 295
+    },
+    "data": {
+      "label": "Lös in biljetter i Roller",
+      "lane": "Parkpersonal",
+      "details": "Bara biljetter och sessionprodukter löses in i Roller.",
+      "viewTags": [
+        "pilotresa"
+      ],
+      "layoutSelected": false,
+      "editMode": true,
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 192,
+      "height": 45
+    }
   },
   {
     "id": "staff-handoff",
     "type": "task",
     "position": {
-      "x": 4335.280421980138,
-      "y": 295.2587638034468
+      "x": 4493.744191919742,
+      "y": 295.6078514502776
     },
     "data": {
-      "label": "Utlämning hos staff",
-      "lane": "Staff / parkpersonal",
-      "details": "Normal utlämning hos staff när check-in-flödet är klart.",
-      "why": "Staff verifierar QR-kod eller bokningskod, lämnar ut tillägg och kopplar Connected Experience-band. Om något strular kan staff falla tillbaka till dagens manuella check-in.",
-      "reads": [
-        "Bekräftad bokning",
-        "QR-kod eller bokningskod",
-        "Connected-profiler från operativ state"
-      ],
-      "writes": [
-        "Redeem-status",
-        "visit event",
-        "utlämning klar",
-        "bandkoppling slutförd"
-      ],
-      "givesGuest": [
-        "Tillägg",
-        "Connected Experience-band",
-        "Klartecken att gå vidare"
-      ],
-      "staffVerifies": [
-        "QR-kod",
-        "Bokningskod"
-      ],
-      "endpoints": [
-        "Redeem tickets"
-      ],
+      "label": "Lämna ut tillägg och band",
+      "lane": "Parkpersonal",
+      "details": "Kaffe, lås, strumpor och armband lämnas ut från Cloud-rättigheter, inte som separat Roller-inlösen.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
-      "width": 172,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
+      "width": 213,
+      "height": 45
+    }
   },
   {
-    "id": "staff-api-end",
-    "type": "event",
-    "position": {
-      "x": 4546.147777870798,
-      "y": 362.8093656076774
-    },
-    "data": {
-      "label": "Manuell åtgärd klar",
-      "type": "end",
-      "lane": "Staff / parkpersonal",
-      "details": "Fallbackgrenen avslutas här när normalen inte kunde användas.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 90,
-      "height": 72
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "gw-skyrider",
-    "type": "gateway",
-    "position": {
-      "x": 2297.8296147568362,
-      "y": 577.6382985779139
-    },
-    "data": {
-      "label": "SkyRider valt?",
-      "lane": "WebApp",
-      "details": "SkyRider-höjdintyg krävs bara om SkyRider är valt som tillägg (befintligt eller nytt).",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 64,
-      "height": 64
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "app-skyrider-attest",
+    "id": "staff-log",
     "type": "task",
     "position": {
-      "x": 2367.3037191832755,
-      "y": 721.836341792247
+      "x": 4769.371036049477,
+      "y": 293.1764456491672
     },
     "data": {
-      "label": "VY: SkyRider-höjdkrav",
-      "lane": "WebApp",
-      "details": "SkyRider-biljetter får endast användas av personer som är minst 100 cm långa. Visas bara om SkyRider är valt som tillägg.",
-      "writes": [
-        "skyrider_height_confirmed"
-      ],
-      "shownWhen": [
-        "SkyRider är valt som tillägg"
-      ],
+      "label": "Logga utlämning klar",
+      "lane": "Parkpersonal",
+      "details": "Cloud loggar att rättigheter och utlämning är hanterade.",
       "viewTags": [
         "pilotresa"
       ],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 184,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-extend-open",
-    "type": "task",
-    "position": {
-      "x": 4754.458568286254,
-      "y": 27.222375742241894
-    },
-    "data": {
-      "label": "Öppna förlängning i webappen",
-      "lane": "Gäst",
-      "details": "Länken öppnar en dedikerad förlängningsvy i samma webapp.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 230,
-      "height": 59
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-extend-pay",
-    "type": "task",
-    "position": {
-      "x": 5079.99998139304,
-      "y": 36.00000058758822
-    },
-    "data": {
-      "label": "Betala 50 kr för +30 min",
-      "lane": "Gäst",
-      "details": "Gästen genomför betalningen direkt i webappen (Swish/kort).",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 191,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-extend-qr",
-    "type": "task",
-    "position": {
-      "x": 5351.99998354753,
-      "y": 38.00000078345096
-    },
-    "data": {
-      "label": "Få QR-kod för bandbyte",
-      "lane": "Gäst",
-      "details": "Efter betalning visas en QR-kod som används vid kassan för att hämta nytt band.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 190,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-extend-walk",
-    "type": "task",
-    "position": {
-      "x": 5598.500084220977,
-      "y": 37.99999020686308
-    },
-    "data": {
-      "label": "Gå till kassan/staff",
-      "lane": "Gäst",
-      "details": "Gästen tar med QR-koden till kassan eller närmaste staff.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 170,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "guest-extend-band",
-    "type": "task",
-    "position": {
-      "x": 6105.327710616821,
-      "y": 36.765836220747005
-    },
-    "data": {
-      "label": "Hämta nytt band till besökaren/barnet",
-      "lane": "Gäst",
-      "details": "Staff scannar QR och delar ut ett nytt band med uppdaterad sluttid.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 230,
-      "height": 59
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "app-extend-view",
-    "type": "task",
-    "position": {
-      "x": 5052.141904811604,
-      "y": 540
-    },
-    "data": {
-      "label": "VY: Förlängning",
-      "lane": "WebApp",
-      "details": "Fast pris 50 kr för 30 min extra. Visar nuvarande sluttid och ny sluttid.",
-      "reads": [
-        "booking_end_time",
-        "extension_price_fixed"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 142,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "app-extend-pay",
-    "type": "task",
-    "position": {
-      "x": 5250.893450145093,
-      "y": 540
-    },
-    "data": {
-      "label": "VY: Betalning förlängning",
-      "lane": "WebApp",
-      "details": "Swish eller kort. När betalningen lyckats genereras en QR-kod för bandutbyte.",
-      "writes": [
-        "extension_payment_status"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 211,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "app-extend-qr",
-    "type": "task",
-    "position": {
-      "x": 5520,
-      "y": 540
-    },
-    "data": {
-      "label": "VY: QR för bandbyte",
-      "lane": "WebApp",
-      "details": "QR-kod visas tillsammans med instruktion: Gå till kassan/staff för att hämta nytt band.",
-      "reads": [
-        "extension_qr_token"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 164,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "staff-extend-scan",
-    "type": "task",
-    "position": {
-      "x": 5830.208657030996,
-      "y": 330
-    },
-    "data": {
-      "label": "Scanna förlängnings-QR",
-      "lane": "Staff / parkpersonal",
-      "details": "Staff scannar gästens QR vid kassan, ser betalningsstatus och bandets ID.",
-      "reads": [
-        "extension_payment_status",
-        "current_band_id"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 204,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "staff-extend-band",
-    "type": "task",
-    "position": {
-      "x": 6080.129287973779,
-      "y": 282.20236603543793
-    },
-    "data": {
-      "label": "Dela ut nytt band",
-      "lane": "Staff / parkpersonal",
-      "details": "Staff aktiverar ett nytt band med den nya sluttiden och kopplar det till profilen/bokningen i Roller.",
-      "writes": [
-        "new_band_id",
-        "booking_end_time_new"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 152,
-      "height": 43
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "note-extension-flow",
-    "type": "note",
-    "position": {
-      "x": 4963.973520779546,
-      "y": -117.12894769554362
-    },
-    "data": {
-      "label": "Under vistelse — förlängning",
-      "lane": "Gäst",
-      "tone": "guide",
-      "details": "Delflöde efter check-in: gästen får påminnelse, betalar i webappen, får QR, hämtar nytt band hos staff.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "measured": {
-      "width": 280,
-      "height": 103
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "note-1775561450067",
-    "type": "note",
-    "position": {
-      "x": 79.80617461005176,
-      "y": -191.3643412337454
-    },
-    "data": {
-      "label": "Scope-avgränsning",
-      "lane": "JumpYard Cloud",
-      "tone": "warning",
-      "details": "Gruppbokning / kalas: identifierat scope-område, hanteras inte i pilotens check-in-flöde. Kräver separat discovery och designfas.",
-      "scopeStatus": "out-of-scope",
-      "viewTags": [
-        "pilotresa",
-        "future"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "measured": {
-      "width": 280,
-      "height": 103
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "event-1775807705215",
-    "type": "event",
-    "position": {
-      "x": 4633.816678030457,
-      "y": 35.77012104999213
-    },
-    "data": {
-      "label": "Få SMS/mail 15 min före sluttid",
-      "type": "start",
-      "tags": [
-        "main"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false,
-      "lane": "Gäst"
-    },
-    "measured": {
-      "width": 90,
-      "height": 72
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "event-1775807990618",
-    "type": "event",
-    "position": {
-      "x": 4895.317467977898,
-      "y": 537.1819425182513
-    },
-    "data": {
-      "label": "Få SMS/mail 15 min före sluttid",
-      "type": "start",
-      "tags": [
-        "main"
-      ],
-      "viewTags": [
-        "pilotresa"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 90,
-      "height": 72
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "gw-purchase-flow",
-    "type": "gateway",
-    "position": {
-      "x": 1540,
-      "y": 600
-    },
-    "data": {
-      "label": "Köp på plats?",
-      "lane": "WebApp",
-      "details": "Avgör flödesordning. On-site-köp har safety EFTER betalning. Check-in (SMS/lookup) har safety före tillägg.",
-      "viewTags": ["pilotresa"],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 64,
-      "height": 64
+      "height": 45
     }
   },
   {
-    "id": "note-flow-order",
-    "type": "note",
-    "position": {
-      "x": 1480,
-      "y": 740
-    },
-    "data": {
-      "label": "Två flödesordningar",
-      "tone": "info",
-      "details": "CHECK-IN (SMS/lookup): Bokning → Safety → Tillägg → Betalning → QR\n\nKÖP PÅ PLATS: Bokning → Tillägg → Betalning → Safety → QR\n\nMotivering: Vid köp vill gästen betala direkt utan att behöva göra safety först. Safety kommer efter betalning.",
-      "viewTags": ["pilotresa"],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 280,
-      "height": 120
-    }
-  },
-  {
-    "id": "staff-redeem-entry",
-    "type": "task",
-    "position": {
-      "x": 4250,
-      "y": 310
-    },
-    "data": {
-      "label": "Redeema entré",
-      "lane": "Staff / parkpersonal",
-      "details": "Staff skannar gästens QR → redeamar huvudbiljetten (entry ticket). Delar ut armband och strumpor. Övriga add-ons (kaffe, lås) redeemas separat vid respektive station.",
-      "why": "Delvis inlösen: Huvudingång redeemas vid check-in, add-ons redeemas vid sina stationer. Förhindrar att kaffe stryks vid check-in istället för vid kafféstationen.",
-      "writes": [
-        "entry_redeemed",
-        "band_issued",
-        "socks_issued"
-      ],
-      "viewTags": ["pilotresa"],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 164,
-      "height": 43
-    }
-  },
-  {
-    "id": "staff-redeem-addon",
-    "type": "task",
-    "position": {
-      "x": 4500,
-      "y": 310
-    },
-    "data": {
-      "label": "Redeema add-on per station",
-      "lane": "Staff / parkpersonal",
-      "details": "Gästen visar QR vid kaffestation, låsstation etc. Staff skannar och bockar av specifik produkt. Varje station ser bara sina produkter.",
-      "why": "Kaffe, lås och andra add-ons ska redeemas separat vid respektive station — inte alla på en gång vid incheckning.",
-      "writes": [
-        "addon_redeemed_per_item",
-        "station_id"
-      ],
-      "viewTags": ["pilotresa"],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 210,
-      "height": 43
-    }
-  },
-  {
-    "id": "job-draft-publish",
+    "id": "job-ticket-redeem",
     "type": "service",
     "position": {
-      "x": 3200,
-      "y": 1155
+      "x": 3380.947806566987,
+      "y": 1326.5527831599798
     },
     "data": {
-      "label": "Draft → Publish booking",
+      "label": "Lös in biljetter via Cloud",
+      "lane": "Driftjobb",
+      "details": "Cloud tar emot parkpersonalens inlösenkommando och gör Roller-anropet. Roller är fortsatt sanningskälla för biljettinlösen.",
+      "viewTags": [
+        "teknik"
+      ],
       "variant": "job",
-      "lane": "Ops jobs",
-      "details": "On-site-köp: Skapar draft booking → reserverar kapacitet → ROLLER Payments → publish vid lyckad betalning. Om betalning avbryts släpps draften och kapacitet frigörs.",
-      "why": "Draft-mönster säkerställer att kapacitet reserveras under betalning och frigörs om gästen avbryter.",
-      "cadence": "On event",
-      "jobs": [
-        "Create draft booking",
-        "Reservera kapacitet",
-        "Invänta betalning",
-        "Publish draft / släpp vid avbrott"
-      ],
       "endpoints": [
-        "Create draft booking",
-        "Publish draft booking",
-        "ROLLER Payments"
+        "Lös in biljetter"
       ],
-      "viewTags": ["teknik"],
+      "layoutSelected": false,
+      "editMode": true,
       "edgeHighlighted": false,
       "dimmed": false
     },
     "measured": {
       "width": 220,
-      "height": 121
-    }
+      "height": 129
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "roller-membership-multipass",
+    "type": "service",
+    "position": {
+      "x": 3920.1708247332217,
+      "y": 1735.9708259629963
+    },
+    "data": {
+      "lane": "Roller API",
+      "viewTags": [
+        "teknik"
+      ],
+      "hideDetailsOnCanvas": true,
+      "layoutSelected": false,
+      "editMode": true,
+      "label": "Medlemskap och flerbesök",
+      "apiStatus": "open",
+      "apiStatusLabel": "⚠ Öppet",
+      "details": "Medlemskap kan identifieras via ticket records; flerbesök saknar ren live REST-read.",
+      "endpoints": [
+        "Hämta bokningsdetalj",
+        "Inlösenhändelse",
+        "Flerbesök tillfälligt"
+      ],
+      "apiPoints": [
+        "Membership state på ticket records i GET /bookings/{uniqueId}",
+        "Redemption Webhook för interim multi-visit state"
+      ],
+      "confirmedByRoller": [
+        "Membership state ligger på ticket records inom bokningar, inte på guest record.",
+        "Multi-visit remaining balance är inte exponerat som förstaklassfält i public REST idag."
+      ],
+      "jumpyardHandling": [
+        "Cloud bygger medlemsindex från bokningsdetalj, Search for Bookings och webhooks.",
+        "Cloud håller interim flerbesök-state från redemption events tills dedikerat Roller-stöd finns."
+      ],
+      "limitations": [
+        "Flerbesök ska visas som interim/estimerad Cloud-status, inte som grön live Roller-sanning."
+      ],
+      "sources": [
+        "Roller Response 2, 2026-04-23 F9/F16",
+        "V3-sammanställning, 2026-04-24 rad Membership/Multi-visit"
+      ],
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 88
+    },
+    "selected": false,
+    "dragging": false
+  },
+  {
+    "id": "roller-not-v1",
+    "type": "service",
+    "position": {
+      "x": 4204.3367298039475,
+      "y": 1725.414762676813
+    },
+    "data": {
+      "lane": "Roller API",
+      "viewTags": [
+        "teknik"
+      ],
+      "hideDetailsOnCanvas": true,
+      "layoutSelected": false,
+      "editMode": true,
+      "label": "Ej V1: gift card admin / stock-redemption",
+      "apiStatus": "not-v1",
+      "apiStatusLabel": "Ej V1",
+      "details": "API-ytor som inte ska modelleras som pilotflöde.",
+      "endpoints": [
+        "Gift card admin via API",
+        "Stock/addon API-inlösen"
+      ],
+      "apiPoints": [
+        "Gift card creation/admin via API",
+        "API-redemption för stock/addon products"
+      ],
+      "confirmedByRoller": [
+        "Existing gift cards kan användas som tender i ny draft-booking checkout.",
+        "Gift card creation och lifecycle management via API är inte tillgängligt idag.",
+        "Stock/addon redemption via public API är inte stödd som ticket redemption."
+      ],
+      "jumpyardHandling": [
+        "Pilotflödet accepterar gift card-tender där Roller stödjer det, men bygger inte adminflöden.",
+        "Kaffe, lås, strumpor och band hanteras som Cloud-rättigheter och operativ utlämning."
+      ],
+      "limitations": [
+        "Ska inte ritas som produktionsklart Roller-redemption- eller gift-card-adminflöde i V1."
+      ],
+      "sources": [
+        "Roller Response 2, 2026-04-23 F11/F14",
+        "V3-sammanställning, 2026-04-24 röda punkter"
+      ],
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "measured": {
+      "width": 220,
+      "height": 88
+    },
+    "selected": false,
+    "dragging": false
   }
 ] as any[];
 
 export const pilotEdges = [
   {
-    "id": "g16",
-    "source": "guest-output-choice",
-    "target": "guest-present",
+    "id": "p-guest-entry-app",
+    "source": "guest-entry",
+    "target": "app-entry",
+    "label": "",
     "type": "smoothstep",
-    "label": "Ingen utskrift / visa i mobilen",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
+      "strokeWidth": 2.5,
       "stroke": "#ff8e7d"
     },
     "sourceHandle": "right",
     "targetHandle": "left",
     "data": {
+      "edgeKind": "process",
+      "details": "",
       "baseStyle": {
-        "strokeWidth": 2,
+        "strokeWidth": 2.5,
         "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
@@ -2785,1655 +1978,26 @@ export const pilotEdges = [
     "zIndex": 0
   },
   {
-    "id": "g15",
-    "source": "guest-confirm",
-    "target": "guest-output-choice",
+    "id": "p-payment-none",
+    "source": "gw-payment-context",
+    "target": "app-safety",
+    "label": "Ingen ny betalning",
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
+      "strokeWidth": 2.5,
       "stroke": "#ff8e7d"
     },
     "sourceHandle": "right",
     "targetHandle": "left",
     "data": {
+      "edgeKind": "process",
+      "details": "",
       "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g14",
-    "source": "guest-pay",
-    "target": "guest-payment-step",
-    "type": "smoothstep",
-    "label": "Ja",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g14b",
-    "source": "guest-pay",
-    "target": "guest-confirm",
-    "type": "smoothstep",
-    "label": "Nej",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g14c",
-    "source": "guest-payment-step",
-    "target": "guest-confirm",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "top",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g15b",
-    "source": "guest-output-choice",
-    "target": "guest-print",
-    "type": "smoothstep",
-    "label": "Kiosk / skriv ut",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g15c",
-    "source": "guest-print",
-    "target": "guest-present",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "top",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g13",
-    "source": "guest-addons",
-    "target": "guest-pay",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g12",
-    "source": "guest-safety",
-    "target": "guest-addons",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g11",
-    "source": "guest-review",
-    "target": "guest-safety",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g10",
-    "source": "guest-open",
-    "target": "guest-review",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g9",
-    "source": "guest-onsite-choice",
-    "target": "guest-open",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "bottom",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g8",
-    "source": "guest-onsite-entry",
-    "target": "guest-onsite-choice",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g7",
-    "source": "guest-booked",
-    "target": "guest-onsite-entry",
-    "type": "smoothstep",
-    "label": "Nej",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g6",
-    "source": "guest-entry-choice",
-    "target": "guest-onsite-entry",
-    "type": "smoothstep",
-    "label": "Skanna QR / kiosk",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g5",
-    "source": "guest-entry-choice",
-    "target": "guest-open",
-    "type": "smoothstep",
-    "label": "SMS-länk",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "top",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g4",
-    "source": "guest-sms",
-    "target": "guest-entry-choice",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g3",
-    "source": "guest-home-book",
-    "target": "guest-sms",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g2",
-    "source": "guest-booked",
-    "target": "guest-home-book",
-    "type": "smoothstep",
-    "label": "Ja",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "g1",
-    "source": "guest-start",
-    "target": "guest-booked",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w11",
-    "source": "kiosk-buy-details",
-    "target": "app-booking",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "bottom",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w10",
-    "source": "kiosk-lookup",
-    "target": "app-booking",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w9",
-    "source": "gw-kiosk-existing",
-    "target": "kiosk-buy-select",
-    "type": "smoothstep",
-    "label": "Nej",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w9b",
-    "source": "kiosk-buy-select",
-    "target": "kiosk-buy-details",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w8",
-    "source": "gw-kiosk-existing",
-    "target": "kiosk-lookup",
-    "type": "smoothstep",
-    "label": "Ja",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w6",
-    "source": "gw-mobile-entry",
-    "target": "gw-kiosk-existing",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w5",
-    "source": "app-mobile",
-    "target": "app-booking",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "top",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w4",
-    "source": "gw-channel",
-    "target": "kiosk-entry",
-    "type": "smoothstep",
-    "label": "Kiosk",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w3",
-    "source": "gw-channel",
-    "target": "gw-mobile-entry",
-    "type": "smoothstep",
-    "label": "Park-QR",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w2",
-    "source": "gw-channel",
-    "target": "app-mobile",
-    "type": "smoothstep",
-    "label": "SMS-länk",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w1",
-    "source": "app-start",
-    "target": "gw-channel",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w12",
-    "source": "app-booking",
-    "target": "gw-purchase-flow",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w13",
-    "source": "app-safety-attest",
-    "target": "app-addons",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w14",
-    "source": "app-addons",
-    "target": "gw-skyrider",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w18",
-    "source": "gw-app-payment",
-    "target": "app-payment",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "label": "Ja",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w22",
-    "source": "app-confirm",
-    "target": "app-present",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "label": "mobil / ingen utskrift",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w23",
-    "source": "kiosk-print",
-    "target": "app-present",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "o1",
-    "source": "job-daily",
-    "target": "job-delta",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "o2",
-    "source": "job-delta",
-    "target": "job-enrich",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "o3",
-    "source": "job-enrich",
-    "target": "job-sms",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "o3b",
-    "source": "job-sms",
-    "target": "job-refresh",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "o4",
-    "source": "job-refresh",
-    "target": "job-retry",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "d9",
-    "source": "app-confirm",
-    "target": "store-operational",
-    "type": "smoothstep",
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Bekräftelsevyn läser token, QR och bokningskod från operativ state.",
-      "operation": "Läsning",
-      "fields": [
-        "confirmation_code",
-        "token_payload",
-        "payment_status"
-      ],
-      "why": "Samma slutbild måste fungera för både mobil och kiosk.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0,
-    "selected": false
-  },
-  {
-    "id": "d9b",
-    "source": "app-confirm",
-    "target": "store-events",
-    "type": "smoothstep",
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "WebApp-flödet skriver centrala händelser när check-in når bekräftat läge.",
-      "operation": "Skrivning",
-      "fields": [
-        "booking_loaded",
-        "safety_completed",
-        "payment_recorded",
-        "confirmation_ready"
-      ],
-      "why": "Eventspåret ska visa vad som faktiskt hände i WebApp-flödet, inte bara i staff och bakgrundsjobb.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0
-  },
-  {
-    "id": "d16",
-    "source": "roller-webhook",
-    "target": "job-delta",
-    "type": "smoothstep",
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Roller pushar Created, Updated och Cancelled till webhook-intake under dagen.",
-      "operation": "Webhook",
-      "fields": [
-        "bookingReference",
-        "bookingUniqueId",
-        "eventType",
-        "channel"
-      ],
-      "why": "Sena bokningar och uppdateringar ska fångas utan att belasta Data API med tät polling.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "top",
-    "targetHandle": "bottom",
-    "zIndex": 0,
-    "selected": false
-  },
-  {
-    "id": "d19",
-    "source": "job-refresh",
-    "target": "roller-booking",
-    "type": "smoothstep",
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Refresh vid länköppning hämtar färsk booking detail.",
-      "operation": "Läsning",
-      "fields": [
-        "booking detail",
-        "produktstatus",
-        "betalningsstatus",
-        "tickets"
-      ],
-      "why": "Behövs när länk öppnas eller på plats-lookup kräver färsk data.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0
-  },
-  {
-    "id": "d22",
-    "source": "job-retry",
-    "target": "roller-writeback",
-    "type": "smoothstep",
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Retryjobbet tar om writeback när betalning eller bokningsändring inte gick igenom.",
-      "operation": "Writeback",
-      "fields": [
-        "Create booking payload",
-        "Edit booking payload",
-        "transaction record payload",
-        "retry context"
-      ],
-      "why": "Externa Roller-anrop behöver ett separat återförsöksspår.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0
-  },
-  {
-    "id": "f1",
-    "source": "guest-present",
-    "target": "staff-assist",
-    "type": "smoothstep",
-    "label": "saknar kod / mismatch",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#8b5cf6",
-      "strokeDasharray": "6,6"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#8b5cf6"
-    },
-    "data": {
-      "edgeStyle": "dashed",
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#8b5cf6",
-        "strokeDasharray": "6,6"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#8b5cf6"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0,
-    "selected": false
-  },
-  {
-    "id": "f3",
-    "source": "staff-manual",
-    "target": "staff-handoff",
-    "type": "smoothstep",
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#8b5cf6",
-      "strokeDasharray": "6,6"
-    },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#8b5cf6"
-    },
-    "data": {
-      "edgeStyle": "dashed",
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#8b5cf6",
-        "strokeDasharray": "6,6"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#8b5cf6"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "zIndex": 0
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "app-connected",
-    "target": "gw-app-payment",
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
+        "strokeWidth": 2.5,
         "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
@@ -4445,34 +2009,29 @@ export const pilotEdges = [
       "dimmed": false
     },
     "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__app-connectedright-gw-app-paymentleft"
+    "selected": false
   },
   {
+    "id": "p-contact-pay-new",
+    "source": "app-contact",
+    "target": "app-pay-new",
+    "label": "Kostnad och utkast klara",
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
+      "strokeWidth": 2.5,
       "stroke": "#ff8e7d"
     },
-    "source": "app-confirm",
-    "target": "kiosk-print",
-    "label": "kiosk / utskrift",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "sourceHandle": "top",
+    "sourceHandle": "right",
     "targetHandle": "left",
     "data": {
+      "edgeKind": "process",
+      "details": "",
       "baseStyle": {
-        "strokeWidth": 2,
+        "strokeWidth": 2.5,
         "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
@@ -4483,101 +2042,993 @@ export const pilotEdges = [
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0,
-    "id": "xy-edge__app-confirmtop-right-kiosk-printleft"
+    "zIndex": 0
   },
   {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#8b5cf6"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#8b5cf6",
-      "strokeDasharray": "6,6"
-    },
-    "source": "job-retry",
-    "target": "staff-assist",
-    "label": "kritisk avvikelse",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "data": {
-      "edgeStyle": "dashed",
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#8b5cf6",
-        "strokeDasharray": "6,6"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#8b5cf6"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "top",
-    "targetHandle": "bottom",
-    "zIndex": 0,
-    "id": "xy-edge__job-retrytop-staff-assistbottom-right",
-    "selected": false
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#8b5cf6"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#8b5cf6",
-      "strokeDasharray": "6,6"
-    },
-    "source": "staff-assist",
-    "target": "staff-manual",
-    "data": {
-      "edgeStyle": "dashed",
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#8b5cf6",
-        "strokeDasharray": "6,6"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#8b5cf6"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "zIndex": 0,
-    "id": "xy-edge__staff-assistright-staff-manualleft"
-  },
-  {
+    "id": "p-guest-staff-view",
+    "source": "guest-show-code",
+    "target": "staff-view",
+    "label": "",
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
+      "strokeWidth": 2.5,
       "stroke": "#ff8e7d"
     },
-    "source": "staff-handoff",
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "p-staff-log-end",
+    "source": "staff-log",
     "target": "guest-end",
-    "sourceHandle": "right",
+    "label": "",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
+    },
+    "sourceHandle": "top",
     "targetHandle": "bottom",
     "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-lookup-store",
+    "source": "app-lookup",
+    "target": "store-booking",
+    "label": "Läser bokningskopia",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-store-booking-view",
+    "source": "store-booking",
+    "target": "app-booking",
+    "label": "Webhook under dagen",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-start-availability",
+    "source": "app-start-time",
+    "target": "cloud-availability",
+    "label": "Vald tid",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-cloud-availability-roller",
+    "source": "cloud-availability",
+    "target": "roller-availability",
+    "label": "Tillgänglighetsanrop",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "Driftjobb frågar Roller efter säljbara tider/produkter för vald park och starttid.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "d-roller-availability-store",
+    "source": "roller-availability",
+    "target": "cloud-availability",
+    "label": "Tillgänglighetssvar",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "data": {
+      "edgeKind": "data",
+      "details": "Roller svarar till Driftjobb; Driftjobb skriver vidare till pris och tillgänglighetsstate.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "selected": false
+  },
+  {
+    "id": "d-store-commerce-product",
+    "source": "store-commerce",
+    "target": "app-product",
+    "label": "Köpbara produkter",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-product-store-commerce",
+    "source": "app-product",
+    "target": "store-commerce",
+    "label": "Vald produkt",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-contact-costs",
+    "source": "app-contact",
+    "target": "cloud-costs",
+    "label": "Kontakt och varukorg",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-costs-roller",
+    "source": "cloud-costs",
+    "target": "roller-costs",
+    "label": "Kostnadsberäkning",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "Driftjobb skickar slutlig varukorg till Roller före betalning.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "d-roller-costs-cloud",
+    "source": "roller-costs",
+    "target": "cloud-costs",
+    "label": "Slutpris",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "Roller returnerar slutpris och prisjusteringar till Driftjobb.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "d-costs-draft",
+    "source": "cloud-costs",
+    "target": "cloud-draft",
+    "label": "Godkänd varukorg",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "right",
+    "targetHandle": "left",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-draft-roller",
+    "source": "cloud-draft",
+    "target": "roller-draft",
+    "label": "Skapa utkast",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "Driftjobb skapar draftbokning; Roller reserverar kapacitet under draftens livstid.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "d-store-payment-pay-new",
+    "source": "store-payment",
+    "target": "app-pay-new",
+    "label": "Betalningstoken",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-pay-publish",
+    "source": "app-pay-new",
+    "target": "cloud-publish",
+    "label": "Betalning godkänd",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-linked-app-cloud",
+    "source": "app-linked-booking",
+    "target": "cloud-linked-booking",
+    "label": "Länkad bokning",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "d-safety-state",
+    "source": "app-safety",
+    "target": "store-operational",
+    "label": "Säkerhet klar",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-confirm-state",
+    "source": "app-confirm",
+    "target": "store-operational",
+    "label": "QR och status",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-operational-staff",
+    "source": "store-operational",
+    "target": "staff-view",
+    "label": "Säkerhet/betalning/status",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-entitlement-staff",
+    "source": "store-entitlement",
+    "target": "staff-view",
+    "label": "Rättigheter och profiler",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-staff-redeem-roller",
+    "source": "staff-ticket-redeem",
+    "target": "job-ticket-redeem",
+    "label": "Lös in biljetter",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "sourceHandle": "bottom",
+    "targetHandle": "top"
+  },
+  {
+    "id": "d-redemption-job",
+    "source": "roller-redemption-webhook",
+    "target": "job-redemption",
+    "label": "Inlösenhändelse",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "Roller skickar redemption webhook till Driftjobb efter ticket redemption.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "d-staff-handoff-entitlement",
+    "source": "staff-handoff",
+    "target": "store-entitlement",
+    "label": "Utlämning klar",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-staff-log-operational",
+    "source": "staff-log",
+    "target": "store-operational",
+    "label": "Utlämning klar",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "d-seed-roller",
+    "source": "job-seed",
+    "target": "roller-search",
+    "label": "Daglig import",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "bottom",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "Driftjobb hämtar bokningar, biljetter, betalningar och kunddata till lokal snapshot.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "d-roller-webhook-job",
+    "source": "roller-webhook",
+    "target": "job-webhook",
+    "label": "Bokningsdata",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "Roller skickar nya och ändrade bokningar under dagen efter daglig import. Driftjobb uppdaterar snapshot direkt när payloaden är komplett.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "a-truth-store-booking",
+    "source": "note-truth",
+    "target": "store-booking",
+    "label": "Roller-data projiceras",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#94a3b8"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#94a3b8",
+      "strokeDasharray": "7 5"
+    },
+    "data": {
+      "edgeKind": "arch",
+      "details": "",
       "baseStyle": {
         "strokeWidth": 2,
+        "stroke": "#94a3b8",
+        "strokeDasharray": "7 5"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#94a3b8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "a-truth-operational",
+    "source": "note-truth",
+    "target": "store-operational",
+    "label": "Cloud äger operativ status",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#94a3b8"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#94a3b8",
+      "strokeDasharray": "7 5"
+    },
+    "data": {
+      "edgeKind": "arch",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2,
+        "stroke": "#94a3b8",
+        "strokeDasharray": "7 5"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#94a3b8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
+    },
+    "source": "gw-existing-booking",
+    "target": "app-lookup",
+    "label": "Befintlig bokning",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
         "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
@@ -4589,993 +3040,204 @@ export const pilotEdges = [
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__staff-handoffright-top-guest-endbottom"
+    "id": "xy-edge__gw-existing-bookingtop-app-lookup",
+    "sourceHandle": "top"
   },
   {
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#22d3ee"
+      "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
     },
-    "source": "job-daily",
-    "target": "roller-bulk",
+    "source": "app-entry",
+    "target": "gw-existing-booking",
+    "label": "",
     "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
+      "edgeKind": "process",
+      "details": "",
       "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
         "type": "arrowclosed",
-        "color": "#22d3ee"
+        "color": "#ff8e7d"
       },
       "pathMode": "smoothstep",
-      "details": "Daglig seed hämtar bokningar, tickets, payments och customers som behövs inför dagens SMS och check-in.",
-      "operation": "Sync",
-      "fields": [
-        "bookings",
-        "tickets",
-        "payment rows",
-        "customers"
-      ],
-      "why": "Bygger dagens operativa snapshot och kundcache före SMS och check-in, i stället för att utgå från redan redeemade arrivals.",
       "edgeHighlighted": false,
       "dimmed": false
     },
+    "zIndex": 0,
+    "id": "xy-edge__app-entryright-gw-existing-booking",
+    "sourceHandle": "right"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
+    },
+    "source": "gw-existing-booking",
+    "target": "app-start-time",
+    "label": "Köp på plats",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
     "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0,
-    "id": "xy-edge__job-dailybottom-left-roller-bulktop-left",
-    "selected": false
+    "targetHandle": "left",
+    "id": "xy-edge__gw-existing-bookingbottom-app-start-timeleft"
   },
   {
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#22d3ee"
+      "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
     },
-    "source": "job-daily",
-    "target": "store-operational",
+    "source": "guest-start",
+    "target": "guest-entry",
+    "label": "",
     "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
+      "edgeKind": "process",
+      "details": "",
       "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
         "type": "arrowclosed",
-        "color": "#22d3ee"
+        "color": "#ff8e7d"
       },
       "pathMode": "smoothstep",
-      "details": "Daglig seed fyller gästprofiler och kontaktcache som SMS-flödet behöver senare under dagen.",
-      "operation": "Skrivning",
-      "fields": [
-        "guest_profiles",
-        "contactNumber",
-        "email",
-        "customerId"
-      ],
-      "why": "Telefonnummer och kundkontakt ska finnas lokalt innan SMS-triggern börjar jobba mot dagens bokningar.",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "sourceHandle": "top",
-    "targetHandle": "bottom",
     "zIndex": 0,
-    "id": "xy-edge__job-dailytop-right-store-operationalbottom-left",
-    "selected": false
+    "id": "xy-edge__guest-startright-guest-entry",
+    "sourceHandle": "right"
   },
   {
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#22d3ee"
+      "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
     },
-    "source": "app-booking",
-    "target": "store-snapshot",
+    "source": "gw-payment-context",
+    "target": "app-payment-link",
+    "label": "Samma bokningskod",
     "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
+      "edgeKind": "process",
+      "details": "",
       "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
         "type": "arrowclosed",
-        "color": "#22d3ee"
+        "color": "#ff8e7d"
       },
       "pathMode": "smoothstep",
-      "details": "Bokningsvyn läser den senaste snapshoten för gemensam visning.",
-      "operation": "Läsning",
-      "fields": [
-        "bokningssammanfattning",
-        "deltagare",
-        "produktlista",
-        "betalningsstatus"
-      ],
-      "why": "Både mobil och kiosk ska visa samma bokningsbild efter att bokningen hittats.",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
     "zIndex": 0,
-    "id": "xy-edge__app-bookingbottom-store-snapshottop-right"
+    "id": "xy-edge__gw-payment-contexttop-app-payment-link",
+    "sourceHandle": "top"
   },
   {
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#22d3ee"
+      "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "kiosk-lookup",
-    "target": "store-snapshot",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Gemensam lookup läser en matchbar bokning från snapshoten.",
-      "operation": "Läsning",
-      "fields": [
-        "booking_ref",
-        "telefon + efternamn",
-        "QR-matchning",
-        "sessionstid"
-      ],
-      "why": "Samma lookup ska fungera för mobil via Park-QR och kiosk med befintlig bokning.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0,
-    "id": "xy-edge__kiosk-lookupbottom-store-snapshottop"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "app-connected",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Connected-profiler sparas i pilotens operativa state.",
-      "operation": "Skrivning",
-      "fields": [
-        "connected_profiles[]",
-        "ikonval",
-        "connected_profile_status"
-      ],
-      "why": "Pilotens lätta profilutkast hanteras i operativ state, inte i future-lagret.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0,
-    "id": "xy-edge__app-connectedbottom-right-store-operationaltop-left"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "staff-handoff",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Staff slutför connected-delen genom att koppla band till profilerna vid utlämning.",
-      "operation": "Läsning + skrivning",
-      "fields": [
-        "connected_profiles[]",
-        "band_assignment",
-        "pairing_status",
-        "handoff_completed"
-      ],
-      "why": "Bandkopplingen skriver till operativ state, inte till future-lagret.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "right",
-    "zIndex": 0,
-    "id": "xy-edge__staff-handoffbottom-left-store-operationalright-bottom2"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "staff-handoff",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Staff läser och uppdaterar operativ state när handoff slutförs.",
-      "operation": "Läsning + skrivning",
-      "fields": [
-        "QR-kod eller bokningskod",
-        "connected-profiler",
-        "utlämning klar",
-        "bandkoppling"
-      ],
-      "why": "Piloten avslutas hos staff, inte i self-service.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "right",
-    "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__staff-handoffbottom-store-operationalright-bottom"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "app-present",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Slutvyn läser det som gästen ska visa upp hos staff.",
-      "operation": "Läsning",
-      "fields": [
-        "QR-kod",
-        "bokningskod",
-        "connected_profile_status"
-      ],
-      "why": "Staff-handoff behöver en tydlig och stabil slutvy oavsett kanal.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "right",
-    "zIndex": 0,
-    "id": "xy-edge__app-presentbottom-store-operationalright"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "kiosk-print",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Kiosk läser confirmation-data inför eventuell utskrift.",
-      "operation": "Läsning",
-      "fields": [
-        "confirmation_code",
-        "QR payload",
-        "print status"
-      ],
-      "why": "Kioskens utskrift är ett litet sidospår efter det delade flödet.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "right",
-    "zIndex": 0,
-    "id": "xy-edge__kiosk-printbottom-left-store-operationalright-top"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
     },
     "source": "app-addons",
-    "target": "roller-products",
+    "target": "gw-payment-context",
+    "label": "",
     "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
+      "edgeKind": "process",
+      "details": "",
       "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
         "type": "arrowclosed",
-        "color": "#22d3ee"
+        "color": "#ff8e7d"
       },
       "pathMode": "smoothstep",
-      "details": "Tilläggsvyn hämtar produktkatalog och prisberäkning direkt via Cloud backend.",
-      "operation": "Läsning",
-      "fields": [
-        "produktkatalog",
-        "prisberäkning",
-        "connected-produkt"
-      ],
-      "why": "Tilläggssteget läser Roller-data synkront via Cloud backend — inte via databasen.",
       "edgeHighlighted": false,
       "dimmed": false
     },
+    "zIndex": 0,
+    "sourceHandle": "right",
+    "targetHandle": "left",
+    "id": "xy-edge__app-addonsright-gw-payment-contextleft"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#8b5cf6"
+    },
+    "style": {
+      "strokeWidth": 2,
+      "stroke": "#8b5cf6",
+      "strokeDasharray": "7 5"
+    },
+    "source": "gw-payment-context",
+    "target": "app-linked-booking",
+    "label": "Webbapp hela vägen",
+    "data": {
+      "edgeKind": "fallback",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2,
+        "stroke": "#8b5cf6",
+        "strokeDasharray": "7 5"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#8b5cf6"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
     "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0,
-    "id": "xy-edge__app-addonsbottom-roller-productstop"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "job-sms",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "SMS-jobbet läser bokningar redo för utskick och skriver token/outbox-status.",
-      "operation": "Läsning + skrivning",
-      "fields": [
-        "checkin_tokens",
-        "sms_outbox",
-        "checkin_link_sent_at"
-      ],
-      "why": "Unik länk måste skapas och spåras innan gästen öppnar flödet.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "top",
-    "targetHandle": "bottom",
-    "zIndex": 0,
-    "id": "xy-edge__job-smstop-left-store-operationalbottom-left"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "app-safety-attest",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Safetyresultat skrivs till operativ state.",
-      "operation": "Skrivning",
-      "fields": [
-        "safety_status",
-        "safety_completed_at"
-      ],
-      "why": "Safety ägs lokalt i JumpYard Cloud under piloten.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "left",
-    "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__app-safetybottom-store-operationalleft"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "app-addons",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Tilläggsval och connected-flagga sparas inför betalningsbeslut och writeback.",
-      "operation": "Skrivning",
-      "fields": [
-        "selected_addons",
-        "connected_selected",
-        "pricing_context"
-      ],
-      "why": "WebApp behöver en lokal operativ state innan Roller-writeback sker.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "left",
-    "zIndex": 0,
-    "id": "xy-edge__app-addonsbottom-store-operationalleft-top"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "app-connected",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Connected-profiler sparas som lätta profilutkast i piloten.",
-      "operation": "Skrivning",
-      "fields": [
-        "connected_profiles[]",
-        "ikonval",
-        "connected_profile_status"
-      ],
-      "why": "Staff ska kunna koppla band till profilerna som skapades i check-in-flödet.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__app-connectedbottom-store-operationaltop"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "app-payment",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Betalningsresultat skrivs innan writeback och bekräftelse.",
-      "operation": "Skrivning",
-      "fields": [
-        "payment_status",
-        "payment_reference",
-        "writeback_pending"
-      ],
-      "why": "No-payment- och betalningsspåret behöver mötas i samma lokala state.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__app-paymentbottom-store-operationaltop-left"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "job-refresh",
-    "target": "store-snapshot",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Färsk booking detail skrivs tillbaka till snapshoten.",
-      "operation": "Skrivning",
-      "fields": [
-        "raw_payload_json",
-        "payload_hash",
-        "updated booking snapshot"
-      ],
-      "why": "WebApp ska fortsätta läsa lokal snapshot även efter live-refresh.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "top",
-    "targetHandle": "right",
-    "zIndex": 0,
-    "id": "xy-edge__job-refreshtop-left-store-snapshotright-top"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "staff-handoff",
-    "target": "store-events",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Staff skriver visit event och utlämningsspår.",
-      "operation": "Skrivning",
-      "fields": [
-        "handoff_completed",
-        "redeem_succeeded",
-        "band_paired"
-      ],
-      "why": "Append-only eventspår behövs för drift, analys och felsökning.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "right",
-    "zIndex": 0,
-    "id": "xy-edge__staff-handoffbottom-left-store-eventsright-top"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "job-delta",
-    "target": "store-events",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Webhook-intake skriver råa booking-events och enrich-status till eventlagret.",
-      "operation": "Skrivning",
-      "fields": [
-        "bookingReference",
-        "eventType",
-        "payload_hash",
-        "pending_enrichment"
-      ],
-      "why": "Cloud behöver spåra sena bokningar och uppdateringar innan de berikas till lokal state.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "top",
-    "targetHandle": "bottom",
-    "zIndex": 0,
-    "id": "xy-edge__job-deltatop-left-store-eventsbottom-right"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "job-enrich",
-    "target": "roller-booking",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Webhook enrichment hämtar exakt booking-state direkt efter webhooken.",
-      "operation": "Läsning",
-      "fields": [
-        "bookingReference",
-        "bookingUniqueId",
-        "items",
-        "payments"
-      ],
-      "why": "Webhooken är en signal, men booking detail är den auktoritativa sanningen för den sena bokningen.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0,
-    "id": "xy-edge__job-enrichbottom-left-roller-bookingtop"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "job-enrich",
-    "target": "roller-customer",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Webhook enrichment hämtar kundkontakt för att få telefonnummer och SMS-beredskap på sena bokningar.",
-      "operation": "Läsning",
-      "fields": [
-        "customerId",
-        "contactNumber",
-        "email",
-        "acceptMarketingSms"
-      ],
-      "why": "Sena bokningar behöver kundkontakt även om kunden inte fanns i morgonens seed.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "zIndex": 0,
-    "id": "xy-edge__job-enrichbottom-right-roller-customertop"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "job-enrich",
-    "target": "store-snapshot",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Webhook enrichment skriver den sena bokningen tillbaka till Roller-snapshoten.",
-      "operation": "Skrivning",
-      "fields": [
-        "bookings",
-        "booking_tickets",
-        "booking_payments",
-        "last_seen_from_roller_at"
-      ],
-      "why": "Sena bokningar ska bli sökbara i lookup och bokningsvyn utan att vänta till nästa dag.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "top",
-    "targetHandle": "bottom",
-    "zIndex": 0,
-    "id": "xy-edge__job-enrichtop-left-store-snapshotbottom-right",
-    "selected": false
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "job-enrich",
-    "target": "store-operational",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Webhook enrichment skriver kundkontakt, sms-beredskap och senaste bookingkontext till operativ state.",
-      "operation": "Skrivning",
-      "fields": [
-        "guest_profiles",
-        "contactNumber",
-        "sms_ready",
-        "latest booking context"
-      ],
-      "why": "SMS-triggern ska kunna jobba helt mot Aurora även för bokningar som kommit in efter daily seed.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "top",
-    "targetHandle": "bottom",
-    "zIndex": 0,
-    "id": "xy-edge__job-enrichtop-right-store-operationalbottom-right",
-    "selected": false
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "job-daily",
-    "target": "store-snapshot",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Daglig seed skriver dagens boknings-, ticket- och payment-snapshot till Aurora.",
-      "operation": "Skrivning",
-      "fields": [
-        "bookings",
-        "booking_tickets",
-        "booking_products",
-        "booking_payments"
-      ],
-      "why": "WebApp och lookup ska börja från ett lokalt snapshot av väntade gäster, inte från attendance-data.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__job-dailytop-left-store-snapshotleft-bottom"
+    "id": "xy-edge__gw-payment-contextbottom-app-linked-booking"
   },
   {
     "type": "smoothstep",
@@ -5584,16 +3246,19 @@ export const pilotEdges = [
       "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
+      "strokeWidth": 2.5,
       "stroke": "#ff8e7d"
     },
-    "source": "kiosk-entry",
-    "target": "gw-kiosk-existing",
+    "source": "app-payment-link",
+    "target": "app-safety",
+    "label": "Betalning klar",
     "sourceHandle": "right",
-    "targetHandle": "left",
+    "targetHandle": "top-left",
     "data": {
+      "edgeKind": "process",
+      "details": "",
       "baseStyle": {
-        "strokeWidth": 2,
+        "strokeWidth": 2.5,
         "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
@@ -5605,7 +3270,7 @@ export const pilotEdges = [
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__kiosk-entryright-gw-kiosk-existingleft"
+    "id": "xy-edge__app-payment-linkright-app-safetytop-left"
   },
   {
     "type": "smoothstep",
@@ -5614,24 +3279,19 @@ export const pilotEdges = [
       "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
+      "strokeWidth": 2.5,
       "stroke": "#ff8e7d"
     },
-    "source": "gw-app-connected",
-    "target": "gw-app-payment",
-    "label": "No",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "left",
+    "source": "app-pay-new",
+    "target": "app-safety",
+    "label": "Betalning och publicering klar",
+    "sourceHandle": "right",
+    "targetHandle": "bottom-left",
     "data": {
+      "edgeKind": "process",
+      "details": "",
       "baseStyle": {
-        "strokeWidth": 2,
+        "strokeWidth": 2.5,
         "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
@@ -5643,813 +3303,61 @@ export const pilotEdges = [
       "dimmed": false
     },
     "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__gw-app-connectedbottom-gw-app-paymentleft"
+    "id": "xy-edge__app-pay-newright-app-safetybottom-left"
   },
   {
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#ff8e7d"
+      "color": "#8b5cf6"
     },
     "style": {
       "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "guest-present",
-    "target": "staff-handoff",
-    "sourceHandle": "right",
-    "targetHandle": "top",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__guest-presentright-staff-handofftop"
-  },
-  {
-    "id": "w-extend-2",
-    "source": "guest-extend-notice",
-    "target": "guest-extend-open",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w-extend-6",
-    "source": "app-extend-pay",
-    "target": "app-extend-qr",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w-extend-10",
-    "source": "staff-extend-scan",
-    "target": "staff-extend-band",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "w-extend-11",
-    "source": "staff-extend-band",
-    "target": "guest-extend-band",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "bottom",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "app-safety-video",
-    "target": "app-safety-attest",
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__app-safety-videoright-app-safety-attestleft"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "app-extend-view",
-    "sourceHandle": "right",
-    "target": "app-extend-pay",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "edgeStyle": "solid",
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "id": "xy-edge__app-extend-viewright-app-extend-payleft",
-    "zIndex": 0
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "event-1775807705215",
-    "sourceHandle": "right",
-    "target": "guest-extend-open",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "edgeStyle": "solid",
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "id": "xy-edge__event-1775807705215right-guest-extend-openleft",
-    "zIndex": 0
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "guest-extend-open",
-    "sourceHandle": "right",
-    "target": "guest-extend-pay",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "edgeStyle": "solid",
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "id": "xy-edge__guest-extend-openright-guest-extend-payleft",
-    "zIndex": 0
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "guest-extend-pay",
-    "sourceHandle": "right",
-    "target": "guest-extend-qr",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "edgeStyle": "solid",
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "id": "xy-edge__guest-extend-payright-guest-extend-qrleft",
-    "zIndex": 0
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "guest-extend-qr",
-    "target": "guest-extend-walk",
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__guest-extend-qrright-guest-extend-walkleft"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "guest-extend-walk",
-    "target": "staff-extend-scan",
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__guest-extend-walkright-staff-extend-scanleft"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "event-1775807990618",
-    "sourceHandle": "right",
-    "target": "app-extend-view",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "edgeStyle": "solid",
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "id": "xy-edge__event-1775807990618right-app-extend-viewleft",
-    "zIndex": 0
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "app-skyrider-attest",
-    "target": "gw-app-connected",
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__app-skyrider-attesttop-right-gw-app-connectedleft"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "gw-skyrider",
-    "target": "app-skyrider-attest",
-    "label": "SkyRider valt",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__gw-skyriderbottom-app-skyrider-attestleft"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "source": "app-extend-pay",
-    "target": "store-operational",
-    "sourceHandle": "bottom",
-    "targetHandle": "right",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Ny sluttid och nytt band-id skrivs till operativ state och vidare till Roller.",
-      "operation": "Skrivning",
-      "fields": [
-        "new_band_id",
-        "booking_end_time_new"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__app-extend-paybottom-store-operationalright"
-  },
-  {
-    "id": "ops-wb-1",
-    "source": "staff-handoff",
-    "target": "job-writeback-sync",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Staff-handoff köar redeem-request via ops-jobb istället för direktanrop.",
-      "operation": "Köa",
-      "fields": [
-        "ticket_ids",
-        "redeem readiness",
-        "handoff_completed"
-      ],
-      "why": "All kommunikation med Roller ska gå via ops-jobb för spårbarhet och retry.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "ops-wb-2",
-    "source": "job-writeback-sync",
-    "target": "store-snapshot",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "bottom",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Ops-jobbet skriver tillbaka bokningsdata och redeem-status till lokal snapshot.",
-      "operation": "Skrivning",
-      "fields": [
-        "bookingReference",
-        "redeem_status",
-        "booking owner",
-        "items"
-      ],
-      "why": "Writeback och redeem måste uppdatera snapshot via ops-jobb för konsistens.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "ops-wb-3",
-    "source": "job-writeback-sync",
-    "target": "roller-redeem",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Ops-jobbet anropar Roller Redeem tickets API.",
-      "operation": "Writeback",
-      "fields": [
-        "ticket_ids",
-        "redeem request per ticket"
-      ],
-      "why": "Redeem ska alltid gå via ops-jobb för retry och spårbarhet.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "ops-wb-4",
-    "source": "job-writeback-sync",
-    "target": "roller-create",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#22d3ee"
-    },
-    "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "data": {
-      "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": {
-        "strokeWidth": 1.5,
-        "stroke": "#22d3ee",
-        "strokeDasharray": "3,5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#22d3ee"
-      },
-      "pathMode": "smoothstep",
-      "details": "Ops-jobbet skapar ny bokning i Roller vid on-site-köp.",
-      "operation": "Skapande",
-      "fields": [
-        "customer",
-        "items",
-        "payments"
-      ],
-      "why": "On-site-köp ska också gå via ops-jobb för retry och konsistens.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "gw-skyrider",
-    "target": "gw-app-connected",
-    "label": "SkyRider ej valt",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__gw-skyriderright-gw-app-connectedleft"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "gw-app-connected",
-    "target": "app-connected",
-    "label": "Ja",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
-    "sourceHandle": "top",
-    "targetHandle": "left",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__gw-app-connectedtop-app-connectedleft"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "app-payment",
-    "target": "app-confirm",
-    "sourceHandle": "right",
-    "targetHandle": "left-top",
-    "data": {
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__app-paymentright-app-confirmleft-top"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
-    "source": "gw-app-payment",
-    "target": "app-confirm",
-    "label": "Nej",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
+      "stroke": "#8b5cf6",
+      "strokeDasharray": "7 5"
+    },
+    "source": "app-linked-booking",
+    "target": "app-safety",
+    "label": "Länkad bokning klar",
     "sourceHandle": "right",
     "targetHandle": "left-bottom",
     "data": {
+      "edgeKind": "fallback",
+      "details": "",
       "baseStyle": {
         "strokeWidth": 2,
+        "stroke": "#8b5cf6",
+        "strokeDasharray": "7 5"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#8b5cf6"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__app-linked-bookingright-app-safetyleft-bottom"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
+    },
+    "source": "app-safety",
+    "target": "app-confirm",
+    "label": "",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
         "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
@@ -6461,273 +3369,1173 @@ export const pilotEdges = [
       "dimmed": false
     },
     "zIndex": 0,
-    "id": "xy-edge__gw-app-paymentright-app-confirmleft-bottom"
+    "sourceHandle": "right",
+    "targetHandle": "left",
+    "id": "xy-edge__app-safetyright-app-confirmleft"
   },
   {
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#8b5cf6"
+      "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
-      "stroke": "#8b5cf6",
-      "strokeDasharray": "6,6"
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
     },
-    "source": "staff-handoff",
-    "target": "staff-api-end",
-    "label": "manuell väg",
-    "labelStyle": {
-      "fill": "#fff",
-      "fontWeight": 700
-    },
-    "labelBgStyle": {
-      "fill": "#1a1a1a"
-    },
+    "source": "staff-view",
+    "target": "staff-ticket-redeem",
+    "label": "",
     "data": {
-      "edgeStyle": "dashed",
+      "edgeKind": "process",
+      "details": "",
       "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#8b5cf6",
-        "strokeDasharray": "6,6"
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
         "type": "arrowclosed",
-        "color": "#8b5cf6"
+        "color": "#ff8e7d"
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "sourceHandle": "bottom",
-    "targetHandle": "left",
     "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__staff-handoffbottom-staff-api-endleft"
-  },
-  {
-    "id": "pf-checkin",
-    "source": "gw-purchase-flow",
-    "target": "app-safety-video",
-    "type": "smoothstep",
-    "label": "Check-in",
-    "labelStyle": { "fill": "#fff", "fontWeight": 700 },
-    "labelBgStyle": { "fill": "#1a1a1a" },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ff8e7d"
-    },
     "sourceHandle": "right",
     "targetHandle": "left",
-    "data": {
-      "baseStyle": { "strokeWidth": 2, "stroke": "#ff8e7d" },
-      "baseMarkerEnd": { "type": "arrowclosed", "color": "#ff8e7d" },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
+    "id": "xy-edge__staff-viewright-staff-ticket-redeemleft"
   },
   {
-    "id": "pf-purchase",
-    "source": "gw-purchase-flow",
-    "target": "app-addons",
     "type": "smoothstep",
-    "label": "Köp på plats",
-    "labelStyle": { "fill": "#fff", "fontWeight": 700 },
-    "labelBgStyle": { "fill": "#1a1a1a" },
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
+      "strokeWidth": 2.5,
       "stroke": "#ff8e7d"
     },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
+    "source": "staff-ticket-redeem",
+    "target": "staff-handoff",
+    "label": "",
     "data": {
-      "baseStyle": { "strokeWidth": 2, "stroke": "#ff8e7d" },
-      "baseMarkerEnd": { "type": "arrowclosed", "color": "#ff8e7d" },
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0
+    "zIndex": 0,
+    "sourceHandle": "right",
+    "targetHandle": "left",
+    "id": "xy-edge__staff-ticket-redeemright-staff-handoffleft"
   },
   {
-    "id": "pf-safety-after-payment",
-    "source": "app-payment",
-    "target": "app-safety-video",
     "type": "smoothstep",
-    "label": "Köp: safety efter betalning",
-    "labelStyle": { "fill": "#fff", "fontWeight": 600, "fontSize": 10 },
-    "labelBgStyle": { "fill": "#1a1a1a" },
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#8b5cf6"
+      "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
-      "stroke": "#8b5cf6",
-      "strokeDasharray": "6,6"
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
     },
-    "sourceHandle": "top",
-    "targetHandle": "top",
-    "data": {
-      "edgeStyle": "dashed",
-      "baseStyle": { "strokeWidth": 2, "stroke": "#8b5cf6", "strokeDasharray": "6,6" },
-      "baseMarkerEnd": { "type": "arrowclosed", "color": "#8b5cf6" },
-      "pathMode": "smoothstep",
-      "details": "Vid köp på plats: Safety-genomgång sker EFTER betalning (inte före). Gästen vill betala först och sen göra safety.",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "pf-safety-to-confirm",
-    "source": "app-safety-attest",
-    "target": "app-confirm",
-    "type": "smoothstep",
-    "label": "Köp: direkt till bekräftelse",
-    "labelStyle": { "fill": "#fff", "fontWeight": 600, "fontSize": 10 },
-    "labelBgStyle": { "fill": "#1a1a1a" },
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#8b5cf6"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#8b5cf6",
-      "strokeDasharray": "6,6"
-    },
-    "sourceHandle": "bottom",
-    "targetHandle": "top",
-    "data": {
-      "edgeStyle": "dashed",
-      "baseStyle": { "strokeWidth": 2, "stroke": "#8b5cf6", "strokeDasharray": "6,6" },
-      "baseMarkerEnd": { "type": "arrowclosed", "color": "#8b5cf6" },
-      "pathMode": "smoothstep",
-      "details": "Vid köp på plats: Efter safety-intygande går gästen direkt till bekräftelse (betalning redan gjord).",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
-  },
-  {
-    "id": "redeem-entry",
     "source": "staff-handoff",
-    "target": "staff-redeem-entry",
+    "target": "staff-log",
+    "label": "",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "sourceHandle": "right",
+    "id": "xy-edge__staff-handoffright-staff-logleft",
+    "targetHandle": "left"
+  },
+  {
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
+      "strokeWidth": 2.5,
       "stroke": "#ff8e7d"
     },
-    "sourceHandle": "right",
-    "targetHandle": "left",
+    "source": "app-start-time",
+    "target": "app-product",
+    "label": "Tillgänglighet visas",
     "data": {
-      "baseStyle": { "strokeWidth": 2, "stroke": "#ff8e7d" },
-      "baseMarkerEnd": { "type": "arrowclosed", "color": "#ff8e7d" },
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0
+    "zIndex": 0,
+    "sourceHandle": "right",
+    "id": "xy-edge__app-start-timeright-app-productleft",
+    "targetHandle": "left"
   },
   {
-    "id": "redeem-addon",
-    "source": "staff-redeem-entry",
-    "target": "staff-redeem-addon",
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
       "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 2,
+      "strokeWidth": 2.5,
       "stroke": "#ff8e7d"
     },
-    "sourceHandle": "right",
-    "targetHandle": "left",
+    "source": "app-product",
+    "target": "app-contact",
+    "label": "",
     "data": {
-      "baseStyle": { "strokeWidth": 2, "stroke": "#ff8e7d" },
-      "baseMarkerEnd": { "type": "arrowclosed", "color": "#ff8e7d" },
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
       "pathMode": "smoothstep",
-      "details": "Add-ons redeemas separat vid respektive station (kaffestation, låsstation etc). Inte allt på en gång vid incheckning.",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0
+    "zIndex": 0,
+    "sourceHandle": "right",
+    "targetHandle": "left",
+    "id": "xy-edge__app-productright-app-contactleft"
   },
   {
-    "id": "draft-to-snapshot",
-    "source": "job-draft-publish",
-    "target": "store-snapshot",
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#22d3ee"
+      "color": "#ff8e7d"
     },
     "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
+    },
+    "source": "app-booking",
+    "target": "app-addons",
+    "label": "",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "sourceHandle": "right",
+    "id": "xy-edge__app-bookingright-app-addonsleft",
+    "targetHandle": "left"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
+    },
+    "source": "app-lookup",
+    "target": "app-booking",
+    "label": "",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "sourceHandle": "right",
+    "targetHandle": "left",
+    "id": "xy-edge__app-lookupright-app-bookingleft"
+  },
+  {
+    "id": "d-availability-store",
+    "source": "cloud-availability",
+    "target": "store-commerce",
+    "label": "Tillgänglighet sparas",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
     "data": {
       "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": { "strokeWidth": 1.5, "stroke": "#22d3ee", "strokeDasharray": "3,5" },
-      "baseMarkerEnd": { "type": "arrowclosed", "color": "#22d3ee" },
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
       "pathMode": "smoothstep",
-      "details": "Draft booking skriver till snapshot vid publicering.",
-      "operation": "Skrivning",
-      "fields": ["draft_booking_id", "published_booking_ref", "capacity_reserved"],
-      "why": "Draft-mönster kräver att snapshot uppdateras vid publicering för att checkin-flödet ska se den nya bokningen.",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "d-roller-draft-cloud",
+    "source": "roller-draft",
+    "target": "cloud-draft",
+    "label": "Utkast skapat",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "Roller returnerar draftstatus och betalningsinformation till Driftjobb.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "id": "d-payment-store-app",
+    "source": "store-payment",
+    "target": "app-payment-link",
+    "label": "Betalningslänk",
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
       "edgeHighlighted": false,
       "dimmed": false
     },
     "zIndex": 0
   },
   {
-    "id": "draft-to-roller",
-    "source": "job-draft-publish",
-    "target": "roller-create",
+    "id": "d-job-ticket-redeem-roller",
+    "source": "job-ticket-redeem",
+    "target": "roller-redeem",
+    "label": "Roller-inlösen",
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#22d3ee"
+      "color": "#38bdf8"
     },
     "style": {
-      "strokeWidth": 1.5,
-      "stroke": "#22d3ee",
-      "strokeDasharray": "3,5"
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
     "data": {
       "edgeKind": "data",
-      "edgeStyle": "data",
-      "baseStyle": { "strokeWidth": 1.5, "stroke": "#22d3ee", "strokeDasharray": "3,5" },
-      "baseMarkerEnd": { "type": "arrowclosed", "color": "#22d3ee" },
+      "details": "Driftjobb löser in faktiska biljetter/sessionprodukter via Roller.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
       "pathMode": "smoothstep",
-      "details": "Draft booking skapas och publiceras i Roller via API.",
-      "operation": "Skapande",
-      "fields": ["draft_booking", "publish_booking", "roller_payments"],
-      "why": "On-site-köp använder draft-mönster: Create Draft → ROLLER Payments → Publish.",
       "edgeHighlighted": false,
       "dimmed": false
     },
-    "zIndex": 0
+    "zIndex": 0,
+    "selected": false
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "job-payment-return",
+    "target": "store-payment",
+    "label": "Betalningsstatus",
+    "sourceHandle": "top",
+    "targetHandle": "bottom-left",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__job-payment-returntop-store-paymentbottom-left"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "cloud-costs",
+    "target": "store-commerce",
+    "label": "Slutpris sparas",
+    "sourceHandle": "top",
+    "targetHandle": "right-bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__cloud-coststop-store-commerceright-bottom"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "job-seed",
+    "target": "store-booking",
+    "label": "Bokningskopia",
+    "sourceHandle": "top",
+    "targetHandle": "left-top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__job-seedtop-store-bookingleft-top"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "job-refresh",
+    "target": "roller-search",
+    "label": "Reservväg: bokningsdetalj",
+    "sourceHandle": "bottom",
+    "targetHandle": "right",
+    "data": {
+      "edgeKind": "data",
+      "details": "Driftjobb hämtar auktoritativ booking detail vid öppning, fallback eller saknad webhookdata.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__job-refreshbottom-roller-searchright"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "job-refresh",
+    "target": "store-booking",
+    "label": "Färsk bokningsdetalj",
+    "sourceHandle": "top",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__job-refreshtop-store-bookingbottom"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "cloud-publish",
+    "target": "store-payment",
+    "label": "Betalstatus",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "sourceHandle": "top",
+    "targetHandle": "right",
+    "id": "xy-edge__cloud-publishtop-store-paymentright"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "roller-draft",
+    "target": "cloud-publish",
+    "label": "Publiceringsstatus",
+    "sourceHandle": "right-bottom",
+    "targetHandle": "bottom-left",
+    "data": {
+      "edgeKind": "data",
+      "details": "Roller returnerar publicerad/avbruten draftstatus till Driftjobb.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__roller-draftright-bottom-cloud-publishbottom-left"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "cloud-publish",
+    "target": "store-booking",
+    "label": "Bokning bekräftad",
+    "sourceHandle": "top-right",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__cloud-publishtop-right-store-bookingtop"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "app-addons",
+    "target": "store-entitlement",
+    "label": "Tilläggsrättigheter",
+    "sourceHandle": "bottom",
+    "targetHandle": "left",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__app-addonsbottom-store-entitlementleft"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "app-payment-link",
+    "target": "job-payment-return",
+    "label": "Retur / utgångstid",
+    "sourceHandle": "bottom",
+    "targetHandle": "top-left",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__app-payment-linkbottom-job-payment-returntop-left"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d"
+    },
+    "source": "app-confirm",
+    "target": "guest-show-code",
+    "label": "",
+    "sourceHandle": "top",
+    "targetHandle": "left-top",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__app-confirmtop-guest-show-codeleft-top"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "cloud-linked-booking",
+    "target": "cloud-draft",
+    "label": "Använder utkastflöde",
+    "sourceHandle": "left",
+    "targetHandle": "bottom-right",
+    "data": {
+      "edgeKind": "data",
+      "details": "Skapa länkad bokning är JumpYard-orchestration. Själva Roller-anropet går via gemensamt utkastflöde.",
+      "operation": "Skapa separat draft via Create Draft Booking",
+      "fields": [
+        "originalBookingId",
+        "linkedBookingDraftId",
+        "customerRef",
+        "selectedAddOns"
+      ],
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__cloud-linked-bookingleft-cloud-draftbottom-right"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "cloud-draft",
+    "target": "store-payment",
+    "label": "Utkastsession sparas",
+    "sourceHandle": "top-right",
+    "targetHandle": "left-top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__cloud-drafttop-right-store-paymentleft-top"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "cloud-linked-booking",
+    "target": "store-payment",
+    "label": "Länkning sparas",
+    "sourceHandle": "top-left",
+    "targetHandle": "left-bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "Cloud sparar sambandet mellan originalbokning, länkad draft/bokning, betalstatus och expiry.",
+      "operation": "Spara PaymentSession för länkad bokning",
+      "fields": [
+        "linkedBookingId",
+        "paymentStatus",
+        "expiry",
+        "publishStatus"
+      ],
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__cloud-linked-bookingtop-left-store-paymentleft-bottom"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "app-addons",
+    "target": "cloud-existing-payment",
+    "label": "Tillägg på originalbokning",
+    "sourceHandle": "bottom-right",
+    "targetHandle": "top-right",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__app-addonsbottom-right-cloud-existing-paymenttop-right"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "cloud-publish",
+    "target": "roller-draft",
+    "label": "Publicera utkast",
+    "sourceHandle": "bottom-right",
+    "targetHandle": "bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "Driftjobb publicerar eller avbryter draft efter betalningsstatus.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__cloud-publishbottom-right-roller-draftbottom"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "job-payment-return",
+    "target": "roller-draft",
+    "label": "Släpp utkast",
+    "sourceHandle": "bottom-left",
+    "targetHandle": "top-right",
+    "data": {
+      "edgeKind": "data",
+      "details": "Vid utgångstid eller avbrott släpper Driftjobb draften så reserverad kapacitet inte ligger kvar.",
+      "operation": "Cancel/expire draft booking",
+      "fields": [
+        "draftBookingId",
+        "expiry",
+        "paymentStatus"
+      ],
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__job-payment-returnbottom-left-roller-drafttop-right"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "roller-payment-link",
+    "target": "cloud-existing-payment",
+    "label": "Betalningslänk skapad",
+    "data": {
+      "edgeKind": "data",
+      "details": "Roller returnerar betalningslänk och status till Driftjobb.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "sourceHandle": "right",
+    "targetHandle": "right-bottom",
+    "selected": false,
+    "id": "xy-edge__roller-payment-linkright-cloud-existing-paymentright-bottom"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "job-payment-return",
+    "target": "roller-payment-link",
+    "label": "Avbryt betalningslänk",
+    "sourceHandle": "bottom-right",
+    "targetHandle": "top",
+    "data": {
+      "edgeKind": "data",
+      "details": "Vid timeout eller avbruten hosted payment avbryter Driftjobb betalningslänken i Roller när en aktiv länk finns.",
+      "operation": "Cancel Payment Link",
+      "fields": [
+        "paymentLinkId",
+        "originalBookingId",
+        "expiry",
+        "returnStatus"
+      ],
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__job-payment-returnbottom-right-roller-payment-linktop"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "cloud-existing-payment",
+    "target": "roller-payment-link",
+    "label": "Uppdatera + betalningslänk",
+    "sourceHandle": "bottom",
+    "targetHandle": "right-top",
+    "data": {
+      "edgeKind": "data",
+      "details": "Driftjobb uppdaterar originalbokningen och skapar hosted payment link.",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__cloud-existing-paymentbottom-roller-payment-linkright-top"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "job-webhook",
+    "target": "store-booking",
+    "label": "Direkt uppdatering när data räcker",
+    "sourceHandle": "top",
+    "targetHandle": "bottom-left",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__job-webhooktop-store-bookingbottom-left"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "job-redemption",
+    "target": "store-booking",
+    "label": "Inlösenstatus",
+    "sourceHandle": "top",
+    "targetHandle": "right-top",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "selected": false,
+    "id": "xy-edge__job-redemptiontop-store-bookingright-top"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#38bdf8"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#38bdf8"
+    },
+    "source": "cloud-existing-payment",
+    "target": "store-payment",
+    "label": "Betalningslänk sparas",
+    "sourceHandle": "top",
+    "targetHandle": "right-bottom",
+    "data": {
+      "edgeKind": "data",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#38bdf8"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": false
+    },
+    "zIndex": 0,
+    "id": "xy-edge__cloud-existing-paymenttop-store-paymentright-bottom"
   }
 ] as any[];

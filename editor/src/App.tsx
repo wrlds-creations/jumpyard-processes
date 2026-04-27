@@ -11,34 +11,34 @@ import {
   useEdgesState,
   addEdge,
   reconnectEdge,
-  useViewport,
   useReactFlow,
   MarkerType,
   Position,
   Handle,
-  Panel,
   ConnectionMode,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { pilotNodes, pilotEdges } from './data/pilotFlow';
 import { localizeValue, translateText, type Language } from './i18n';
 
+type DiagramHistoryEntry = { nodes: any[]; edges: any[] };
+
 // ─── Custom Node Components ────────────────────────────────────────────────────
 
 const EXTENDED_HANDLE_OPTIONS = [
-  { value: '', label: 'auto' },
-  { value: 'left-top', label: 'left-top' },
-  { value: 'left', label: 'left' },
-  { value: 'left-bottom', label: 'left-bottom' },
-  { value: 'top-left', label: 'top-left' },
-  { value: 'top', label: 'top' },
-  { value: 'top-right', label: 'top-right' },
-  { value: 'right-top', label: 'right-top' },
-  { value: 'right', label: 'right' },
-  { value: 'right-bottom', label: 'right-bottom' },
-  { value: 'bottom-left', label: 'bottom-left' },
-  { value: 'bottom', label: 'bottom' },
-  { value: 'bottom-right', label: 'bottom-right' },
+  { value: '', label: 'automatisk' },
+  { value: 'left-top', label: 'vänster uppe' },
+  { value: 'left', label: 'vänster' },
+  { value: 'left-bottom', label: 'vänster nere' },
+  { value: 'top-left', label: 'uppe vänster' },
+  { value: 'top', label: 'uppe' },
+  { value: 'top-right', label: 'uppe höger' },
+  { value: 'right-top', label: 'höger uppe' },
+  { value: 'right', label: 'höger' },
+  { value: 'right-bottom', label: 'höger nere' },
+  { value: 'bottom-left', label: 'nere vänster' },
+  { value: 'bottom', label: 'nere' },
+  { value: 'bottom-right', label: 'nere höger' },
 ] as const;
 
 const HANDLE_HIDDEN_STYLE = {
@@ -49,11 +49,11 @@ const HANDLE_HIDDEN_STYLE = {
 const EDGE_PATH_MODES = new Set(['smoothstep', 'step', 'straight']);
 
 const BASIC_HANDLE_OPTIONS = [
-  { value: '', label: 'auto' },
-  { value: 'left', label: 'left' },
-  { value: 'top', label: 'top' },
-  { value: 'right', label: 'right' },
-  { value: 'bottom', label: 'bottom' },
+  { value: '', label: 'automatisk' },
+  { value: 'left', label: 'vänster' },
+  { value: 'top', label: 'uppe' },
+  { value: 'right', label: 'höger' },
+  { value: 'bottom', label: 'nere' },
 ] as const;
 
 function getHandleOptionsForNode(node: any) {
@@ -156,8 +156,17 @@ const TaskNode = ({ data }: any) => {
   );
 };
 
+function getApiStatusClass(status?: string) {
+  if (status === 'confirmed') return 'border-emerald-400/30 bg-emerald-500/15 text-emerald-200';
+  if (status === 'limited') return 'border-amber-400/35 bg-amber-500/15 text-amber-200';
+  if (status === 'open') return 'border-yellow-300/35 bg-yellow-400/15 text-yellow-100';
+  if (status === 'not-v1') return 'border-slate-300/25 bg-slate-400/12 text-slate-200';
+  return 'border-sky-300/20 bg-sky-500/12 text-sky-200';
+}
+
 const ServiceNode = ({ data }: any) => {
-  const hideDetailsOnCanvas = data.hideDetailsOnCanvas || data.lane === 'AWS + Aurora';
+  const hideDetailsOnCanvas = data.hideDetailsOnCanvas || data.lane === 'AWS + Aurora' || data.lane === 'Databaser / Aurora';
+  const statusLabel = data.apiStatusLabel || data.badge;
   const border = data.edgeHighlighted
     ? 'border-cyan-200 shadow-[0_0_14px_rgba(34,211,238,0.35)]'
     : data.isPrimary
@@ -166,9 +175,9 @@ const ServiceNode = ({ data }: any) => {
   return (
     <div className={`min-w-[200px] max-w-[220px] rounded-xl border bg-[#1b2632]/92 px-4 py-3 text-left shadow-md transition-all ${border} ${data.dimmed ? 'opacity-30' : 'opacity-100'}`}>
       <MultiHandleSet visible={!!data.editMode} />
-      {data.badge && (
-        <div className="mb-1 text-[9px] font-black uppercase tracking-[0.18em] text-sky-200/70">
-          {data.badge}
+      {statusLabel && (
+        <div className={`mb-2 inline-flex rounded-full border px-2 py-0.5 text-[8px] font-black uppercase tracking-[0.18em] ${getApiStatusClass(data.apiStatus)}`}>
+          {statusLabel}
         </div>
       )}
       <div className="text-[11px] font-black uppercase tracking-[0.12em] text-sky-50 break-words leading-snug">
@@ -186,34 +195,54 @@ const ServiceNode = ({ data }: any) => {
   );
 };
 
-// View preset types and helpers
-type ViewPreset = 'pilotresa' | 'teknik' | 'alla';
+const PROCESS_LANES = new Set(['Gäst', 'Webbapp', 'Parkpersonal']);
+const TECHNICAL_LANES = new Set(['Databaser / Aurora', 'AWS + Aurora', 'Driftjobb', 'Roller API', 'Roller']);
+const STRUCTURAL_NODE_TYPES = new Set(['pool', 'lane', 'zone']);
 
-const VIEW_PRESET_LABELS: Record<ViewPreset, string> = {
-  pilotresa: 'Pilotresa',
-  teknik: 'Teknik & integration',
-  alla: 'Alla',
-};
-
-function deriveViewTags(node: any): string[] {
-  const lane = node.data?.lane || '';
-  const type = node.type;
-  if (type === 'pool' || type === 'lane' || type === 'zone') return [];
-  if (lane === 'Gäst' || lane === 'WebApp') return ['pilotresa'];
-  if (lane === 'Staff / parkpersonal') return ['pilotresa'];
-  if (lane === 'Ops jobs') return ['teknik'];
-  if (lane === 'AWS + Aurora') return ['teknik'];
-  if (lane === 'Roller API' || lane === 'Roller') return ['teknik'];
-  if (type === 'note') return ['pilotresa'];
-  if (node.data?.future) return ['teknik'];
-  return ['pilotresa'];
+function getNodeLane(node: any): string {
+  return String(node?.data?.lane || '');
 }
 
-function nodeMatchesView(node: any, view: ViewPreset): boolean {
-  if (view === 'alla') return true;
-  const tags: string[] = (node.data as any)?.viewTags ?? deriveViewTags(node);
-  if (tags.length === 0) return true; // structural nodes always match
-  return tags.includes(view);
+function isProcessActivityNode(node: any): boolean {
+  return !!node && !STRUCTURAL_NODE_TYPES.has(node.type) && PROCESS_LANES.has(getNodeLane(node));
+}
+
+function isDatabaseNode(node: any): boolean {
+  const lane = getNodeLane(node);
+  return !!node && !STRUCTURAL_NODE_TYPES.has(node.type) && (node.type === 'database' || lane === 'Databaser / Aurora' || lane === 'AWS + Aurora');
+}
+
+function isRollerApiNode(node: any): boolean {
+  const lane = getNodeLane(node);
+  return !!node && !STRUCTURAL_NODE_TYPES.has(node.type) && (lane === 'Roller API' || lane === 'Roller');
+}
+
+function isTechnicalNode(node: any): boolean {
+  return !!node && !STRUCTURAL_NODE_TYPES.has(node.type) && TECHNICAL_LANES.has(getNodeLane(node));
+}
+
+function shouldShowEdgeInSingleView(edge: any, nodeLookup: Map<string, any>, selectedDataNodeId: string | null): boolean {
+  if (getEdgeCategory(edge) !== 'data') return true;
+
+  const sourceNode = nodeLookup.get(edge.source);
+  const targetNode = nodeLookup.get(edge.target);
+  const sourceIsProcess = isProcessActivityNode(sourceNode);
+  const targetIsProcess = isProcessActivityNode(targetNode);
+  const sourceIsTechnical = isTechnicalNode(sourceNode);
+  const targetIsTechnical = isTechnicalNode(targetNode);
+  const isDirectDatabaseRoller =
+    (isDatabaseNode(sourceNode) && isRollerApiNode(targetNode)) ||
+    (isRollerApiNode(sourceNode) && isDatabaseNode(targetNode));
+
+  if (isDirectDatabaseRoller) return false;
+
+  if (sourceIsTechnical && targetIsTechnical) return true;
+
+  if ((sourceIsProcess && targetIsTechnical) || (sourceIsTechnical && targetIsProcess)) {
+    return selectedDataNodeId === edge.source || selectedDataNodeId === edge.target;
+  }
+
+  return true;
 }
 
 function getProjectedNodeData(node: any, language: Language) {
@@ -250,17 +279,19 @@ const DatabaseNode = ({ data }: any) => (
     <div className="absolute top-0 left-0 w-full h-2 bg-white/10 rounded-t-[50%]"></div>
     <div className="absolute bottom-0 left-0 w-full h-2 bg-white/10 rounded-b-[50%]"></div>
     <MultiHandleSet visible={!!data.editMode} />
-    <button
-      type="button"
-      onClick={(event) => {
-        event.stopPropagation();
-        data.onToggleCollapse?.();
-      }}
-      title={data.collapsed ? data.expandLabel : data.collapseLabel}
-      className="nodrag nopan absolute top-3 right-3 z-10 inline-flex h-5 w-5 items-center justify-center rounded-full border border-white/10 bg-white/6 text-[11px] font-black text-white/70 transition-colors hover:bg-white/12 hover:text-white"
-    >
-      {data.collapsed ? '+' : '-'}
-    </button>
+    {data.onToggleCollapse && (
+      <button
+        type="button"
+        onClick={(event) => {
+          event.stopPropagation();
+          data.onToggleCollapse?.();
+        }}
+        title={data.collapsed ? data.expandLabel : data.collapseLabel}
+        className="nodrag nopan absolute top-3 right-3 z-10 inline-flex h-5 w-5 items-center justify-center rounded-full border border-white/10 bg-white/6 text-[11px] font-black text-white/70 transition-colors hover:bg-white/12 hover:text-white"
+      >
+        {data.collapsed ? '+' : '-'}
+      </button>
+    )}
     {data.statusTag && (
       <div className="absolute left-3 top-3 rounded-full border border-white/12 bg-white/6 px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.18em] text-white/60">
         {data.statusTag}
@@ -466,69 +497,6 @@ const PoolNode = ({ data }: any) => (
   </div>
 );
 
-function Legend({ activeView }: { activeView: ViewPreset }) {
-  return (
-    <div className="bg-[#1a1a1a]/95 backdrop-blur-sm border border-white/10 rounded-lg p-3 shadow-xl text-[10px] max-w-[190px]">
-      <div className="font-black uppercase tracking-widest text-white/40 mb-2 text-[9px]">Teckenförklaring</div>
-      <div className="space-y-1.5">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-0 border-t-2 border-[#ff8e7d] shrink-0" />
-          <span className="text-white/60">Processflöde</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-0 border-t-2 border-dashed border-[#8b5cf6] shrink-0" />
-          <span className="text-white/60">Fallback / alternativ</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-0 border-t-[1.5px] border-dotted border-[#22d3ee] shrink-0" />
-          <span className="text-white/60">Dataflöde</span>
-        </div>
-        {(activeView === 'teknik' || activeView === 'alla') && (
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-0 border-t-[1.5px] border-[#94a3b8] shrink-0" />
-            <span className="text-white/60">Infrastruktur</span>
-          </div>
-        )}
-        <div className="border-t border-white/5 pt-1.5 mt-1.5" />
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-green-500/30 border-2 border-green-500 shrink-0" />
-          <span className="text-white/60">Starthändelse</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-red-500/30 border-2 border-red-500 shrink-0" />
-          <span className="text-white/60">Sluthändelse</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rotate-45 border border-[#ff8e7d] bg-[#1a1a1a] shrink-0" />
-          <span className="text-white/60">Beslutspunkt</span>
-        </div>
-        <div className="border-t border-white/5 pt-1.5 mt-1.5" />
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-1 rounded-sm bg-green-500/30 border border-green-500/40 shrink-0" />
-          <span className="text-white/60">Mobil (hemma / på plats)</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-1 rounded-sm bg-amber-500/30 border border-amber-500/40 shrink-0" />
-          <span className="text-white/60">Assisterad kiosk</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-1 rounded-sm bg-sky-500/30 border border-sky-500/40 shrink-0" />
-          <span className="text-white/60">Köp på plats</span>
-        </div>
-        {activeView !== 'alla' && (
-          <>
-            <div className="border-t border-white/5 pt-1.5 mt-1.5" />
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-sm bg-white/5 border border-white/5 opacity-30 shrink-0" />
-              <span className="text-white/60">Utanför aktiv vy</span>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
-
 const nodeTypes = { task: TaskNode, service: ServiceNode, gateway: GatewayNode, event: EventNode, database: DatabaseNode, note: NoteNode, lane: LaneNode, pool: PoolNode, zone: ZoneNode };
 
 type RollerApiReference = {
@@ -539,228 +507,133 @@ type RollerApiReference = {
   note?: string;
 };
 
+const ROLLER_API_STAGE_MAP = [
+  {
+    priority: 'KRITISK',
+    stage: 'Ny bokning på plats',
+    endpoints: ['Hämta produkttillgänglighet', 'Beräkna bokningskostnad', 'Skapa utkastbokning', 'Publicera utkastbokning'],
+    desc: 'Starttid väljs först. Cloud hämtar tillgänglighet, räknar slutpris, skapar utkast och publicerar efter godkänd betalning.',
+  },
+  {
+    priority: 'KRITISK',
+    stage: 'Tillägg på befintlig bokning',
+    endpoints: ['Uppdatera bokning', 'Skapa betalningslänk', 'Avbryt betalningslänk'],
+    desc: 'Primärt mönster behåller samma bokningskod och låter gästen betala via Rollers betalningslänk.',
+  },
+  {
+    priority: 'KRITISK',
+    stage: 'Bokningskopia och sökning',
+    endpoints: ['Sök bokningar', 'Hämta bokningsdetalj', 'Bokningswebhook under dagen'],
+    desc: 'Daglig import bygger startläge. Bokningswebhooken tar sedan in nya och ändrade bokningar under dagen.',
+  },
+  {
+    priority: 'KRITISK',
+    stage: 'Inlösen vid utlämning',
+    endpoints: ['Lös in biljetter', 'Inlösenhändelse'],
+    desc: 'Roller-inlösen gäller bara biljetter och sessionprodukter. Lagerartiklar och tillägg lämnas ut via Cloud-rättigheter.',
+  },
+  {
+    priority: 'GUL',
+    stage: 'Öppna förtydliganden',
+    endpoints: ['Retur från betalningslänk', 'Stöd för befintliga bokningar', 'Flerbesök tillfälligt'],
+    desc: 'Dessa ska vara gula i leverabeln tills Roller bekräftat exakt beteende för pilotens mönster.',
+  },
+] as const;
+
 const ROLLER_API_REFERENCES: Record<string, RollerApiReference> = {
-  'Get bookings': {
-    name: 'Get bookings',
+  'Sök bokningar': {
+    name: 'Sök bokningar',
     docUrl: 'https://docs.roller.app/docs/roller-api/15e02538d6f25-get-bookings',
     docLabel: 'Dokumentation',
     docStatus: 'official',
   },
-  'Get customers': {
-    name: 'Get customers',
-    docUrl: 'https://docs.roller.app/docs/roller-api/67bddadddf571-get-customers',
-    docLabel: 'Dokumentation',
-    docStatus: 'official',
-  },
-  'Get detail of a booking': {
-    name: 'Get detail of a booking',
+  'Hämta bokningsdetalj': {
+    name: 'Hämta bokningsdetalj',
     docUrl: 'https://docs.roller.app/docs/rest-api/olt8a8nxs75ev',
     docLabel: 'Dokumentation',
     docStatus: 'official',
   },
-  'Get customer detail': {
-    name: 'Get customer detail',
-    docUrl: 'https://docs.roller.app/docs/rest-api/rx9yreablf0rn-get-customer-detail',
-    docLabel: 'Dokumentation',
-    docStatus: 'official',
+  'Hämta produkttillgänglighet': {
+    name: 'Hämta produkttillgänglighet',
+    docStatus: 'confirm',
+    note: 'Exakt Roller-doklänk bekräftas i pilotunderlaget',
   },
-  'Get products': {
-    name: 'Get products',
-    docUrl: 'https://docs.roller.app/docs/roller-api/7bbac8eaac480-get-products',
-    docLabel: 'Dokumentation',
-    docStatus: 'official',
-  },
-  'Booking costs': {
-    name: 'Booking costs',
+  'Beräkna bokningskostnad': {
+    name: 'Beräkna bokningskostnad',
     docUrl: 'https://docs.roller.app/docs/rest-api/branches/main/62e21c34b7ef3',
     docLabel: 'Dokumentation',
     docStatus: 'official',
   },
-  'Create a booking': {
-    name: 'Create a booking',
-    docUrl: 'https://docs.roller.app/docs/rest-api/5703708522c6b-create-a-booking',
-    docLabel: 'Dokumentation',
-    docStatus: 'official',
+  'Skapa utkastbokning': {
+    name: 'Skapa utkastbokning',
+    docStatus: 'confirm',
+    note: 'Bekräftad av Roller, doklänk kopplas när den finns i workspace',
   },
-  'Redeem tickets': {
-    name: 'Redeem tickets',
-    docUrl: 'https://docs.roller.app/docs/rest-api/fb1d84952285f-redeem-tickets',
-    docLabel: 'Dokumentation',
-    docStatus: 'official',
+  'Publicera utkastbokning': {
+    name: 'Publicera utkastbokning',
+    docStatus: 'confirm',
+    note: 'Bekräftad av Roller, doklänk kopplas när den finns i workspace',
   },
-  'Create webhook (optional)': {
-    name: 'Create webhook (optional)',
-    docUrl: 'https://docs.roller.app/docs/rest-api/3a934c551891e-create-webhook',
-    docLabel: 'Dokumentation',
-    docStatus: 'official',
-  },
-  'Booking webhook': {
-    name: 'Booking webhook',
-    docUrl: 'https://docs.roller.app/docs/rest-api/3a934c551891e-create-webhook',
-    docLabel: 'Dokumentation',
-    docStatus: 'official',
-  },
-  'Get attendance': {
-    name: 'Get attendance',
-    docUrl: 'https://docs.roller.app/docs/roller-api/b22c31e263a6c-get-attendance',
-    docLabel: 'Dokumentation',
-    docStatus: 'official',
-  },
-  'Get tickets': {
-    name: 'Get tickets',
-    docUrl: 'https://docs.roller.app/docs/roller-api/e4f76c0848391-get-tickets',
-    docLabel: 'Dokumentation',
-    docStatus: 'official',
-  },
-  'Get payments': {
-    name: 'Get payments',
-    docUrl: 'https://docs.roller.app/docs/roller-api/64688fe222c1a-get-payments',
-    docLabel: 'Dokumentation',
-    docStatus: 'official',
-  },
-  'Edit booking': {
-    name: 'Edit booking',
+  'Uppdatera bokning': {
+    name: 'Uppdatera bokning',
     docUrl: 'https://docs.roller.app/docs/rest-api/v4mzj4t4erwa9-update-a-booking',
     docLabel: 'Dokumentation',
     docStatus: 'official',
   },
-  'Add transaction record': {
-    name: 'Add transaction record',
-    docUrl: 'https://docs.roller.app/docs/rest-api/a86n5aasxe98r-add-transaction-record',
+  'Skapa betalningslänk': {
+    name: 'Skapa betalningslänk',
+    docStatus: 'confirm',
+    note: 'Används för befintlig bokning med samma bokningskod',
+  },
+  'Avbryt betalningslänk': {
+    name: 'Avbryt betalningslänk',
+    docStatus: 'confirm',
+    note: 'Behövs för utgångstid och övergiven betalningslänk',
+  },
+  'Retur-URL från betalningslänk': {
+    name: 'Retur-URL från betalningslänk',
+    docStatus: 'confirm',
+    note: 'Gul punkt: exakt retur till PWA ska slutbekräftas',
+  },
+  'Avbryt eller släpp utkastbokning': {
+    name: 'Avbryt eller släpp utkastbokning',
+    docStatus: 'confirm',
+    note: 'Används vid timeout eller avbrott så reserverad kapacitet inte ligger kvar',
+  },
+  'Bokningswebhook under dagen': {
+    name: 'Bokningswebhook under dagen',
+    docUrl: 'https://docs.roller.app/docs/rest-api/3a934c551891e-create-webhook',
     docLabel: 'Dokumentation',
     docStatus: 'official',
-    note: 'Doklänk att bekräfta',
+  },
+  'Lös in biljetter': {
+    name: 'Lös in biljetter',
+    docUrl: 'https://docs.roller.app/docs/rest-api/fb1d84952285f-redeem-tickets',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
+  'Inlösenhändelse': {
+    name: 'Inlösenhändelse',
+    docUrl: 'https://docs.roller.app/docs/rest-api/3a934c551891e-create-webhook',
+    docLabel: 'Dokumentation',
+    docStatus: 'official',
+  },
+  'Retur från betalningslänk': {
+    name: 'Retur från betalningslänk',
+    docStatus: 'confirm',
+    note: 'Gul punkt: bekräfta retur till webbappen',
+  },
+  'Stöd för befintliga bokningar': {
+    name: 'Stöd för befintliga bokningar',
+    docStatus: 'confirm',
+    note: 'Gul punkt: presentkort, medlemskod och flerbesök per betalningsmönster',
+  },
+  'Flerbesök tillfälligt': {
+    name: 'Flerbesök tillfälligt',
+    docStatus: 'confirm',
+    note: 'Cloud-status tills Roller har dedikerad slutpunkt',
   },
 };
-
-const ROLLER_API_STAGE_MAP_OLD = [
-  {
-    priority: 'CRITICAL',
-    stage: 'Webhook intake och enrichment',
-    endpoints: ['Booking webhook', 'Get detail of a booking', 'Get customer detail'],
-    desc: 'Booking webhook signalerar sena bokningar och uppdateringar, medan booking- och customer-detail berikar lokal state för SMS och lookup.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'Tillägg och prisberäkning',
-    endpoints: ['Get products', 'Booking costs'],
-    desc: 'Stödjer val av tillägg och räknar om bokningen innan betalning eller writeback.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'Writeback till Roller',
-    endpoints: ['Edit booking', 'Add transaction record'],
-    desc: 'Lägger till produkter på befintlig bokning och registrerar extern betalning.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'Inlösen vid ankomst',
-    endpoints: ['Redeem tickets'],
-    desc: 'Per-ticket check-in som är den kritiska slutpunkten i pilotflödet.',
-  },
-  {
-    priority: 'HIGH',
-    stage: 'Daglig seed för snapshot och kundcache',
-    endpoints: ['Get bookings', 'Get tickets', 'Get payments', 'Get customers'],
-    desc: 'Get bookings, Get tickets och Get payments bygger dagens snapshot, medan Get customers ger lokal kundcache och telefonnummer för SMS.',
-  },
-  {
-    priority: 'HIGH',
-    stage: 'Ankomst- och redeem-avstämning',
-    endpoints: ['Get attendance'],
-    desc: 'Get attendance visar vad som faktiskt checkats in när booking items redeemas och bör hållas separat från dagens seed och webhook-flöde.',
-  },
-] as const;
-
-const ROLLER_API_STAGE_MAP = [
-  {
-    priority: 'CRITICAL',
-    stage: 'Webhook intake och enrichment',
-    endpoints: ['Booking webhook', 'Get detail of a booking', 'Get customer detail'],
-    desc: 'Booking webhook signalerar sena bokningar och uppdateringar, medan booking- och customer-detail berikar lokal state för SMS och lookup.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'Tillägg och prisberäkning',
-    endpoints: ['Get products', 'Booking costs'],
-    desc: 'Stödjer val av tillägg och räknar om bokningen innan betalning eller writeback.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'On-site köp skapar bokning',
-    endpoints: ['Create a booking'],
-    desc: 'När gästen köper på plats måste JumpYard Cloud skapa själva bokningen i Roller, inklusive kund, items och eventuell initial betalning.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'Writeback till Roller',
-    endpoints: ['Edit booking', 'Add transaction record'],
-    desc: 'Lägger till produkter på befintlig bokning och registrerar extern betalning.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'Inlösen vid ankomst',
-    endpoints: ['Redeem tickets'],
-    desc: 'Per-ticket check-in som är den kritiska slutpunkten i pilotflödet.',
-  },
-  {
-    priority: 'HIGH',
-    stage: 'Daglig seed för snapshot och kundcache',
-    endpoints: ['Get bookings', 'Get tickets', 'Get payments', 'Get customers'],
-    desc: 'Get bookings, Get tickets och Get payments bygger dagens snapshot, medan Get customers ger lokal kundcache och telefonnummer för SMS.',
-  },
-  {
-    priority: 'LOW',
-    stage: 'Valfri off-hours reconciliation',
-    endpoints: ['Get attendance'],
-    desc: 'Get attendance kan användas för efterhandsavstämning utanför öppettid, men inte som ett aktivt jobb i pilotens dagsflöde.',
-  },
-] as const;
-
-const ROLLER_API_STAGE_MAP_CLEAN = [
-  {
-    priority: 'CRITICAL',
-    stage: 'Webhook intake och enrichment',
-    endpoints: ['Booking webhook', 'Get detail of a booking', 'Get customer detail'],
-    desc: 'Booking webhook signalerar sena bokningar och uppdateringar, medan booking- och customer-detail berikar lokal state för SMS och lookup.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'Tillägg och prisberäkning',
-    endpoints: ['Get products', 'Booking costs'],
-    desc: 'Stödjer val av tillägg och räknar om bokningen innan betalning eller writeback.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'On-site köp skapar bokning',
-    endpoints: ['Create a booking'],
-    desc: 'När gästen köper på plats måste JumpYard Cloud skapa själva bokningen i Roller, inklusive kund, items och eventuell initial betalning.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'Writeback till Roller',
-    endpoints: ['Edit booking', 'Add transaction record'],
-    desc: 'Lägger till produkter på befintlig bokning och registrerar extern betalning.',
-  },
-  {
-    priority: 'CRITICAL',
-    stage: 'Inlösen vid ankomst',
-    endpoints: ['Redeem tickets'],
-    desc: 'Per-ticket check-in som är den kritiska slutpunkten i pilotflödet.',
-  },
-  {
-    priority: 'HIGH',
-    stage: 'Daglig seed för snapshot och kundcache',
-    endpoints: ['Get bookings', 'Get tickets', 'Get payments', 'Get customers'],
-    desc: 'Get bookings, Get tickets och Get payments bygger dagens snapshot, medan Get customers ger lokal kundcache och telefonnummer för SMS.',
-  },
-  {
-    priority: 'LOW',
-    stage: 'Valfri off-hours reconciliation',
-    endpoints: ['Get attendance'],
-    desc: 'Get attendance kan användas för efterhandsavstämning utanför öppettid, men inte som ett aktivt jobb i pilotens dagsflöde.',
-  },
-] as const;
 
 // ─── Array field editor ───────────────────────────────────────────────────────
 
@@ -800,8 +673,7 @@ function ArrayField({ label, items, onAdd, onRemove, placeholder }: {
 // ─── Read-only metadata ───────────────────────────────────────────────────────
 
 function getRollerApiReference(endpoint: string): RollerApiReference {
-  const canonicalEndpoint = translateText(endpoint, 'en');
-  const reference = ROLLER_API_REFERENCES[endpoint] ?? ROLLER_API_REFERENCES[canonicalEndpoint];
+  const reference = ROLLER_API_REFERENCES[endpoint];
   return reference ? { ...reference, name: endpoint } : { name: endpoint };
 }
 
@@ -855,7 +727,9 @@ function NodeMeta({ data, language }: { data: any; language: Language }) {
       ? 'text-xs text-cyan-100/85 bg-cyan-500/10 border border-cyan-400/20 px-2 py-1.5 rounded leading-relaxed'
       : tone === 'danger'
         ? 'text-xs text-red-400/80 bg-red-500/10 border border-red-500/20 px-2 py-1.5 rounded leading-relaxed'
-        : 'text-xs text-white/65 bg-white/5 px-2 py-1.5 rounded leading-relaxed';
+        : tone === 'warning'
+          ? 'text-xs text-amber-100/90 bg-amber-500/10 border border-amber-400/22 px-2 py-1.5 rounded leading-relaxed'
+          : 'text-xs text-white/65 bg-white/5 px-2 py-1.5 rounded leading-relaxed';
     return (
       <div>
         <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t(label)}</label>
@@ -869,12 +743,24 @@ function NodeMeta({ data, language }: { data: any; language: Language }) {
   };
   return (
     <>
+      {data.apiStatusLabel && (
+        <div>
+          <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Roller-status')}</label>
+          <span className={`inline-flex rounded-full border px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.18em] ${getApiStatusClass(data.apiStatus)}`}>
+            {data.apiStatusLabel}
+          </span>
+        </div>
+      )}
       {(data.details || data.note) && (
         <div>
           <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Beskrivning')}</label>
           <p className="text-xs text-white/70 leading-relaxed whitespace-pre-line">{data.details || data.note}</p>
         </div>
       )}
+      {renderList('API-punkt / endpoint', data.apiPoints, 'info')}
+      {renderList('Roller har bekräftat', data.confirmedByRoller)}
+      {renderList('JumpYard hanterar', data.jumpyardHandling, 'info')}
+      {renderList('Begränsning / risk', data.limitations, 'warning')}
       {data.why && (
         <div>
           <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Varför noden finns')}</label>
@@ -909,6 +795,8 @@ function NodeMeta({ data, language }: { data: any; language: Language }) {
           </ul>
         </div>
       )}
+      {renderList('Källtyp', data.sourceTypes, 'info')}
+      {renderList('Roller-källa', data.rollerSources, 'info')}
       {data.writePattern && (
         <div>
           <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Skrivmönster')}</label>
@@ -928,14 +816,14 @@ function NodeMeta({ data, language }: { data: any; language: Language }) {
       {renderList('Visas när', data.shownWhen)}
       {renderList('Hoppas över när', data.skippedWhen)}
       {renderList('Ger besökaren', data.givesGuest)}
-      {renderList('Staff verifierar med', data.staffVerifies)}
-      {renderList('Data-touchpoints', data.touchpoints, 'info')}
+      {renderList('Parkpersonal verifierar med', data.staffVerifies)}
+      {renderList('Datapunkter', data.touchpoints, 'info')}
       {renderList('Tabellgrupper', data.tables)}
       {renderList('Nyckelfält', data.keyFields, 'info')}
-      {renderList('Ägd state', data.ownedState)}
+      {renderList('Ägd status', data.ownedState)}
       {renderList('Används av', data.usedBy)}
       {renderList('Jobb', data.jobs)}
-      <EndpointReferenceList label="API-endpoints" endpoints={data.endpoints} language={language} />
+      <EndpointReferenceList label="API-slutpunkter" endpoints={data.endpoints} language={language} />
       {data.contains?.length > 0 && (
         <div>
           <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Lagrar')}</label>
@@ -995,7 +883,7 @@ function EdgeMeta({
   const categoryLabel = category === 'data'
     ? t('Dataflöde')
     : category === 'fallback'
-      ? t('Fallbackflöde')
+      ? t('Reservflöde')
       : category === 'arch'
         ? t('Arkitekturkoppling')
         : t('Processflöde');
@@ -1073,88 +961,6 @@ function EdgeMeta({
   );
 }
 
-// ─── Walk animation ───────────────────────────────────────────────────────────
-
-function ViewportTracker({ onUpdate }: { onUpdate: (x: number, y: number, zoom: number) => void }) {
-  const { x, y, zoom } = useViewport();
-  useEffect(() => { onUpdate(x, y, zoom); }, [x, y, zoom, onUpdate]);
-  return null;
-}
-
-// ── Retro pixel sprite ────────────────────────────────────────────────────────
-
-const PX = 3; // css px per "pixel"  (8×12 grid → 24×36 CSS px)
-const CHAR_PAL: Record<string, string | null> = {
-  K: '#cc2222', // red cap
-  H: '#1a0800', // dark hair / outline
-  S: '#f5c5a3', // skin
-  E: '#2a1800', // eyes
-  B: '#2850c8', // blue jacket
-  W: '#dce8ff', // white shirt detail
-  P: '#18182a', // dark pants
-  G: '#5c3418', // boots
-  '.': null,
-};
-
-// Side-view 8×12 sprites, character faces right
-const SPRITE_STAND = [
-  '..KKKK..',
-  '.HKKKKHH',
-  '.HSSSSSH',
-  '.SEESSE.',
-  '...SS...',
-  '..BWWB..',
-  '.BBBBBB.',
-  'B.BBBB.B',
-  '..BBBB..',
-  '..PPPP..',
-  '..PP.PP.',
-  '..GG.GG.',
-];
-const SPRITE_WALK_A = [
-  '..KKKK..',
-  '.HKKKKHH',
-  '.HSSSSSH',
-  '.SEESSE.',
-  '...SS...',
-  '..BWWB..',
-  '.BBBBBB.',
-  'BB.BBB..',  // left arm forward
-  '..BBBB..',
-  '..PPPP..',
-  '...PP.PP',  // right leg forward
-  '...GG.GG',
-];
-const SPRITE_WALK_B = [
-  '..KKKK..',
-  '.HKKKKHH',
-  '.HSSSSSH',
-  '.SEESSE.',
-  '...SS...',
-  '..BWWB..',
-  '.BBBBBB.',
-  '..BBB.BB',  // right arm forward
-  '..BBBB..',
-  '..PPPP..',
-  '.PP.PP..',  // left leg forward
-  '.GG.GG..',
-];
-const WALK_FRAMES = [SPRITE_WALK_A, SPRITE_WALK_B];
-
-function PixelChar({ frame }: { frame: string[] }) {
-  return (
-    <div style={{ display: 'inline-block', lineHeight: 0 }}>
-      {frame.map((row, y) => (
-        <div key={y} style={{ display: 'flex' }}>
-          {row.split('').map((c, x) => (
-            <div key={x} style={{ width: PX, height: PX, backgroundColor: CHAR_PAL[c] ?? 'transparent' }} />
-          ))}
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function getNodeDims(type?: string) {
   if (type === 'event')   return { w: 48, h: 48 };
   if (type === 'gateway') return { w: 64, h: 64 };
@@ -1163,28 +969,6 @@ function getNodeDims(type?: string) {
   if (type === 'note') return { w: 280, h: 160 };
   if (type === 'zone') return { w: 480, h: 180 };
   return { w: 160, h: 50 };
-}
-
-// Build interpolated waypoints along the smoothstep edge path
-function buildEdgeWaypoints(
-  src: { position: { x: number; y: number }; type?: string },
-  tgt: { position: { x: number; y: number }; type?: string },
-  stepsPerSegment = 7,
-): Array<{ x: number; y: number }> {
-  const sd = getNodeDims(src.type), td = getNodeDims(tgt.type);
-  const x0 = src.position.x + sd.w, y0 = src.position.y + sd.h / 2;
-  const x3 = tgt.position.x,        y3 = tgt.position.y + td.h / 2;
-  const xMid = (x0 + x3) / 2;
-  const corners = [{ x: x0, y: y0 }, { x: xMid, y: y0 }, { x: xMid, y: y3 }, { x: x3, y: y3 }];
-  const pts: Array<{ x: number; y: number }> = [];
-  for (let i = 0; i < corners.length - 1; i++) {
-    const a = corners[i], b = corners[i + 1];
-    for (let s = 0; s <= stepsPerSegment; s++) {
-      const t = s / stepsPerSegment;
-      pts.push({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
-    }
-  }
-  return pts;
 }
 
 const defaultEdgeOptions = {
@@ -1307,15 +1091,50 @@ function sanitizeEdgeForStorage(edge: any, nodesOrLookup?: any[] | Map<string, a
 
 // ─── Persistence ──────────────────────────────────────────────────────────────
 
-const FLOW_SCHEMA_VERSION = '2026-04-kiosk-split-v2';
+const FLOW_SCHEMA_VERSION = '2026-04-svensk-roller-v8-webhook-payment-links';
 const STORAGE_NODES = `jy-bpmn-nodes:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_EDGES = `jy-bpmn-edges:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_LANGUAGE = 'jy-bpmn-language';
+
+function hasCurrentDatabaseLaneModel(nodes: any[], edges?: any[]) {
+  const nodeLookup = new Map(nodes.map((node) => [node.id, node]));
+  const laneOf = (id: string) => String((nodeLookup.get(id) as any)?.data?.lane || (nodeLookup.get(id) as any)?.data?.label || '');
+  const typeOf = (id: string) => String((nodeLookup.get(id) as any)?.type || '');
+  const isDatabase = (id: string) => typeOf(id) === 'database' || laneOf(id) === 'Databaser / Aurora' || laneOf(id) === 'AWS + Aurora';
+  const isRoller = (id: string) => laneOf(id) === 'Roller API' || laneOf(id) === 'Roller';
+  const requiredNodes = [
+    ['lane-aws', 'Databaser / Aurora'],
+    ['store-booking', 'Databaser / Aurora'],
+    ['store-commerce', 'Databaser / Aurora'],
+    ['store-payment', 'Databaser / Aurora'],
+    ['store-operational', 'Databaser / Aurora'],
+    ['store-entitlement', 'Databaser / Aurora'],
+    ['cloud-availability', 'Driftjobb'],
+    ['cloud-costs', 'Driftjobb'],
+    ['cloud-existing-payment', 'Driftjobb'],
+    ['cloud-draft', 'Driftjobb'],
+    ['cloud-linked-booking', 'Driftjobb'],
+    ['cloud-publish', 'Driftjobb'],
+    ['job-ticket-redeem', 'Driftjobb'],
+    ['roller-membership-multipass', 'Roller API'],
+    ['roller-not-v1', 'Roller API'],
+  ];
+
+  const requiredNodesOk = requiredNodes.every(([id, lane]) => laneOf(id) === lane);
+  if (!requiredNodesOk) return false;
+  if (!edges) return true;
+
+  return !edges.some((edge) => {
+    if (getEdgeCategory(edge) !== 'data') return false;
+    return (isDatabase(edge.source) && isRoller(edge.target)) || (isRoller(edge.source) && isDatabase(edge.target));
+  });
+}
 
 const loadNodes = () => {
   try {
     const s = localStorage.getItem(STORAGE_NODES);
     const ns: any[] = s ? JSON.parse(s) : pilotNodes;
+    if (!hasCurrentDatabaseLaneModel(ns)) return pilotNodes;
     // Migrate: assign poolId to lanes that don't have one yet (Y-range heuristic, one-time migration)
     const pools = ns.filter(n => n.type === 'pool').sort((a: any, b: any) => a.position.y - b.position.y);
     return ns.map((n: any) => {
@@ -1335,214 +1154,66 @@ const loadEdges = (nodes: any[] = pilotNodes) => {
   try {
     const s = localStorage.getItem(STORAGE_EDGES);
     const raw = s ? JSON.parse(s) : pilotEdges;
+    if (!hasCurrentDatabaseLaneModel(nodes, raw)) return pilotEdges.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes));
     return raw.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes));
   } catch { return pilotEdges.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes)); }
 };
 
 // ─── App ──────────────────────────────────────────────────────────────────────
 
-// ─── Lane Row (used in lanes panel) ──────────────────────────────────────────
-
-function LaneRow({ lane, isFirst, isLast, onMove, onRename, onDelete, onResize, pools, onMoveToPool, language }: {
-  key?: string;
-  lane: any; isFirst: boolean; isLast: boolean;
-  onMove: (dir: 'up' | 'down') => void;
-  onRename: (name: string) => void;
-  onDelete: () => void;
-  onResize: (heightPx: number) => void;
-  pools: any[];
-  onMoveToPool: (poolId: string) => void;
-  language: Language;
-}) {
-  const t = (value: string) => translateText(value, language);
-  const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState(String(lane.data.label));
-  const commit = () => {
-    if (draft.trim() && draft.trim() !== String(lane.data.label)) onRename(draft.trim());
-    setEditing(false);
-  };
-  const currentHeight = lane.data.heightPx || parseInt(String(lane.data.height || '200')) || 200;
-  const currentPoolId = String((lane.data as any).poolId ?? '');
-  const currentPool = pools.find(p => p.id === currentPoolId);
-  return (
-    <div className="flex items-center gap-2 px-2 py-1.5 rounded bg-white/5 border border-white/5 hover:border-white/10 transition-all group">
-      <div className="flex flex-col gap-0.5 shrink-0">
-        <button onClick={() => onMove('up')} disabled={isFirst}
-          className="text-[10px] text-white/30 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed leading-none px-0.5">▲</button>
-        <button onClick={() => onMove('down')} disabled={isLast}
-          className="text-[10px] text-white/30 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed leading-none px-0.5">▼</button>
-      </div>
-      <select
-        value={currentPoolId}
-        onChange={e => onMoveToPool(e.target.value)}
-        title={t('Pool')}
-        className="shrink-0 w-3 h-3 rounded-full border-0 outline-none cursor-pointer appearance-none"
-        style={{ background: currentPool?.data?.color ?? '#ffffff33', accentColor: currentPool?.data?.color }}
-      >
-        <option value="">–</option>
-        {pools.map(p => <option key={p.id} value={p.id}>{t(String(p.data.label))}</option>)}
-      </select>
-      {editing ? (
-        <input
-          autoFocus
-          value={draft}
-          onChange={e => setDraft(e.target.value)}
-          onBlur={commit}
-          onKeyDown={e => { if (e.key === 'Enter') commit(); if (e.key === 'Escape') setEditing(false); }}
-          className="flex-1 text-xs text-white bg-[#1a1a1a] px-2 py-0.5 rounded border border-primary outline-none"
-        />
-      ) : (
-        <span
-          className="flex-1 text-xs text-white/80 cursor-pointer hover:text-white"
-          onDoubleClick={() => { setDraft(String(lane.data.label)); setEditing(true); }}
-          title={t('Dubbelklicka för att byta namn')}
-        >
-          {t(String(lane.data.label))}
-        </span>
-      )}
-      <div className="flex items-center gap-1 shrink-0" title={t('Höjd (px)')}>
-        <span className="text-[9px] text-white/25">h:</span>
-        <input
-          type="number" min={80} max={600} step={40}
-          value={currentHeight}
-          onChange={e => { const v = parseInt(e.target.value); if (v >= 80 && v <= 600) onResize(v); }}
-          className="w-12 text-[10px] text-white/60 bg-[#1a1a1a] px-1 py-0.5 rounded border border-white/10 focus:border-primary outline-none text-center"
-        />
-      </div>
-      <button
-        onClick={() => { setDraft(String(lane.data.label)); setEditing(true); }}
-        className="opacity-0 group-hover:opacity-100 text-[10px] text-white/40 hover:text-white px-1 transition-all"
-        title={t('Byt namn')}
-      >✎</button>
-      <button
-        onClick={onDelete}
-        className="opacity-0 group-hover:opacity-100 text-[10px] text-white/30 hover:text-red-400 px-1 transition-all"
-        title={t('Ta bort lane')}
-      >×</button>
-    </div>
-  );
-}
-
-// ─── Pool Row (used in lanes panel pools section) ────────────────────────────
-
-function PoolRow({ pool, onRename, onDelete, onMove, isFirst, isLast, onAddLane, language }: {
-  key?: string;
-  pool: any;
-  onRename: (name: string) => void;
-  onDelete: () => void;
-  onMove: (dir: 'up' | 'down') => void;
-  isFirst: boolean;
-  isLast: boolean;
-  onAddLane: () => void;
-  language: Language;
-}) {
-  const t = (value: string) => translateText(value, language);
-  const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState(String(pool.data.label));
-  const commit = () => { if (draft.trim()) onRename(draft.trim()); setEditing(false); };
-  return (
-    <div
-      className="flex items-center gap-2 px-2 py-1.5 rounded border border-white/5 group"
-      style={{ background: `${pool.data.color}15` }}
-    >
-      <div className="flex flex-col shrink-0">
-        <button disabled={isFirst} onClick={() => onMove('up')} className="text-[10px] text-white/30 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed leading-none px-0.5">▲</button>
-        <button disabled={isLast} onClick={() => onMove('down')} className="text-[10px] text-white/30 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed leading-none px-0.5">▼</button>
-      </div>
-      <div className="w-2 h-2 rounded-full shrink-0" style={{ background: pool.data.color }} />
-      {editing ? (
-        <input
-          autoFocus
-          value={draft}
-          onChange={e => setDraft(e.target.value)}
-          onBlur={commit}
-          onKeyDown={e => { if (e.key === 'Enter') commit(); if (e.key === 'Escape') setEditing(false); }}
-          className="flex-1 text-xs text-white bg-[#1a1a1a] px-2 py-0.5 rounded border border-primary outline-none"
-        />
-      ) : (
-        <span
-          className="flex-1 text-xs font-bold cursor-pointer hover:text-white"
-          style={{ color: pool.data.color }}
-          onDoubleClick={() => { setDraft(String(pool.data.label)); setEditing(true); }}
-          title={t('Dubbelklicka för att byta namn')}
-        >
-          {t(String(pool.data.label))}
-        </span>
-      )}
-      <button
-        onClick={onAddLane}
-        className="opacity-0 group-hover:opacity-100 text-[10px] text-emerald-400 hover:text-emerald-300 px-1 transition-all"
-        title={t('Lägg till lane i denna pool')}
-      >＋</button>
-      <button
-        onClick={() => { setDraft(String(pool.data.label)); setEditing(true); }}
-        className="opacity-0 group-hover:opacity-100 text-[10px] text-white/40 hover:text-white px-1 transition-all"
-        title={t('Byt namn')}
-      >✎</button>
-      <button
-        onClick={onDelete}
-        className="opacity-0 group-hover:opacity-100 text-[10px] text-white/30 hover:text-red-400 px-1 transition-all"
-        title={t('Ta bort pool')}
-      >×</button>
-    </div>
-  );
-}
-
 const ROLLER_KRAV = [
   {
-    endpoint: 'GET /booking/{ref}',
+    endpoint: 'Hämta bokningsdetalj',
     docUrl: 'https://docs.roller.app/docs/rest-api/olt8a8nxs75ev',
-    priority: 'CRITICAL',
+    priority: 'KRITISK',
     label: 'Hämta bokning',
     desc: 'Returnerar: gästnamn, email, produktlista, biljettantal, betalningsstatus, sessionstid',
   },
   {
-    endpoint: 'GET /products',
-    docUrl: 'https://docs.roller.app/docs/roller-api/7bbac8eaac480-get-products',
-    priority: 'CRITICAL',
-    label: 'Hämta produkter',
-    desc: 'Alla köpbara produkter med pris per venue (strumpor, upplevelser, tillägg)',
+    endpoint: 'Hämta produkttillgänglighet',
+    priority: 'KRITISK',
+    label: 'Hämta tillgänglighet',
+    desc: 'Hämtar köpbara tider, produkter och längder efter vald park och starttid',
   },
   {
-    endpoint: 'POST /booking/costs',
+    endpoint: 'Beräkna bokningskostnad',
     docUrl: 'https://docs.roller.app/docs/rest-api/branches/main/62e21c34b7ef3',
-    priority: 'HIGH',
+    priority: 'KRITISK',
     label: 'Beräkna kostnad',
-    desc: 'Kostnadsberäkning med tillagda produkter — utan att skapa bokning',
+    desc: 'Slutlig varukorgskontroll innan utkastbokning, betalningslänk eller betalning',
   },
   {
-    endpoint: 'PUT /booking/{ref}',
+    endpoint: 'Uppdatera bokning',
     docUrl: 'https://docs.roller.app/docs/rest-api/v4mzj4t4erwa9-update-a-booking',
-    priority: 'CRITICAL',
+    priority: 'KRITISK',
     label: 'Uppdatera bokning',
-    desc: 'Lägg till produkter i befintlig bokning (lägger till i SAMMA bokning, ej ny)',
+    desc: 'Lägger till produkter på befintlig bokning när samma bokningskod ska behållas',
   },
   {
-    endpoint: 'POST /booking/payment',
-    docUrl: 'https://docs.roller.app/docs/rest-api/a86n5aasxe98r-add-transaction-record',
-    priority: 'CRITICAL',
-    label: 'Registrera betalning',
-    desc: 'Registrera Adyen-transaktion mot bokning — fungerar för initial + tillägg. Endpoint: Add transaction record',
+    endpoint: 'Skapa betalningslänk',
+    priority: 'KRITISK',
+    label: 'Betalningssida',
+    desc: 'Primärt mönster för existerande bokning med tillägg och samma bokningskod',
   },
   {
-    endpoint: 'POST /tickets/redeem',
+    endpoint: 'Lös in biljetter',
     docUrl: 'https://docs.roller.app/docs/rest-api/fb1d84952285f-redeem-tickets',
-    priority: 'CRITICAL',
+    priority: 'KRITISK',
     label: 'Lös in biljetter',
-    desc: 'ETT anrop per biljett-ID. Status uppdateras direkt i Roller-dashboard. Waivers: EJ AKTUELLT hos JumpYard',
+    desc: 'Gäller biljetter och sessionprodukter, inte lagerartiklar/tillägg som kaffe och lås',
   },
   {
-    endpoint: 'Webhook: ticket check-in',
+    endpoint: 'Bokningswebhook under dagen',
     docUrl: 'https://docs.roller.app/docs/rest-api/3a934c551891e-create-webhook',
-    priority: 'HIGH',
-    label: 'Check-in bekräftelse',
-    desc: 'Triggas vid inlösning (ingen direkt GET-endpoint för check-in-status)',
+    priority: 'KRITISK',
+    label: 'Bokningar under dagen',
+    desc: 'Tar in nya och ändrade bokningar efter daglig import när booking detail och betaldata ingår',
   },
   {
-    endpoint: 'Sandbox-miljö',
-    priority: 'CRITICAL',
-    label: 'Testmiljö',
-    desc: 'Tillgänglig under evalueringsfas. NDA kan krävas. Rate limit: 600 req / 60s',
+    endpoint: 'Flerbesök tillfälligt',
+    priority: 'GUL',
+    label: 'Tillfällig status i Cloud',
+    desc: 'Cloud håller status från inlösenhändelser tills Roller har dedikerad slutpunkt',
   },
 ];
 
@@ -1553,7 +1224,7 @@ function DataKravPanel({ onClose, language }: { onClose: () => void; language: L
       <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 shrink-0">
         <div>
           <div className="text-xs font-black uppercase tracking-widest text-white">{t('Datakravslista')}</div>
-          <div className="text-[10px] text-white/40 mt-0.5">{t('Roller API — bekräftade endpoints')}</div>
+          <div className="text-[10px] text-white/40 mt-0.5">{t('Roller API — bekräftade slutpunkter')}</div>
         </div>
         <button onClick={onClose} className="text-white/40 hover:text-white text-lg leading-none px-1">×</button>
       </div>
@@ -1562,7 +1233,7 @@ function DataKravPanel({ onClose, language }: { onClose: () => void; language: L
           <div key={i} className="rounded border border-white/8 bg-white/3 p-3">
             <div className="flex items-start justify-between gap-2 mb-1">
               <code className="text-[11px] text-[#ff8e7d] font-mono leading-snug">{k.endpoint}</code>
-              <span className={`text-[9px] font-black uppercase tracking-widest px-1.5 py-0.5 rounded shrink-0 ${k.priority === 'CRITICAL' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
+              <span className={`text-[9px] font-black uppercase tracking-widest px-1.5 py-0.5 rounded shrink-0 ${k.priority === 'KRITISK' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
                 {k.priority}
               </span>
             </div>
@@ -1581,14 +1252,14 @@ function DataKravPanel({ onClose, language }: { onClose: () => void; language: L
           </div>
         ))}
         <div className="pt-2 pb-1 text-[9px] text-white/25 text-center">
-          {t('Källa: Roller API Requirements — bekräftad av account manager')}
+          {t('Källa: Roller API-krav — bekräftad av kundansvarig')}
         </div>
       </div>
     </div>
   );
 }
 
-const ROLLER_API_MAP = ROLLER_API_STAGE_MAP_CLEAN;
+const ROLLER_API_MAP = ROLLER_API_STAGE_MAP;
 
 function ArchitecturePanel({ onClose, language, nodes }: { onClose: () => void; language: Language; nodes: any[] }) {
   const t = (value: string) => translateText(value, language);
@@ -1600,13 +1271,13 @@ function ArchitecturePanel({ onClose, language, nodes }: { onClose: () => void; 
       .map((node) => ({ id: node.id, data: getProjectedNodeData(node, language) as any }));
 
   const dataNodes = projectNodeData((node) => node.type === 'database');
-  const jobNodes = projectNodeData((node) => node.type === 'task' && String(node.data?.lane) === 'Ops jobs');
+  const jobNodes = projectNodeData((node) => node.type === 'service' && String(node.data?.lane) === 'Driftjobb');
 
   return (
     <div className="fixed top-0 right-0 h-full w-[430px] z-50 bg-[#0e0e0e]/98 backdrop-blur-xl border-l border-white/10 shadow-2xl flex flex-col overflow-hidden">
       <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 shrink-0">
         <div>
-          <div className="text-xs font-black uppercase tracking-widest text-white">{t('Arkitektur / Ops')}</div>
+          <div className="text-xs font-black uppercase tracking-widest text-white">{t('Arkitektur / drift')}</div>
           <div className="text-[10px] text-white/40 mt-0.5">{t('Aurora-tabellgrupper, Roller API-karta och jobb')}</div>
         </div>
         <button onClick={onClose} className="text-white/40 hover:text-white text-lg leading-none px-1">×</button>
@@ -1681,7 +1352,7 @@ function ArchitecturePanel({ onClose, language, nodes }: { onClose: () => void; 
               <div key={item.stage} className="rounded border border-white/8 bg-white/3 p-3">
                 <div className="flex items-start justify-between gap-2">
                   <div className="text-[11px] font-bold text-white/82">{t(item.stage)}</div>
-                  <span className={`rounded px-1.5 py-0.5 text-[9px] font-black uppercase tracking-widest ${item.priority === 'CRITICAL' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
+                  <span className={`rounded px-1.5 py-0.5 text-[9px] font-black uppercase tracking-widest ${item.priority === 'KRITISK' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
                     {item.priority}
                   </span>
                 </div>
@@ -1743,7 +1414,7 @@ function ArchitecturePanel({ onClose, language, nodes }: { onClose: () => void; 
         </section>
 
         <div className="pt-1 pb-2 text-[9px] text-white/25 text-center">
-          {t('KÃ¤lla: Roller API Requirements â€” bekrÃ¤ftad av account manager')}
+          {t('Källa: Roller API-krav — bekräftad av kundansvarig')}
         </div>
       </div>
     </div>
@@ -1751,7 +1422,7 @@ function ArchitecturePanel({ onClose, language, nodes }: { onClose: () => void; 
 }
 
 export default function App() {
-  const { screenToFlowPosition, getViewport, setViewport: rfSetViewport } = useReactFlow();
+  const { getViewport, setViewport: rfSetViewport } = useReactFlow();
   const initialNodesRef = useRef<any[] | null>(null);
   if (!initialNodesRef.current) initialNodesRef.current = loadNodes();
   const initialNodes = initialNodesRef.current ?? pilotNodes;
@@ -1760,70 +1431,58 @@ export default function App() {
   const initialEdges = initialEdgesRef.current ?? loadEdges(initialNodes);
   const [nodes, setNodes, applyNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [language, setLanguage] = useState<Language>(() => {
-    try {
-      return localStorage.getItem(STORAGE_LANGUAGE) === 'en' ? 'en' : 'sv';
-    } catch {
-      return 'sv';
-    }
-  });
+  const [language] = useState<Language>('sv');
   const [selectedElements, setSelectedElements] = useState<{ nodes: any[]; edges: any[] }>({ nodes: [], edges: [] });
   const [editMode, setEditMode] = useState(false);
-  const [activeView, setActiveView] = useState<ViewPreset>('pilotresa');
-  const [history, setHistory] = useState<{ nodes: any[]; edges: any[] }[]>([]);
-  const [walkActive, setWalkActive] = useState(false);
-  const [walkCurrentId, setWalkCurrentId] = useState<string | null>(null);
-  const [walkPhase, setWalkPhase] = useState<'idle' | 'walking'>('idle');
-  const [walkFrame, setWalkFrame] = useState(0);
-  const [charFlowPos, setCharFlowPos] = useState({ x: 0, y: 0 });
-  const [viewport, setViewport] = useState({ x: 0, y: 0, zoom: 1 });
-  const onViewportUpdate = useCallback((x: number, y: number, zoom: number) => {
-    setViewport({ x, y, zoom });
-  }, []);
-
-  // Walk engine — all mutable walk state lives here (no stale closures in interval)
-  const walkEng = React.useRef({
-    currentId: null as string | null,
-    targetId:  null as string | null,
-    history:   [] as string[],
-    phase:     'idle' as 'idle' | 'walking',
-    waypoints: [] as Array<{ x: number; y: number }>,
-    wpIdx:     0,
-  });
-  const rightHeld = React.useRef(false);
-  const leftHeld  = React.useRef(false);
+  const [history, setHistory] = useState<DiagramHistoryEntry[]>([]);
   const nodesRef  = React.useRef(nodes);
   const edgesRef  = React.useRef(edges);
   const positionHistoryCapturedRef = React.useRef(false);
+  const invalidFlowModelResetRef = React.useRef(false);
   useEffect(() => { nodesRef.current = nodes; }, [nodes]);
   useEffect(() => { edgesRef.current = edges; }, [edges]);
 
+  const activeNodes = nodes;
+  const activeEdges = edges;
+  const interactionEditMode = editMode;
+
+  useEffect(() => {
+    if (invalidFlowModelResetRef.current || hasCurrentDatabaseLaneModel(nodes, edges)) return;
+    invalidFlowModelResetRef.current = true;
+    localStorage.removeItem(STORAGE_NODES);
+    localStorage.removeItem(STORAGE_EDGES);
+    setSelectedElements({ nodes: [], edges: [] });
+    setNodes(pilotNodes);
+    setEdges(pilotEdges.map((edge: any) => applyEdgeVisualState(edge, 'base', pilotNodes)));
+  }, [edges, nodes, setEdges, setNodes]);
+
   const selectedNodeId = selectedElements.nodes[0]?.id ?? null;
   const selectedEdgeId = selectedElements.edges[0]?.id ?? null;
-  const rawSelectedNode = selectedNodeId ? nodes.find(n => n.id === selectedNodeId) ?? null : null;
-  const rawSelectedEdge = selectedEdgeId ? edges.find(e => e.id === selectedEdgeId) ?? null : null;
+  const rawSelectedNode = selectedNodeId ? activeNodes.find(n => n.id === selectedNodeId) ?? null : null;
+  const rawSelectedEdge = selectedEdgeId ? activeEdges.find(e => e.id === selectedEdgeId) ?? null : null;
+  const selectedDataNodeId = rawSelectedNode && (isProcessActivityNode(rawSelectedNode) || isTechnicalNode(rawSelectedNode)) ? rawSelectedNode.id : null;
   const selectedNode = rawSelectedNode ?? null;
   const selectedEdge = rawSelectedEdge
     && getEdgeCategory(rawSelectedEdge) !== 'arch'
       ? rawSelectedEdge
       : null;
-  const selectedEdgeSourceNode = selectedEdge ? nodes.find((node) => node.id === selectedEdge.source) ?? null : null;
-  const selectedEdgeTargetNode = selectedEdge ? nodes.find((node) => node.id === selectedEdge.target) ?? null : null;
+  const selectedEdgeSourceNode = selectedEdge ? activeNodes.find((node) => node.id === selectedEdge.source) ?? null : null;
+  const selectedEdgeTargetNode = selectedEdge ? activeNodes.find((node) => node.id === selectedEdge.target) ?? null : null;
   const hasSelection = !!(selectedNode || selectedEdge);
   const t = (value: string) => translateText(value, language);
   const selectedNodeViewData = selectedNode ? getProjectedNodeData(selectedNode, language) : null;
   const selectedEdgeViewData = selectedEdge ? localizeValue(selectedEdge.data || {}, language) : null;
-  const selectedNodeViewLabel = selectedNodeViewData?.label || (selectedNode?.type === 'lane' ? t('Lane') : t('Nod'));
+  const selectedNodeViewLabel = selectedNodeViewData?.label || (selectedNode?.type === 'lane' ? t('Bana') : t('Nod'));
   const selectedEdgeSourceLabel = selectedEdgeSourceNode ? String((getProjectedNodeData(selectedEdgeSourceNode, language) as any)?.label || selectedEdgeSourceNode.id) : '—';
   const selectedEdgeTargetLabel = selectedEdgeTargetNode ? String((getProjectedNodeData(selectedEdgeTargetNode, language) as any)?.label || selectedEdgeTargetNode.id) : '—';
 
   useEffect(() => {
-    if (editMode) return;
+    if (interactionEditMode) return;
     setSelectedElements((current) => ({
       nodes: current.nodes.filter((node) => node.type !== 'lane' && node.type !== 'pool'),
       edges: current.edges,
     }));
-  }, [editMode]);
+  }, [interactionEditMode]);
 
   const collectRelatedGraph = useCallback((seedNodeIds: string[], depth = 1) => {
     const nodeIds = new Set(seedNodeIds);
@@ -1846,6 +1505,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (!hasCurrentDatabaseLaneModel(nodes, edges)) return;
     const clean = nodes.map(n => {
       const data = { ...(n.data as any) };
       delete data.edgeHighlighted;
@@ -1853,8 +1513,9 @@ export default function App() {
       return { ...n, data };
     });
     localStorage.setItem(STORAGE_NODES, JSON.stringify(clean));
-  }, [nodes]);
+  }, [edges, nodes]);
   useEffect(() => {
+    if (!hasCurrentDatabaseLaneModel(nodes, edges)) return;
     const nodeLookup = new Map(nodes.map((node) => [node.id, node]));
     localStorage.setItem(STORAGE_EDGES, JSON.stringify(edges.map((edge) => sanitizeEdgeForStorage(edge, nodeLookup))));
   }, [edges, nodes]);
@@ -1873,7 +1534,7 @@ export default function App() {
 
     // Compute full bounding box of all nodes at zoom=1
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-    for (const n of nodes) {
+    for (const n of activeNodes) {
       const w = (n as any).measured?.width ?? ((n.data as any).widthPx ?? 150);
       const h = (n as any).measured?.height ?? ((n.data as any).heightPx ?? 60);
       minX = Math.min(minX, n.position.x);
@@ -1941,100 +1602,21 @@ export default function App() {
     }
   };
 
-  // ── Walk engine (interval-based, hold → to walk along live edges) ─────────
-  useEffect(() => {
-    if (!walkActive) {
-      rightHeld.current = false;
-      leftHeld.current  = false;
-      return;
-    }
+  const setActiveNodeList = useCallback((updater: (current: any[]) => any[]) => {
+    setNodes(updater);
+  }, [setNodes]);
 
-    // Init: place char at start-event or first non-lane node
-    const allNodes = nodesRef.current;
-    const startNode =
-      allNodes.find(n => n.type === 'event' && (n.data as any).type === 'start') ||
-      allNodes.find(n => n.type !== 'lane');
-    if (!startNode) return;
-
-    const eng = walkEng.current;
-    eng.currentId = startNode.id;
-    eng.targetId  = null;
-    eng.history   = [];
-    eng.phase     = 'idle';
-    eng.waypoints = [];
-    eng.wpIdx     = 0;
-
-    setWalkCurrentId(startNode.id);
-    setWalkPhase('idle');
-    const d0 = getNodeDims(startNode.type);
-    setCharFlowPos({ x: startNode.position.x + d0.w / 2, y: startNode.position.y - 18 });
-
-    const id = setInterval(() => {
-      const eng   = walkEng.current;
-      const nodes = nodesRef.current;
-      const edges = edgesRef.current;
-
-      if (eng.phase === 'idle') {
-        // Snap char to current node centre
-        const cur = nodes.find(n => n.id === eng.currentId);
-        if (cur) {
-          const d = getNodeDims(cur.type);
-          setCharFlowPos({ x: cur.position.x + d.w / 2, y: cur.position.y - 18 });
-        }
-
-        if (rightHeld.current && eng.currentId) {
-          // Follow first outgoing edge from current node
-          const edge = edges.find(e => e.source === eng.currentId);
-          if (edge) {
-            const src = nodes.find(n => n.id === edge.source);
-            const tgt = nodes.find(n => n.id === edge.target);
-            if (src && tgt && tgt.type !== 'lane') {
-              eng.targetId  = tgt.id;
-              eng.waypoints = buildEdgeWaypoints(src, tgt);
-              eng.wpIdx     = 0;
-              eng.phase     = 'walking';
-              setWalkPhase('walking');
-            }
-          }
-        }
-      } else {
-        // Walking phase
-        if (eng.wpIdx >= eng.waypoints.length) {
-          // Arrived at target
-          if (eng.targetId) {
-            eng.history.push(eng.currentId!);
-            eng.currentId = eng.targetId;
-            eng.targetId  = null;
-            setWalkCurrentId(eng.currentId);
-          }
-          eng.phase = 'idle';
-          setWalkPhase('idle');
-          return;
-        }
-
-        if (!rightHeld.current) {
-          // Key released — freeze in place, show standing sprite
-          setWalkFrame(0);
-          return;
-        }
-
-        const wp = eng.waypoints[eng.wpIdx];
-        setCharFlowPos({ x: wp.x, y: wp.y - 18 });
-        setWalkFrame(f => (f + 1) % 2);
-        eng.wpIdx++;
-      }
-    }, 90);
-
-    return () => clearInterval(id);
-  }, [walkActive]);
+  const setActiveEdgeList = useCallback((updater: (current: any[]) => any[]) => {
+    setEdges(updater);
+  }, [setEdges]);
 
   const saveHistory = useCallback(() => {
-    setHistory(h => [...h.slice(-29), { nodes, edges }]);
-  }, [nodes, edges]);
+    setHistory(h => [...h.slice(-29), { nodes: activeNodes, edges: activeEdges }]);
+  }, [activeEdges, activeNodes]);
 
   const onNodesChange = useCallback((changes: any[]) => {
     const hasPositionChange = changes.some((change) => change.type === 'position');
-    if (editMode && hasPositionChange && !positionHistoryCapturedRef.current) {
+    if (interactionEditMode && hasPositionChange && !positionHistoryCapturedRef.current) {
       positionHistoryCapturedRef.current = true;
       saveHistory();
     }
@@ -2047,7 +1629,7 @@ export default function App() {
     if (positionSequenceFinished || !hasPositionChange) {
       positionHistoryCapturedRef.current = false;
     }
-  }, [applyNodesChange, editMode, saveHistory]);
+  }, [applyNodesChange, interactionEditMode, saveHistory]);
 
   const toggleDatabaseCollapse = useCallback((id: string) => {
     saveHistory();
@@ -2102,26 +1684,28 @@ export default function App() {
   const onConnect = useCallback(
     (params: any) => {
       saveHistory();
-      setEdges(eds => addEdge(normalizeEdge({
-        ...params,
-        ...defaultEdgeOptions,
-        data: {
-          baseStyle: { ...defaultEdgeOptions.style },
-          baseMarkerEnd: { ...defaultEdgeOptions.markerEnd },
-          edgeStyle: 'solid',
-          pathMode: defaultEdgeOptions.type,
-        },
-      }, nodes), eds));
+      setActiveEdgeList(eds => addEdge(normalizeEdge({
+          ...params,
+          ...defaultEdgeOptions,
+          data: {
+            baseStyle: { ...defaultEdgeOptions.style },
+            baseMarkerEnd: { ...defaultEdgeOptions.markerEnd },
+            edgeStyle: 'solid',
+            pathMode: defaultEdgeOptions.type,
+          },
+        }, activeNodes),
+        eds,
+      ));
     },
-    [nodes, saveHistory, setEdges],
+    [activeNodes, saveHistory, setActiveEdgeList],
   );
 
   const onReconnect = useCallback(
     (oldEdge: any, newConnection: any) => {
       saveHistory();
-      setEdges(eds => reconnectEdge(oldEdge, newConnection, eds));
+      setActiveEdgeList(eds => reconnectEdge(oldEdge, newConnection, eds));
     },
-    [saveHistory, setEdges],
+    [saveHistory, setActiveEdgeList],
   );
 
   const clearGraphFocus = useCallback(() => {
@@ -2133,9 +1717,14 @@ export default function App() {
     setEdges(eds => eds.map(e => applyEdgeVisualState(e, 'base')));
   }, [setEdges, setNodes]);
 
+  const onPaneClick = useCallback(() => {
+    setSelectedElements({ nodes: [], edges: [] });
+    clearGraphFocus();
+  }, [clearGraphFocus]);
+
   const onSelectionChange = useCallback((elements: any) => {
     const filteredElements = {
-      nodes: (elements.nodes || []).filter((n: any) => editMode || (n.type !== 'lane' && n.type !== 'pool')),
+      nodes: (elements.nodes || []).filter((n: any) => n.type !== 'lane' && n.type !== 'pool'),
       edges: elements.edges || [],
     };
     const onlyStructuralSelection =
@@ -2144,7 +1733,7 @@ export default function App() {
       filteredElements.nodes.every((node: any) => node.type === 'lane' || node.type === 'pool');
 
     if (onlyStructuralSelection) {
-      setSelectedElements(editMode ? filteredElements : { nodes: [], edges: [] });
+      setSelectedElements(interactionEditMode ? filteredElements : { nodes: [], edges: [] });
       clearGraphFocus();
       return;
     }
@@ -2184,69 +1773,34 @@ export default function App() {
       return { ...n, data: { ...n.data, edgeHighlighted: highlighted, dimmed } };
     }));
 
-    setEdges(eds => eds.map(e => {
+    setActiveEdgeList(eds => eds.map(e => {
       const mode = hasGraphFocus ? (edgeIds.has(e.id) ? 'highlight' : 'dim') : 'base';
       return applyEdgeVisualState(e, mode);
     }));
-  }, [clearGraphFocus, collectRelatedGraph, editMode, setEdges, setNodes]);
-
-  const onNodeClick = useCallback((_: any, node: any) => {
-    if (!editMode) return;
-    if (node.type !== 'lane' && node.type !== 'pool') return;
-    setSelectedElements({ nodes: [node], edges: [] });
-    clearGraphFocus();
-  }, [clearGraphFocus, editMode]);
-
-  const addNode = (type: string) => {
-    saveHistory();
-    const id = `${type}-${Date.now()}`;
-    setNodes(nds => [...nds, {
-      id, type,
-      position: screenToFlowPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 }),
-      data: {
-        label: type === 'note' ? t('Ny annotation') : `${t('Ny')} ${type}`,
-        lane: type === 'lane' ? undefined : type === 'note' ? 'JumpYard Cloud' : 'Gäst',
-        index: type === 'lane' ? nds.filter(n => n.type === 'lane').length : undefined,
-        height: type === 'lane' ? '200px' : undefined,
-        tone: type === 'note' ? 'info' : undefined,
-        details: type === 'note' ? t('Kort förklaring eller öppet frågetecken.') : undefined,
-      },
-      zIndex: type === 'lane' ? -1 : 0,
-    }]);
-  };
-
-  const addEventNode = (eventType: 'start' | 'end') => {
-    saveHistory();
-    const id = `event-${Date.now()}`;
-    setNodes(nds => [...nds, {
-      id, type: 'event',
-      position: screenToFlowPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 }),
-      data: { label: eventType === 'start' ? t('Start') : t('Slut'), type: eventType, tags: ['main'] },
-    }]);
-  };
+  }, [clearGraphFocus, collectRelatedGraph, interactionEditMode, setActiveEdgeList, setNodes]);
 
   const updateNodeData = (id: string, key: string, value: string) => {
     saveHistory();
-    setNodes(nds => nds.map(n => n.id === id ? { ...n, data: { ...n.data, [key]: value } } : n));
+    setActiveNodeList(nds => nds.map(n => n.id === id ? { ...n, data: { ...n.data, [key]: value } } : n));
   };
 
   const addToNodeArray = (id: string, key: string, value: string) => {
     saveHistory();
-    setNodes(nds => nds.map(n => n.id === id ? {
+    setActiveNodeList(nds => nds.map(n => n.id === id ? {
       ...n, data: { ...n.data, [key]: [...((n.data[key] as string[]) || []), value] }
     } : n));
   };
 
   const removeFromNodeArray = (id: string, key: string, index: number) => {
     saveHistory();
-    setNodes(nds => nds.map(n => n.id === id ? {
+    setActiveNodeList(nds => nds.map(n => n.id === id ? {
       ...n, data: { ...n.data, [key]: ((n.data[key] as string[]) || []).filter((_, i) => i !== index) }
     } : n));
   };
 
   const updateEdgeLabel = (id: string, label: string) => {
     saveHistory();
-    setEdges(eds => eds.map(e => e.id === id ? { ...e, label, labelStyle: { fill: '#fff', fontWeight: 700 }, labelBgStyle: { fill: '#1a1a1a' } } : e));
+    setActiveEdgeList(eds => eds.map(e => e.id === id ? { ...e, label, labelStyle: { fill: '#fff', fontWeight: 700 }, labelBgStyle: { fill: '#1a1a1a' } } : e));
   };
 
   const updateEdgeStyle = (id: string, style: 'solid' | 'dashed' | 'data') => {
@@ -2257,7 +1811,7 @@ export default function App() {
       data:   { color: '#22d3ee', dash: '3,5', w: 1.5 },
     };
     const { color, dash, w } = cfg[style];
-    setEdges(eds => eds.map(e => {
+    setActiveEdgeList(eds => eds.map(e => {
       if (e.id !== id) return e;
       const nextData: any = {
         ...(e.data || {}),
@@ -2271,13 +1825,13 @@ export default function App() {
         ...e,
         data: nextData,
       };
-      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', activeNodes);
     }));
   };
 
   const updateEdgePathMode = (id: string, pathMode: 'smoothstep' | 'step' | 'straight') => {
     saveHistory();
-    setEdges(eds => eds.map(e => {
+    setActiveEdgeList(eds => eds.map(e => {
       if (e.id !== id) return e;
       const updated = {
         ...e,
@@ -2287,26 +1841,26 @@ export default function App() {
           pathMode,
         },
       };
-      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', activeNodes);
     }));
   };
 
   const updateEdgeHandle = (id: string, side: 'sourceHandle' | 'targetHandle', handleId: string) => {
     saveHistory();
-    setEdges(eds => eds.map(e => {
+    setActiveEdgeList(eds => eds.map(e => {
       if (e.id !== id) return e;
       const updated: any = {
         ...e,
         [side]: handleId || undefined,
       };
       if (!handleId) delete updated[side];
-      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', activeNodes);
     }));
   };
 
   const updateEdgeData = (id: string, key: string, value: string) => {
     saveHistory();
-    setEdges(eds => eds.map(e => {
+    setActiveEdgeList(eds => eds.map(e => {
       if (e.id !== id) return e;
       const updated = {
         ...e,
@@ -2315,13 +1869,13 @@ export default function App() {
           [key]: value,
         },
       };
-      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', activeNodes);
     }));
   };
 
   const addToEdgeArray = (id: string, key: string, value: string) => {
     saveHistory();
-    setEdges(eds => eds.map(e => {
+    setActiveEdgeList(eds => eds.map(e => {
       if (e.id !== id) return e;
       const updated = {
         ...e,
@@ -2330,13 +1884,13 @@ export default function App() {
           [key]: [...(((e.data || {})[key] as string[]) || []), value],
         },
       };
-      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', activeNodes);
     }));
   };
 
   const removeFromEdgeArray = (id: string, key: string, index: number) => {
     saveHistory();
-    setEdges(eds => eds.map(e => {
+    setActiveEdgeList(eds => eds.map(e => {
       if (e.id !== id) return e;
       const updated = {
         ...e,
@@ -2345,7 +1899,7 @@ export default function App() {
           [key]: ((((e.data || {})[key] as string[]) || []).filter((_, i) => i !== index)),
         },
       };
-      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', nodes);
+      return applyEdgeVisualState(updated, e.data?.edgeHighlighted ? 'highlight' : e.data?.dimmed ? 'dim' : 'base', activeNodes);
     }));
   };
 
@@ -2353,18 +1907,18 @@ export default function App() {
     saveHistory();
     if (selectedElements.nodes.length > 0) {
       const ids = new Set(selectedElements.nodes.map(n => n.id));
-      setNodes(nds => nds.filter(n => !ids.has(n.id)));
+      setActiveNodeList(nds => nds.filter(n => !ids.has(n.id)));
     }
     if (selectedElements.edges.length > 0) {
       const ids = new Set(selectedElements.edges.map(e => e.id));
-      setEdges(eds => eds.filter(e => !ids.has(e.id)));
+      setActiveEdgeList(eds => eds.filter(e => !ids.has(e.id)));
     }
     setSelectedElements({ nodes: [], edges: [] });
   };
 
   // ── Alignment helpers ──────────────────────────────────────────────────────
   const alignNodes = (type: 'left' | 'centerH' | 'right' | 'top' | 'centerV' | 'bottom') => {
-    const sel = selectedElements.nodes.filter(n => n.type !== 'lane');
+    const sel = selectedElements.nodes.filter(n => n.type !== 'lane' && n.type !== 'pool');
     if (sel.length < 2) return;
     saveHistory();
     const wd = sel.map(n => ({ n, d: getNodeDims(n.type) }));
@@ -2382,7 +1936,7 @@ export default function App() {
     };
     const anchor = anchors[type];
     const selIds = new Set(sel.map(n => n.id));
-    setNodes(nds => nds.map(n => {
+    setActiveNodeList(nds => nds.map(n => {
       if (!selIds.has(n.id)) return n;
       const d = getNodeDims(n.type);
       const p = { ...n.position };
@@ -2397,7 +1951,7 @@ export default function App() {
   };
 
   const distributeNodes = (axis: 'h' | 'v') => {
-    const sel = selectedElements.nodes.filter(n => n.type !== 'lane');
+    const sel = selectedElements.nodes.filter(n => n.type !== 'lane' && n.type !== 'pool');
     if (sel.length < 3) return;
     saveHistory();
     const wd = sel.map(n => ({ n, d: getNodeDims(n.type) }));
@@ -2408,7 +1962,7 @@ export default function App() {
       const gap = (span - totalW) / (sorted.length - 1);
       let x = sorted[0].n.position.x;
       const map = new Map(sorted.map(({ n, d }, i) => { const cx = x; x += d.w + gap; return [n.id, cx]; }));
-      setNodes(nds => nds.map(n => map.has(n.id) ? { ...n, position: { ...n.position, x: map.get(n.id)! } } : n));
+      setActiveNodeList(nds => nds.map(n => map.has(n.id) ? { ...n, position: { ...n.position, x: map.get(n.id)! } } : n));
     } else {
       const sorted = [...wd].sort((a, b) => a.n.position.y - b.n.position.y);
       const span = sorted[sorted.length - 1].n.position.y + sorted[sorted.length - 1].d.h - sorted[0].n.position.y;
@@ -2416,287 +1970,12 @@ export default function App() {
       const gap = (span - totalH) / (sorted.length - 1);
       let y = sorted[0].n.position.y;
       const map = new Map(sorted.map(({ n, d }) => { const cy = y; y += d.h + gap; return [n.id, cy]; }));
-      setNodes(nds => nds.map(n => map.has(n.id) ? { ...n, position: { ...n.position, y: map.get(n.id)! } } : n));
+      setActiveNodeList(nds => nds.map(n => map.has(n.id) ? { ...n, position: { ...n.position, y: map.get(n.id)! } } : n));
     }
   };
 
-  const snapToLane = () => {
-    const sel = selectedElements.nodes.filter(n => n.type !== 'lane');
-    if (sel.length === 0) return;
-    saveHistory();
-    const laneNodes = nodes.filter(n => n.type === 'lane');
-    const selIds = new Set(sel.map(n => n.id));
-    setNodes(nds => nds.map(n => {
-      if (!selIds.has(n.id)) return n;
-      const lane = laneNodes.find(l => l.data.label === n.data.lane);
-      if (!lane) return n;
-      const lh = parseInt(String(lane.data.height || '150'));
-      const nh = getNodeDims(n.type).h;
-      return { ...n, position: { ...n.position, y: lane.position.y + lh / 2 - nh / 2 } };
-    }));
-  };
-
-  const multiSel = selectedElements.nodes.filter(n => n.type !== 'lane');
-
-  // ── Lane manager ─────────────────────────────────────────────────────────────
-  const [lanesPanelOpen, setLanesPanelOpen] = useState(false);
-  const [datakravOpen, setDatakravOpen] = useState(false);
-
-  const sortedLanes = nodes
-    .filter(n => n.type === 'lane')
-    .sort((a, b) => a.position.y - b.position.y);
-
-  const moveLane = (laneId: string, dir: 'up' | 'down') => {
-    const idx = sortedLanes.findIndex(l => l.id === laneId);
-    const swapIdx = dir === 'up' ? idx - 1 : idx + 1;
-    if (swapIdx < 0 || swapIdx >= sortedLanes.length) return;
-    saveHistory();
-    const laneA = sortedLanes[idx];
-    const laneB = sortedLanes[swapIdx];
-    const labelA = String(laneA.data.label);
-    const labelB = String(laneB.data.label);
-    const yA = laneA.position.y, yB = laneB.position.y;
-    setNodes(nds => nds.map(n => {
-      if (n.id === laneA.id) return { ...n, position: { ...n.position, y: yB }, data: { ...n.data, index: swapIdx } };
-      if (n.id === laneB.id) return { ...n, position: { ...n.position, y: yA }, data: { ...n.data, index: idx } };
-      if (n.type !== 'lane' && String(n.data.lane) === labelA) return { ...n, position: { ...n.position, y: n.position.y + (yB - yA) } };
-      if (n.type !== 'lane' && String(n.data.lane) === labelB) return { ...n, position: { ...n.position, y: n.position.y + (yA - yB) } };
-      return n;
-    }));
-  };
-
-  const renameLane = (laneId: string, newName: string) => {
-    const lane = nodes.find(n => n.id === laneId);
-    if (!lane) return;
-    const oldName = String(lane.data.label);
-    setNodes(nds => nds.map(n => {
-      if (n.id === laneId) return { ...n, data: { ...n.data, label: newName } };
-      if (n.type !== 'lane' && String(n.data.lane) === oldName) return { ...n, data: { ...n.data, lane: newName } };
-      return n;
-    }));
-  };
-
-  const addLaneFn = () => {
-    saveHistory();
-    const last = sortedLanes[sortedLanes.length - 1];
-    const newY = last ? last.position.y + parseInt(String(last.data.height || '200')) : 0;
-    const id = `lane-${Date.now()}`;
-    setNodes(nds => [...nds, {
-      id, type: 'lane',
-      position: { x: -100, y: newY },
-      data: { label: 'Ny lane', index: sortedLanes.length, height: '200px', width: '6200px' },
-      selectable: true, draggable: false, zIndex: -1,
-    }]);
-  };
-
-  const deleteLaneFn = (laneId: string) => {
-    if (!confirm(t('Ta bort lane? Noder i lanen finns kvar men utan lane-tillhörighet.'))) return;
-    saveHistory();
-    setNodes(nds => nds.filter(n => n.id !== laneId));
-  };
-
-  // ── Pool management ──────────────────────────────────────────────────────────
-  const POOL_COLORS = ['#ff8e7d', '#6366f1', '#f59e0b', '#22d3ee', '#22c55e', '#ec4899', '#8b5cf6', '#f97316', '#06b6d4', '#84cc16'];
-
-  const sortedPools = nodes
-    .filter(n => n.type === 'pool')
-    .sort((a, b) => a.position.y - b.position.y);
-
-  const addPoolFn = () => {
-    saveHistory();
-    const last = sortedPools[sortedPools.length - 1] ?? sortedLanes[sortedLanes.length - 1];
-    const lastH = (last?.data as any)?.heightPx || parseInt(String((last?.data as any)?.height || '200')) || 200;
-    const newY = last ? last.position.y + lastH + 20 : 0;
-    const usedColors = new Set(sortedPools.map(p => (p.data as any).color));
-    const nextColor = POOL_COLORS.find(c => !usedColors.has(c)) ?? POOL_COLORS[sortedPools.length % POOL_COLORS.length];
-    const id = `pool-${Date.now()}`;
-    setNodes(nds => [...nds, {
-      id, type: 'pool',
-      position: { x: -280, y: newY },
-      data: { label: 'Ny pool', color: nextColor, heightPx: 240, widthPx: 6600 },
-      selectable: false, draggable: false, zIndex: -2,
-    }]);
-  };
-
-  const deletePoolFn = (poolId: string) => {
-    if (!confirm(t('Ta bort pool? Lanes och noder påverkas inte.'))) return;
-    saveHistory();
-    setNodes(nds => nds.filter(n => n.id !== poolId));
-  };
-
-  const renamePoolFn = (poolId: string, newName: string) => {
-    setNodes(nds => nds.map(n => n.id === poolId ? { ...n, data: { ...n.data, label: newName } } : n));
-  };
-
-  const movePool = (poolId: string, dir: 'up' | 'down') => {
-    const sorted = [...nodes].filter(n => n.type === 'pool').sort((a, b) => a.position.y - b.position.y);
-    const idx = sorted.findIndex(p => p.id === poolId);
-    const swapIdx = dir === 'up' ? idx - 1 : idx + 1;
-    if (swapIdx < 0 || swapIdx >= sorted.length) return;
-    saveHistory();
-    const pA = sorted[idx], pB = sorted[swapIdx];
-    const delta = pB.position.y - pA.position.y;
-    const lanesOf = (pool: any) => nodes
-      .filter(n => n.type === 'lane' && n.position.y >= pool.position.y && n.position.y < pool.position.y + ((pool.data as any).heightPx || 300))
-      .map(l => String(l.data.label));
-    const labelsA = new Set(lanesOf(pA));
-    const labelsB = new Set(lanesOf(pB));
-    setNodes(nds => nds.map(n => {
-      if (n.id === pA.id) return { ...n, position: { ...n.position, y: n.position.y + delta } };
-      if (n.id === pB.id) return { ...n, position: { ...n.position, y: n.position.y - delta } };
-      if (n.type === 'lane' && labelsA.has(String(n.data.label))) return { ...n, position: { ...n.position, y: n.position.y + delta } };
-      if (n.type === 'lane' && labelsB.has(String(n.data.label))) return { ...n, position: { ...n.position, y: n.position.y - delta } };
-      if (n.type !== 'lane' && n.type !== 'pool' && labelsA.has(String(n.data.lane))) return { ...n, position: { ...n.position, y: n.position.y + delta } };
-      if (n.type !== 'lane' && n.type !== 'pool' && labelsB.has(String(n.data.lane))) return { ...n, position: { ...n.position, y: n.position.y - delta } };
-      return n;
-    }));
-  };
-
-  const updateLaneHeight = (laneId: string, newHeightPx: number) => {
-    saveHistory();
-    setNodes(nds => {
-      const lane = nds.find(n => n.id === laneId);
-      if (!lane) return nds;
-      const oldH = (lane.data as any).heightPx || parseInt(String((lane.data as any).height || '200')) || 200;
-      const delta = newHeightPx - oldH;
-      if (delta === 0) return nds;
-      const laneY = lane.position.y;
-      return nds.map(n => {
-        if (n.id === laneId) {
-          return { ...n, data: { ...n.data, heightPx: newHeightPx, height: `${newHeightPx}px` } };
-        }
-        // Shift all lanes and nodes below this lane
-        if (n.position.y > laneY && n.type === 'lane') {
-          return { ...n, position: { ...n.position, y: n.position.y + delta } };
-        }
-        if (n.position.y > laneY && n.type !== 'lane' && n.type !== 'pool') {
-          return { ...n, position: { ...n.position, y: n.position.y + delta } };
-        }
-        // Resize pool nodes that contain this lane
-        if (n.type === 'pool') {
-          const poolTop = n.position.y;
-          const poolBot = poolTop + ((n.data as any).heightPx || 300);
-          if (laneY >= poolTop && laneY < poolBot) {
-            return { ...n, data: { ...n.data, heightPx: (n.data as any).heightPx + delta } };
-          }
-          if (n.position.y > laneY) {
-            return { ...n, position: { ...n.position, y: n.position.y + delta } };
-          }
-        }
-        return n;
-      });
-    });
-  };
-
-  // ── Add lane to specific pool ────────────────────────────────────────────────
-  const addLaneToPool = (poolId: string) => {
-    saveHistory();
-    setNodes(nds => {
-      const pool = nds.find(n => n.id === poolId);
-      if (!pool) return nds;
-      const poolLanes = nds
-        .filter(n => n.type === 'lane' && String((n.data as any).poolId) === poolId)
-        .sort((a, b) => a.position.y - b.position.y);
-      const newH = 200;
-      const oldPoolBottom = pool.position.y + ((pool.data as any).heightPx || 300);
-      const insertY = poolLanes.length > 0
-        ? poolLanes[poolLanes.length - 1].position.y + ((poolLanes[poolLanes.length - 1].data as any).heightPx || 200)
-        : pool.position.y + 20;
-      const newIndex = nds.filter(n => n.type === 'lane').length;
-      const newId = `lane-${Date.now()}`;
-      const updated = nds.map(n => {
-        if (n.id === poolId) return { ...n, data: { ...n.data, heightPx: (n.data as any).heightPx + newH } };
-        if (n.id !== poolId && n.position.y >= oldPoolBottom) return { ...n, position: { ...n.position, y: n.position.y + newH } };
-        return n;
-      });
-      return [...updated, {
-        id: newId, type: 'lane',
-        position: { x: -100, y: insertY },
-        data: { label: 'Ny lane', index: newIndex, height: `${newH}px`, width: '6200px', heightPx: newH, poolId },
-        selectable: true, draggable: false, zIndex: -1,
-      }];
-    });
-  };
-
-  // ── Move lane to different pool ───────────────────────────────────────────────
-  const moveLaneToPool = (laneId: string, newPoolId: string) => {
-    saveHistory();
-    setNodes(nds => {
-      const lane = nds.find(n => n.id === laneId);
-      if (!lane) return nds;
-      const oldPoolId = String((lane.data as any).poolId ?? '');
-      if (oldPoolId === newPoolId) return nds;
-      const laneH = (lane.data as any).heightPx || 200;
-      const laneY = lane.position.y;
-      const laneLabel = String(lane.data.label);
-
-      // Pass 1: remove lane from old pool — shift everything strictly below laneY up by laneH
-      const pass1 = nds.map(n => {
-        if (n.id === laneId) return n; // repositioned in pass 2
-        if (n.type !== 'lane' && n.type !== 'pool' && String(n.data.lane) === laneLabel) return n; // tasks follow in pass 2
-        if (n.id === oldPoolId) return { ...n, data: { ...n.data, heightPx: (n.data as any).heightPx - laneH } };
-        if (n.position.y > laneY) return { ...n, position: { ...n.position, y: n.position.y - laneH } };
-        return n;
-      });
-
-      // Pass 2: insert at bottom of new pool
-      const newPoolNode = pass1.find(n => n.id === newPoolId);
-      if (!newPoolNode) return nds;
-      const newPoolBottom = newPoolNode.position.y + ((newPoolNode.data as any).heightPx || 300);
-      const insertY = newPoolBottom;
-      const deltaY = insertY - laneY;
-
-      return pass1.map(n => {
-        if (n.id === laneId) return { ...n, position: { ...n.position, y: insertY }, data: { ...n.data, poolId: newPoolId } };
-        if (n.type !== 'lane' && n.type !== 'pool' && String(n.data.lane) === laneLabel) return { ...n, position: { ...n.position, y: n.position.y + deltaY } };
-        if (n.id === newPoolId) return { ...n, data: { ...n.data, heightPx: (n.data as any).heightPx + laneH } };
-        if (n.position.y >= newPoolBottom) return { ...n, position: { ...n.position, y: n.position.y + laneH } };
-        return n;
-      });
-    });
-  };
-
+  const multiSel = selectedElements.nodes.filter(n => n.type !== 'lane' && n.type !== 'pool');
   // ── Snap guides ─────────────────────────────────────────────────────────────
-
-  // ── Walk key listeners (hold → to walk, single ← to step back) ─────────────
-  useEffect(() => {
-    if (!walkActive) return;
-    const onDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        rightHeld.current = true;
-      }
-      // ← goes back one node per keypress (ignore repeats)
-      if ((e.key === 'ArrowLeft' || e.key === 'ArrowDown') && !e.repeat) {
-        e.preventDefault();
-        const eng = walkEng.current;
-        if (eng.history.length > 0) {
-          // Cancel any in-progress walk
-          eng.phase     = 'idle';
-          eng.waypoints = [];
-          eng.wpIdx     = 0;
-          eng.targetId  = null;
-          eng.currentId = eng.history.pop()!;
-          setWalkPhase('idle');
-          setWalkCurrentId(eng.currentId);
-          const node = nodesRef.current.find(n => n.id === eng.currentId);
-          if (node) {
-            const d = getNodeDims(node.type);
-            setCharFlowPos({ x: node.position.x + d.w / 2, y: node.position.y - 18 });
-          }
-        }
-      }
-    };
-    const onUp = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') rightHeld.current = false;
-    };
-    window.addEventListener('keydown', onDown);
-    window.addEventListener('keyup', onUp);
-    return () => {
-      window.removeEventListener('keydown', onDown);
-      window.removeEventListener('keyup', onUp);
-    };
-  }, [walkActive]);
 
   const edgeStyle: 'solid' | 'dashed' | 'data' = selectedEdge
     ? ((selectedEdge.data as any)?.edgeStyle ??
@@ -2706,26 +1985,13 @@ export default function App() {
     ? (((selectedEdge.data as any)?.pathMode || selectedEdge.type || 'smoothstep') as 'smoothstep' | 'step' | 'straight')
     : 'smoothstep';
 
-  const displayNodes = nodes
-    .filter((node) => {
-      // In pilotresa view, hide teknik-only nodes for clean meeting view
-      if (activeView === 'pilotresa') {
-        const tags: string[] = (node.data as any)?.viewTags ?? deriveViewTags(node);
-        if (tags.length > 0 && !tags.includes('pilotresa')) return false;
-      }
-      return true;
-    })
-    .map((node) => {
-    const data = getProjectedNodeData(node, language) as any;
+  const displayNodes = activeNodes.map((node) => {
+    const data = { ...(getProjectedNodeData(node, language) as any) };
     data.layoutSelected =
-      editMode &&
+      interactionEditMode &&
       selectedElements.edges.length === 0 &&
       selectedElements.nodes.some((selectedNode) => selectedNode.id === node.id && (selectedNode.type === 'lane' || selectedNode.type === 'pool'));
-    data.editMode = editMode;
-    // View-based dimming (alla shows everything at full opacity)
-    if (activeView !== 'alla' && !nodeMatchesView(node, activeView)) {
-      data.dimmed = true;
-    }
+    data.editMode = interactionEditMode;
     if (node.type === 'database') {
       data.onToggleCollapse = () => toggleDatabaseCollapse(node.id);
       data.expandLabel = t('Fäll ut');
@@ -2733,31 +1999,24 @@ export default function App() {
       data.expandHint = t('Visa lagrad data');
     }
     if (node.type === 'pool') {
-      return { ...node, data, draggable: !!data.layoutSelected, selectable: editMode, selected: false, zIndex: -2 };
+      return { ...node, data, draggable: false, selectable: false, selected: false, zIndex: -2 };
     }
     if (node.type === 'lane') {
-      return { ...node, data, draggable: !!data.layoutSelected, selectable: editMode, selected: false, zIndex: -1 };
+      return { ...node, data, draggable: false, selectable: false, selected: false, zIndex: -1 };
     }
-    return { ...node, data, draggable: editMode };
+    if (node.type === 'zone') {
+      return { ...node, data, draggable: false, selectable: false, selected: false, zIndex: node.zIndex ?? -1 };
+    }
+    return { ...node, data, draggable: interactionEditMode };
   });
 
   const displayNodeIds = new Set(displayNodes.map(n => n.id));
-  const displayEdges = edges
-    .filter((edge) => getEdgeCategory(edge) !== 'arch' || activeView === 'teknik' || activeView === 'alla')
+  const displayNodeLookup = new Map<string, any>(activeNodes.map((node) => [node.id, node]));
+  const displayEdges = activeEdges
     .filter((edge) => displayNodeIds.has(edge.source) && displayNodeIds.has(edge.target))
+    .filter((edge) => shouldShowEdgeInSingleView(edge, displayNodeLookup, selectedDataNodeId))
     .map((edge) => {
-      let result = typeof edge.label === 'string' ? { ...edge, label: t(edge.label) } : edge;
-      // Dim edges when any endpoint is outside active view (skip for alla)
-      if (activeView !== 'alla') {
-        const srcNode = nodes.find(n => n.id === edge.source);
-        const tgtNode = nodes.find(n => n.id === edge.target);
-        const srcMatch = srcNode ? nodeMatchesView(srcNode, activeView) : true;
-        const tgtMatch = tgtNode ? nodeMatchesView(tgtNode, activeView) : true;
-        if (!srcMatch || !tgtMatch) {
-          result = { ...result, style: { ...((result as any).style || {}), strokeOpacity: 0.18 }, zIndex: 0 };
-        }
-      }
-      return result;
+      return typeof edge.label === 'string' ? { ...edge, label: t(edge.label) } : edge;
     });
 
   return (
@@ -2765,13 +2024,10 @@ export default function App() {
 
       {/* ── Header ── */}
       <header className="fixed top-0 w-full flex justify-between items-center px-8 h-20 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5 z-50 gap-4">
-        <div className="flex items-center gap-6 min-w-0">
+        <div className="flex items-center gap-5 min-w-0">
           <span className="text-2xl font-black italic epilogue text-white uppercase tracking-widest shrink-0">
             JUMPYARD<span className="text-primary">_BPMN</span>
           </span>
-          <div className="hidden md:block text-[#ff8e7d] font-bold italic epilogue border-b-2 border-[#ff8e7d] pb-1 tracking-tighter whitespace-nowrap">
-            {t('Gemensamt WebApp-flöde')}
-          </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
@@ -2784,62 +2040,30 @@ export default function App() {
             {editMode ? t('Visa') : t('Redigera')}
           </button>
 
-          {editMode && (
+          {interactionEditMode && (
             <button onClick={undo} disabled={history.length === 0} title={t('Ångra (Ctrl+Z)')}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all">
               <Undo2 className="w-3.5 h-3.5" />{t('Ångra')}
             </button>
           )}
 
-          {editMode && (
+          {interactionEditMode && (
             <button onClick={saveAsDefault} title={t('Spara nuläge som ursprungsdata i källkoden')}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all">
               {t('Spara som standard')}
             </button>
           )}
 
-          {editMode && (
+          {interactionEditMode && (
             <button onClick={resetToDefaults} title={t('Återställ till ursprungsdata')}
               className="p-2 rounded border border-white/10 bg-white/5 text-white/40 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/10 transition-all">
               <RotateCcw className="w-3.5 h-3.5" />
             </button>
           )}
 
-          <button
-            onClick={() => {
-              if (walkActive) { setWalkActive(false); setWalkCurrentId(null); setWalkPhase('idle'); }
-              else { setWalkActive(true); }
-            }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded border transition-all ${walkActive ? 'bg-orange-500/20 border-orange-400 text-orange-400' : 'bg-white/5 border-white/10 text-white/60 hover:text-white hover:bg-white/10'}`}
-          >
-            {walkActive ? `⏹ ${t('Stoppa')}` : `▶ ${t('Kör igenom')}`}
-          </button>
-
-          <div className="w-px h-6 bg-white/10 mx-1" />
-
-          <div className="flex items-center gap-0.5 border border-white/10 rounded px-1 py-0.5">
-            {(['pilotresa', 'teknik', 'alla'] as ViewPreset[]).map(preset => (
-              <button
-                key={preset}
-                onClick={() => setActiveView(preset)}
-                className={`px-2 py-1 text-[10px] font-bold rounded transition-all ${
-                  activeView === preset
-                    ? 'bg-primary/20 text-primary'
-                    : 'text-white/40 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                {preset === 'alla' ? (
-                  <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{VIEW_PRESET_LABELS[preset]}</span>
-                ) : VIEW_PRESET_LABELS[preset]}
-              </button>
-            ))}
-          </div>
-
-          <div className="w-px h-6 bg-white/10 mx-1" />
-
           <div className="px-3 py-1 bg-green-500/20 text-green-500 border border-green-500/30 text-[10px] font-bold uppercase tracking-widest rounded flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            {localStorage.getItem(STORAGE_NODES) ? t('Lokalt sparat') : t('Live Draft')}
+            {localStorage.getItem(STORAGE_NODES) ? t('Lokalt sparat') : t('Liveutkast')}
           </div>
           <div className="flex items-center gap-1 border border-white/10 rounded px-1 py-0.5">
             <button
@@ -2866,87 +2090,26 @@ export default function App() {
       {/* ── Selected-edge highlight CSS ── */}
       <style>{`.react-flow__edge.selected .react-flow__edge-path { stroke-width: 3px !important; filter: drop-shadow(0 0 6px rgba(255,255,255,0.32)); }`}</style>
 
-      {/* ── Lanes panel ── */}
-      {editMode && lanesPanelOpen && (
-        <div className="fixed top-20 left-0 right-0 z-40 bg-[#0e0e0e]/95 backdrop-blur-xl border-b border-white/10 shadow-xl">
-          <div className="px-6 py-3 max-w-2xl relative">
-            <button
-              onClick={() => setLanesPanelOpen(false)}
-              className="absolute top-2 right-4 text-white/30 hover:text-white text-lg leading-none px-2 py-1 rounded hover:bg-white/5 transition-all"
-              title={t('Stäng')}
-            >×</button>
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">{t('Lanes')}</span>
-              <button
-                onClick={addLaneFn}
-                className="flex items-center gap-1 px-2 py-1 text-xs font-bold rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all"
-              >
-                + {t('Lägg till lane')}
-              </button>
-            </div>
-            <div className="space-y-1">
-              {sortedLanes.map((lane, idx) => (
-                <LaneRow
-                  key={lane.id}
-                  lane={lane}
-                  isFirst={idx === 0}
-                  isLast={idx === sortedLanes.length - 1}
-                  onMove={(dir) => moveLane(lane.id, dir)}
-                  onRename={(name) => renameLane(lane.id, name)}
-                  onDelete={() => deleteLaneFn(lane.id)}
-                  onResize={(h) => updateLaneHeight(lane.id, h)}
-                  pools={sortedPools}
-                  onMoveToPool={(newPoolId) => moveLaneToPool(lane.id, newPoolId)}
-                  language={language}
-                />
-              ))}
-            </div>
-            {/* Pool management */}
-            <div className="mt-3 pt-3 border-t border-white/10">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">{t('Pooler')}</span>
-                <button
-                  onClick={addPoolFn}
-                  className="flex items-center gap-1 px-2 py-1 text-xs font-bold rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all"
-                >+ {t('Lägg till pool')}</button>
-              </div>
-              <div className="space-y-1">
-                {sortedPools.map((pool, idx) => (
-                  <PoolRow
-                    key={pool.id}
-                    pool={pool}
-                    isFirst={idx === 0}
-                    isLast={idx === sortedPools.length - 1}
-                    onMove={(dir) => movePool(pool.id, dir)}
-                    onRename={name => renamePoolFn(pool.id, name)}
-                    onDelete={() => deletePoolFn(pool.id)}
-                    onAddLane={() => addLaneToPool(pool.id)}
-                    language={language}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       <div
         className="flex-1 relative flex"
-        style={{ marginTop: editMode && lanesPanelOpen ? `calc(5rem + ${44 + sortedLanes.length * 40 + 44 + sortedPools.length * 36}px)` : '5rem' }}
+        style={{ marginTop: '5rem' }}
       >
         <div className="flex-1 relative" ref={flowRef}>
           <ReactFlow
+            key="process"
             nodes={displayNodes} edges={displayEdges}
-            onNodesChange={onNodesChange} onEdgesChange={onEdgesChange}
-            onConnect={onConnect} onSelectionChange={onSelectionChange}
-            onNodeClick={onNodeClick}
-            onReconnect={editMode ? onReconnect : undefined}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={interactionEditMode ? onConnect : undefined}
+            onSelectionChange={onSelectionChange}
+            onPaneClick={onPaneClick}
+            onReconnect={interactionEditMode ? onReconnect : undefined}
 
             nodeTypes={nodeTypes} defaultEdgeOptions={defaultEdgeOptions}
             connectionMode={ConnectionMode.Loose}
-            nodesDraggable={editMode} nodesConnectable={editMode}
-            edgesFocusable={editMode} edgesUpdatable={editMode}
-            deleteKeyCode={editMode ? ['Delete', 'Backspace'] : []}
+            nodesDraggable={interactionEditMode} nodesConnectable={interactionEditMode}
+            edgesFocusable={interactionEditMode} edgesUpdatable={interactionEditMode}
+            deleteKeyCode={interactionEditMode ? ['Delete', 'Backspace'] : []}
             elementsSelectable={true}
             multiSelectionKeyCode={['Control', 'Meta']}
             selectionKeyCode={null}
@@ -2956,31 +2119,6 @@ export default function App() {
           >
             <Background color="#9a9a9a" gap={20} size={1.5} opacity={0.25} />
             <Controls className="bg-[#1a1a1a] border-white/10 fill-white" showInteractive={false} />
-            <ViewportTracker onUpdate={onViewportUpdate} />
-
-            {editMode && (
-              <Panel position="top-left" className="bg-[#1a1a1a] p-2 rounded-lg border border-white/10 shadow-xl m-4 flex gap-2 flex-wrap">
-                <button onClick={() => addEventNode('start')} className="px-3 py-1.5 bg-green-500/10 hover:bg-green-500/20 text-green-400 border border-green-500/30 text-xs font-bold rounded transition-colors">● {t('Start')}</button>
-                <button onClick={() => addEventNode('end')}   className="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-bold rounded transition-colors">● {t('Slut')}</button>
-                <div className="w-px bg-white/10 self-stretch mx-1" />
-                <button onClick={() => addNode('task')}     className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ {t('Task')}</button>
-                <button onClick={() => addNode('gateway')}  className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ {t('Gateway')}</button>
-                <button onClick={() => addNode('database')} className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ {t('DB')}</button>
-                <button onClick={() => addNode('note')}     className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded transition-colors">+ {t('Note')}</button>
-                <button
-                  onClick={() => setLanesPanelOpen(v => !v)}
-                  className={`px-3 py-1.5 text-xs font-bold rounded transition-colors border ${lanesPanelOpen ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 hover:bg-white/10 text-white'}`}
-                >☰ {t('Lanes')}</button>
-                <button
-                  onClick={() => setDatakravOpen(v => !v)}
-                  className={`px-3 py-1.5 text-xs font-bold rounded transition-colors border ${datakravOpen ? 'bg-[#ff8e7d]/20 border-[#ff8e7d] text-[#ff8e7d]' : 'bg-white/5 border-white/10 hover:bg-white/10 text-white'}`}
-                >⚡ {t('Arkitektur / Ops')}</button>
-              </Panel>
-            )}
-
-            <Panel position="bottom-left" className="m-4">
-              <Legend activeView={activeView} />
-            </Panel>
 
             <MiniMap
               nodeColor={node => {
@@ -3004,143 +2142,6 @@ export default function App() {
             />
 
           </ReactFlow>
-
-
-          {walkActive && (() => {
-            const talkNode = walkPhase === 'idle' ? nodes.find(n => n.id === walkCurrentId) : null;
-            const talkNodeData = talkNode ? localizeValue(talkNode.data, language) : null;
-            const charX = charFlowPos.x * viewport.zoom + viewport.x;
-            const charY = charFlowPos.y * viewport.zoom + viewport.y;
-            return (
-              <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 50 }}>
-                <div className="absolute" style={{ left: charX, top: charY, transform: 'translateX(-50%) translateY(-100%)' }}>
-                  {talkNode && (
-                    <div className="relative mb-2 w-52 bg-white text-gray-900 rounded-xl shadow-2xl border border-gray-100 p-3 text-xs">
-                      <div className="font-black text-[10px] uppercase tracking-wider mb-1.5" style={{ color: '#ff8e7d' }}>
-                        {String(talkNodeData?.label)}
-                      </div>
-                      <div className="text-gray-700 leading-relaxed">
-                        {String((talkNodeData as any)?.details || (talkNodeData as any)?.note || talkNodeData?.label)}
-                      </div>
-                      <div className="absolute top-full left-1/2 -translate-x-1/2"
-                        style={{ width: 0, height: 0, borderLeft: '7px solid transparent', borderRight: '7px solid transparent', borderTop: '7px solid white' }} />
-                    </div>
-                  )}
-                  <div className="flex justify-center">
-                    <PixelChar frame={walkPhase === 'walking' ? WALK_FRAMES[walkFrame] : SPRITE_STAND} />
-                  </div>
-                  {false && (
-                  <>
-                  <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Routing')}</label>
-                    <div className="grid grid-cols-3 gap-1">
-                      <button
-                        onClick={() => updateEdgePathMode(selectedEdge.id, 'smoothstep')}
-                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'smoothstep' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
-                      >
-                        Smooth
-                      </button>
-                      <button
-                        onClick={() => updateEdgePathMode(selectedEdge.id, 'step')}
-                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'step' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
-                      >
-                        Step
-                      </button>
-                      <button
-                        onClick={() => updateEdgePathMode(selectedEdge.id, 'straight')}
-                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'straight' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
-                      >
-                        Straight
-                      </button>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Från handle')}</label>
-                      <select
-                        value={selectedEdge.sourceHandle || ''}
-                        onChange={e => updateEdgeHandle(selectedEdge.id, 'sourceHandle', e.target.value)}
-                        className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
-                      >
-                        {getHandleOptionsForNode(selectedEdgeSourceNode).map((option) => (
-                          <option key={option.value || 'auto'} value={option.value}>{option.label}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div>
-                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Till handle')}</label>
-                      <select
-                        value={selectedEdge.targetHandle || ''}
-                        onChange={e => updateEdgeHandle(selectedEdge.id, 'targetHandle', e.target.value)}
-                        className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
-                      >
-                        {getHandleOptionsForNode(selectedEdgeTargetNode).map((option) => (
-                          <option key={option.value || 'auto'} value={option.value}>{option.label}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Routing')}</label>
-                    <div className="grid grid-cols-3 gap-1">
-                      <button
-                        onClick={() => updateEdgePathMode(selectedEdge.id, 'smoothstep')}
-                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'smoothstep' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
-                      >
-                        Smooth
-                      </button>
-                      <button
-                        onClick={() => updateEdgePathMode(selectedEdge.id, 'step')}
-                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'step' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
-                      >
-                        Step
-                      </button>
-                      <button
-                        onClick={() => updateEdgePathMode(selectedEdge.id, 'straight')}
-                        className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'straight' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
-                      >
-                        Straight
-                      </button>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Från handle')}</label>
-                      <select
-                        value={selectedEdge.sourceHandle || ''}
-                        onChange={e => updateEdgeHandle(selectedEdge.id, 'sourceHandle', e.target.value)}
-                        className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
-                      >
-                        {getHandleOptionsForNode(selectedEdgeSourceNode).map((option) => (
-                          <option key={option.value || 'auto'} value={option.value}>{option.label}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div>
-                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Till handle')}</label>
-                      <select
-                        value={selectedEdge.targetHandle || ''}
-                        onChange={e => updateEdgeHandle(selectedEdge.id, 'targetHandle', e.target.value)}
-                        className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
-                      >
-                        {getHandleOptionsForNode(selectedEdgeTargetNode).map((option) => (
-                          <option key={option.value || 'auto'} value={option.value}>{option.label}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  </>
-                  )}
-                </div>
-                {/* Hint overlay */}
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 items-center">
-                  <div className="bg-black/70 text-white/60 text-[10px] font-bold px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-sm">
-                    {t('Håll')} <kbd className="text-white">→</kbd> {t('för att gå')} · <kbd className="text-white">←</kbd> {t('för att backa')}
-                  </div>
-                </div>
-              </div>
-            );
-          })()}
         </div>
 
         {/* ── Detail / Inspector Panel ── */}
@@ -3161,7 +2162,7 @@ export default function App() {
             <div className="p-6 space-y-5">
 
               {/* ── Alignment toolbar (multi-select) ── */}
-              {editMode && multiSel.length >= 2 && (
+              {interactionEditMode && multiSel.length >= 2 && (
                 <div className="pb-4 border-b border-white/5 space-y-3">
                   <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">
                     {`${t('Justera')} (${multiSel.length} ${t('markerade')})`}
@@ -3191,7 +2192,7 @@ export default function App() {
                     ))}
                   </div>
 
-                  {/* Distribute + snap */}
+                  {/* Distribute */}
                   <div className="grid grid-cols-2 gap-1">
                     <button onClick={() => distributeNodes('h')} disabled={multiSel.length < 3}
                       title={t('Fördela jämnt horisontellt')}
@@ -3204,18 +2205,13 @@ export default function App() {
                       {t('Fördela ↕')}
                     </button>
                   </div>
-                  <button onClick={snapToLane}
-                    title={t('Centrera markerade noder vertikalt i sin lane')}
-                    className="w-full py-1.5 text-xs font-bold bg-white/5 hover:bg-white/15 text-white/60 hover:text-white rounded border border-white/10 transition-colors">
-                    {t('Centrera i lane ↕')}
-                  </button>
                 </div>
               )}
 
               {/* ── Label / lane edit ── */}
               {(selectedEdge || selectedNodeViewData) && (
                 <div className="space-y-4 pb-4 border-b border-white/5">
-                  {editMode && (
+                  {interactionEditMode && (
                     <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">{t('Lokaliserad förhandsvisning')}</p>
                   )}
                   {selectedEdge && (
@@ -3225,39 +2221,24 @@ export default function App() {
                 </div>
               )}
 
-              {editMode && selectedNode && (
+              {interactionEditMode && selectedNode && (
                 <div className="space-y-3 pb-4 border-b border-white/5">
                   <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">{t('Redigera')}</p>
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Label')}</label>
+                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Etikett')}</label>
                     <input type="text" value={selectedNode.data.label || ''}
                       onChange={e => updateNodeData(selectedNode.id, 'label', e.target.value)}
                       className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none" />
                   </div>
-                  {selectedNode.type !== 'lane' && (
-                    <div>
-                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Lane')}</label>
-                      <select
-                        value={String(selectedNode.data.lane || '')}
-                        onChange={e => updateNodeData(selectedNode.id, 'lane', e.target.value)}
-                        className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none"
-                      >
-                        <option value="">{t('— välj lane —')}</option>
-                        {nodes.filter(n => n.type === 'lane').map(l => (
-                          <option key={l.id} value={String(l.data.label)}>{t(String(l.data.label))}</option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
                 </div>
               )}
 
               {/* ── Edge edit ── */}
-              {editMode && selectedEdge && (
+              {interactionEditMode && selectedEdge && (
                 <div className="space-y-3 pb-4 border-b border-white/5">
                   <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">{t('Redigera kant')}</p>
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Label')}</label>
+                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Etikett')}</label>
                     <input type="text" value={typeof selectedEdge.label === 'string' ? selectedEdge.label : ''}
                       onChange={e => updateEdgeLabel(selectedEdge.id, e.target.value)}
                       className="w-full text-sm text-white bg-[#1a1a1a] p-2 rounded border border-white/10 focus:border-primary outline-none" />
@@ -3271,7 +2252,7 @@ export default function App() {
                       </button>
                       <button onClick={() => updateEdgeStyle(selectedEdge.id, 'dashed')}
                         className={`py-1.5 text-xs font-bold rounded border transition-all ${edgeStyle === 'dashed' ? 'bg-[#8b5cf6]/20 border-[#8b5cf6] text-[#8b5cf6]' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}>
-                        - -<br/><span className="text-[9px]">{t('Fallback')}</span>
+                        - -<br/><span className="text-[9px]">{t('Reserv')}</span>
                       </button>
                       <button onClick={() => updateEdgeStyle(selectedEdge.id, 'data')}
                         className={`py-1.5 text-xs font-bold rounded border transition-all ${edgeStyle === 'data' ? 'bg-cyan-500/20 border-cyan-400 text-cyan-400' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}>
@@ -3318,7 +2299,7 @@ export default function App() {
               )}
 
               {/* ── Editable metadata (edit mode) ── */}
-              {editMode && selectedNode && selectedNode.type !== 'lane' && (
+              {interactionEditMode && selectedNode && selectedNode.type !== 'lane' && selectedNode.type !== 'pool' && (
                 <div className="space-y-4 pt-1 border-t border-white/5">
                   <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">{t('Metadata')}</p>
 
@@ -3348,8 +2329,8 @@ export default function App() {
                       <div className="grid grid-cols-4 gap-1">
                         {[
                           ['guide', 'Guide'],
-                          ['info', 'Cloud'],
-                          ['warning', 'Fraga'],
+                          ['info', 'Moln'],
+                          ['warning', 'Fråga'],
                           ['system', 'System'],
                         ].map(([tone, label]) => (
                           <button
@@ -3405,7 +2386,7 @@ export default function App() {
               )}
 
               {/* ── Delete ── */}
-              {editMode && (
+              {interactionEditMode && (
                 <div className="pt-2 border-t border-white/5">
                   <button onClick={deleteSelected}
                     className="w-full py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/30 text-xs font-bold rounded transition-colors">
@@ -3418,36 +2399,36 @@ export default function App() {
         )}
       </div>
 
-      {false && editMode && selectedEdge && (
+      {interactionEditMode && selectedEdge && (
         <div className="fixed right-[21rem] top-24 z-40 w-72 rounded-xl border border-white/10 bg-[#111111]/96 p-4 shadow-2xl backdrop-blur-xl">
-          <div className="text-[10px] font-black uppercase tracking-widest text-primary/70">{t('Pilar & routing')}</div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-primary/70">{t('Pilar och ruttning')}</div>
           <div className="mt-3 space-y-3">
             <div>
-              <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Routing')}</label>
+              <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Ruttning')}</label>
               <div className="grid grid-cols-3 gap-1">
                 <button
                   onClick={() => updateEdgePathMode(selectedEdge.id, 'smoothstep')}
                   className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'smoothstep' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
                 >
-                  {t('Smooth')}
+                  {t('Mjuk')}
                 </button>
                 <button
                   onClick={() => updateEdgePathMode(selectedEdge.id, 'step')}
                   className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'step' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
                 >
-                  {t('Step')}
+                  {t('Stegad')}
                 </button>
                 <button
                   onClick={() => updateEdgePathMode(selectedEdge.id, 'straight')}
                   className={`py-1.5 text-xs font-bold rounded border transition-all ${edgePathMode === 'straight' ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
                 >
-                  {t('Straight')}
+                  {t('Rak')}
                 </button>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Från handle')}</label>
+                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Från fäste')}</label>
                 <select
                   value={selectedEdge.sourceHandle || ''}
                   onChange={e => updateEdgeHandle(selectedEdge.id, 'sourceHandle', e.target.value)}
@@ -3459,7 +2440,7 @@ export default function App() {
                 </select>
               </div>
               <div>
-                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Till handle')}</label>
+                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-1">{t('Till fäste')}</label>
                 <select
                   value={selectedEdge.targetHandle || ''}
                   onChange={e => updateEdgeHandle(selectedEdge.id, 'targetHandle', e.target.value)}
@@ -3472,13 +2453,12 @@ export default function App() {
               </div>
             </div>
             <div className="text-[10px] leading-relaxed text-white/45">
-              {t('Tips: välj annan handle eller routingtyp för att styra hur pilen lämnar och går in i noderna.')}
+              {t('Tips: välj annat fäste eller ruttningstyp för att styra hur pilen lämnar och går in i noderna.')}
             </div>
           </div>
         </div>
       )}
 
-      {datakravOpen && <ArchitecturePanel onClose={() => setDatakravOpen(false)} language={language} nodes={nodes} />}
     </div>
   );
 }
