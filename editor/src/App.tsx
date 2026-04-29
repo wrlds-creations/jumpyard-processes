@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
-import { Undo2, RotateCcw, Eye, Pencil, Download } from 'lucide-react';
+import { ChevronDown, ChevronUp, Undo2, RotateCcw, Eye, Pencil, Download } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 import {
@@ -158,6 +158,7 @@ const TaskNode = ({ data }: any) => {
 
 function getApiStatusClass(status?: string) {
   if (status === 'confirmed') return 'border-emerald-400/30 bg-emerald-500/15 text-emerald-200';
+  if (status === 'workaround') return 'border-emerald-300/25 bg-emerald-500/10 text-emerald-100';
   if (status === 'limited') return 'border-amber-400/35 bg-amber-500/15 text-amber-200';
   if (status === 'open') return 'border-yellow-300/35 bg-yellow-400/15 text-yellow-100';
   if (status === 'not-v1') return 'border-slate-300/25 bg-slate-400/12 text-slate-200';
@@ -502,7 +503,6 @@ const nodeTypes = { task: TaskNode, service: ServiceNode, gateway: GatewayNode, 
 type RollerApiReference = {
   name: string;
   docUrl?: string;
-  docLabel?: string;
   docStatus?: 'official' | 'confirm';
   note?: string;
 };
@@ -511,8 +511,8 @@ const ROLLER_API_STAGE_MAP = [
   {
     priority: 'KRITISK',
     stage: 'Ny bokning på plats',
-    endpoints: ['Hämta produkttillgänglighet', 'Beräkna bokningskostnad', 'Skapa utkastbokning', 'Publicera utkastbokning'],
-    desc: 'Starttid väljs först. Cloud hämtar tillgänglighet, räknar slutpris, skapar utkast och publicerar efter godkänd betalning.',
+    endpoints: ['Hämta produkttillgänglighet', 'Beräkna bokningskostnad', 'Skapa utkastbokning', 'Publicera utkastbokning', 'Presentkort som betalmedel'],
+    desc: 'Starttid väljs först. Cloud hämtar tillgänglighet, räknar slutpris, skapar utkast och publicerar efter godkänd betalning. Presentkort används som betalmedel i utkastflödet.',
   },
   {
     priority: 'KRITISK',
@@ -533,51 +533,47 @@ const ROLLER_API_STAGE_MAP = [
     desc: 'Roller-inlösen gäller bara biljetter och sessionprodukter. Lagerartiklar och tillägg lämnas ut via Cloud-rättigheter.',
   },
   {
-    priority: 'GUL',
-    stage: 'Öppna förtydliganden',
+    priority: 'WORKAROUND',
+    stage: 'Bekräftat med workaround',
     endpoints: ['Retur från betalningslänk', 'Stöd för befintliga bokningar', 'Flerbesök tillfälligt'],
-    desc: 'Dessa ska vara gula i leverabeln tills Roller bekräftat exakt beteende för pilotens mönster.',
+    desc: 'Flödena är användbara i V1, men exakt retur, stöd för betalmedel och livebalans hålls som under utredning tills Roller slutbekräftat detaljerna.',
   },
 ] as const;
 
 const ROLLER_API_REFERENCES: Record<string, RollerApiReference> = {
   'Sök bokningar': {
     name: 'Sök bokningar',
-    docUrl: 'https://docs.roller.app/docs/roller-api/15e02538d6f25-get-bookings',
-    docLabel: 'Dokumentation',
+    docUrl: 'https://docs.roller.app/docs/rest-api/fbb465d1ed24d-search-for-bookings',
     docStatus: 'official',
   },
   'Hämta bokningsdetalj': {
     name: 'Hämta bokningsdetalj',
     docUrl: 'https://docs.roller.app/docs/rest-api/olt8a8nxs75ev',
-    docLabel: 'Dokumentation',
     docStatus: 'official',
   },
   'Hämta produkttillgänglighet': {
     name: 'Hämta produkttillgänglighet',
-    docStatus: 'confirm',
-    note: 'Exakt Roller-doklänk bekräftas i pilotunderlaget',
+    docUrl: 'https://docs.roller.app/docs/rest-api/efb9788ea3808',
+    docStatus: 'official',
   },
   'Beräkna bokningskostnad': {
     name: 'Beräkna bokningskostnad',
     docUrl: 'https://docs.roller.app/docs/rest-api/branches/main/62e21c34b7ef3',
-    docLabel: 'Dokumentation',
     docStatus: 'official',
   },
   'Skapa utkastbokning': {
     name: 'Skapa utkastbokning',
-    docStatus: 'confirm',
-    note: 'Bekräftad av Roller, doklänk kopplas när den finns i workspace',
+    docUrl: 'https://docs.roller.app/docs/rest-api/516f25029993a',
+    docStatus: 'official',
   },
   'Publicera utkastbokning': {
     name: 'Publicera utkastbokning',
-    docStatus: 'confirm',
-    note: 'Bekräftad av Roller, doklänk kopplas när den finns i workspace',
+    docUrl: 'https://docs.roller.app/docs/rest-api/130004f5ad82e-publish-draft-booking-no-payment',
+    docStatus: 'official',
   },
   'Uppdatera bokning': {
     name: 'Uppdatera bokning',
-    docUrl: 'https://docs.roller.app/docs/rest-api/v4mzj4t4erwa9-update-a-booking',
-    docLabel: 'Dokumentation',
+    docUrl: 'https://docs.roller.app/docs/rest-api/v4mzj4t4erwa9',
     docStatus: 'official',
   },
   'Skapa betalningslänk': {
@@ -590,10 +586,16 @@ const ROLLER_API_REFERENCES: Record<string, RollerApiReference> = {
     docStatus: 'confirm',
     note: 'Behövs för utgångstid och övergiven betalningslänk',
   },
+  'Presentkort som betalmedel': {
+    name: 'Presentkort som betalmedel',
+    docUrl: 'https://docs.roller.app/docs/rest-api/15x291npk7c3d-checkout-workflow',
+    docStatus: 'official',
+    note: 'Befintliga presentkort kan användas som betalmedel i ny utkastbokning; skapa/admin av presentkort är inte V1.',
+  },
   'Retur-URL från betalningslänk': {
     name: 'Retur-URL från betalningslänk',
     docStatus: 'confirm',
-    note: 'Gul punkt: exakt retur till PWA ska slutbekräftas',
+    note: 'Under utredning: exakt retur till webbappen efter lyckad eller avbruten betalning ska slutbekräftas',
   },
   'Avbryt eller släpp utkastbokning': {
     name: 'Avbryt eller släpp utkastbokning',
@@ -602,37 +604,56 @@ const ROLLER_API_REFERENCES: Record<string, RollerApiReference> = {
   },
   'Bokningswebhook under dagen': {
     name: 'Bokningswebhook under dagen',
-    docUrl: 'https://docs.roller.app/docs/rest-api/3a934c551891e-create-webhook',
-    docLabel: 'Dokumentation',
+    docUrl: 'https://docs.roller.app/docs/webhooks/1tjb4whgq33f0-booking-webhook',
     docStatus: 'official',
   },
   'Lös in biljetter': {
     name: 'Lös in biljetter',
     docUrl: 'https://docs.roller.app/docs/rest-api/fb1d84952285f-redeem-tickets',
-    docLabel: 'Dokumentation',
     docStatus: 'official',
   },
   'Inlösenhändelse': {
     name: 'Inlösenhändelse',
-    docUrl: 'https://docs.roller.app/docs/rest-api/3a934c551891e-create-webhook',
-    docLabel: 'Dokumentation',
+    docUrl: 'https://docs.roller.app/docs/webhooks/c9ntvneweithh-redemption-webhook',
     docStatus: 'official',
   },
   'Retur från betalningslänk': {
     name: 'Retur från betalningslänk',
     docStatus: 'confirm',
-    note: 'Gul punkt: bekräfta retur till webbappen',
+    note: 'Under utredning: bekräfta exakt retur till webbappen efter hosted payment',
   },
   'Stöd för befintliga bokningar': {
     name: 'Stöd för befintliga bokningar',
     docStatus: 'confirm',
-    note: 'Gul punkt: presentkort, medlemskod och flerbesök per betalningsmönster',
+    note: 'Bekräftat med workaround: betalningslänk för samma bokningskod; stöd för betalmedel per betalningsmönster är under utredning',
   },
   'Flerbesök tillfälligt': {
     name: 'Flerbesök tillfälligt',
+    docUrl: 'https://docs.roller.app/docs/webhooks/c9ntvneweithh-redemption-webhook',
     docStatus: 'confirm',
-    note: 'Cloud-status tills Roller har dedikerad slutpunkt',
+    note: 'Bekräftat med workaround: Cloud håller interim status från inlösenhändelser tills Roller har dedikerad slutpunkt',
   },
+};
+
+const ROLLER_API_REFERENCE_ALIASES: Record<string, string> = {
+  'Search for Bookings / GET /bookings': 'Sök bokningar',
+  'Get Detail of a Booking / GET /bookings/{uniqueId}': 'Hämta bokningsdetalj',
+  'Booking Webhook med include.payments: true': 'Bokningswebhook under dagen',
+  'Get Product Availability / REST API': 'Hämta produkttillgänglighet',
+  'Booking Costs / REST API': 'Beräkna bokningskostnad',
+  'Create Draft Booking / REST API': 'Skapa utkastbokning',
+  'ROLLER Payments / Adyen': 'Presentkort som betalmedel',
+  'Publish Draft Booking / confirm': 'Publicera utkastbokning',
+  'Publish Draft Booking (No Payment)': 'Publicera utkastbokning',
+  'Presentkort som betalmedel i ny utkastbokning': 'Presentkort som betalmedel',
+  'Cancel/release Draft Booking vid timeout eller avbrott': 'Avbryt eller släpp utkastbokning',
+  'Update a Booking / REST API': 'Uppdatera bokning',
+  'Create Payment Link / POST /bookings/{uniqueId}/payments/links': 'Skapa betalningslänk',
+  'Cancel Payment Link / DELETE': 'Avbryt betalningslänk',
+  'Redeem Tickets': 'Lös in biljetter',
+  'Redemption Webhook': 'Inlösenhändelse',
+  'Redemption Webhook för interim multi-visit state': 'Inlösenhändelse',
+  'Membership state på ticket records i GET /bookings/{uniqueId}': 'Hämta bokningsdetalj',
 };
 
 // ─── Array field editor ───────────────────────────────────────────────────────
@@ -673,27 +694,30 @@ function ArrayField({ label, items, onAdd, onRemove, placeholder }: {
 // ─── Read-only metadata ───────────────────────────────────────────────────────
 
 function getRollerApiReference(endpoint: string): RollerApiReference {
-  const reference = ROLLER_API_REFERENCES[endpoint];
+  const referenceKey = ROLLER_API_REFERENCE_ALIASES[endpoint] || endpoint;
+  const reference = ROLLER_API_REFERENCES[referenceKey];
   return reference ? { ...reference, name: endpoint } : { name: endpoint };
 }
 
-function EndpointReferenceList({
-  label,
+function ApiEndpointList({
+  apiPoints,
   endpoints,
   language,
 }: {
-  label: string;
+  apiPoints?: string[];
   endpoints?: string[];
   language: Language;
 }) {
   const t = (value: string) => translateText(value, language);
-  if (!endpoints?.length) return null;
+  const items = (apiPoints?.length ? apiPoints : endpoints || [])
+    .filter((item, index, list) => item && list.indexOf(item) === index);
+  if (!items.length) return null;
 
   return (
     <div>
-      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t(label)}</label>
+      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('API-slutpunkter')}</label>
       <div className="space-y-2">
-        {endpoints.map((endpoint) => {
+        {items.map((endpoint) => {
           const ref = getRollerApiReference(endpoint);
           return (
             <div key={endpoint} className="rounded border border-cyan-400/18 bg-cyan-500/8 px-3 py-2">
@@ -705,11 +729,14 @@ function EndpointReferenceList({
                   rel="noreferrer"
                   className="mt-1 inline-flex text-[10px] font-bold text-cyan-300 underline underline-offset-2 hover:text-cyan-200"
                 >
-                  {t(ref.docLabel || 'Dokumentation')}
+                  {t('Öppna länk')}
                 </a>
               ) : null}
               {!ref.docUrl && ref.docStatus === 'confirm' && (
                 <div className="mt-1 text-[10px] text-amber-200/85">{t(ref.note || 'Doklänk att bekräfta')}</div>
+              )}
+              {!ref.docUrl && ref.docStatus !== 'confirm' && (
+                <div className="mt-1 text-[10px] text-amber-200/85">{t('Under utredning: länk saknas i underlaget.')}</div>
               )}
             </div>
           );
@@ -757,7 +784,7 @@ function NodeMeta({ data, language }: { data: any; language: Language }) {
           <p className="text-xs text-white/70 leading-relaxed whitespace-pre-line">{data.details || data.note}</p>
         </div>
       )}
-      {renderList('API-punkt / endpoint', data.apiPoints, 'info')}
+      <ApiEndpointList apiPoints={data.apiPoints} endpoints={data.endpoints} language={language} />
       {renderList('Roller har bekräftat', data.confirmedByRoller)}
       {renderList('JumpYard hanterar', data.jumpyardHandling, 'info')}
       {renderList('Begränsning / risk', data.limitations, 'warning')}
@@ -823,7 +850,6 @@ function NodeMeta({ data, language }: { data: any; language: Language }) {
       {renderList('Ägd status', data.ownedState)}
       {renderList('Används av', data.usedBy)}
       {renderList('Jobb', data.jobs)}
-      <EndpointReferenceList label="API-slutpunkter" endpoints={data.endpoints} language={language} />
       {data.contains?.length > 0 && (
         <div>
           <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest block mb-2">{t('Lagrar')}</label>
@@ -1091,10 +1117,12 @@ function sanitizeEdgeForStorage(edge: any, nodesOrLookup?: any[] | Map<string, a
 
 // ─── Persistence ──────────────────────────────────────────────────────────────
 
-const FLOW_SCHEMA_VERSION = '2026-04-svensk-roller-v8-webhook-payment-links';
+const FLOW_SCHEMA_VERSION = '2026-04-svensk-roller-v9-api-status-copy';
 const STORAGE_NODES = `jy-bpmn-nodes:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_EDGES = `jy-bpmn-edges:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_LANGUAGE = 'jy-bpmn-language';
+
+const REMOVED_NODE_IDS = new Set(['roller-not-v1']);
 
 function hasCurrentDatabaseLaneModel(nodes: any[], edges?: any[]) {
   const nodeLookup = new Map(nodes.map((node) => [node.id, node]));
@@ -1117,7 +1145,6 @@ function hasCurrentDatabaseLaneModel(nodes: any[], edges?: any[]) {
     ['cloud-publish', 'Driftjobb'],
     ['job-ticket-redeem', 'Driftjobb'],
     ['roller-membership-multipass', 'Roller API'],
-    ['roller-not-v1', 'Roller API'],
   ];
 
   const requiredNodesOk = requiredNodes.every(([id, lane]) => laneOf(id) === lane);
@@ -1130,14 +1157,86 @@ function hasCurrentDatabaseLaneModel(nodes: any[], edges?: any[]) {
   });
 }
 
+const CANONICAL_ROLLER_METADATA_NODE_IDS = new Set([
+  'job-webhook',
+  'roller-webhook',
+  'roller-availability',
+  'roller-costs',
+  'roller-draft',
+  'roller-payment-link',
+  'roller-membership-multipass',
+]);
+
+const CANONICAL_ROLLER_METADATA_FIELDS = [
+  'label',
+  'details',
+  'endpoints',
+  'apiStatus',
+  'apiStatusLabel',
+  'apiPoints',
+  'confirmedByRoller',
+  'jumpyardHandling',
+  'limitations',
+  'sources',
+];
+
+function syncCanonicalRollerMetadata(nodes: any[]) {
+  const canonicalById = new Map(pilotNodes.map((node: any) => [node.id, node]));
+  return nodes.map((node: any) => {
+    if (!CANONICAL_ROLLER_METADATA_NODE_IDS.has(node.id)) return node;
+    const canonical = canonicalById.get(node.id);
+    if (!canonical?.data) return node;
+    const data = { ...node.data };
+    for (const field of CANONICAL_ROLLER_METADATA_FIELDS) {
+      if (field in canonical.data) data[field] = canonical.data[field];
+    }
+    return { ...node, data };
+  });
+}
+
+const RED_FALLBACK_EDGE_STYLE = {
+  strokeWidth: 2,
+  stroke: '#ef4444',
+  strokeDasharray: '7 5',
+};
+
+const RED_FALLBACK_MARKER = {
+  type: MarkerType.ArrowClosed,
+  color: '#ef4444',
+};
+
+const CANONICAL_EDGE_VISUAL_IDS = new Set([
+  'xy-edge__gw-payment-contextbottom-app-linked-booking',
+  'xy-edge__app-linked-bookingright-app-safetyleft-bottom',
+]);
+
+function syncCanonicalEdgeVisuals(edges: any[]) {
+  return edges
+    .filter((edge) => !REMOVED_NODE_IDS.has(edge.source) && !REMOVED_NODE_IDS.has(edge.target))
+    .map((edge) => {
+      if (!CANONICAL_EDGE_VISUAL_IDS.has(edge.id)) return edge;
+      return {
+        ...edge,
+        markerEnd: { ...(edge.markerEnd || {}), ...RED_FALLBACK_MARKER },
+        style: { ...(edge.style || {}), ...RED_FALLBACK_EDGE_STYLE },
+        data: {
+          ...(edge.data || {}),
+          baseStyle: { ...((edge.data || {}).baseStyle || {}), ...RED_FALLBACK_EDGE_STYLE },
+          baseMarkerEnd: { ...((edge.data || {}).baseMarkerEnd || {}), ...RED_FALLBACK_MARKER },
+          edgeStyle: 'dashed',
+        },
+      };
+    });
+}
+
 const loadNodes = () => {
   try {
     const s = localStorage.getItem(STORAGE_NODES);
-    const ns: any[] = s ? JSON.parse(s) : pilotNodes;
+    const ns: any[] = (s ? JSON.parse(s) : pilotNodes).filter((node: any) => !REMOVED_NODE_IDS.has(node.id));
     if (!hasCurrentDatabaseLaneModel(ns)) return pilotNodes;
     // Migrate: assign poolId to lanes that don't have one yet (Y-range heuristic, one-time migration)
     const pools = ns.filter(n => n.type === 'pool').sort((a: any, b: any) => a.position.y - b.position.y);
-    return ns.map((n: any) => {
+    const migrated = ns.map((n: any) => {
       let next = n;
       if (n.type === 'database' && typeof n.data?.collapsed !== 'boolean') {
         next = { ...next, data: { ...next.data, collapsed: true } };
@@ -1148,15 +1247,16 @@ const loadNodes = () => {
       );
       return pool ? { ...next, data: { ...next.data, poolId: pool.id } } : next;
     });
+    return syncCanonicalRollerMetadata(migrated);
   } catch { return pilotNodes; }
 };
 const loadEdges = (nodes: any[] = pilotNodes) => {
   try {
     const s = localStorage.getItem(STORAGE_EDGES);
-    const raw = s ? JSON.parse(s) : pilotEdges;
-    if (!hasCurrentDatabaseLaneModel(nodes, raw)) return pilotEdges.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes));
-    return raw.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes));
-  } catch { return pilotEdges.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes)); }
+    const raw = syncCanonicalEdgeVisuals(s ? JSON.parse(s) : pilotEdges);
+    if (!hasCurrentDatabaseLaneModel(nodes, raw)) return syncCanonicalEdgeVisuals(pilotEdges.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes)));
+    return syncCanonicalEdgeVisuals(raw.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes)));
+  } catch { return syncCanonicalEdgeVisuals(pilotEdges.map((edge: any) => applyEdgeVisualState(edge, 'base', nodes))); }
 };
 
 // ─── App ──────────────────────────────────────────────────────────────────────
@@ -1171,6 +1271,7 @@ const ROLLER_KRAV = [
   },
   {
     endpoint: 'Hämta produkttillgänglighet',
+    docUrl: 'https://docs.roller.app/docs/rest-api/efb9788ea3808',
     priority: 'KRITISK',
     label: 'Hämta tillgänglighet',
     desc: 'Hämtar köpbara tider, produkter och längder efter vald park och starttid',
@@ -1184,10 +1285,17 @@ const ROLLER_KRAV = [
   },
   {
     endpoint: 'Uppdatera bokning',
-    docUrl: 'https://docs.roller.app/docs/rest-api/v4mzj4t4erwa9-update-a-booking',
+    docUrl: 'https://docs.roller.app/docs/rest-api/v4mzj4t4erwa9',
     priority: 'KRITISK',
     label: 'Uppdatera bokning',
     desc: 'Lägger till produkter på befintlig bokning när samma bokningskod ska behållas',
+  },
+  {
+    endpoint: 'Presentkort som betalmedel',
+    docUrl: 'https://docs.roller.app/docs/rest-api/15x291npk7c3d-checkout-workflow',
+    priority: 'KRITISK',
+    label: 'Presentkort i utkastflöde',
+    desc: 'Befintligt presentkort kan användas som betalmedel i ny utkastbokning',
   },
   {
     endpoint: 'Skapa betalningslänk',
@@ -1204,14 +1312,15 @@ const ROLLER_KRAV = [
   },
   {
     endpoint: 'Bokningswebhook under dagen',
-    docUrl: 'https://docs.roller.app/docs/rest-api/3a934c551891e-create-webhook',
+    docUrl: 'https://docs.roller.app/docs/webhooks/1tjb4whgq33f0-booking-webhook',
     priority: 'KRITISK',
     label: 'Bokningar under dagen',
     desc: 'Tar in nya och ändrade bokningar efter daglig import när booking detail och betaldata ingår',
   },
   {
     endpoint: 'Flerbesök tillfälligt',
-    priority: 'GUL',
+    docUrl: 'https://docs.roller.app/docs/webhooks/c9ntvneweithh-redemption-webhook',
+    priority: 'WORKAROUND',
     label: 'Tillfällig status i Cloud',
     desc: 'Cloud håller status från inlösenhändelser tills Roller har dedikerad slutpunkt',
   },
@@ -1246,7 +1355,7 @@ function DataKravPanel({ onClose, language }: { onClose: () => void; language: L
                 rel="noreferrer"
                 className="mt-2 inline-flex text-[10px] font-bold text-cyan-300 underline underline-offset-2 hover:text-cyan-200"
               >
-                {t('Dokumentation')}
+                {t('Öppna länk')}
               </a>
             )}
           </div>
@@ -1369,7 +1478,7 @@ function ArchitecturePanel({ onClose, language, nodes }: { onClose: () => void; 
                             rel="noreferrer"
                             className="mt-1 inline-flex text-[10px] font-bold text-cyan-300 underline underline-offset-2 hover:text-cyan-200"
                           >
-                            {t(ref.docLabel || 'Dokumentation')}
+                            {t('Öppna länk')}
                           </a>
                         ) : null}
                         {!ref.docUrl && ref.docStatus === 'confirm' && (
@@ -1434,9 +1543,13 @@ export default function App() {
   const [language] = useState<Language>('sv');
   const [selectedElements, setSelectedElements] = useState<{ nodes: any[]; edges: any[] }>({ nodes: [], edges: [] });
   const [editMode, setEditMode] = useState(false);
+  const [isInternalToggleVisible, setInternalToggleVisible] = useState(false);
+  const [isGuideCollapsed, setGuideCollapsed] = useState(false);
   const [history, setHistory] = useState<DiagramHistoryEntry[]>([]);
   const nodesRef  = React.useRef(nodes);
   const edgesRef  = React.useRef(edges);
+  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pointerInInternalZoneRef = useRef(false);
   const positionHistoryCapturedRef = React.useRef(false);
   const invalidFlowModelResetRef = React.useRef(false);
   useEffect(() => { nodesRef.current = nodes; }, [nodes]);
@@ -1445,6 +1558,43 @@ export default function App() {
   const activeNodes = nodes;
   const activeEdges = edges;
   const interactionEditMode = editMode;
+
+  const clearInternalToggleTimer = useCallback(() => {
+    if (!hoverTimerRef.current) return;
+    clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = null;
+  }, []);
+
+  const startInternalToggleReveal = useCallback(() => {
+    if (editMode || isInternalToggleVisible) return;
+    clearInternalToggleTimer();
+    hoverTimerRef.current = setTimeout(() => {
+      setInternalToggleVisible(true);
+      hoverTimerRef.current = null;
+    }, 5000);
+  }, [clearInternalToggleTimer, editMode, isInternalToggleVisible]);
+
+  useEffect(() => clearInternalToggleTimer, [clearInternalToggleTimer]);
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      const isInInternalZone = event.clientX <= 96 && event.clientY >= window.innerHeight - 96;
+
+      if (isInInternalZone && !pointerInInternalZoneRef.current) {
+        pointerInInternalZoneRef.current = true;
+        startInternalToggleReveal();
+        return;
+      }
+
+      if (!isInInternalZone && pointerInInternalZoneRef.current) {
+        pointerInInternalZoneRef.current = false;
+        clearInternalToggleTimer();
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [clearInternalToggleTimer, startInternalToggleReveal]);
 
   useEffect(() => {
     if (invalidFlowModelResetRef.current || hasCurrentDatabaseLaneModel(nodes, edges)) return;
@@ -1672,13 +1822,22 @@ export default function App() {
     }
   };
 
-  const resetToDefaults = () => {
-    if (!confirm(t('Återställ till ursprungsdata? Alla ändringar tas bort.'))) return;
+  const loadDefaultFlow = () => {
     localStorage.removeItem(STORAGE_NODES);
     localStorage.removeItem(STORAGE_EDGES);
     setNodes(pilotNodes);
     setEdges(pilotEdges.map((edge: any) => applyEdgeVisualState(edge, 'base', pilotNodes)));
     setHistory([]);
+  };
+
+  const resetToDefaults = () => {
+    if (!confirm(t('Återställ till ursprungsdata? Alla ändringar tas bort.'))) return;
+    loadDefaultFlow();
+  };
+
+  const refreshCustomerFlow = () => {
+    if (!confirm(t('Hämta senaste publicerade flödet? Lokalt sparad vy ersätts.'))) return;
+    loadDefaultFlow();
   };
 
   const onConnect = useCallback(
@@ -2025,20 +2184,31 @@ export default function App() {
       {/* ── Header ── */}
       <header className="fixed top-0 w-full flex justify-between items-center px-8 h-20 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5 z-50 gap-4">
         <div className="flex items-center gap-5 min-w-0">
-          <span className="text-2xl font-black italic epilogue text-white uppercase tracking-widest shrink-0">
-            JUMPYARD<span className="text-primary">_BPMN</span>
-          </span>
+          <div className="min-w-0">
+            <div className="text-2xl font-black italic epilogue text-white tracking-wide shrink-0">
+              JumpYard <span className="text-primary">Next</span>
+            </div>
+            <div className="mt-0.5 max-w-[560px] truncate text-[11px] font-semibold text-white/45">
+              {t('Roller-integrerat gästflöde för bokning, betalning, säkerhet och utlämning.')}
+            </div>
+          </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={() => setEditMode(m => !m)}
-            title={editMode ? t('Byt till visningsläge') : t('Byt till redigeringsläge')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded border transition-all ${editMode ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/60 hover:text-white hover:bg-white/10'}`}
-          >
-            {editMode ? <Eye className="w-3.5 h-3.5" /> : <Pencil className="w-3.5 h-3.5" />}
-            {editMode ? t('Visa') : t('Redigera')}
-          </button>
+          {editMode && (
+            <button
+              onClick={() => {
+                setEditMode(false);
+                setInternalToggleVisible(false);
+                pointerInInternalZoneRef.current = false;
+              }}
+              title={editMode ? t('Byt till visningsläge') : t('Byt till redigeringsläge')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded border transition-all ${editMode ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-white/60 hover:text-white hover:bg-white/10'}`}
+            >
+              {editMode ? <Eye className="w-3.5 h-3.5" /> : <Pencil className="w-3.5 h-3.5" />}
+              {t('Visa kundläge')}
+            </button>
+          )}
 
           {interactionEditMode && (
             <button onClick={undo} disabled={history.length === 0} title={t('Ångra (Ctrl+Z)')}
@@ -2061,29 +2231,44 @@ export default function App() {
             </button>
           )}
 
-          <div className="px-3 py-1 bg-green-500/20 text-green-500 border border-green-500/30 text-[10px] font-bold uppercase tracking-widest rounded flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            {localStorage.getItem(STORAGE_NODES) ? t('Lokalt sparat') : t('Liveutkast')}
-          </div>
-          <div className="flex items-center gap-1 border border-white/10 rounded px-1 py-0.5">
+          {!interactionEditMode && (
             <button
-              onClick={exportToPng}
-              disabled={exporting !== null}
-              title={t('Exportera som PNG')}
-              className="flex items-center gap-1 px-2 py-1 text-[10px] font-bold text-white/50 hover:text-white hover:bg-white/5 rounded transition-all disabled:opacity-40"
+              onClick={refreshCustomerFlow}
+              title={t('Hämta senaste publicerade flödet')}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-all"
             >
-              <Download className="w-3 h-3" />PNG
+              <RotateCcw className="w-3.5 h-3.5" />
+              {t('Uppdatera flöde')}
             </button>
-            <div className="w-px h-4 bg-white/10" />
-            <button
-              onClick={exportToPdf}
-              disabled={exporting !== null}
-              title={t('Exportera som PDF')}
-              className="flex items-center gap-1 px-2 py-1 text-[10px] font-bold text-white/50 hover:text-white hover:bg-white/5 rounded transition-all disabled:opacity-40"
-            >
-              <Download className="w-3 h-3" />PDF
-            </button>
-          </div>
+          )}
+
+          {interactionEditMode && (
+            <>
+              <div className="px-3 py-1 bg-green-500/20 text-green-500 border border-green-500/30 text-[10px] font-bold uppercase tracking-widest rounded flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                {localStorage.getItem(STORAGE_NODES) ? t('Lokalt sparat') : t('Liveutkast')}
+              </div>
+              <div className="flex items-center gap-1 border border-white/10 rounded px-1 py-0.5">
+                <button
+                  onClick={exportToPng}
+                  disabled={exporting !== null}
+                  title={t('Exportera som PNG')}
+                  className="flex items-center gap-1 px-2 py-1 text-[10px] font-bold text-white/50 hover:text-white hover:bg-white/5 rounded transition-all disabled:opacity-40"
+                >
+                  <Download className="w-3 h-3" />PNG
+                </button>
+                <div className="w-px h-4 bg-white/10" />
+                <button
+                  onClick={exportToPdf}
+                  disabled={exporting !== null}
+                  title={t('Exportera som PDF')}
+                  className="flex items-center gap-1 px-2 py-1 text-[10px] font-bold text-white/50 hover:text-white hover:bg-white/5 rounded transition-all disabled:opacity-40"
+                >
+                  <Download className="w-3 h-3" />PDF
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </header>
 
@@ -2095,6 +2280,32 @@ export default function App() {
         style={{ marginTop: '5rem' }}
       >
         <div className="flex-1 relative" ref={flowRef}>
+          <aside className={`fixed left-6 top-24 z-30 rounded-lg border border-white/12 bg-[#111111]/92 shadow-2xl backdrop-blur-xl transition-all ${isGuideCollapsed ? 'w-[220px] p-3' : 'w-[300px] p-4'}`}>
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-[10px] font-black uppercase tracking-[0.22em] text-primary/80">
+                {t('Så läser du flödet')}
+              </div>
+              <button
+                type="button"
+                onClick={() => setGuideCollapsed((value) => !value)}
+                aria-expanded={!isGuideCollapsed}
+                title={isGuideCollapsed ? t('Visa guide') : t('Dölj guide')}
+                className="rounded border border-white/10 bg-white/5 p-1 text-white/55 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                {isGuideCollapsed ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronUp className="h-3.5 w-3.5" />}
+              </button>
+            </div>
+            {!isGuideCollapsed && (
+              <ul className="mt-3 space-y-2 text-[11px] leading-relaxed text-white/64">
+                <li>{t('Klicka på en aktivitet för att läsa detaljer.')}</li>
+                <li>{t('Klicka på Webbapp-, Gäst- eller Parkpersonal-steg för att visa deras dataflöden mot JumpYard Cloud.')}</li>
+                <li>{t('Klicka på teknik- och Roller API-noder för att se bekräftade API-slutpunkter.')}</li>
+                <li>{t('Databaser kan fällas ut för att se vilken information Cloud lagrar.')}</li>
+                <li>{t('Röda pilar visar huvudflöde. Blå pilar visar dataflöde. Röda streckade pilar visar reserv-/workaroundflöde.')}</li>
+              </ul>
+            )}
+          </aside>
+
           <ReactFlow
             key="process"
             nodes={displayNodes} edges={displayEdges}
@@ -2457,6 +2668,22 @@ export default function App() {
             </div>
           </div>
         </div>
+      )}
+
+      {isInternalToggleVisible && !editMode && (
+        <button
+          type="button"
+          onClick={() => {
+            clearInternalToggleTimer();
+            pointerInInternalZoneRef.current = false;
+            setEditMode(true);
+          }}
+          title={t('Aktivera intern redigering')}
+          className="fixed bottom-3 left-3 z-[60] rounded border border-primary/35 bg-[#111111]/95 px-3 py-2 text-[10px] font-black uppercase tracking-widest text-primary shadow-2xl backdrop-blur-xl transition-colors hover:bg-primary/15"
+        >
+          <Pencil className="mr-1 inline h-3 w-3" />
+          {t('Intern redigering')}
+        </button>
       )}
 
     </div>

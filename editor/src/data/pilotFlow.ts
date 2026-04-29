@@ -1373,8 +1373,7 @@ export const pilotNodes = [
       "apiStatus": "confirmed",
       "apiStatusLabel": "✓ Bekräftat",
       "apiPoints": [
-        "Booking Webhook med include.payments: true",
-        "Create webhook"
+        "Booking Webhook med include.payments: true"
       ],
       "confirmedByRoller": [
         "Booking webhook används för bokningar och ändringar som kommer in under dagen efter daglig import.",
@@ -1420,13 +1419,13 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "hideDetailsOnCanvas": true,
-      "apiStatus": "open",
-      "apiStatusLabel": "⚠ Öppet",
+      "apiStatus": "workaround",
+      "apiStatusLabel": "✓ Bekräftat med workaround",
       "apiPoints": [
-        "Get Product Availability"
+        "Get Product Availability / REST API"
       ],
       "confirmedByRoller": [
-        "Sky Rider kräver availability check före tillägg.",
+        "Get Product Availability är bekräftat för kapacitetsstyrda produkter som Sky Rider.",
         "Jump socks, lockers och coffee kräver ingen availability check som stockprodukter."
       ],
       "jumpyardHandling": [
@@ -1434,7 +1433,7 @@ export const pilotNodes = [
         "Webbapp visar bara produkter/durationer som är säljbara för vald tid."
       ],
       "limitations": [
-        "Core jump-produkter och durationer efter vald starttid behöver slutbekräftad rekommenderad display-pattern från Roller."
+        "Under utredning: exakt display-pattern för core jump-produkter/durationer efter vald starttid."
       ],
       "sources": [
         "Roller Response 2, 2026-04-23 F5",
@@ -1470,22 +1469,22 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "hideDetailsOnCanvas": true,
-      "apiStatus": "limited",
-      "apiStatusLabel": "⚠ Begränsat",
+      "apiStatus": "workaround",
+      "apiStatusLabel": "✓ Bekräftat med workaround",
       "apiPoints": [
-        "Booking Costs"
+        "Booking Costs / REST API"
       ],
       "confirmedByRoller": [
-        "Booking Costs är rätt endpoint för final pre-payment basket calculation.",
-        "Gift cards och medlemskoder kan räknas in i ny draft-booking checkout."
+        "Booking Costs är rätt API-slutpunkt för slutlig varukorgsberäkning före betalning.",
+        "Presentkort och medlemskoder kan räknas in i ny utkastbokning."
       ],
       "jumpyardHandling": [
         "Driftjobb validerar slutpris innan betalning.",
         "Om Cloud-visat pris skiljer sig från Booking Costs ska flödet stoppas eller uppdateras före betalning."
       ],
       "limitations": [
-        "Booking Costs är inte en full produktlist-prisendpoint.",
-        "Price Rules kan ge baspris i produktlista men annat slutpris i Booking Costs."
+        "Under utredning: Booking Costs är inte en full prislista för produktkort.",
+        "Workaround: Cloud visar kontrollerad prisbild där Product/Price Rules inte räcker och blockerar om Booking Costs ger annat slutpris."
       ],
       "sources": [
         "Roller Response 2, 2026-04-23 F7/F10",
@@ -1518,6 +1517,7 @@ export const pilotNodes = [
       "endpoints": [
         "Skapa utkastbokning",
         "Publicera utkastbokning",
+        "Presentkort som betalmedel",
         "Avbryt eller släpp utkastbokning"
       ],
       "layoutSelected": false,
@@ -1526,16 +1526,18 @@ export const pilotNodes = [
       "apiStatus": "confirmed",
       "apiStatusLabel": "✓ Bekräftat",
       "apiPoints": [
-        "Create Draft Booking",
+        "Create Draft Booking / REST API",
         "ROLLER Payments / Adyen",
         "Publish Draft Booking / confirm",
         "Publish Draft Booking (No Payment)",
+        "Presentkort som betalmedel i ny utkastbokning",
         "Cancel/release Draft Booking vid timeout eller avbrott"
       ],
       "confirmedByRoller": [
         "Create Draft Booking reserverar kapacitet och släpper den vid timeout eller explicit release.",
         "Ny bokning använder draft + embedded Roller Payments/Adyen + publish/confirm.",
-        "Fullt gift card-belopp kan publiceras utan betalningssteg."
+        "Befintligt presentkort kan användas som betalmedel i ny utkastbokning.",
+        "Fullt presentkortsbelopp kan publiceras utan betalningssteg."
       ],
       "jumpyardHandling": [
         "Driftjobb skapar draft först efter kontaktuppgift och kostnadskontroll.",
@@ -1578,10 +1580,10 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "hideDetailsOnCanvas": true,
-      "apiStatus": "limited",
-      "apiStatusLabel": "⚠ Begränsat",
+      "apiStatus": "workaround",
+      "apiStatusLabel": "✓ Bekräftat med workaround",
       "apiPoints": [
-        "Update a Booking",
+        "Update a Booking / REST API",
         "Create Payment Link / POST /bookings/{uniqueId}/payments/links",
         "Cancel Payment Link / DELETE"
       ],
@@ -1594,8 +1596,8 @@ export const pilotNodes = [
         "Gästen skickas till Rollers hostade betalningssida och kommer tillbaka via bekräftad retur när den är fastställd."
       ],
       "limitations": [
-        "Retur till PWA efter success/cancel ska bekräftas.",
-        "Tender-stöd för gift card, medlemskod och flerbesök i payment-link-flödet är fortfarande gul risk."
+        "Under utredning: exakt retur till webbappen efter lyckad eller avbruten betalning ska slutbekräftas.",
+        "Under utredning: stöd för presentkort, medlemskod och flerbesök i betalningslänkflödet."
       ],
       "sources": [
         "Roller Response 2, 2026-04-23 F3/F8",
@@ -1692,7 +1694,7 @@ export const pilotNodes = [
       ],
       "jumpyardHandling": [
         "Driftjobb tar emot event, uppdaterar lokal inlösenstatus och kan bygga live counter.",
-        "Samma eventström används för interim flerbesök-state tills Roller har dedikerad endpoint."
+        "Samma eventström används för interim flerbesök-state tills Roller har dedikerad slutpunkt."
       ],
       "limitations": [],
       "sources": [
@@ -1851,9 +1853,9 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "label": "Medlemskap och flerbesök",
-      "apiStatus": "open",
-      "apiStatusLabel": "⚠ Öppet",
-      "details": "Medlemskap kan identifieras via ticket records; flerbesök saknar ren live REST-read.",
+      "apiStatus": "workaround",
+      "apiStatusLabel": "✓ Bekräftat med workaround",
+      "details": "Medlemskap kan identifieras via ticket records; flerbesök hanteras med interim state i Cloud tills Roller har ren live REST-read.",
       "endpoints": [
         "Hämta bokningsdetalj",
         "Inlösenhändelse",
@@ -1865,71 +1867,18 @@ export const pilotNodes = [
       ],
       "confirmedByRoller": [
         "Membership state ligger på ticket records inom bokningar, inte på guest record.",
-        "Multi-visit remaining balance är inte exponerat som förstaklassfält i public REST idag."
+        "Kvarvarande flerbesökssaldo är inte exponerat som förstaklassfält i public REST idag, men interim state via Redemption Webhook är rekommenderad workaround."
       ],
       "jumpyardHandling": [
         "Cloud bygger medlemsindex från bokningsdetalj, Search for Bookings och webhooks.",
         "Cloud håller interim flerbesök-state från redemption events tills dedikerat Roller-stöd finns."
       ],
       "limitations": [
-        "Flerbesök ska visas som interim/estimerad Cloud-status, inte som grön live Roller-sanning."
+        "Under utredning: dedikerad slutpunkt för livebalans. Workaround: interim/estimerad Cloud-status från inlösenhändelser."
       ],
       "sources": [
         "Roller Response 2, 2026-04-23 F9/F16",
         "V3-sammanställning, 2026-04-24 rad Membership/Multi-visit"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 88
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "roller-not-v1",
-    "type": "service",
-    "position": {
-      "x": 4204.3367298039475,
-      "y": 1725.414762676813
-    },
-    "data": {
-      "lane": "Roller API",
-      "viewTags": [
-        "teknik"
-      ],
-      "hideDetailsOnCanvas": true,
-      "layoutSelected": false,
-      "editMode": true,
-      "label": "Ej V1: gift card admin / stock-redemption",
-      "apiStatus": "not-v1",
-      "apiStatusLabel": "Ej V1",
-      "details": "API-ytor som inte ska modelleras som pilotflöde.",
-      "endpoints": [
-        "Gift card admin via API",
-        "Stock/addon API-inlösen"
-      ],
-      "apiPoints": [
-        "Gift card creation/admin via API",
-        "API-redemption för stock/addon products"
-      ],
-      "confirmedByRoller": [
-        "Existing gift cards kan användas som tender i ny draft-booking checkout.",
-        "Gift card creation och lifecycle management via API är inte tillgängligt idag.",
-        "Stock/addon redemption via public API är inte stödd som ticket redemption."
-      ],
-      "jumpyardHandling": [
-        "Pilotflödet accepterar gift card-tender där Roller stödjer det, men bygger inte adminflöden.",
-        "Kaffe, lås, strumpor och band hanteras som Cloud-rättigheter och operativ utlämning."
-      ],
-      "limitations": [
-        "Ska inte ritas som produktionsklart Roller-redemption- eller gift-card-adminflöde i V1."
-      ],
-      "sources": [
-        "Roller Response 2, 2026-04-23 F11/F14",
-        "V3-sammanställning, 2026-04-24 röda punkter"
       ],
       "edgeHighlighted": false,
       "dimmed": false
@@ -3209,11 +3158,11 @@ export const pilotEdges = [
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#8b5cf6"
+      "color": "#ef4444"
     },
     "style": {
       "strokeWidth": 2,
-      "stroke": "#8b5cf6",
+      "stroke": "#ef4444",
       "strokeDasharray": "7 5"
     },
     "source": "gw-payment-context",
@@ -3224,12 +3173,12 @@ export const pilotEdges = [
       "details": "",
       "baseStyle": {
         "strokeWidth": 2,
-        "stroke": "#8b5cf6",
+        "stroke": "#ef4444",
         "strokeDasharray": "7 5"
       },
       "baseMarkerEnd": {
         "type": "arrowclosed",
-        "color": "#8b5cf6"
+        "color": "#ef4444"
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
@@ -3309,11 +3258,11 @@ export const pilotEdges = [
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#8b5cf6"
+      "color": "#ef4444"
     },
     "style": {
       "strokeWidth": 2,
-      "stroke": "#8b5cf6",
+      "stroke": "#ef4444",
       "strokeDasharray": "7 5"
     },
     "source": "app-linked-booking",
@@ -3326,12 +3275,12 @@ export const pilotEdges = [
       "details": "",
       "baseStyle": {
         "strokeWidth": 2,
-        "stroke": "#8b5cf6",
+        "stroke": "#ef4444",
         "strokeDasharray": "7 5"
       },
       "baseMarkerEnd": {
         "type": "arrowclosed",
-        "color": "#8b5cf6"
+        "color": "#ef4444"
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
