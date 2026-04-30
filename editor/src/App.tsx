@@ -517,8 +517,8 @@ const ROLLER_API_STAGE_MAP = [
   {
     priority: 'KRITISK',
     stage: 'Tillägg på befintlig bokning',
-    endpoints: ['Uppdatera bokning', 'Skapa betalningslänk', 'Avbryt betalningslänk'],
-    desc: 'Primärt mönster behåller samma bokningskod och låter gästen betala via Rollers betalningslänk.',
+    endpoints: ['Skapa utkastbokning', 'Publicera utkastbokning', 'Presentkort som betalmedel', 'Medlemskod som betalmedel', 'Rabattkod i checkout'],
+    desc: 'Valt huvudmönster skapar en separat länkad bokning så betalning stannar i webbappen med inbäddad Roller/Adyen.',
   },
   {
     priority: 'KRITISK',
@@ -535,8 +535,8 @@ const ROLLER_API_STAGE_MAP = [
   {
     priority: 'WORKAROUND',
     stage: 'Bekräftat med workaround',
-    endpoints: ['Retur från betalningslänk', 'Stöd för befintliga bokningar', 'Flerbesök tillfälligt'],
-    desc: 'Flödena är användbara i V1, men exakt retur, stöd för betalmedel och livebalans hålls som under utredning tills Roller slutbekräftat detaljerna.',
+    endpoints: ['Stöd för länkad bokning', 'Flerbesök tillfälligt'],
+    desc: 'Länkningen mellan originalbokning och separat tilläggsbokning ägs av JumpYard Cloud. Flerbesök hålls interim tills Roller har dedikerad livebalans.',
   },
 ] as const;
 
@@ -571,31 +571,23 @@ const ROLLER_API_REFERENCES: Record<string, RollerApiReference> = {
     docUrl: 'https://docs.roller.app/docs/rest-api/130004f5ad82e-publish-draft-booking-no-payment',
     docStatus: 'official',
   },
-  'Uppdatera bokning': {
-    name: 'Uppdatera bokning',
-    docUrl: 'https://docs.roller.app/docs/rest-api/v4mzj4t4erwa9',
-    docStatus: 'official',
-  },
-  'Skapa betalningslänk': {
-    name: 'Skapa betalningslänk',
-    docStatus: 'confirm',
-    note: 'Används för befintlig bokning med samma bokningskod',
-  },
-  'Avbryt betalningslänk': {
-    name: 'Avbryt betalningslänk',
-    docStatus: 'confirm',
-    note: 'Behövs för utgångstid och övergiven betalningslänk',
-  },
   'Presentkort som betalmedel': {
     name: 'Presentkort som betalmedel',
     docUrl: 'https://docs.roller.app/docs/rest-api/15x291npk7c3d-checkout-workflow',
     docStatus: 'official',
-    note: 'Befintliga presentkort kan användas som betalmedel i ny utkastbokning; skapa/admin av presentkort är inte V1.',
+    note: 'Befintliga presentkort kan användas som betalmedel i utkastbokning; skapa/admin av presentkort är inte V1.',
   },
-  'Retur-URL från betalningslänk': {
-    name: 'Retur-URL från betalningslänk',
-    docStatus: 'confirm',
-    note: 'Under utredning: exakt retur till webbappen efter lyckad eller avbruten betalning ska slutbekräftas',
+  'Medlemskod som betalmedel': {
+    name: 'Medlemskod som betalmedel',
+    docUrl: 'https://docs.roller.app/docs/rest-api/15x291npk7c3d-checkout-workflow',
+    docStatus: 'official',
+    note: 'Hanteras i checkoutflödet för utkastbokning där Roller stödjer tendern.',
+  },
+  'Rabattkod i checkout': {
+    name: 'Rabattkod i checkout',
+    docUrl: 'https://docs.roller.app/docs/rest-api/15x291npk7c3d-checkout-workflow',
+    docStatus: 'official',
+    note: 'Hanteras i checkoutflödet innan utkastet publiceras.',
   },
   'Avbryt eller släpp utkastbokning': {
     name: 'Avbryt eller släpp utkastbokning',
@@ -617,15 +609,10 @@ const ROLLER_API_REFERENCES: Record<string, RollerApiReference> = {
     docUrl: 'https://docs.roller.app/docs/webhooks/c9ntvneweithh-redemption-webhook',
     docStatus: 'official',
   },
-  'Retur från betalningslänk': {
-    name: 'Retur från betalningslänk',
+  'Stöd för länkad bokning': {
+    name: 'Stöd för länkad bokning',
     docStatus: 'confirm',
-    note: 'Under utredning: bekräfta exakt retur till webbappen efter hosted payment',
-  },
-  'Stöd för befintliga bokningar': {
-    name: 'Stöd för befintliga bokningar',
-    docStatus: 'confirm',
-    note: 'Bekräftat med workaround: betalningslänk för samma bokningskod; stöd för betalmedel per betalningsmönster är under utredning',
+    note: 'JumpYard Cloud sparar relationen mellan originalbokning och separat tilläggsbokning.',
   },
   'Flerbesök tillfälligt': {
     name: 'Flerbesök tillfälligt',
@@ -646,10 +633,10 @@ const ROLLER_API_REFERENCE_ALIASES: Record<string, string> = {
   'Publish Draft Booking / confirm': 'Publicera utkastbokning',
   'Publish Draft Booking (No Payment)': 'Publicera utkastbokning',
   'Presentkort som betalmedel i ny utkastbokning': 'Presentkort som betalmedel',
+  'Presentkort som betalmedel i utkastbokning': 'Presentkort som betalmedel',
+  'Medlemskod som betalmedel i utkastbokning': 'Medlemskod som betalmedel',
+  'Discount codes i utkast-/checkoutflöde': 'Rabattkod i checkout',
   'Cancel/release Draft Booking vid timeout eller avbrott': 'Avbryt eller släpp utkastbokning',
-  'Update a Booking / REST API': 'Uppdatera bokning',
-  'Create Payment Link / POST /bookings/{uniqueId}/payments/links': 'Skapa betalningslänk',
-  'Cancel Payment Link / DELETE': 'Avbryt betalningslänk',
   'Redeem Tickets': 'Lös in biljetter',
   'Redemption Webhook': 'Inlösenhändelse',
   'Redemption Webhook för interim multi-visit state': 'Inlösenhändelse',
@@ -1117,12 +1104,17 @@ function sanitizeEdgeForStorage(edge: any, nodesOrLookup?: any[] | Map<string, a
 
 // ─── Persistence ──────────────────────────────────────────────────────────────
 
-const FLOW_SCHEMA_VERSION = '2026-04-svensk-roller-v9-api-status-copy';
+const FLOW_SCHEMA_VERSION = '2026-04-svensk-roller-v10-linked-booking-only';
 const STORAGE_NODES = `jy-bpmn-nodes:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_EDGES = `jy-bpmn-edges:${FLOW_SCHEMA_VERSION}`;
 const STORAGE_LANGUAGE = 'jy-bpmn-language';
 
-const REMOVED_NODE_IDS = new Set(['roller-not-v1']);
+const REMOVED_NODE_IDS = new Set([
+  'roller-not-v1',
+  'app-payment-link',
+  'cloud-existing-payment',
+  'roller-payment-link',
+]);
 
 function hasCurrentDatabaseLaneModel(nodes: any[], edges?: any[]) {
   const nodeLookup = new Map(nodes.map((node) => [node.id, node]));
@@ -1139,7 +1131,6 @@ function hasCurrentDatabaseLaneModel(nodes: any[], edges?: any[]) {
     ['store-entitlement', 'Databaser / Aurora'],
     ['cloud-availability', 'Driftjobb'],
     ['cloud-costs', 'Driftjobb'],
-    ['cloud-existing-payment', 'Driftjobb'],
     ['cloud-draft', 'Driftjobb'],
     ['cloud-linked-booking', 'Driftjobb'],
     ['cloud-publish', 'Driftjobb'],
@@ -1163,7 +1154,6 @@ const CANONICAL_ROLLER_METADATA_NODE_IDS = new Set([
   'roller-availability',
   'roller-costs',
   'roller-draft',
-  'roller-payment-link',
   'roller-membership-multipass',
 ]);
 
@@ -1194,15 +1184,14 @@ function syncCanonicalRollerMetadata(nodes: any[]) {
   });
 }
 
-const RED_FALLBACK_EDGE_STYLE = {
-  strokeWidth: 2,
-  stroke: '#ef4444',
-  strokeDasharray: '7 5',
+const RED_PROCESS_EDGE_STYLE = {
+  strokeWidth: 2.5,
+  stroke: '#ff8e7d',
 };
 
-const RED_FALLBACK_MARKER = {
+const RED_PROCESS_MARKER = {
   type: MarkerType.ArrowClosed,
-  color: '#ef4444',
+  color: '#ff8e7d',
 };
 
 const CANONICAL_EDGE_VISUAL_IDS = new Set([
@@ -1217,13 +1206,14 @@ function syncCanonicalEdgeVisuals(edges: any[]) {
       if (!CANONICAL_EDGE_VISUAL_IDS.has(edge.id)) return edge;
       return {
         ...edge,
-        markerEnd: { ...(edge.markerEnd || {}), ...RED_FALLBACK_MARKER },
-        style: { ...(edge.style || {}), ...RED_FALLBACK_EDGE_STYLE },
+        markerEnd: { ...(edge.markerEnd || {}), ...RED_PROCESS_MARKER },
+        style: { ...RED_PROCESS_EDGE_STYLE },
         data: {
           ...(edge.data || {}),
-          baseStyle: { ...((edge.data || {}).baseStyle || {}), ...RED_FALLBACK_EDGE_STYLE },
-          baseMarkerEnd: { ...((edge.data || {}).baseMarkerEnd || {}), ...RED_FALLBACK_MARKER },
-          edgeStyle: 'dashed',
+          edgeKind: 'process',
+          baseStyle: { ...RED_PROCESS_EDGE_STYLE },
+          baseMarkerEnd: { ...RED_PROCESS_MARKER },
+          edgeStyle: 'solid',
         },
       };
     });
@@ -1281,14 +1271,7 @@ const ROLLER_KRAV = [
     docUrl: 'https://docs.roller.app/docs/rest-api/branches/main/62e21c34b7ef3',
     priority: 'KRITISK',
     label: 'Beräkna kostnad',
-    desc: 'Slutlig varukorgskontroll innan utkastbokning, betalningslänk eller betalning',
-  },
-  {
-    endpoint: 'Uppdatera bokning',
-    docUrl: 'https://docs.roller.app/docs/rest-api/v4mzj4t4erwa9',
-    priority: 'KRITISK',
-    label: 'Uppdatera bokning',
-    desc: 'Lägger till produkter på befintlig bokning när samma bokningskod ska behållas',
+    desc: 'Slutlig varukorgskontroll innan utkastbokning och inbäddad betalning',
   },
   {
     endpoint: 'Presentkort som betalmedel',
@@ -1296,12 +1279,6 @@ const ROLLER_KRAV = [
     priority: 'KRITISK',
     label: 'Presentkort i utkastflöde',
     desc: 'Befintligt presentkort kan användas som betalmedel i ny utkastbokning',
-  },
-  {
-    endpoint: 'Skapa betalningslänk',
-    priority: 'KRITISK',
-    label: 'Betalningssida',
-    desc: 'Primärt mönster för existerande bokning med tillägg och samma bokningskod',
   },
   {
     endpoint: 'Lös in biljetter',

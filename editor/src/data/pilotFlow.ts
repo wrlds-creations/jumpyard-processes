@@ -280,7 +280,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 48,
@@ -304,11 +304,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 230,
-      "height": 61
+      "height": 60
     }
   },
   {
@@ -328,11 +328,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 219,
-      "height": 45
+      "width": 218,
+      "height": 44
     },
     "selected": false
   },
@@ -354,7 +354,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 84,
@@ -378,11 +378,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 210,
-      "height": 45
+      "width": 209,
+      "height": 44
     },
     "selected": false
   },
@@ -403,7 +403,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 64,
@@ -427,11 +427,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 191,
-      "height": 45
+      "width": 190,
+      "height": 44
     },
     "selected": false
   },
@@ -452,11 +452,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
-      "height": 45
+      "height": 44
     },
     "selected": false
   },
@@ -477,11 +477,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 210,
-      "height": 45
+      "width": 209,
+      "height": 44
     },
     "selected": false
   },
@@ -493,46 +493,21 @@ export const pilotNodes = [
       "y": 566.1720143408238
     },
     "data": {
-      "label": "Betalningskontext?",
+      "label": "Betalning behövs?",
       "lane": "Webbapp",
-      "details": "Existerande bokning delas upp i samma bokningskod, länkad bokning eller ingen ny betalning.",
+      "details": "Existerande bokning går antingen vidare utan ny betalning eller via separat länkad bokning med betalning kvar i webbappen.",
       "viewTags": [
         "pilotresa"
       ],
       "layoutSelected": false,
       "editMode": true,
-      "edgeHighlighted": false,
+      "edgeHighlighted": true,
       "dimmed": false
     },
     "measured": {
       "width": 64,
       "height": 64
     }
-  },
-  {
-    "id": "app-payment-link",
-    "type": "task",
-    "position": {
-      "x": 2320,
-      "y": 500
-    },
-    "data": {
-      "label": "Betalningslänk på originalbokning",
-      "lane": "Webbapp",
-      "details": "Primärt mönster för tillägg på befintlig bokning: samma bokningskod behålls och gästen betalar på Rollers betalningssida.",
-      "viewTags": [
-        "pilotresa"
-      ],
-      "layoutSelected": false,
-      "editMode": true,
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 230,
-      "height": 61
-    },
-    "selected": false
   },
   {
     "id": "app-linked-booking",
@@ -544,18 +519,18 @@ export const pilotNodes = [
     "data": {
       "label": "Separat länkad bokning",
       "lane": "Webbapp",
-      "details": "Alternativt mönster om betalningen måste stanna helt i webbappen med inbäddad Adyen.",
+      "details": "Huvudmönster för betalda tillägg på befintlig bokning: JumpYard skapar en separat länkad bokning så betalning stannar i webbappen med inbäddad Roller/Adyen.",
       "viewTags": [
         "pilotresa"
       ],
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 197,
-      "height": 45
+      "width": 196,
+      "height": 44
     }
   },
   {
@@ -574,12 +549,12 @@ export const pilotNodes = [
       ],
       "layoutSelected": false,
       "editMode": true,
-      "edgeHighlighted": false,
+      "edgeHighlighted": true,
       "dimmed": false
     },
     "measured": {
       "width": 230,
-      "height": 61
+      "height": 60
     },
     "selected": false,
     "dragging": false
@@ -601,11 +576,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 222,
-      "height": 45
+      "width": 221,
+      "height": 44
     },
     "selected": false
   },
@@ -626,11 +601,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 125,
-      "height": 45
+      "width": 124,
+      "height": 44
     },
     "selected": false
   },
@@ -651,11 +626,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 230,
-      "height": 61
+      "height": 60
     },
     "selected": false
   },
@@ -676,11 +651,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 178,
-      "height": 45
+      "width": 177,
+      "height": 44
     },
     "selected": false
   },
@@ -701,11 +676,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 163,
-      "height": 45
+      "width": 162,
+      "height": 44
     }
   },
   {
@@ -751,7 +726,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 230,
@@ -780,7 +755,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
@@ -829,7 +804,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 230,
@@ -848,7 +823,7 @@ export const pilotNodes = [
     "data": {
       "label": "Beräkna kostnad",
       "lane": "Driftjobb",
-      "details": "Cloud validerar slutlig varukorg med Rollers kostnadsberäkning innan utkast eller betalningslänk.",
+      "details": "Cloud validerar slutlig varukorg med Rollers kostnadsberäkning innan utkastbokning och betalning.",
       "viewTags": [
         "teknik"
       ],
@@ -859,42 +834,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
       "height": 98
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "cloud-existing-payment",
-    "type": "service",
-    "position": {
-      "x": 2792.149603318875,
-      "y": 1357.3616525415266
-    },
-    "data": {
-      "label": "Uppdatera bokning och skapa betalningslänk",
-      "lane": "Driftjobb",
-      "details": "Samma-bokning-mönstret: uppdatera originalbokningen och skapa betalningslänk för återstående belopp.",
-      "viewTags": [
-        "teknik"
-      ],
-      "variant": "job",
-      "endpoints": [
-        "Uppdatera bokning",
-        "Skapa betalningslänk"
-      ],
-      "layoutSelected": false,
-      "editMode": true,
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 113
     },
     "selected": false,
     "dragging": false
@@ -920,7 +864,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
@@ -939,7 +883,7 @@ export const pilotNodes = [
     "data": {
       "label": "Skapa länkad bokning",
       "lane": "Driftjobb",
-      "details": "Alternativ för befintlig bokning när hela betalningen ska ligga kvar i webbappen. Själva Roller-anropet går via gemensamt utkastflöde och länkningen sparas i PaymentSession.",
+      "details": "Huvudmönster för betalda tillägg på befintlig bokning. Cloud skapar separat draft via gemensamt utkastflöde och sparar länken mellan originalbokning och länkad bokning i PaymentSession.",
       "viewTags": [
         "teknik"
       ],
@@ -950,7 +894,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
@@ -969,7 +913,7 @@ export const pilotNodes = [
     "data": {
       "label": "Betalningssessioner",
       "lane": "Databaser / Aurora",
-      "details": "Samlar betalningslänk, inbäddad utkastbetalning, returstatus, utgångstid och avbrutna köp.",
+      "details": "Samlar utkastbetalning, länkad bokning, betalstatus, utgångstid, publish-status och avbrutna köp.",
       "viewTags": [
         "teknik"
       ],
@@ -982,15 +926,18 @@ export const pilotNodes = [
         "utkastbokningssession"
       ],
       "keyFields": [
-        "betalningsmönster",
         "originalbokning",
         "länkad_bokning",
-        "betalstatus"
+        "utkastbokning",
+        "betalstatus",
+        "expiry",
+        "publishStatus"
       ],
       "ownedState": [
-        "Betalningslänk",
+        "Relation originalbokning ↔ länkad bokning",
         "Inbäddad betalningstoken",
-        "Retur från betalning"
+        "Utkaststatus",
+        "Betalstatus och utgångstid"
       ],
       "collapsed": true,
       "expandLabel": "Fäll ut",
@@ -999,7 +946,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 230,
@@ -1029,7 +976,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
@@ -1081,7 +1028,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 230,
@@ -1132,10 +1079,10 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 234,
+      "width": 233,
       "height": 101
     },
     "selected": false,
@@ -1164,11 +1111,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
-      "height": 105
+      "height": 104
     },
     "selected": false,
     "dragging": false
@@ -1196,11 +1143,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
-      "height": 184
+      "height": 183
     },
     "selected": false,
     "dragging": false
@@ -1227,7 +1174,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
@@ -1244,27 +1191,26 @@ export const pilotNodes = [
       "y": 1359.9226984986476
     },
     "data": {
-      "label": "Betalretur och utgångstid",
+      "label": "Betalstatus och utgångstid för utkast",
       "lane": "Driftjobb",
-      "details": "Tar emot retur från Rollers betalningslänk och hanterar timeout/avbrott. Vid behov avbryts betalningslänk eller utkast via Roller API och status sparas i PaymentSession.",
+      "details": "Följer betalstatus och timeout/avbrott för inbäddad draftbetalning. Vid avbrott släpps utkast via Roller API och status sparas i PaymentSession.",
       "viewTags": [
         "teknik"
       ],
       "variant": "job",
-      "cadence": "Vid retur / utgångstid",
+      "cadence": "Vid betalstatus / utgångstid",
       "endpoints": [
-        "Retur-URL från betalningslänk",
-        "Avbryt betalningslänk",
+        "Betalstatus från inbäddad checkout",
         "Avbryt eller släpp utkastbokning"
       ],
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
-      "height": 169
+      "height": 152
     },
     "selected": false,
     "dragging": false
@@ -1291,7 +1237,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
@@ -1341,7 +1287,7 @@ export const pilotNodes = [
         "V3-sammanställning, 2026-04-24 rad Live booking lookup"
       ],
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 205,
@@ -1390,7 +1336,7 @@ export const pilotNodes = [
         "V3-sammanställning, 2026-04-24 rad Booking webhook"
       ],
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
@@ -1440,11 +1386,11 @@ export const pilotNodes = [
         "V3-sammanställning, 2026-04-24 F3"
       ],
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 200,
-      "height": 73
+      "width": 220,
+      "height": 85
     },
     "selected": false,
     "dragging": false
@@ -1459,7 +1405,7 @@ export const pilotNodes = [
     "data": {
       "label": "Kostnadsberäkning",
       "lane": "Roller API",
-      "details": "Slutlig varukorgskontroll före betalning, utkast eller betalningslänk.",
+      "details": "Slutlig varukorgskontroll före betalning och utkastbokning.",
       "viewTags": [
         "teknik"
       ],
@@ -1491,11 +1437,11 @@ export const pilotNodes = [
         "V3-sammanställning, 2026-04-24 rad Price calculation"
       ],
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 200,
-      "height": 73
+      "width": 220,
+      "height": 85
     },
     "selected": false,
     "dragging": false
@@ -1508,9 +1454,9 @@ export const pilotNodes = [
       "y": 1788
     },
     "data": {
-      "label": "Ny bokning: utkast + inbäddad betalning",
+      "label": "Ny/länkad bokning: utkast + inbäddad betalning",
       "lane": "Roller API",
-      "details": "Skapar draft, reserverar kapacitet och stödjer inbäddad Roller/Adyen-betalning för ny bokning.",
+      "details": "Gemensamt draft- och checkoutmönster för ny bokning och separat länkad bokning. Betalning ligger kvar i webbappen via Roller Payments/Adyen.",
       "viewTags": [
         "teknik"
       ],
@@ -1518,6 +1464,8 @@ export const pilotNodes = [
         "Skapa utkastbokning",
         "Publicera utkastbokning",
         "Presentkort som betalmedel",
+        "Medlemskod som betalmedel",
+        "Rabattkod i checkout",
         "Avbryt eller släpp utkastbokning"
       ],
       "layoutSelected": false,
@@ -1526,89 +1474,40 @@ export const pilotNodes = [
       "apiStatus": "confirmed",
       "apiStatusLabel": "✓ Bekräftat",
       "apiPoints": [
-        "Create Draft Booking / REST API",
-        "ROLLER Payments / Adyen",
+        "Create Draft Booking",
+        "Roller Payments / Adyen embedded checkout",
         "Publish Draft Booking / confirm",
         "Publish Draft Booking (No Payment)",
-        "Presentkort som betalmedel i ny utkastbokning",
+        "Presentkort som betalmedel i utkastbokning",
+        "Medlemskod som betalmedel i utkastbokning",
+        "Discount codes i utkast-/checkoutflöde",
         "Cancel/release Draft Booking vid timeout eller avbrott"
       ],
       "confirmedByRoller": [
         "Create Draft Booking reserverar kapacitet och släpper den vid timeout eller explicit release.",
-        "Ny bokning använder draft + embedded Roller Payments/Adyen + publish/confirm.",
-        "Befintligt presentkort kan användas som betalmedel i ny utkastbokning.",
+        "Ny bokning och separat länkad bokning använder draft + embedded Roller Payments/Adyen + publish/confirm.",
+        "Befintligt presentkort kan användas som betalmedel i utkastbokning.",
+        "Medlemskod och rabattkod hanteras i checkoutflödet där Roller stödjer tendern.",
         "Fullt presentkortsbelopp kan publiceras utan betalningssteg."
       ],
       "jumpyardHandling": [
-        "Driftjobb skapar draft först efter kontaktuppgift och kostnadskontroll.",
-        "Betalningssession sparas i Cloud och publicering sker efter godkänd betalning."
+        "Driftjobb skapar draft efter kontaktuppgift, tilläggsval och kostnadskontroll.",
+        "Betalningssession sparas i Cloud och publicering sker efter godkänd betalning.",
+        "För befintlig bokning sparar Cloud relationen mellan originalbokning och länkad bokning."
       ],
-      "limitations": [],
+      "limitations": [
+        "Kopplingen mellan originalbokning och separat tilläggsbokning ägs av JumpYard Cloud, inte av Roller som en gemensam bokningskod."
+      ],
       "sources": [
         "Roller Response 2, 2026-04-23 F6/F10/F11/F13",
         "V3-sammanställning, 2026-04-24 rad New booking"
       ],
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
-      "height": 88
-    },
-    "selected": false,
-    "dragging": false
-  },
-  {
-    "id": "roller-payment-link",
-    "type": "service",
-    "position": {
-      "x": 2600.6885987981245,
-      "y": 1708.342834334896
-    },
-    "data": {
-      "label": "Existerande bokning: betalningslänk",
-      "lane": "Roller API",
-      "details": "Uppdaterar originalbokningen och skapar hosted payment link med samma bokningskod.",
-      "viewTags": [
-        "teknik"
-      ],
-      "endpoints": [
-        "Uppdatera bokning",
-        "Skapa betalningslänk",
-        "Avbryt betalningslänk"
-      ],
-      "layoutSelected": false,
-      "editMode": true,
-      "hideDetailsOnCanvas": true,
-      "apiStatus": "workaround",
-      "apiStatusLabel": "✓ Bekräftat med workaround",
-      "apiPoints": [
-        "Update a Booking / REST API",
-        "Create Payment Link / POST /bookings/{uniqueId}/payments/links",
-        "Cancel Payment Link / DELETE"
-      ],
-      "confirmedByRoller": [
-        "Update a Booking kan lägga till eller ta bort produkter och behålla originalets bokningskod.",
-        "Create Payment Link är rekommenderad route för tilläggsbetalning på befintlig bokning."
-      ],
-      "jumpyardHandling": [
-        "Driftjobb uppdaterar originalbokningen, skapar betalningslänk och sparar PaymentSession.",
-        "Gästen skickas till Rollers hostade betalningssida och kommer tillbaka via bekräftad retur när den är fastställd."
-      ],
-      "limitations": [
-        "Under utredning: exakt retur till webbappen efter lyckad eller avbruten betalning ska slutbekräftas.",
-        "Under utredning: stöd för presentkort, medlemskod och flerbesök i betalningslänkflödet."
-      ],
-      "sources": [
-        "Roller Response 2, 2026-04-23 F3/F8",
-        "V3-sammanställning, 2026-04-24 rad Additional payment"
-      ],
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "measured": {
-      "width": 220,
-      "height": 88
+      "height": 103
     },
     "selected": false,
     "dragging": false
@@ -1654,7 +1553,7 @@ export const pilotNodes = [
         "V3-sammanställning, 2026-04-24 rad Redemption/check-in"
       ],
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 200,
@@ -1702,7 +1601,7 @@ export const pilotNodes = [
         "V3-sammanställning, 2026-04-24 rad Multi-visit"
       ],
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 200,
@@ -1728,11 +1627,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 219,
-      "height": 45
+      "width": 218,
+      "height": 44
     }
   },
   {
@@ -1752,11 +1651,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 192,
-      "height": 45
+      "width": 191,
+      "height": 44
     }
   },
   {
@@ -1776,11 +1675,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 213,
-      "height": 45
+      "width": 212,
+      "height": 44
     }
   },
   {
@@ -1800,11 +1699,11 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
-      "width": 184,
-      "height": 45
+      "width": 183,
+      "height": 44
     }
   },
   {
@@ -1828,7 +1727,7 @@ export const pilotNodes = [
       "layoutSelected": false,
       "editMode": true,
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
@@ -1881,11 +1780,11 @@ export const pilotNodes = [
         "V3-sammanställning, 2026-04-24 rad Membership/Multi-visit"
       ],
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "measured": {
       "width": 220,
-      "height": 88
+      "height": 100
     },
     "selected": false,
     "dragging": false
@@ -1905,7 +1804,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "right",
     "targetHandle": "left",
@@ -1922,43 +1822,9 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
-  },
-  {
-    "id": "p-payment-none",
-    "source": "gw-payment-context",
-    "target": "app-safety",
-    "label": "Ingen ny betalning",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
-    },
-    "sourceHandle": "right",
-    "targetHandle": "left",
-    "data": {
-      "edgeKind": "process",
-      "details": "",
-      "baseStyle": {
-        "strokeWidth": 2.5,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "selected": false
   },
   {
     "id": "p-contact-pay-new",
@@ -1972,7 +1838,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "right",
     "targetHandle": "left",
@@ -1989,7 +1856,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2005,7 +1872,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2022,7 +1890,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2038,7 +1906,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -2055,7 +1924,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2071,7 +1940,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2088,7 +1958,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2104,7 +1974,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -2121,7 +1992,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2137,7 +2008,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2154,7 +2026,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2170,7 +2042,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2187,7 +2060,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
@@ -2204,7 +2077,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "data": {
       "edgeKind": "data",
@@ -2219,7 +2093,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "top",
@@ -2238,7 +2112,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -2255,7 +2130,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2271,7 +2146,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2288,7 +2164,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2304,7 +2180,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2321,7 +2198,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2337,7 +2214,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2354,7 +2232,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
@@ -2371,7 +2249,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -2388,7 +2267,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
@@ -2405,7 +2284,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "right",
     "targetHandle": "left",
@@ -2422,7 +2302,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2438,7 +2318,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2455,7 +2336,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
@@ -2472,7 +2353,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -2489,7 +2371,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2505,7 +2387,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2522,7 +2405,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2538,7 +2421,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2555,7 +2439,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
@@ -2572,7 +2456,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2589,7 +2474,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2605,7 +2490,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2622,7 +2508,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2638,7 +2524,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -2655,7 +2542,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2671,7 +2558,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -2688,7 +2576,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2704,7 +2592,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "data": {
       "edgeKind": "data",
@@ -2719,7 +2608,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "bottom",
@@ -2737,7 +2626,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -2754,7 +2644,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
@@ -2771,7 +2661,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2788,7 +2679,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2804,7 +2695,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2821,7 +2713,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -2837,7 +2729,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -2854,7 +2747,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
@@ -2871,7 +2764,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -2888,77 +2782,10 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
-  },
-  {
-    "id": "a-truth-store-booking",
-    "source": "note-truth",
-    "target": "store-booking",
-    "label": "Roller-data projiceras",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#94a3b8"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#94a3b8",
-      "strokeDasharray": "7 5"
-    },
-    "data": {
-      "edgeKind": "arch",
-      "details": "",
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#94a3b8",
-        "strokeDasharray": "7 5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#94a3b8"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "selected": false
-  },
-  {
-    "id": "a-truth-operational",
-    "source": "note-truth",
-    "target": "store-operational",
-    "label": "Cloud äger operativ status",
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#94a3b8"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#94a3b8",
-      "strokeDasharray": "7 5"
-    },
-    "data": {
-      "edgeKind": "arch",
-      "details": "",
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#94a3b8",
-        "strokeDasharray": "7 5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#94a3b8"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0
   },
   {
     "type": "smoothstep",
@@ -2968,7 +2795,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "gw-existing-booking",
     "target": "app-lookup",
@@ -2986,7 +2814,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "id": "xy-edge__gw-existing-bookingtop-app-lookup",
@@ -3000,7 +2828,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "app-entry",
     "target": "gw-existing-booking",
@@ -3018,7 +2847,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "id": "xy-edge__app-entryright-gw-existing-booking",
@@ -3032,7 +2861,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "gw-existing-booking",
     "target": "app-start-time",
@@ -3050,7 +2880,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "bottom",
@@ -3065,7 +2895,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "guest-start",
     "target": "guest-entry",
@@ -3083,7 +2914,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "id": "xy-edge__guest-startright-guest-entry",
@@ -3097,39 +2928,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
-    },
-    "source": "gw-payment-context",
-    "target": "app-payment-link",
-    "label": "Samma bokningskod",
-    "data": {
-      "edgeKind": "process",
-      "details": "",
-      "baseStyle": {
-        "strokeWidth": 2.5,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__gw-payment-contexttop-app-payment-link",
-    "sourceHandle": "top"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "app-addons",
     "target": "gw-payment-context",
@@ -3147,7 +2947,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "right",
@@ -3158,146 +2958,12 @@ export const pilotEdges = [
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#ef4444"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ef4444",
-      "strokeDasharray": "7 5"
-    },
-    "source": "gw-payment-context",
-    "target": "app-linked-booking",
-    "label": "Webbapp hela vägen",
-    "data": {
-      "edgeKind": "fallback",
-      "details": "",
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ef4444",
-        "strokeDasharray": "7 5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ef4444"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "sourceHandle": "bottom",
-    "id": "xy-edge__gw-payment-contextbottom-app-linked-booking"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
       "color": "#ff8e7d"
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
-    },
-    "source": "app-payment-link",
-    "target": "app-safety",
-    "label": "Betalning klar",
-    "sourceHandle": "right",
-    "targetHandle": "top-left",
-    "data": {
-      "edgeKind": "process",
-      "details": "",
-      "baseStyle": {
-        "strokeWidth": 2.5,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__app-payment-linkright-app-safetytop-left"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
-    },
-    "source": "app-pay-new",
-    "target": "app-safety",
-    "label": "Betalning och publicering klar",
-    "sourceHandle": "right",
-    "targetHandle": "bottom-left",
-    "data": {
-      "edgeKind": "process",
-      "details": "",
-      "baseStyle": {
-        "strokeWidth": 2.5,
-        "stroke": "#ff8e7d"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ff8e7d"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__app-pay-newright-app-safetybottom-left"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ef4444"
-    },
-    "style": {
-      "strokeWidth": 2,
-      "stroke": "#ef4444",
-      "strokeDasharray": "7 5"
-    },
-    "source": "app-linked-booking",
-    "target": "app-safety",
-    "label": "Länkad bokning klar",
-    "sourceHandle": "right",
-    "targetHandle": "left-bottom",
-    "data": {
-      "edgeKind": "fallback",
-      "details": "",
-      "baseStyle": {
-        "strokeWidth": 2,
-        "stroke": "#ef4444",
-        "strokeDasharray": "7 5"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#ef4444"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "id": "xy-edge__app-linked-bookingright-app-safetyleft-bottom"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#ff8e7d"
-    },
-    "style": {
-      "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "app-safety",
     "target": "app-confirm",
@@ -3315,7 +2981,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "right",
@@ -3330,7 +2996,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "staff-view",
     "target": "staff-ticket-redeem",
@@ -3348,7 +3015,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "right",
@@ -3363,7 +3030,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "staff-ticket-redeem",
     "target": "staff-handoff",
@@ -3381,7 +3049,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "right",
@@ -3396,7 +3064,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "staff-handoff",
     "target": "staff-log",
@@ -3414,7 +3083,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "right",
@@ -3429,7 +3098,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "app-start-time",
     "target": "app-product",
@@ -3447,7 +3117,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "right",
@@ -3462,7 +3132,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "app-product",
     "target": "app-contact",
@@ -3480,7 +3151,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "right",
@@ -3495,7 +3166,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "app-booking",
     "target": "app-addons",
@@ -3513,7 +3185,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "right",
@@ -3528,7 +3200,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "app-lookup",
     "target": "app-booking",
@@ -3546,7 +3219,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "right",
@@ -3565,7 +3238,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -3582,7 +3256,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
@@ -3599,7 +3273,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
@@ -3616,16 +3291,16 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
   },
   {
-    "id": "d-payment-store-app",
+    "id": "d-payment-store-linked-app",
     "source": "store-payment",
-    "target": "app-payment-link",
-    "label": "Betalningslänk",
+    "target": "app-linked-booking",
+    "label": "Betalningstoken och status",
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
@@ -3633,13 +3308,14 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "top",
     "targetHandle": "bottom",
     "data": {
       "edgeKind": "data",
-      "details": "",
+      "details": "Cloud visar token/status för den inbäddade betalningen i den länkade bokningen.",
       "baseStyle": {
         "strokeWidth": 2.5,
         "stroke": "#38bdf8"
@@ -3650,7 +3326,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0
   },
@@ -3666,7 +3342,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "sourceHandle": "bottom",
     "targetHandle": "top",
@@ -3683,7 +3360,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false
@@ -3696,16 +3373,17 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "job-payment-return",
     "target": "store-payment",
-    "label": "Betalningsstatus",
+    "label": "Utkaststatus",
     "sourceHandle": "top",
     "targetHandle": "bottom-left",
     "data": {
       "edgeKind": "data",
-      "details": "",
+      "details": "Betalstatus, expiry och avbrott för draftbetalning sparas i PaymentSession.",
       "baseStyle": {
         "strokeWidth": 2.5,
         "stroke": "#38bdf8"
@@ -3716,7 +3394,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "id": "xy-edge__job-payment-returntop-store-paymentbottom-left"
@@ -3729,7 +3407,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "cloud-costs",
     "target": "store-commerce",
@@ -3749,7 +3428,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false,
@@ -3763,7 +3442,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "job-seed",
     "target": "store-booking",
@@ -3783,7 +3463,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "id": "xy-edge__job-seedtop-store-bookingleft-top"
@@ -3796,7 +3476,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "job-refresh",
     "target": "roller-search",
@@ -3816,7 +3497,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false,
@@ -3830,7 +3511,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "job-refresh",
     "target": "store-booking",
@@ -3850,7 +3532,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false,
@@ -3864,7 +3546,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "cloud-publish",
     "target": "store-payment",
@@ -3882,7 +3565,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "sourceHandle": "top",
@@ -3897,7 +3580,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "roller-draft",
     "target": "cloud-publish",
@@ -3917,7 +3601,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false,
@@ -3931,7 +3615,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "cloud-publish",
     "target": "store-booking",
@@ -3951,7 +3636,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false,
@@ -3965,7 +3650,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "app-addons",
     "target": "store-entitlement",
@@ -3985,7 +3671,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "id": "xy-edge__app-addonsbottom-store-entitlementleft"
@@ -3998,16 +3684,17 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
-    "source": "app-payment-link",
+    "source": "app-linked-booking",
     "target": "job-payment-return",
-    "label": "Retur / utgångstid",
+    "label": "Betalstatus / utgångstid",
     "sourceHandle": "bottom",
     "targetHandle": "top-left",
     "data": {
       "edgeKind": "data",
-      "details": "",
+      "details": "Webbappen och Cloud hanterar status eller timeout för den inbäddade draftbetalningen.",
       "baseStyle": {
         "strokeWidth": 2.5,
         "stroke": "#38bdf8"
@@ -4018,10 +3705,10 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
-    "id": "xy-edge__app-payment-linkbottom-job-payment-returntop-left"
+    "id": "xy-edge__app-linked-bookingbottom-job-payment-returntop-left"
   },
   {
     "type": "smoothstep",
@@ -4031,7 +3718,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#ff8e7d"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
     "source": "app-confirm",
     "target": "guest-show-code",
@@ -4051,7 +3739,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "id": "xy-edge__app-confirmtop-guest-show-codeleft-top"
@@ -4064,11 +3752,12 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "cloud-linked-booking",
     "target": "cloud-draft",
-    "label": "Använder utkastflöde",
+    "label": "Skapa separat utkast",
     "sourceHandle": "left",
     "targetHandle": "bottom-right",
     "data": {
@@ -4091,7 +3780,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false,
@@ -4105,7 +3794,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "cloud-draft",
     "target": "store-payment",
@@ -4125,7 +3815,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "id": "xy-edge__cloud-drafttop-right-store-paymentleft-top"
@@ -4138,7 +3828,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "cloud-linked-booking",
     "target": "store-payment",
@@ -4147,10 +3838,12 @@ export const pilotEdges = [
     "targetHandle": "left-bottom",
     "data": {
       "edgeKind": "data",
-      "details": "Cloud sparar sambandet mellan originalbokning, länkad draft/bokning, betalstatus och expiry.",
+      "details": "Cloud sparar sambandet mellan originalbokning, länkad draft/bokning, betalstatus, expiry och publish-status.",
       "operation": "Spara PaymentSession för länkad bokning",
       "fields": [
+        "originalBookingId",
         "linkedBookingId",
+        "draftBookingId",
         "paymentStatus",
         "expiry",
         "publishStatus"
@@ -4165,7 +3858,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false,
@@ -4179,16 +3872,17 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "app-addons",
-    "target": "cloud-existing-payment",
-    "label": "Tillägg på originalbokning",
+    "target": "cloud-linked-booking",
+    "label": "Tillägg för länkad bokning",
     "sourceHandle": "bottom-right",
     "targetHandle": "top-right",
     "data": {
       "edgeKind": "data",
-      "details": "",
+      "details": "Valda tillägg används som underlag för separat länkad draftbokning.",
       "baseStyle": {
         "strokeWidth": 2.5,
         "stroke": "#38bdf8"
@@ -4199,10 +3893,10 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
-    "id": "xy-edge__app-addonsbottom-right-cloud-existing-paymenttop-right"
+    "id": "xy-edge__app-addonsbottom-right-cloud-linked-bookingtop-right"
   },
   {
     "type": "smoothstep",
@@ -4212,7 +3906,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "cloud-publish",
     "target": "roller-draft",
@@ -4232,7 +3927,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false,
@@ -4246,7 +3941,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "job-payment-return",
     "target": "roller-draft",
@@ -4255,7 +3951,7 @@ export const pilotEdges = [
     "targetHandle": "top-right",
     "data": {
       "edgeKind": "data",
-      "details": "Vid utgångstid eller avbrott släpper Driftjobb draften så reserverad kapacitet inte ligger kvar.",
+      "details": "Vid timeout eller avbruten inbäddad betalning släpper Driftjobb utkastet i Roller.",
       "operation": "Cancel/expire draft booking",
       "fields": [
         "draftBookingId",
@@ -4272,7 +3968,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "id": "xy-edge__job-payment-returnbottom-left-roller-drafttop-right"
@@ -4285,116 +3981,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
-    },
-    "source": "roller-payment-link",
-    "target": "cloud-existing-payment",
-    "label": "Betalningslänk skapad",
-    "data": {
-      "edgeKind": "data",
-      "details": "Roller returnerar betalningslänk och status till Driftjobb.",
-      "baseStyle": {
-        "strokeWidth": 2.5,
-        "stroke": "#38bdf8"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#38bdf8"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "sourceHandle": "right",
-    "targetHandle": "right-bottom",
-    "selected": false,
-    "id": "xy-edge__roller-payment-linkright-cloud-existing-paymentright-bottom"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#38bdf8"
-    },
-    "style": {
-      "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
-    },
-    "source": "job-payment-return",
-    "target": "roller-payment-link",
-    "label": "Avbryt betalningslänk",
-    "sourceHandle": "bottom-right",
-    "targetHandle": "top",
-    "data": {
-      "edgeKind": "data",
-      "details": "Vid timeout eller avbruten hosted payment avbryter Driftjobb betalningslänken i Roller när en aktiv länk finns.",
-      "operation": "Cancel Payment Link",
-      "fields": [
-        "paymentLinkId",
-        "originalBookingId",
-        "expiry",
-        "returnStatus"
-      ],
-      "baseStyle": {
-        "strokeWidth": 2.5,
-        "stroke": "#38bdf8"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#38bdf8"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__job-payment-returnbottom-right-roller-payment-linktop"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#38bdf8"
-    },
-    "style": {
-      "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
-    },
-    "source": "cloud-existing-payment",
-    "target": "roller-payment-link",
-    "label": "Uppdatera + betalningslänk",
-    "sourceHandle": "bottom",
-    "targetHandle": "right-top",
-    "data": {
-      "edgeKind": "data",
-      "details": "Driftjobb uppdaterar originalbokningen och skapar hosted payment link.",
-      "baseStyle": {
-        "strokeWidth": 2.5,
-        "stroke": "#38bdf8"
-      },
-      "baseMarkerEnd": {
-        "type": "arrowclosed",
-        "color": "#38bdf8"
-      },
-      "pathMode": "smoothstep",
-      "edgeHighlighted": false,
-      "dimmed": false
-    },
-    "zIndex": 0,
-    "selected": false,
-    "id": "xy-edge__cloud-existing-paymentbottom-roller-payment-linkright-top"
-  },
-  {
-    "type": "smoothstep",
-    "markerEnd": {
-      "type": "arrowclosed",
-      "color": "#38bdf8"
-    },
-    "style": {
-      "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "job-webhook",
     "target": "store-booking",
@@ -4414,7 +4002,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false,
@@ -4428,7 +4016,8 @@ export const pilotEdges = [
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#38bdf8",
+      "strokeOpacity": 0.18
     },
     "source": "job-redemption",
     "target": "store-booking",
@@ -4448,7 +4037,7 @@ export const pilotEdges = [
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
     "selected": false,
@@ -4458,33 +4047,141 @@ export const pilotEdges = [
     "type": "smoothstep",
     "markerEnd": {
       "type": "arrowclosed",
-      "color": "#38bdf8"
+      "color": "#ff8e7d"
     },
     "style": {
       "strokeWidth": 2.5,
-      "stroke": "#38bdf8"
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
     },
-    "source": "cloud-existing-payment",
-    "target": "store-payment",
-    "label": "Betalningslänk sparas",
-    "sourceHandle": "top",
-    "targetHandle": "right-bottom",
+    "source": "app-pay-new",
+    "target": "app-safety",
+    "label": "Betalning och publicering klar",
+    "sourceHandle": "right",
+    "targetHandle": "bottom",
     "data": {
-      "edgeKind": "data",
+      "edgeKind": "process",
       "details": "",
       "baseStyle": {
         "strokeWidth": 2.5,
-        "stroke": "#38bdf8"
+        "stroke": "#ff8e7d"
       },
       "baseMarkerEnd": {
         "type": "arrowclosed",
-        "color": "#38bdf8"
+        "color": "#ff8e7d"
       },
       "pathMode": "smoothstep",
       "edgeHighlighted": false,
-      "dimmed": false
+      "dimmed": true
     },
     "zIndex": 0,
-    "id": "xy-edge__cloud-existing-paymenttop-store-paymentright-bottom"
+    "selected": false,
+    "id": "xy-edge__app-pay-newright-app-safetybottom"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
+    },
+    "source": "app-linked-booking",
+    "target": "app-safety",
+    "label": "Länkad bokning och betalning klar",
+    "sourceHandle": "right",
+    "targetHandle": "bottom-left",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": true,
+      "edgeStyle": "solid"
+    },
+    "zIndex": 0,
+    "id": "xy-edge__app-linked-bookingright-app-safetybottom-left"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 3.75,
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 1,
+      "filter": "drop-shadow(0 0 6px rgba(255,255,255,0.28))"
+    },
+    "source": "gw-payment-context",
+    "target": "app-safety",
+    "label": "Ingen ny betalning",
+    "sourceHandle": "top",
+    "targetHandle": "top-left",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": true,
+      "dimmed": false
+    },
+    "zIndex": 12,
+    "selected": true,
+    "id": "xy-edge__gw-payment-contexttop-app-safetytop-left"
+  },
+  {
+    "type": "smoothstep",
+    "markerEnd": {
+      "type": "arrowclosed",
+      "color": "#ff8e7d"
+    },
+    "style": {
+      "strokeWidth": 2.5,
+      "stroke": "#ff8e7d",
+      "strokeOpacity": 0.18
+    },
+    "source": "gw-payment-context",
+    "target": "app-linked-booking",
+    "label": "Betalda tillägg",
+    "data": {
+      "edgeKind": "process",
+      "details": "",
+      "baseStyle": {
+        "strokeWidth": 2.5,
+        "stroke": "#ff8e7d"
+      },
+      "baseMarkerEnd": {
+        "type": "arrowclosed",
+        "color": "#ff8e7d"
+      },
+      "pathMode": "smoothstep",
+      "edgeHighlighted": false,
+      "dimmed": true,
+      "edgeStyle": "solid"
+    },
+    "zIndex": 0,
+    "sourceHandle": "bottom",
+    "id": "xy-edge__gw-payment-contextbottom-app-linked-bookingleft",
+    "targetHandle": "left"
   }
 ] as any[];
